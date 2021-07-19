@@ -1,13 +1,9 @@
 import React from 'react';
+import { atom } from 'recoil';
 
-function Button() {
-  return (
-    <div className="App">
-      
-          Learn React
-      
-    </div>
-  );
-}
+export const Button = atom({
+    key: 'textState', // unique ID (with respect to other atoms/selectors)
+    default: '', // default value (aka initial value)
+  });
 
-export default Button;
+// export default Button;
