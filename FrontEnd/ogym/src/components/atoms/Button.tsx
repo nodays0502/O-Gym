@@ -1,9 +1,15 @@
 import React from 'react';
-import { atom } from 'recoil';
+import { useRecoilState } from 'recoil';
+import { ButtonState } from '../../recoil/atoms/Button';
 
-export const Button = atom({
-    key: 'textState', // unique ID (with respect to other atoms/selectors)
-    default: '', // default value (aka initial value)
-  });
 
-// export default Button;
+const Button = (props: any): JSX.Element => {
+    
+    return (
+        <>
+            <button>{ props.text }</button>
+        </>
+    )
+}
+
+export default Button;
