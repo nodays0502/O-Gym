@@ -11,16 +11,19 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name="career")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "career")
 public class Career {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="carrer_id")
+    @Column(name = "career_id")
     private Long id;
 
     // 시작일, 종료일
