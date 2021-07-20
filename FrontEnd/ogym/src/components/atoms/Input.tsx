@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { InputState } from '../../recoil/atoms/InputState';
 
-interface Props {
+export interface Props {
   type: string
   value?: string | number
   inputName?: string
