@@ -1,13 +1,25 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { InputState } from '../../recoil/atoms/InputState';
 
-function Input() {
-  return (
-    <div className="App">
-      
-          Learn React
-      
-    </div>
-  );
+export interface InputPropsType {
+  type: string
+  value?: string | number
+  inputName?: string
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void
+  placeholder?: string
+
 }
 
-export default Input;
+function Input({ type,  ...props }: InputPropsType): JSX.Element {
+  const [text, setText] = useRecoilState(InputState);
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(event.target.value)
+    setText(event.target.value);
+  }
+
+  return <input type={type} value={text} onChange={onChange} />;
+}
+
+export default Input; 

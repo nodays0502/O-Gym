@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface ButtonPropsType {
+export interface ButtonPropsType {
     backgroundColor?: string;
 }
 
