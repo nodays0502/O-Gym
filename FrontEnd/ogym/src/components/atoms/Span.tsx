@@ -1,13 +1,9 @@
 import React from 'react';
 
-function Span() {
+const Span = (props: any): JSX.Element => {
   return (
-    <div className="App">
-      
-          Learn React
-      
-    </div>
+    <span>{props.text}</span>
   );
-}
+};
 
 export default Span;
