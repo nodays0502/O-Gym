@@ -13,6 +13,7 @@ import javax.validation.Valid;
 @RestController
 @RequestMapping("/api")
 public class UserApiController {
+
     private final UserService userService;
 
     public UserApiController(UserService userService) {
@@ -26,7 +27,7 @@ public class UserApiController {
 
     @PostMapping("/signup")
     public ResponseEntity<User> signup(
-            @Valid @RequestBody UserDto userDto
+        @Valid @RequestBody UserDto userDto
     ) {
         return ResponseEntity.ok(userService.signup(userDto));
     }
