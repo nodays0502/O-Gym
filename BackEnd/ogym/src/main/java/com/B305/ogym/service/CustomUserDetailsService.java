@@ -1,7 +1,7 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.entity.User;
-import com.B305.ogym.repository.UserRepository;
+import com.B305.ogym.domain.users.User;
+import com.B305.ogym.domain.users.UserRepository;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

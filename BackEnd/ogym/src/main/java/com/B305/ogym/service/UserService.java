@@ -1,10 +1,10 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.dto.UserDto;
-import com.B305.ogym.entity.Authority;
-import com.B305.ogym.entity.User;
-import com.B305.ogym.repository.UserRepository;
-import com.B305.ogym.util.SecurityUtil;
+import com.B305.ogym.controller.dto.UserDto;
+import com.B305.ogym.domain.autority.Authority;
+import com.B305.ogym.domain.users.User;
+import com.B305.ogym.domain.users.UserRepository;
+import com.B305.ogym.common.util.SecurityUtil;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
