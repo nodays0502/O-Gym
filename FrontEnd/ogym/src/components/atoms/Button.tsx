@@ -1,15 +1,21 @@
-import React from 'react';
-import { useRecoilState } from 'recoil';
-import { ButtonState } from '../../recoil/atoms/Button';
+import styled from 'styled-components';
 
+interface ButtonPropsType {
+    backgroundColor?: string;
+}
+
+const StyledButton = styled.button<ButtonPropsType>`
+    background: ${props => props.backgroundColor || "white"}
+`;
 
 const Button = (props: any): JSX.Element => {
     
     return (
         <>
-            <button>{ props.text }</button>
+            <StyledButton backgroundColor={ props.backgroundColor}>{ props.text }</StyledButton>
         </>
     )
+
 }
 
 export default Button;

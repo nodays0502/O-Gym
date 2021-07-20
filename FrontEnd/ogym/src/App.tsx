@@ -5,7 +5,7 @@ import Button from './components/atoms/Button';
 function App() {
   return (
     <div>
-      <Button text='button'></Button>
+      <Button text='button' backgroundColor="blue"></Button>
     </div>
   );
 }
