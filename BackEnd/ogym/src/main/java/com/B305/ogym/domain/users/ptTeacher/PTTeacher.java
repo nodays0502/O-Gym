@@ -6,10 +6,12 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
 @Getter
+@Table(name="pt_teacher")
 public class PTTeacher extends UserBase {
     // 평점
     private Integer starRating;

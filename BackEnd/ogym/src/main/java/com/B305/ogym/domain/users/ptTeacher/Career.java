@@ -10,16 +10,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
 @Getter
+@Table(name="career")
 public class Career {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="carrer_id")
-    private String id;
+    private Long id;
 
     // 시작일, 종료일
     private LocalDateTime startDate;

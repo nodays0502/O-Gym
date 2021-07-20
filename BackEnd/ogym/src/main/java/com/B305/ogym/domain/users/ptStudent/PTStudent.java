@@ -9,9 +9,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 @Entity
-public class PtStudent extends UserBase {
+@Table(name="pt_student")
+public class PTStudent extends UserBase {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

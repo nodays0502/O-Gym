@@ -1,7 +1,7 @@
 package com.B305.ogym.domain.mappingTable;
 
 import com.B305.ogym.domain.users.ptStudent.Monthly;
-import com.B305.ogym.domain.users.ptStudent.PtStudent;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -25,7 +25,7 @@ public class PTStudentMonthly {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private PtStudent ptStudent; // 학생
+    private PTStudent ptStudent; // 학생
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn( name = "month")

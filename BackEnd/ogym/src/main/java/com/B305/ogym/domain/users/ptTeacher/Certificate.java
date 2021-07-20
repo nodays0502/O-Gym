@@ -12,12 +12,12 @@ import javax.persistence.Table;
 import lombok.Getter;
 
 @Entity
-@Table(name="cert")
+@Table(name="certificate")
 @Getter
 public class Certificate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String id;
+    private Long id;
 
     @Column(name="cert_name")
     private String name;
