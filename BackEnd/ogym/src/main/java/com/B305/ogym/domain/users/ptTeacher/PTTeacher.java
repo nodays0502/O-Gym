@@ -1,12 +1,16 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
+import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -16,6 +20,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "pt_teacher")
+@PrimaryKeyJoinColumn(name = "pt_teacher_id")
 public class PTTeacher extends UserBase {
 
     // 평점
@@ -43,8 +48,8 @@ public class PTTeacher extends UserBase {
     private List<Career> careers = new ArrayList<>();
 
     // 학생 리스트
-//    @OneToMany(mappedBy = "")
-//    private Set<PtStudent> students = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "ptTeacher")
+    private Set<PTStudentPTTeacher> ptStudentPTTeachers = new LinkedHashSet<>();
 
     // 이력?
 }

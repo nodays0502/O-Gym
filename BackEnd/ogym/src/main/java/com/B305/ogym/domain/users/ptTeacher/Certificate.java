@@ -21,13 +21,14 @@ public class Certificate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "certificate_id")
+    private Long id; // 대리 키
 
     @Column(name = "cert_name")
-    private String name;
+    private String name; // 자격증 명칭
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
-    private PTTeacher ptTeacher;
+    private PTTeacher ptTeacher; // 센세
 
 }

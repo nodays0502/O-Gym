@@ -14,5 +14,5 @@ import lombok.NoArgsConstructor;
 public class Monthly {
 
     @Id
-    private int month;
+    private int month; // 달
 }

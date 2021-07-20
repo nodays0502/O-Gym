@@ -24,10 +24,10 @@ public class Career {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "career_id")
-    private Long id;
+    private Long id; // 대리키
 
     // 시작일, 종료일
     private LocalDateTime startDate;
-    private LocalDateTime endTime;
+    private LocalDateTime endDate;
 
 }
