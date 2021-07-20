@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { InputState } from '../../recoil/atoms/InputState';
 
-export interface Props {
+export interface InputPropsType {
   type: string
   value?: string | number
   inputName?: string
@@ -11,7 +11,7 @@ export interface Props {
 
 }
 
-function Input({ type,  ...props }: Props): JSX.Element {
+function Input({ type,  ...props }: InputPropsType): JSX.Element {
   const [text, setText] = useRecoilState(InputState);
 
   const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {

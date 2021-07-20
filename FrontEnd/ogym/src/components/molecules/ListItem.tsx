@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import { ButtonPropsType } from "../atoms/Button";
-import { Props } from "../atoms/Input";
+import { InputPropsType } from "../atoms/Input";
 
 
 interface ListItemProps {
-    children: React.ReactElement<ButtonPropsType> | React.ReactElement<Props>[]
+    children: React.ReactElement<ButtonPropsType> | React.ReactElement<InputPropsType>[]
 }
 
 const StyledListItem = styled.div`

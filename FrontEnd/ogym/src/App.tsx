@@ -16,7 +16,7 @@ function App() {
         <Input type="text" />
       </div> */}
       <ListItem>
-        <Button text='button' backgroundColor="blue"></Button>
+        <Input type="text" value='button' ></Input>
         <Button text='button' backgroundColor="blue"></Button>
       </ListItem>
     </>
