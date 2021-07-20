@@ -2,6 +2,7 @@ package com.B305.ogym.domain.users.ptTeacher;
 
 import com.B305.ogym.domain.users.BaseTimeEntity;
 import java.time.LocalDateTime;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,15 +18,11 @@ public class Career {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="carrer_id")
     private String id;
 
     // 시작일, 종료일
     private LocalDateTime startDate;
     private LocalDateTime endTime;
-
-    // 선생님
-    @ManyToOne(fetch= FetchType.LAZY)
-    @JoinColumn(name="user_id")
-    private PTTeacher ptTeacher;
 
 }
