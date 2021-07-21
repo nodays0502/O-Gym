@@ -8,9 +8,9 @@ import lombok.Getter;
 @Getter
 public class Address {
 
-    private String zipCode;
+    private String zipCode; // 우편번호
 
-    private String street;
+    private String street; // 도로명 주소
 
-    private String detailedAddress;
+    private String detailedAddress; // 상세 주소
 }

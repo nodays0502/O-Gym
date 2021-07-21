@@ -9,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 @MappedSuperclass
 @Getter
 public class BaseTimeEntity {
+
     @CreatedDate
     private LocalDateTime createdDate;
 
