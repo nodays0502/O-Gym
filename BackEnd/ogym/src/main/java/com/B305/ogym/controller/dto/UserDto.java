@@ -1,6 +1,7 @@
 package com.B305.ogym.controller.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import javax.validation.constraints.NotEmpty;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -13,16 +14,16 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 public class UserDto {
 
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
-    private String username;
+    private String email;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @NotNull
     @Size(min = 3, max = 100)
     private String password;
 
-    @NotNull
+    @NotEmpty
     @Size(min = 3, max = 50)
     private String nickname;
 }
