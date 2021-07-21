@@ -2,6 +2,7 @@ import { Modal, Tabs } from "antd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import { ModalState } from "../../recoil/pages/LoginPageState";
+import Register from "../../components/organisms/Register";
 
 const { TabPane } = Tabs;
 
@@ -51,7 +52,7 @@ const LoginPage = (): JSX.Element => {
                     </StyledTabPane>
                     
                     <StyledTabPane tab="REGISTER" key="2">
-                        <p>test2</p>
+                        <Register />
                     </StyledTabPane>
 
                 </StyledTabs>
