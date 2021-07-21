@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -20,6 +22,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "career")
 public class Career {
+
+    @Builder
+    public Career(Long id, LocalDateTime startDate, LocalDateTime endDate) {
+        this.id = id;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -24,13 +24,15 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user_base")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@DiscriminatorColumn(name = "DTYPE")
+@DiscriminatorColumn(name = "role")
 public class UserBase extends BaseTimeEntity {
 
     @Id
@@ -60,11 +62,26 @@ public class UserBase extends BaseTimeEntity {
     @JoinColumn(name = "authority")
     private Authority authority;
 
-    @Builder
-    public UserBase(String email , String password , String nickname, Authority authority){
-        this.email = email;
-        this.password = password;
-        this.nickname = nickname;
-        this.authority = authority;
-    }
+//    public UserBase(Long id, String password, Authority authority, String nickname, String email,String zipCode,
+//        String street, String detailedAddress, String tel, Gender gender){
+//        this.id = id;
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.authority = authority;
+//        this.address = Address.builder()
+//                        .zipCode(zipCode)
+//                        .street(street)
+//                        .detailedAddress(detailedAddress)
+//                        .build();
+//        this.email = email;
+//        this.tel = tel;
+//        this.gender = gender;
+//    }
+//    @Builder
+//    public UserBase(String email , String password , String nickname, Authority authority){
+//        this.email = email;
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.authority = authority;
+//    }
 }

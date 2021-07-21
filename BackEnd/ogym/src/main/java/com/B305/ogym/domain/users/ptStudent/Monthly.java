@@ -13,6 +13,10 @@ import lombok.NoArgsConstructor;
 @Table(name = "monthly")
 public class Monthly {
 
+    public Monthly(int month) {
+        this.month = month;
+    }
+
     @Id
     private int month; // 달
 }
