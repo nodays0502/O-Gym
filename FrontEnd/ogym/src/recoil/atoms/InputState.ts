@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
 interface InputStateType {
-  [inputType: string]: string ;
+  [inputType: string]: string | number;
 }
 
 export const InputState = atom<InputStateType>({
@@ -9,5 +9,6 @@ export const InputState = atom<InputStateType>({
   default: {
     loginEmail: '',
     loginPassword: '',
+    
   }
 })
