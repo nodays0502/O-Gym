@@ -6,10 +6,12 @@ import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle from './assets/styles/global-styles';
+import RecoilizeDebugger from 'recoilize';
 
 ReactDOM.render(
   <StrictMode>
     <RecoilRoot>
+    <RecoilizeDebugger />
       <Router>
         <GlobalStyle />
         <App />

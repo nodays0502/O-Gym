@@ -1,6 +1,13 @@
 import { atom } from "recoil";
 
-export const InputState = atom<string>({
+interface InputStateType {
+  [inputType: string]: string ;
+}
+
+export const InputState = atom<InputStateType>({
   key: 'InputState',
-  default: '',
+  default: {
+    loginEmail: '',
+    loginPassword: '',
+  }
 })

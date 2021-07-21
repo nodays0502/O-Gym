@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export interface ButtonPropsType {
     backgroundColor?: string;
+    onclick?: Function;
 }
 
 const StyledButton = styled.button<ButtonPropsType>`
@@ -12,7 +13,9 @@ const Button = (props: any): JSX.Element => {
     
     return (
         <>
-            <StyledButton backgroundColor={ props.backgroundColor}>{ props.text }</StyledButton>
+            <StyledButton backgroundColor={props.backgroundColor}
+                onClick={props.onclick}
+            >{props.text}</StyledButton>
         </>
     )
 
