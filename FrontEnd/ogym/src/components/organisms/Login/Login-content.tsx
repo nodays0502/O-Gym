@@ -13,7 +13,7 @@ const LabelDiv = styled.div`
 `;
 
 const StyledDivider = styled(Divider)`
-    
+    height: inherit;
 `;
 
 const LoginContent = (): JSX.Element => {
@@ -27,7 +27,6 @@ const LoginContent = (): JSX.Element => {
     return (
         <>
             <LabelDiv>
-
                 <Label label="Enter your email and password to sign in"
                     color="gray"
                     backgroundcolor=""
@@ -56,14 +55,14 @@ const LoginContent = (): JSX.Element => {
 
             <Divider />
             <ButtonList>
-                <Button text="Forgot your password?"></Button>
-                <Button text="Log In"></Button>
+                <Button text="Forgot your password?" width="100%"></Button>
+                <Button text="Log In" width="100%"></Button>
             </ButtonList>
             <Divider />
             <ButtonList>
-                <Button text="Sign in with Facebook"></Button>
-                <Button text="Sign in with Google+"></Button>
-                <Button text="Sign in with Naver"></Button>
+                <Button text="Sign in with Facebook" width="100%" signInType="facebook"></Button>
+                <Button text="Sign in with Google" width="100%" signInType="google"></Button>
+                <Button text="Sign in with Naver" width="100%" signInType="naver"></Button>
             </ButtonList>
         </>
     );
