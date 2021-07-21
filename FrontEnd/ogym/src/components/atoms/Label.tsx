@@ -1,8 +1,19 @@
 import React from 'react';
+import Styled from 'styled-components'
 
-const Label = (props: any):JSX.Element => {
+interface LabelPropsType {
+  color?: string;
+  fontSize?: string;
+}
+
+const StyledLabel = Styled.label<LabelPropsType>`
+  color: ${(props) => props.color || "#000000"};
+  font-size: ${(props) => props.fontSize || "16px"};
+`;
+
+const Label = ( props: any):JSX.Element => {
   return (
-    <label>{props.text}</label>
+    <StyledLabel color={props.color} fontSize={props.fontSize}>{props.label}</StyledLabel>
   );
 };
 
