@@ -2008,11 +2008,6 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/recoilize@^0.8.0":
-  version "0.8.0"
-  resolved "https://registry.yarnpkg.com/@types/recoilize/-/recoilize-0.8.0.tgz#7351f7a048bcef9c712f39d05696ce7fd2a414fe"
-  integrity sha512-h4Rm8J/8XH1wZIZC5gOeN9EDJWBhK2sLEs5voSHyZKB5cynIDbohuYS6rEdv2kNPrwoYQyt7D3yeXI9ODvZDlw==
-
 "@types/resolve@0.0.8":
   version "0.0.8"
   resolved "https://registry.yarnpkg.com/@types/resolve/-/resolve-0.0.8.tgz#f26074d238e02659e323ce1a13d041eee280e194"
@@ -10249,11 +10244,6 @@ recoil@^0.3.1:
   integrity sha512-KNA3DRqgxX4rRC8E7fc6uIw7BACmMPuraIYy+ejhE8tsw7w32CetMm8w7AMZa34wzanKKkev3vl3H7Z4s0QSiA==
   dependencies:
     hamt_plus "1.0.2"
-
-recoilize@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/recoilize/-/recoilize-2.0.1.tgz#8c81ba83a7da8c8c881b861b87d1a1fd00a25a8c"
-  integrity sha512-C/JML0SxXDbJ74iNF46GQGrc9g3CRd2+rmNBcpwkCc1L9OSSYki4ipbUPCJL6I8Bbw5slKXY809RWrF0nwhRoQ==
 
 recursive-readdir@2.2.2:
   version "2.2.2"
