@@ -5,8 +5,10 @@ import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
+import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -37,6 +39,7 @@ public class initDB {
         // initService 메서드 수행
         initService.putPTStudent();
         initService.putPTTeacher();
+        initService.putPTStudentPTTeacher();
 
         // issue: certificate 엔티티 구조에 대해서 논의 필요
         // 각 자격증마다 가진 사람 리스트 저장 vs 각 PT 트레이너가 가진 자격증 저장
@@ -52,6 +55,8 @@ public class initDB {
 
         // final로 선언된 객체에 대한 생성자를 spring이 잡아서 의존성 주입을 해줌.
         // EMF 선언해서 EM을 따로 뽑아낼 필요가 없다!
+
+        // 학생 더미데이터 추가
         public void putPTStudent() {
 
             Address address = Address.builder()
@@ -80,6 +85,7 @@ public class initDB {
 
         }
 
+        // 트레이너 선생님 더미데이터 추가
         public void putPTTeacher() {
             Address address = Address.builder()
                 .zipCode("06220")
@@ -108,6 +114,18 @@ public class initDB {
             certificates.add(certificate3);
             certificates.add(certificate4);
 
+            LocalDate startDate = LocalDate.of(2018, 02, 11);
+            LocalDate endDate = LocalDate.of(2021, 07, 22);
+
+            Career career = Career.builder()
+                .description("피지컬갤러리")
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+
+            List<Career> careers = new ArrayList<>();
+            careers.add(career);
+
             PTTeacher ptTeacher = PTTeacher.builder()
                 .password("ssafy")
                 .nickname("김계란")
@@ -116,12 +134,13 @@ public class initDB {
                 .tel("010-2021-0105")
                 .ptStudentPTTeachers(students)
                 .certificates(certificates)
-                .major("특공무술")
+                .major("특공무술/재활/스트레칭/마사지/통증완화")
                 .gender(Gender.MAN)
-                .description("거짓은 머리털만큼도 없다! 신뢰와 정직으로 모시겠습니다")
+                .description("좋았어. 거짓은 머리털만큼도 없다! 신뢰와 정직으로 모시겠습니다")
                 .snsAddr("https://www.instagram.com/physical_gallery_egg/?hl=ko")
                 .price(500000)
                 .starRating(4)
+                .careers(careers)
                 .createdDate(LocalDateTime.now())
                 .modifiedDate(LocalDateTime.now())
                 .build();
@@ -129,6 +148,24 @@ public class initDB {
             em.persist(ptTeacher);
 
         }
+
+        // 예약시간 더미데이터 추가
+        public void putPTStudentPTTeacher() {
+            int s_key = 1;
+            int t_key = 2;
+            Long s_pk = Long.valueOf(s_key);
+            Long t_pk = Long.valueOf(t_key);
+            PTStudent ptStudent = em.find(PTStudent.class, s_pk);
+            PTTeacher ptTeacher = em.find(PTTeacher.class, t_pk);
+            LocalDateTime reservationDate = LocalDateTime.of(2021, 07, 28, 13, 00);
+            PTStudentPTTeacher ptStudentptTeacher = PTStudentPTTeacher.builder()
+                .ptTeacher(ptTeacher)
+                .ptStudent(ptStudent)
+                .reservationDate(reservationDate)
+                .build();
+            em.persist(ptStudentptTeacher);
+        }
+
 //        public void putCertificate(){
 //            Certificate certificate = Certificate.builder()
 //                .name("NSCA")

@@ -61,8 +61,8 @@ public class PTTeacher extends UserBase {
 
     // 경력 리스트
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "career_id")
-    private final List<Career> careers = new ArrayList<>();
+    @JoinColumn(name = "user_id")
+    private List<Career> careers = new ArrayList<>();
 
     // 학생 리스트
     @Builder.Default

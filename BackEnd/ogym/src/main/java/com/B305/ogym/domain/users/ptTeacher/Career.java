@@ -1,6 +1,7 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
 import com.B305.ogym.domain.users.BaseTimeEntity;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,8 +25,9 @@ import lombok.NoArgsConstructor;
 public class Career {
 
     @Builder
-    public Career(Long id, LocalDateTime startDate, LocalDateTime endDate) {
+    public Career(Long id, String description, LocalDate startDate, LocalDate endDate) {
         this.id = id;
+        this.description = description;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -35,8 +37,10 @@ public class Career {
     @Column(name = "career_id")
     private Long id; // 대리키
 
+    private String description;
+
     // 시작일, 종료일
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 }
