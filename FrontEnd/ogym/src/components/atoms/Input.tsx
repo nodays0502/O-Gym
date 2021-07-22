@@ -6,7 +6,7 @@ import { InputState } from '../../recoil/atoms/InputState';
 
 export interface InputPropsType {
   type: string
-  inputType: string
+  inputType?: string
   value?: string | number
   inputName?: string
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void

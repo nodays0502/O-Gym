@@ -7,11 +7,13 @@ import Input from './components/atoms/Input';
 import Label from './components/atoms/Label';
 import ListItem from './components/molecules/ListItem';
 import LoginPage from './pages/LoginPage/LoginPage';
+import Navbar from './components/organisms/Menu/Navbar';
 
 
 function App() {
   return (
     <>
+    <Navbar />
       {/* <Button text='button' backgroundColor="blue"></Button>
       <Span text='테스트' />
       <div>
