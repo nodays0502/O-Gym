@@ -1,5 +1,6 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -10,7 +11,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +22,10 @@ import lombok.NoArgsConstructor;
 public class Certificate {
 
     @Builder
-    public Certificate(Long id, String name) {
-        this.id = id;
+    public Certificate(String name,  String publisher , LocalDate date) {
         this.name = name;
+        this.publisher = publisher;
+        this.date = date;
     }
 
     @Id
@@ -36,7 +37,14 @@ public class Certificate {
     private String name; // 자격증 명칭
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private PTTeacher ptTeacher; // 센세
+    @JoinColumn(name = "pt_teacher_id")
+    private PTTeacher ptTeacher; // 선생님
 
+    private String publisher; // 발급 기관
+
+    private LocalDate date; // 획득일
+
+    public void setPtTeacher(PTTeacher ptTeacher){
+        this.ptTeacher= ptTeacher;
+    }
 }

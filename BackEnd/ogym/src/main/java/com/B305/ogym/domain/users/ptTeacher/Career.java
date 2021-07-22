@@ -1,19 +1,13 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
-import com.B305.ogym.domain.users.BaseTimeEntity;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,9 +19,9 @@ import lombok.NoArgsConstructor;
 public class Career {
 
     @Builder
-    public Career(Long id, String description, LocalDate startDate, LocalDate endDate) {
-        this.id = id;
+    public Career(String description,String company, LocalDate startDate, LocalDate endDate) {
         this.description = description;
+        this.company = company;
         this.startDate = startDate;
         this.endDate = endDate;
     }
@@ -43,4 +37,5 @@ public class Career {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    private String company;
 }
