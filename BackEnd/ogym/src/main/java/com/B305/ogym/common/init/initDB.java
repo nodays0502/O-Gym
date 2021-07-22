@@ -8,16 +8,15 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
+import com.B305.ogym.domain.users.ptTeacher.Sns;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +43,7 @@ public class initDB {
         // issue: certificate 엔티티 구조에 대해서 논의 필요
         // 각 자격증마다 가진 사람 리스트 저장 vs 각 PT 트레이너가 가진 자격증 저장
 //        initService.putCertificate();
+
     }
 
     @Service
@@ -70,7 +70,8 @@ public class initDB {
 
             PTStudent ptStudent = PTStudent.builder()
                 .password("ssafy")
-                .nickname("김지우")
+                .nickname("츄")
+                .username("김지우")
                 .address(address)
                 .email("chuu@ssafy.com")
                 .tel("010-2021-0721")
@@ -107,18 +108,19 @@ public class initDB {
                 .build();
 
             Set<PTStudentPTTeacher> students = new LinkedHashSet<>();
-            List<Certificate> certificates = new ArrayList<>();
-
-            certificates.add(certificate1);
-            certificates.add(certificate2);
-            certificates.add(certificate3);
-            certificates.add(certificate4);
+//            List<Certificate> certificates = new ArrayList<>();
+//
+//            certificates.add(certificate1);
+//            certificates.add(certificate2);
+//            certificates.add(certificate3);
+//            certificates.add(certificate4);
 
             LocalDate startDate = LocalDate.of(2018, 02, 11);
             LocalDate endDate = LocalDate.of(2021, 07, 22);
 
             Career career = Career.builder()
                 .description("피지컬갤러리")
+                .company("OGYM")
                 .startDate(startDate)
                 .endDate(endDate)
                 .build();
@@ -126,18 +128,24 @@ public class initDB {
             List<Career> careers = new ArrayList<>();
             careers.add(career);
 
+            Sns sns = Sns.builder()
+                .platform("facebook")
+                .url("https://www.instagram.com/physical_gallery_egg/?hl=ko")
+                .build();
+
             PTTeacher ptTeacher = PTTeacher.builder()
                 .password("ssafy")
                 .nickname("김계란")
+                .username("김성식")
                 .address(address)
                 .email("eggkim@ssafy.com")
                 .tel("010-2021-0105")
                 .ptStudentPTTeachers(students)
-                .certificates(certificates)
+//                .certificates(certificates)
                 .major("특공무술/재활/스트레칭/마사지/통증완화")
                 .gender(Gender.MAN)
                 .description("좋았어. 거짓은 머리털만큼도 없다! 신뢰와 정직으로 모시겠습니다")
-                .snsAddr("https://www.instagram.com/physical_gallery_egg/?hl=ko")
+                .sns(sns)
                 .price(500000)
                 .starRating(4)
                 .careers(careers)
@@ -145,8 +153,22 @@ public class initDB {
                 .modifiedDate(LocalDateTime.now())
                 .build();
 
-            em.persist(ptTeacher);
+            ptTeacher.addCertificate(certificate1);
+            ptTeacher.addCertificate(certificate2);
+            ptTeacher.addCertificate(certificate3);
+            ptTeacher.addCertificate(certificate4);
 
+            em.persist(ptTeacher);
+            List<PTTeacher> resultList = em
+                .createQuery("select t from PTTeacher t join fetch t.certificates c where t.id = 2", PTTeacher.class)
+                .getResultList();
+            System.out.println(resultList.size());
+            for(PTTeacher teacher : resultList){
+                System.out.println(teacher.getId() +" ");
+                for(int i = 0 ; i< teacher.getCertificates().size(); i++){
+                    System.out.println(teacher.getCertificates().get(i).getName());
+                }
+            }
         }
 
         // 예약시간 더미데이터 추가

@@ -1,8 +1,6 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
-import com.B305.ogym.domain.users.common.Address;
-import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -10,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -40,7 +39,7 @@ public class PTTeacher extends UserBase {
 //    }
 
     // 평점
-    private int starRating;
+    private float starRating;
 
     // 전문분야
     private String major;
@@ -57,11 +56,12 @@ public class PTTeacher extends UserBase {
     private String description;
 
     // SNS 링크
-    private String snsAddr;
+    @Embedded
+    private Sns sns;
 
     // 경력 리스트
     @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "pt_teacher_id")
     private List<Career> careers = new ArrayList<>();
 
     // 학생 리스트
@@ -70,4 +70,10 @@ public class PTTeacher extends UserBase {
     private Set<PTStudentPTTeacher> ptStudentPTTeachers = new LinkedHashSet<>();
 
     // 이력?
+
+    //
+    public void addCertificate(Certificate certificate){
+        this.certificates.add(certificate);
+        certificate.setPtTeacher(this);
+    }
 }

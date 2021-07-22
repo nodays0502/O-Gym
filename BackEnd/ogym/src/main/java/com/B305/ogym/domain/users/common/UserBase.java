@@ -2,8 +2,6 @@ package com.B305.ogym.domain.users.common;
 
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.users.BaseTimeEntity;
-import java.util.Set;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
@@ -15,13 +13,9 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -45,6 +39,9 @@ public class UserBase extends BaseTimeEntity {
     @Embedded
     private Address address; // 주소
 
+    private String username; // 이름
+
+    @Column(unique = true)
     private String nickname; // 닉네임
 
     private String tel; // 연락처
@@ -55,7 +52,7 @@ public class UserBase extends BaseTimeEntity {
     @Column(unique = true)
     private String email; // 이메일
 
-    @Enumerated
+    @Embedded
     private ProfilePicture profilePicture; // 프로필 사진
 
     @ManyToOne
