@@ -95,16 +95,24 @@ public class initDB {
                 .build();
 
             Certificate certificate1 = Certificate.builder()
-                .name("NSCA-kor")
+                .name("NSCA")
+                .publisher("NSCA KOREA")
+                .date(LocalDate.of(2015, 11, 11))
                 .build();
             Certificate certificate2 = Certificate.builder()
                 .name("NASM-CPT")
+                .publisher("NASM KOREA")
+                .date(LocalDate.of(2013, 05, 8))
                 .build();
             Certificate certificate3 = Certificate.builder()
                 .name("NASM-PES")
+                .publisher("NASM KOREA")
+                .date(LocalDate.of(2015, 03, 21))
                 .build();
             Certificate certificate4 = Certificate.builder()
                 .name("NASM-CES")
+                .publisher("NASM KOREA")
+                .date(LocalDate.of(2021, 01, 30))
                 .build();
 
             Set<PTStudentPTTeacher> students = new LinkedHashSet<>();
