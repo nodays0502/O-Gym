@@ -35,6 +35,7 @@ public class UserService {
         UserBase user = UserBase.builder()
             .email(userDto.getEmail())
             .password(passwordEncoder.encode(userDto.getPassword()))
+            .username(userDto.getNickname())
             .authority(authority)
             .build();
 

@@ -74,7 +74,7 @@ public class initDB {
                 .username("김지우")
                 .address(address)
                 .email("chuu@ssafy.com")
-                .tel("010-2021-0721")
+                .tel("01020210721")
                 .gender(Gender.WOMAN)
                 .ptStudentMonthly(monthly)
                 .ptStudentPTTeachers(teachers)
