@@ -74,6 +74,8 @@ public class PTTeacher extends UserBase {
     //
     public void addCertificate(Certificate certificate){
         this.certificates.add(certificate);
-        certificate.setPtTeacher(this);
+        if(certificate.getPtTeacher() != this){
+            certificate.setPtTeacher(this);
+        }
     }
 }

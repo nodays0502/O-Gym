@@ -46,5 +46,9 @@ public class Certificate {
 
     public void setPtTeacher(PTTeacher ptTeacher){
         this.ptTeacher= ptTeacher;
+        if(!ptTeacher.getCertificates().contains(this)){
+            this.ptTeacher.getCertificates().add(this);
+        }
+
     }
 }
