@@ -31,14 +31,15 @@ const MainNavigation = (): JSX.Element => {
                 title="Text"
                 style={{
                     position: "fixed",
-                    top: "10px",
-                    left: "10px",
-                    bottom: "10px",
+                    top: "0px",
+                    left: "0px",
+                    bottom: "0px",
                     height: "100%"
                 }}
                 visible={isVisible}
                 onOk={clickModalClose}
                 onCancel={clickModalClose}
+                footer={null}
             >
                  <p>some contents...</p>
                 <p>some contents...</p>
