@@ -18,11 +18,13 @@ public class Address {
         this.street = street;
         this.detailedAddress = detailedAddress;
     }
-
+    @Column(name = "address_zipcode")
     private String zipCode; // 우편번호
 
+    @Column(name = "address_street")
     private String street; // 도로명 주소
 
+    @Column(name = "address_detailed_address")
     private String detailedAddress; // 상세 주소
 
 }
