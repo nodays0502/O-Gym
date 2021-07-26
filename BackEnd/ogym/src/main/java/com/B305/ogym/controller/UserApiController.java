@@ -1,8 +1,11 @@
 package com.B305.ogym.controller;
 
-import com.B305.ogym.controller.dto.UserDto;
+import com.B305.ogym.controller.dto.SignupRequestDto;
+import com.B305.ogym.controller.dto.SuccessResponseDto;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.service.UserService;
+import java.util.HashMap;
+import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -26,10 +29,12 @@ public class UserApiController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity<UserBase> signup(
-        @RequestBody @Valid UserDto userDto
+    public ResponseEntity<SuccessResponseDto> signup(
+        @RequestBody @Valid SignupRequestDto userDto
     ) {
-        return ResponseEntity.ok(userService.signup(userDto));
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원가입이 성공했습니다", new HashMap()
+        ));
     }
 
     @GetMapping("/user")

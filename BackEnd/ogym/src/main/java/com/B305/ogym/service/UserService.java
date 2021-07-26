@@ -1,9 +1,11 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.controller.dto.UserDto;
+import com.B305.ogym.controller.dto.SignupRequestDto;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.common.util.SecurityUtil;
+import com.B305.ogym.domain.users.common.Address;
+import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,24 +24,38 @@ public class UserService {
 
 
     @Transactional
-    public UserBase signup(UserDto userDto) {
+    public void signup(SignupRequestDto userDto) {
         if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
             != null) {
             throw new RuntimeException("이미 가입되어 있는 유저입니다.");
         }
 
         Authority authority = Authority.builder()
-            .authorityName("ROLE_USER")
+            .authorityName(userDto.getRole())
+            .build();
+
+        Gender gender = Gender.MAN;
+        if(userDto.getGender() == 1){
+            gender = Gender.WOMAN;
+        }
+
+        Address address = Address.builder()
+            .zipCode(userDto.getZipCode())
+            .street(userDto.getStreet())
+            .detailedAddress(userDto.getDetailedAddress())
             .build();
 
         UserBase user = UserBase.builder()
             .email(userDto.getEmail())
             .password(passwordEncoder.encode(userDto.getPassword()))
-            .username(userDto.getNickname())
+            .nickname(userDto.getNickname())
+            .gender(gender)
+            .tel(userDto.getTel())
+            .address(address)
             .authority(authority)
             .build();
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     public UserBase getUserWithAuthorities(String email) {
@@ -47,7 +63,6 @@ public class UserService {
     }
 
     public UserBase getMyUserWithAuthorities() {
-
         Optional<String> result = SecurityUtil.getCurrentUsername();
         if (result.isEmpty()) {
             return null;
@@ -55,4 +70,6 @@ public class UserService {
             return userRepository.findOneWithAuthoritiesByEmail(result.get());
         }
     }
+
+
 }
