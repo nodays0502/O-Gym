@@ -1,5 +1,6 @@
 package com.B305.ogym.service;
 
+import com.B305.ogym.common.exception.DuplicateUserException;
 import com.B305.ogym.controller.dto.SignupRequestDto;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.users.UserRepository;
@@ -27,7 +28,7 @@ public class UserService {
     public void signup(SignupRequestDto userDto) {
         if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
             != null) {
-            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+            throw new DuplicateUserException("이미 가입되어 있는 유저입니다.");
         }
 
         Authority authority = Authority.builder()
