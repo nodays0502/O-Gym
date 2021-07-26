@@ -32,13 +32,14 @@ public class UserApiController {
     public ResponseEntity<SuccessResponseDto> signup(
         @RequestBody @Valid SignupRequestDto userDto
     ) {
+        userService.signup(userDto);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원가입이 성공했습니다", new HashMap()
         ));
     }
 
     @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('USER','ADMIN')")
+    @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<UserBase> getMyUserInfo() {
         return ResponseEntity.ok(userService.getMyUserWithAuthorities());
     }
