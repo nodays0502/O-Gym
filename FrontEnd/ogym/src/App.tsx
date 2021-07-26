@@ -7,6 +7,7 @@ import Input from './components/atoms/Input';
 import Label from './components/atoms/Label';
 import ListItem from './components/molecules/ListItem';
 import LoginPage from './pages/LoginPage/LoginPage';
+import MainPage from './pages/MainPage/MainPage';
 
 
 function App() {
@@ -31,7 +32,8 @@ function App() {
         <Button text="button3" backgroundColor="yellow"></Button>
       </ButtonList>
       </ListItem> */}
-      <LoginPage />
+      {/* <LoginPage /> */}
+      <MainPage />
     </>
   );
 }
