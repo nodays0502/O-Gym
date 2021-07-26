@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 public class UserDto {
 
     @NotEmpty
-    @Size(min = 3, max = 50)
+    @Size(min = 3, max = 50, message = "email은 3자 이상 50자 이하로 작성해주세요")
     private String email;
 
 //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
