@@ -36,7 +36,7 @@ public class CustomizedExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
 
-    // 이미 존재하는 유저 가입에 대한 에러 핸들러
+    // 존재하지 않는 유저 정보 조회에 대한 에러 핸들러
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<Object> handleUserNotFoundException(Exception ex,
         WebRequest request) {
