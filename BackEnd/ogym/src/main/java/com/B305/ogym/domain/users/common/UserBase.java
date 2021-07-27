@@ -2,6 +2,7 @@ package com.B305.ogym.domain.users.common;
 
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.users.BaseTimeEntity;
+import io.jsonwebtoken.Claims;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Embedded;
@@ -58,6 +59,12 @@ public class UserBase extends BaseTimeEntity {
     @ManyToOne
     @JoinColumn(name = "authority")
     private Authority authority;
+
+    public UserBase(Claims claims) {
+        this.id = Long.valueOf(claims.get("userId").toString());
+        this.email = claims.get("name").toString();
+//        this.role = claims.get("role").toString();
+    }
 
 //    public UserBase(Long id, String password, Authority authority, String nickname, String email,String zipCode,
 //        String street, String detailedAddress, String tel, Gender gender){
