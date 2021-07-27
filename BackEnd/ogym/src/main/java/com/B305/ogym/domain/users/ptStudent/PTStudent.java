@@ -2,8 +2,6 @@ package com.B305.ogym.domain.users.ptStudent;
 
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
-import com.B305.ogym.domain.users.common.Address;
-import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +12,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -40,4 +37,5 @@ public class PTStudent extends UserBase {
     @Builder.Default
     @OneToMany(mappedBy = "ptStudent", cascade = CascadeType.ALL)
     private List<PTStudentPTTeacher> ptStudentPTTeachers = new ArrayList<>(); // 예약 정보
+
 }

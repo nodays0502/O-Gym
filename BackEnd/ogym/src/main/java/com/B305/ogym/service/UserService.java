@@ -1,19 +1,23 @@
 package com.B305.ogym.service;
 
 import com.B305.ogym.common.exception.DuplicateUserException;
-import com.B305.ogym.controller.dto.SignupRequestDto;
-import com.B305.ogym.domain.autority.Authority;
-import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.common.util.SecurityUtil;
+import com.B305.ogym.controller.dto.SignupRequestDto;
+import com.B305.ogym.controller.dto.UpdateStudentRequestDto;
+import com.B305.ogym.domain.autority.Authority;
+import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
+import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
+import com.B305.ogym.domain.users.ptStudent.Monthly;
+import com.B305.ogym.domain.users.ptStudent.MonthlyRepository;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -22,6 +26,7 @@ public class UserService {
 
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MonthlyRepository monthlyRepository;
 
 
     @Transactional
@@ -36,7 +41,7 @@ public class UserService {
             .build();
 
         Gender gender = Gender.MAN;
-        if(userDto.getGender() == 1){
+        if (userDto.getGender() == 1) {
             gender = Gender.WOMAN;
         }
 
@@ -71,6 +76,30 @@ public class UserService {
             return userRepository.findOneWithAuthoritiesByEmail(result.get());
         }
     }
+    @Transactional
+    public void deleteUserBase() {
+        UserBase userBase = getMyUserWithAuthorities();
+        userRepository.delete(userBase);
+    }
+    @Transactional
+    public void changeStudent(UpdateStudentRequestDto updateStudentRequestDto) {
+        UserBase userBase = getMyUserWithAuthorities();
+        PTStudent ptStudent = (PTStudent) userBase;
+        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
+            Optional<Monthly> month = monthlyRepository.findById(i + 1);
+            Monthly monthly = month.orElse(new Monthly(i+1));
+            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.builder()
+                .monthly(monthly)
+                .height(updateStudentRequestDto.getMonthlyHeights().get(i))
+                .weight(updateStudentRequestDto.getMonthlyWeights().get(i))
+                .ptStudent(ptStudent)
+                .build();
 
+        }
 
+    }
+
+    public void changeTeacher() {
+
+    }
 }

@@ -40,8 +40,37 @@ public class UserApiController {
 
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
-    public ResponseEntity<UserBase> getMyUserInfo() {
-        return ResponseEntity.ok(userService.getMyUserWithAuthorities());
+    public ResponseEntity<SuccessResponseDto> getMyUserInfo() {
+        return ResponseEntity.ok(new SuccessResponseDto<UserBase>(
+            200, "회원가입이 성공했습니다",userService.getMyUserWithAuthorities()
+        ));
+    }
+
+    @DeleteMapping("/user")
+    @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
+    public ResponseEntity<SuccessResponseDto> deleteMyUser() {
+        userService.deleteUserBase();
+        // Spring Context에서도 지워야한다.
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원정보 삭제에 성공했습니다", new HashMap()
+        ));
+    }
+
+    @PatchMapping("/user/student")
+    @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
+    public ResponseEntity<SuccessResponseDto> updateStudent() {
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원정보 수정에 성공했습니다.", new HashMap()
+        ));
+    }
+
+    @PatchMapping("/user/teacher")
+    @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
+    public ResponseEntity<SuccessResponseDto> updateTeacher() {
+
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원정보 수정에 성공했습니다.", new HashMap()
+        ));
     }
 
     @GetMapping("/user/{username}")

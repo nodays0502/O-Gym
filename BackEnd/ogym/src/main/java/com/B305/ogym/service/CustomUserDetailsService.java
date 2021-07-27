@@ -26,6 +26,7 @@ public class CustomUserDetailsService implements UserDetailsService {
 //            .map(userBase -> createUser(email, userBase))
 //            .orElseThrow(() -> new UsernameNotFoundException(email + " -> 데이터베이스에서 찾을 수 없습니다."));
         UserBase result = userRepository.findOneWithAuthoritiesByEmail(email);
+        System.out.println("loadUserByUsername");
         return createUser(email,result);
     }
 

@@ -1,9 +1,11 @@
 package com.B305.ogym.common.init;
 
+import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
+import com.B305.ogym.domain.users.ptStudent.Monthly;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
@@ -39,6 +41,7 @@ public class initDB {
         initService.putPTStudent();
         initService.putPTTeacher();
         initService.putPTStudentPTTeacher();
+        initService.putMonthly();
 
         // issue: certificate 엔티티 구조에 대해서 논의 필요
         // 각 자격증마다 가진 사람 리스트 저장 vs 각 PT 트레이너가 가진 자격증 저장
@@ -55,6 +58,14 @@ public class initDB {
 
         // final로 선언된 객체에 대한 생성자를 spring이 잡아서 의존성 주입을 해줌.
         // EMF 선언해서 EM을 따로 뽑아낼 필요가 없다!
+        // 학생 더미데이터 추가
+        public void putMonthly() {
+            for (int i = 1; i <= 12; i++)
+                em.persist(new Monthly(i));
+
+            em.persist(new Authority("ROLE_USER"));
+            em.persist(new Authority("ROLE_PTTEACHER"));
+        }
 
         // 학생 더미데이터 추가
         public void putPTStudent() {
