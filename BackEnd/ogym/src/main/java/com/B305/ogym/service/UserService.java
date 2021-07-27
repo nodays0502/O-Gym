@@ -1,6 +1,6 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.common.exception.DuplicateUserException;
+import com.B305.ogym.common.exception.user.UserDuplicateException;
 import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.SignupRequestDto;
 import com.B305.ogym.domain.autority.Authority;
@@ -29,7 +29,7 @@ public class UserService {
     public void signup(SignupRequestDto userDto) {
         if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
             != null) {
-            throw new DuplicateUserException("이미 가입되어 있는 유저입니다.");
+            throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
         }
 
         Authority authority = Authority.builder()
@@ -72,6 +72,7 @@ public class UserService {
             return userRepository.findOneWithAuthoritiesByEmail(result.get());
         }
     }
+
     @Transactional
     public void deleteUserBase() {
         UserBase userBase = getMyUserWithAuthorities();
