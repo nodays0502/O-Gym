@@ -2,6 +2,7 @@ package com.B305.ogym.controller;
 
 import com.B305.ogym.controller.dto.SignupRequestDto;
 import com.B305.ogym.controller.dto.SuccessResponseDto;
+import com.B305.ogym.controller.dto.UpdateStudentRequestDto;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.service.UserService;
 import java.util.HashMap;
@@ -58,7 +59,10 @@ public class UserApiController {
 
     @PatchMapping("/user/student")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
-    public ResponseEntity<SuccessResponseDto> updateStudent() {
+    public ResponseEntity<SuccessResponseDto> updateStudent(
+        @RequestBody @Valid UpdateStudentRequestDto studentRequestDto
+    ) {
+        userService.changeStudent(studentRequestDto);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원정보 수정에 성공했습니다.", new HashMap()
         ));

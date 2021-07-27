@@ -35,10 +35,10 @@ public class AuthApiController {
     public ResponseEntity<TokenDto> authorize(@RequestBody @Valid LoginDto loginDto) {
 
         UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword());
+            new UsernamePasswordAuthenticationToken(loginDto.getEmail(), loginDto.getPassword()); // 인증 전 객체
 
         Authentication authentication = authenticationManagerBuilder.getObject()
-            .authenticate(authenticationToken);
+            .authenticate(authenticationToken); //
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = tokenProvider.createToken(authentication);

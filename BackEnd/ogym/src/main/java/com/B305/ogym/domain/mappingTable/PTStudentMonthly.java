@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,12 +39,14 @@ public class PTStudentMonthly {
     @JoinColumn(name = "month")
     private Monthly monthly; // 월
 
-//    public static PTStudentMonthly createPTStudentMonthly(int height,int weight, PTStudent ptStudent, Monthly monthly){
-//        return PTStudentMonthly.builder()
-//            .monthly(monthly)
-//            .ptStudent(ptStudent)
-//            .height(height)
-//            .weight(weight)
-//            .build();
-//    }
+    @Builder
+    public PTStudentMonthly(int height, int weight,PTStudent ptStudent, Monthly monthly){
+        this.height = height;
+        this.weight = weight;
+        this.ptStudent = ptStudent;
+        if(!ptStudent.getPtStudentMonthly().contains(this))
+            ptStudent.getPtStudentMonthly().add(this);
+        this.monthly = monthly;
+    }
+
 }
