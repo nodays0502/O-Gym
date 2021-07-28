@@ -1,10 +1,12 @@
 import React from "react";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import DaumPostcode from "react-daum-postcode";
-import { InputState } from "../../../recoil/atoms/InputState";
+import { Zipcode } from "../../../recoil/atoms/Zipcode";
+import { StreetAddress } from "../../../recoil/atoms/StreetAddress";
 
 const PopupPostCode = (props) => {
-  const [text, setText] = useRecoilState(InputState);
+  const setZipCode = useSetRecoilState(Zipcode);
+  const setStreetAddress = useSetRecoilState(StreetAddress);
 
   // 우편번호 검색 후 주소 클릭 시 실행될 함수, data callback 용
   const handlePostCode = (data) => {
@@ -21,11 +23,12 @@ const PopupPostCode = (props) => {
     //   }
     //   fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
     // }
-    console.log(data);
-    // console.log(fullAddress);
-    console.log(data.zonecode);
-    setText({ ...text, registerStreetAddress: data.address });
-    setText({ ...text, registerZipcode: data.zonecode });
+    // console.log(data);
+    // console.log(data.address);
+    // console.log(data.zonecode);
+    setZipCode(data.zonecode);
+    setStreetAddress(data.address);
+    // setText({ ...text, registerZipcode: data.zonecode });
 
     props.onClose();
   };

@@ -1,187 +1,126 @@
-import { Divider } from "antd"
-import { useState } from "react";
-import styled from "styled-components";
-import Button from "../../atoms/Button";
-import Input from "../../atoms/Input"
-import Label from "../../atoms/Label";
-import ButtonList from "../../molecules/ButtonList";
-import ListItem from "../../molecules/ListItem"
+import * as React from "react";
+import { useState, useRef } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+import "./registerstyles.css";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import PopupButton from "../../molecules/postcode/PopupButton";
+import { Zipcode } from "../../../recoil/atoms/Zipcode";
+import { StreetAddress } from "../../../recoil/atoms/StreetAddress";
+import styled from "styled-components";
 
 
-const LabelDiv = styled.div`
-    text-align: center;
+const ErrorP = styled.p`
+  color: red;
 `;
 
-const RegisterContent = (): JSX.Element => {
-    return (
-        <>
-            <LabelDiv>
-                <Label label="정보를 입력해 주세요."
-                    color="gray"
-                    backgroundcolor=""
-                />
-            
-            </LabelDiv>
-            <hr />
+interface FormValues {
+  email: string;
+  password: string;
+  confirmPassword: string;
+  username: string;
+  nickname: string;
+  zipcode: string;
+  streetAddress: string;
+  detailedAddress: string;
+  phone: string;
+  gender: number;
+}
 
-            <ListItem flexdirection="column">
-                <Label label="이메일" fontweight="bold"/>
-                <Input 
-                  type="text" 
-                  inputType="registerEmail" 
-                  placeholder="email"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
+const schema = yup.object().shape({
+  email: yup.string()
+    .required("이메일을 입력해주세요")
+    .max(30, "올바른 이메일 형식이 아닙니다")
+    .matches(/[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i, "올바른 이메일 형식이 아닙니다"),
+  password: yup.string()
+    .required("비밀번호를 입력해주세요")
+    .min(8, "비밀번호는 8자 이상 입력해주세요")
+    .max(20, "비밀번호는 20자 이하 입력해주세요"),
+  confirmPassword: yup.string()
+    .oneOf([yup.ref("password"), null], "비밀번호가 일치하지 않습니다")
+    .required("비밀번호를 입력해주세요"),
+  username: yup.string()
+    .required("이름을 입력해주세요"),
+  nickname: yup.string()
+    .required("닉네임을 입력해주세요"),
+  zipcode: yup.string()
+    .required("주소 검색을 눌러서 입력해주세요"),
+  streetAddress: yup.string()
+    .required("주소 검색을 눌러서 입력해주세요"),
+  detailedAddress: yup.string()
+    .required("상세 주소를 입력해주세요"),
+  phone: yup.string()
+    .required("전화번호를 입력해주세요")
+    .max(12, "올바른 전화번호 형식이 아닙니다"),
+  gender: yup.number()
+    .required()
+    .typeError("성별을 선택해주세요"),
+    
+});
 
-            <ListItem flexdirection="column">
-                <Label label="비밀번호" fontweight="bold"/>
-                <Input 
-                  type="password" 
-                  inputType="registerPassword" 
-                  placeholder="비밀번호"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none" }}
-                />
-                <Input 
-                  type="password" 
-                  inputType="registerPassWordConfirmation" 
-                  placeholder="비밀번호 재입력"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
+function RegisterContent() {
+  const { register, handleSubmit, formState: {errors} } = useForm<FormValues>({
+    resolver: yupResolver(schema)
+  });
 
-            <ListItem flexdirection="column">
-                <Label label="이름" fontweight="bold"/>
-                <Input 
-                  type="text" 
-                  inputType="registerName" 
-                  placeholder="이름을 입력해 주세요."
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem"}}
-                />
-            </ListItem>
 
-            <ListItem flexdirection="column">
-                <Label label="닉네임" fontweight="bold"/>
-                <Input 
-                  type="text" 
-                  inputType="registerNickname" 
-                  placeholder="닉네임을 입력해 주세요."
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
 
-            <ListItem flexdirection="column">
-                <Label label="전화번호" fontweight="bold"/>
-                <Input 
-                  type="text" 
-                  inputType="registerPhone" 
-                  placeholder="전화번호"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
-            
-            <div style={{display: "flex"}}>
+  const zipCod = useRecoilValue(Zipcode)
+  const streetAdr = useRecoilValue(StreetAddress)
 
-              <PopupButton />
-              <ListItem flexdirection="column">
-                  <Input 
-                    type="text" 
-                    inputType="registerZipcode" 
-                    placeholder="우편번호"
-                    style={{ flex: 1,
-                      fontSize:"16px",
-                      padding:"10px 10px",
-                      borderRadius:"8px",
-                      border:"1px solid #BDBDBD",
-                      outline:"none",
-                      marginBottom: "1rem" }}
-                      />
-              </ListItem>
-            </div>
+  const onSubmit = (data: FormValues) => console.log(data);
 
-            <ListItem flexdirection="column">
-                <Input 
-                  type="text" 
-                  inputType="registerStreetAddress" 
-                  placeholder="도로명주소"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
+  return (
+    <form onSubmit={handleSubmit(onSubmit)} >
+      <label htmlFor="email">이메일</label>
+      <input type="text" placeholder="이메일"{...register("email")} maxLength={30}/>
+      {errors.email?.message && <ErrorP>{errors.email?.message}</ErrorP>}
 
-            <ListItem flexdirection="column">
-                <Input 
-                  type="text" 
-                  inputType="registerDetailedAddress" 
-                  placeholder="상세주소"
-                  style={{ flex: 1,
-                    fontSize:"16px",
-                    padding:"10px 10px",
-                    borderRadius:"8px",
-                    border:"1px solid #BDBDBD",
-                    outline:"none",
-                    marginBottom: "1rem" }}
-                />
-            </ListItem>
-            
+      <label htmlFor="password">비밀번호</label>
+      <input type="password" placeholder="비밀번호(8~20자)" {...register("password")} maxLength={20} />
+      {errors.password?.message && <ErrorP>{errors.password?.message}</ErrorP>}
 
-            <Label label="성별" fontweight="bold"/>
-            <ListItem flexdirection="row">
-              <Label label="남성" fontweight="bold"></Label>
-              <button><Input type="radio" value={0} inputType="registerGender" inputName="gender" style={{flex: 1, textAlign: "center"}}/></button>
-              <Label label="여성" fontweight="bold"></Label>
-              <button><Input type="radio" value={1} inputType="registerGender" inputName="gender" style={{flex: 1, textAlign: "center"}}/></button>
-            </ListItem>
+      <label htmlFor="confirmPassword">비밀번호 확인</label>
+      <input type="password" placeholder="비밀번호 확인"{...register("confirmPassword")} maxLength={20}/>
+      {errors.confirmPassword?.message && <ErrorP>{errors.confirmPassword?.message}</ErrorP>}
 
-            <hr />
-            <ButtonList>
-                <Button text="닫기" width="100%"></Button>
-                <Button text="회원가입" width="100%"></Button>
-            </ButtonList>
-            <Divider />
-        </>
-    );
+      <label htmlFor="username">이름</label>
+      <input type="text" placeholder="이름"{...register("username")} />
+      {errors.username?.message && <ErrorP>{errors.username?.message}</ErrorP>}
+
+      <label htmlFor="nickname">닉네임</label>
+      <input type="text" placeholder="닉네임"{...register("nickname")} />
+      {errors.nickname?.message && <ErrorP>{errors.nickname?.message}</ErrorP>}
+
+      <label htmlFor="zipcode">주소검색</label>
+      <div style={{display: "flex"}}>
+      <PopupButton />
+      <input type="text" placeholder="우편 번호"{...register("zipcode")} value={zipCod} />
+      </div>
+      {errors.zipcode?.message && <ErrorP>{errors.zipcode?.message}</ErrorP>}
+
+      <input type="text" placeholder="도로명 주소"{...register("streetAddress")} value={streetAdr} />
+      {errors.streetAddress?.message && <ErrorP>{errors.streetAddress?.message}</ErrorP>}
+
+      <input type="text" placeholder="상세 주소"{...register("detailedAddress")} />
+      {errors.detailedAddress?.message && <ErrorP>{errors.detailedAddress?.message}</ErrorP>}
+
+      <label htmlFor="phone">전화번호</label>
+      <input type="text" placeholder="phone"{...register("phone")} maxLength={12}/>
+      {errors.phone?.message && <ErrorP>{errors.phone?.message}</ErrorP>}
+      
+      <label htmlFor="gender">성별</label>
+      <select {...register("gender")} id="gender">
+        <option value="">Select</option>
+        <option value="0">남성</option>
+        <option value="1">여성</option>
+      </select>
+      {errors.gender?.message && <ErrorP>{errors.gender?.message}</ErrorP>}
+      
+      <input type="submit" />
+    </form>
+  );
 }
 
 export default RegisterContent;
