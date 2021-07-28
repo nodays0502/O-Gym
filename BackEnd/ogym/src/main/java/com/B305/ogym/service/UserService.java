@@ -2,8 +2,7 @@ package com.B305.ogym.service;
 
 import com.B305.ogym.common.exception.user.UserDuplicateException;
 import com.B305.ogym.common.util.SecurityUtil;
-import com.B305.ogym.controller.dto.SignupRequestDto;
-import com.B305.ogym.controller.dto.UpdateStudentRequestDto;
+import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthlyRepository;
@@ -37,47 +36,49 @@ public class UserService {
 
 
     @Transactional
-    public void signup(SignupRequestDto userDto) {
-        if (userRepository.findOneWithAuthoritiesByEmail(userDto.getEmail())
+    public void signup(UserDto.SignupRequest signupReqeust) {
+        if (userRepository.findOneWithAuthoritiesByEmail(signupReqeust.getEmail())
             != null) {
             throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
         }
 
         Authority authority = Authority.builder()
-            .authorityName(userDto.getRole())
+            .authorityName(signupReqeust.getRole())
             .build();
 
         Gender gender = Gender.MAN;
-        if (userDto.getGender() == 1) {
+        if (signupReqeust.getGender() == 1) {
             gender = Gender.WOMAN;
         }
 
         Address address = Address.builder()
-            .zipCode(userDto.getZipCode())
-            .street(userDto.getStreet())
-            .detailedAddress(userDto.getDetailedAddress())
+            .zipCode(signupReqeust.getZipCode())
+            .street(signupReqeust.getStreet())
+            .detailedAddress(signupReqeust.getDetailedAddress())
             .build();
 
-        if ("ROLE_PTTEACHER".equals (userDto.getRole ())) {
+        if ("ROLE_PTTEACHER".equals (signupReqeust.getRole ())) {
             PTTeacher ptTeacher = PTTeacher.builder()
-                .email(userDto.getEmail())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .nickname(userDto.getNickname())
+                .email(signupReqeust.getEmail())
+                .password(passwordEncoder.encode(signupReqeust.getPassword()))
+                .username(signupReqeust.getUsername ())
+                .nickname(signupReqeust.getNickname())
                 .gender(gender)
-                .tel(userDto.getTel())
+                .tel(signupReqeust.getTel())
                 .address(address)
                 .authority(authority)
                 .build();
 
             ptTeacherRepository.save(ptTeacher);
 
-        }else if("ROLE_PTSTUDENT".equals(userDto.getRole()) ){
+        }else if("ROLE_PTSTUDENT".equals(signupReqeust.getRole()) ){
             PTStudent ptStudent = PTStudent.builder()
-                .email(userDto.getEmail())
-                .password(passwordEncoder.encode(userDto.getPassword()))
-                .nickname(userDto.getNickname())
+                .email(signupReqeust.getEmail())
+                .password(passwordEncoder.encode(signupReqeust.getPassword()))
+                .username(signupReqeust.getUsername ())
+                .nickname(signupReqeust.getNickname())
                 .gender(gender)
-                .tel(userDto.getTel())
+                .tel(signupReqeust.getTel())
                 .address(address)
                 .authority(authority)
                 .build();
@@ -98,8 +99,9 @@ public class UserService {
         if (result.isEmpty()) {
             return null;
         } else {
-            return userRepository.findOneWithAuthoritiesByEmail(result.get());
+            return  userRepository.findOneWithAuthoritiesByEmail(result.get());
         }
+
     }
 
     @Transactional
@@ -126,7 +128,7 @@ public class UserService {
 //    }
 
     @Transactional
-    public void changeStudent(UpdateStudentRequestDto updateStudentRequestDto) {
+    public void changeStudent(UserDto.UpdateStudentRequest updateStudentRequestDto) {
         UserBase userBase = getMyUserWithAuthorities();
         PTStudent ptStudent = (PTStudent) userBase;
         for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.

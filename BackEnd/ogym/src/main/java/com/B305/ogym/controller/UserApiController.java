@@ -1,18 +1,24 @@
 package com.B305.ogym.controller;
 
-import com.B305.ogym.controller.dto.SignupRequestDto;
+import static com.B305.ogym.controller.dto.UserDto.SignupRequest;
+import static com.B305.ogym.controller.dto.UserDto.UpdateStudentRequest;
+
 import com.B305.ogym.controller.dto.SuccessResponseDto;
-import com.B305.ogym.controller.dto.UpdateStudentRequestDto;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.service.UserService;
 import java.util.HashMap;
 import java.util.Map;
+import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.*;
-
-
-import javax.validation.Valid;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
@@ -31,9 +37,9 @@ public class UserApiController {
 
     @PostMapping("/signup")
     public ResponseEntity<SuccessResponseDto> signup(
-        @RequestBody @Valid SignupRequestDto userDto
+        @RequestBody @Valid SignupRequest signupRequest
     ) {
-        userService.signup(userDto);
+        userService.signup(signupRequest);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원가입이 성공했습니다", new HashMap()
         ));
@@ -42,8 +48,16 @@ public class UserApiController {
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<SuccessResponseDto> getMyInfo() {
-        return ResponseEntity.ok(new SuccessResponseDto<UserBase>(
-            200, "회원 정보를 불러오는데 성공했습니다",userService.getMyUserWithAuthorities()
+        UserBase user = null;
+        user = userService.getMyUserWithAuthorities();
+        Map<String,Object> map = new HashMap<>();
+        map.put ("username",user.getUsername ());
+        map.put ("id",user.getId());
+        map.put ("role",user.getAuthority());
+        map.put ("email",user.getEmail());
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+
+            200, "회원 정보를 불러오는데 성공했습니다",map
         ));
     }
 
@@ -51,7 +65,7 @@ public class UserApiController {
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<SuccessResponseDto> deleteMyUser() {
         userService.deleteUserBase();
-        // Spring Context에서도 지워야한다.
+        // Security Context에서도 지워야한다.
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원정보 삭제에 성공했습니다", new HashMap()
         ));
@@ -60,7 +74,7 @@ public class UserApiController {
     @PatchMapping("/user/student")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<SuccessResponseDto> updateStudent(
-        @RequestBody @Valid UpdateStudentRequestDto studentRequestDto
+        @RequestBody @Valid UpdateStudentRequest studentRequestDto
     ) {
         userService.changeStudent(studentRequestDto);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
