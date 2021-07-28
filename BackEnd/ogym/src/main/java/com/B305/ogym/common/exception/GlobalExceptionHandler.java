@@ -40,26 +40,26 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     // 이미 존재하는 유저 가입에 대한 에러 핸들러
     @ExceptionHandler(UserDuplicateException.class)
-    public final ResponseEntity<String> handleUserDuplicateException(Exception ex) {
+    public final ResponseEntity<String> handleUserDuplicateException(UserDuplicateException ex) {
         log.debug("중복 유저", ex);
-        return USER_NOT_FOUND;
+        return DUPLICATION_USER;
     }
 
     // 존재하지 않는 유저 정보 조회에 대한 에러 핸들러
     @ExceptionHandler(UserNotFoundException.class)
-    public final ResponseEntity<String> handleUserNotFoundException(Exception ex) {
+    public final ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
         log.debug("존재하지 않는 유저", ex);
         return USER_NOT_FOUND;
     }
 
     // 5xx error handler : 서버에서 발생한 전반적인 에러에 대한 핸들러
-//    @ExceptionHandler(Exception.class)
-//    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
-//        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-//            .Error(request.getDescription(false))
-//            .message(ex.getMessage())
-//            .build();
-//        log.debug("server error", ex);
-//        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
-//    }
+    @ExceptionHandler(Exception.class)
+    public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
+            .Error(request.getDescription(false))
+            .message(ex.getMessage())
+            .build();
+        log.debug("server error", ex);
+        return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

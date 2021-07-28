@@ -22,6 +22,7 @@ import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -55,10 +56,10 @@ public class initDB {
     static class InitService {
 
         private final EntityManager em; // @RequiredArgsConstructor 어노테이션을 선언함으로서
-
         // final로 선언된 객체에 대한 생성자를 spring이 잡아서 의존성 주입을 해줌.
         // EMF 선언해서 EM을 따로 뽑아낼 필요가 없다!
         // 학생 더미데이터 추가
+        private final PasswordEncoder passwordEncoder;
         public void putMonthly() {
             for (int i = 1; i <= 12; i++)
                 em.persist(new Monthly(i));
@@ -80,7 +81,7 @@ public class initDB {
             List<PTStudentMonthly> monthly = new ArrayList<>();
 
             PTStudent ptStudent = PTStudent.builder()
-                .password("ssafy")
+                .password(passwordEncoder.encode("ssafy"))
                 .nickname("츄")
                 .username("김지우")
                 .address(address)
@@ -153,7 +154,7 @@ public class initDB {
                 .build();
 
             PTTeacher ptTeacher = PTTeacher.builder()
-                .password("ssafy")
+                .password(passwordEncoder.encode("ssafy"))
                 .nickname("김계란")
                 .username("김성식")
                 .address(address)
