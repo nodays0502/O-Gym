@@ -41,9 +41,9 @@ public class UserApiController {
 
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
-    public ResponseEntity<SuccessResponseDto> getMyUserInfo() {
+    public ResponseEntity<SuccessResponseDto> getMyInfo() {
         return ResponseEntity.ok(new SuccessResponseDto<UserBase>(
-            200, "회원가입이 성공했습니다",userService.getMyUserWithAuthorities()
+            200, "회원 정보를 불러오는데 성공했습니다",userService.getMyUserWithAuthorities()
         ));
     }
 

@@ -14,6 +14,9 @@ import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.Monthly;
 import com.B305.ogym.domain.users.ptStudent.MonthlyRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
+import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,6 +32,8 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final MonthlyRepository monthlyRepository;
     private final PTStudentMonthlyRepository ptStudentMonthlyRepository;
+    private final PTTeacherRepository ptTeacherRepository;
+    private final PTStudentRepository ptStudentRepository;
 
 
     @Transactional
@@ -53,17 +58,35 @@ public class UserService {
             .detailedAddress(userDto.getDetailedAddress())
             .build();
 
-        UserBase user = UserBase.builder()
-            .email(userDto.getEmail())
-            .password(passwordEncoder.encode(userDto.getPassword()))
-            .nickname(userDto.getNickname())
-            .gender(gender)
-            .tel(userDto.getTel())
-            .address(address)
-            .authority(authority)
-            .build();
+        if ("ROLE_PTTEACHER".equals (userDto.getRole ())) {
+            PTTeacher ptTeacher = PTTeacher.builder()
+                .email(userDto.getEmail())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .nickname(userDto.getNickname())
+                .gender(gender)
+                .tel(userDto.getTel())
+                .address(address)
+                .authority(authority)
+                .build();
 
-        userRepository.save(user);
+            ptTeacherRepository.save(ptTeacher);
+
+        }else if("ROLE_PTSTUDENT".equals(userDto.getRole()) ){
+            PTStudent ptStudent = PTStudent.builder()
+                .email(userDto.getEmail())
+                .password(passwordEncoder.encode(userDto.getPassword()))
+                .nickname(userDto.getNickname())
+                .gender(gender)
+                .tel(userDto.getTel())
+                .address(address)
+                .authority(authority)
+                .build();
+
+            ptStudentRepository.save(ptStudent);
+        }else{
+            System.out.println ("??????? 머함");
+        }
+
     }
 
     public UserBase getUserWithAuthorities(String email) {

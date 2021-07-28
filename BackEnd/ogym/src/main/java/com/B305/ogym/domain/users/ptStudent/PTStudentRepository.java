@@ -1,5 +1,7 @@
 package com.B305.ogym.domain.users.ptStudent;
 
-public class PTStudentRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PTStudentRepository extends JpaRepository<PTStudent,Long> {
 
 }
