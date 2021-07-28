@@ -8,7 +8,7 @@ import Label from './components/atoms/Label';
 import ListItem from './components/molecules/ListItem';
 import LoginPage from './pages/LoginPage/LoginPage';
 import MainPage from './pages/MainPage/MainPage';
-
+import StudentPage from './pages/StudentPage/StudentPage';
 
 function App() {
   return (
@@ -33,7 +33,8 @@ function App() {
       </ButtonList>
       </ListItem> */}
       {/* <LoginPage /> */}
-      <MainPage />
+      {/* <MainPage /> */}
+      <StudentPage />
     </>
   );
 }
