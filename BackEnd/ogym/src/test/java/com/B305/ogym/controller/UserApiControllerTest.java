@@ -11,11 +11,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
 import com.B305.ogym.common.config.SecurityConfig;
-import com.B305.ogym.controller.dto.UserDto.SignupRequest;
+import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.autority.AuthorityRepository;
 import com.B305.ogym.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -75,7 +76,7 @@ class UserApiControllerTest {
     public void createUser_success() throws Exception {
         //given
         System.out.println(1);
-        SignupRequest signupRequest = SignupRequest.builder()
+        SaveTeacherRequest teacherRequest = SaveTeacherRequest.builder()
             .email("hello@naver.com")
             .password("asdasd")
             .username("juhu")
@@ -86,14 +87,20 @@ class UserApiControllerTest {
             .street("road 17")
             .detailedAddress("juhu")
             .role("ROLE_PTTEACHER")
+            .major("재활")
+            .certificates(new ArrayList<>())
+            .careers(new ArrayList<>())
+            .price(1000)
+            .description("설명설명")
+            .snsAddrs(new ArrayList<>())
             .build();
         //when
-        doNothing().when(userService).signup(signupRequest);
+        doNothing().when(userService).signup(teacherRequest);
 
         //then
-        mockMvc.perform(post("/api/signup")
+        mockMvc.perform(post("/api/user/teacher")
             .contentType(MediaType.APPLICATION_JSON)
-            .content(objectMapper.writeValueAsString(signupRequest)))
+            .content(objectMapper.writeValueAsString(teacherRequest)))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("userApi/signup/successful", requestFields(
@@ -116,7 +123,19 @@ class UserApiControllerTest {
                 fieldWithPath("detailedAddress").type(JsonFieldType.STRING)
                     .description("The user's detailedAddress"),
                 fieldWithPath("role").type(JsonFieldType.STRING)
-                    .description("The user's role")
+                    .description("The user's role"),
+                fieldWithPath("major").type(JsonFieldType.STRING)
+                    .description("The user's major"),
+                fieldWithPath("certificates").type(JsonFieldType.ARRAY)
+                    .description("The user's certificates"),
+                fieldWithPath("careers").type(JsonFieldType.ARRAY)
+                    .description("The user's careers"),
+                fieldWithPath("price").type(JsonFieldType.NUMBER)
+                    .description("The user's price"),
+                fieldWithPath("description").type(JsonFieldType.STRING)
+                    .description("The user's description"),
+                fieldWithPath("snsAddrs").type(JsonFieldType.ARRAY)
+                    .description("The user's snsAddrs")
             )));
 
     }

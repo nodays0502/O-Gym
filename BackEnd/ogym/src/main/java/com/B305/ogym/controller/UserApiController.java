@@ -32,16 +32,16 @@ public class UserApiController {
 
     @GetMapping("/hello")
     public ResponseEntity<String> hello() {
-        return ResponseEntity.ok ("hello");
+        return ResponseEntity.ok("hello");
     }
 
     @PostMapping("/signup")
     public ResponseEntity<SuccessResponseDto> signup(
         @RequestBody @Valid SaveUserRequest signupRequest
     ) {
-        userService.signup (signupRequest);
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
-            200, "회원가입이 성공했습니다", new HashMap ()
+        userService.signup(signupRequest);
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원가입이 성공했습니다", new HashMap()
         ));
     }
 
@@ -49,13 +49,13 @@ public class UserApiController {
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<SuccessResponseDto> getMyInfo() {
         UserBase user = null;
-        user = userService.getMyUserWithAuthorities ();
-        Map<String, Object> map = new HashMap<> ();
-        map.put ("username", user.getUsername ());
-        map.put ("id", user.getId ());
-        map.put ("role", user.getAuthority ());
-        map.put ("email", user.getEmail ());
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
+        user = userService.getMyUserWithAuthorities();
+        Map<String, Object> map = new HashMap<>();
+        map.put("username", user.getUsername());
+        map.put("id", user.getId());
+        map.put("role", user.getAuthority());
+        map.put("email", user.getEmail());
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
 
             200, "회원 정보를 불러오는데 성공했습니다", map
         ));
@@ -64,10 +64,10 @@ public class UserApiController {
     @DeleteMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
     public ResponseEntity<SuccessResponseDto> deleteMyUser() {
-        userService.deleteUserBase ();
+        userService.deleteUserBase();
         // Security Context에서도 지워야한다.
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
-            200, "회원정보 삭제에 성공했습니다", new HashMap ()
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원정보 삭제에 성공했습니다", new HashMap()
         ));
     }
 
@@ -76,8 +76,8 @@ public class UserApiController {
         @RequestBody @Valid SaveStudentRequest studentRequestDto
     ) {
         userService.signup(studentRequestDto);
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
-            200, "회원 가입에  성공했습니다.", new HashMap ()
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원 가입에  성공했습니다.", new HashMap()
         ));
     }
 
@@ -85,14 +85,14 @@ public class UserApiController {
     public ResponseEntity<SuccessResponseDto> signupTeacher(
         @RequestBody @Valid UserDto.SaveTeacherRequest teacherRequestDto) {
         userService.signup(teacherRequestDto);
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
-            200, "회원정보 수정에 성공했습니다.", new HashMap ()
+        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+            200, "회원정보 수정에 성공했습니다.", new HashMap()
         ));
     }
 
     @GetMapping("/user/{username}")
     @PreAuthorize("hasAnyRole('ADMIN')")
     public ResponseEntity<UserBase> getUserInfo(@PathVariable String username) {
-        return ResponseEntity.ok (userService.getUserWithAuthorities (username));
+        return ResponseEntity.ok(userService.getUserWithAuthorities(username));
     }
 }

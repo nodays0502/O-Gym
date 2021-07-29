@@ -81,8 +81,8 @@ public class UserService {
         ptTeacher.setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
         ptTeacher.setRole(teacherRole);
 
-        teacherRequest.getCertificates().stream().forEach( o -> ptTeacher.addCertificate(o));
-        teacherRequest.getCareers().stream().forEach( o -> ptTeacher.addCareer(o));
+        teacherRequest.getCertificates().stream().forEach(o -> ptTeacher.addCertificate(o));
+        teacherRequest.getCareers().stream().forEach(o -> ptTeacher.addCareer(o));
         ptTeacherRepository.save(ptTeacher);
     }
 
@@ -108,11 +108,11 @@ public class UserService {
             .detailedAddress(signupReqeust.getDetailedAddress())
             .build();
 
-        if ("ROLE_PTTEACHER".equals (signupReqeust.getRole ())) {
+        if ("ROLE_PTTEACHER".equals(signupReqeust.getRole())) {
             PTTeacher ptTeacher = PTTeacher.builder()
                 .email(signupReqeust.getEmail())
                 .password(passwordEncoder.encode(signupReqeust.getPassword()))
-                .username(signupReqeust.getUsername ())
+                .username(signupReqeust.getUsername())
                 .nickname(signupReqeust.getNickname())
                 .gender(gender)
                 .tel(signupReqeust.getTel())
@@ -122,11 +122,11 @@ public class UserService {
 
             ptTeacherRepository.save(ptTeacher);
 
-        }else if("ROLE_PTSTUDENT".equals(signupReqeust.getRole()) ){
+        } else if ("ROLE_PTSTUDENT".equals(signupReqeust.getRole())) {
             PTStudent ptStudent = PTStudent.builder()
                 .email(signupReqeust.getEmail())
                 .password(passwordEncoder.encode(signupReqeust.getPassword()))
-                .username(signupReqeust.getUsername ())
+                .username(signupReqeust.getUsername())
                 .nickname(signupReqeust.getNickname())
                 .gender(gender)
                 .tel(signupReqeust.getTel())
@@ -135,8 +135,8 @@ public class UserService {
                 .build();
 
             ptStudentRepository.save(ptStudent);
-        }else{
-            System.out.println ("??????? 머함");
+        } else {
+            System.out.println("??????? 머함");
         }
 
     }
@@ -150,7 +150,7 @@ public class UserService {
         if (result.isEmpty()) {
             return null;
         } else {
-            return  userRepository.findOneWithAuthoritiesByEmail(result.get());
+            return userRepository.findOneWithAuthoritiesByEmail(result.get());
         }
 
     }
