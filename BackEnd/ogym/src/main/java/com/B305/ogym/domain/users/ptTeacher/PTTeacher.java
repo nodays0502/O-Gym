@@ -2,6 +2,7 @@ package com.B305.ogym.domain.users.ptTeacher;
 
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
+import com.B305.ogym.domain.mappingTable.PTTeacherSns;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
@@ -11,7 +12,6 @@ import java.util.List;
 import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.DiscriminatorValue;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
@@ -32,15 +32,6 @@ import lombok.experimental.SuperBuilder;
 @PrimaryKeyJoinColumn(name = "pt_teacher_id")
 public class PTTeacher extends UserBase {
 
-//    public PTTeacher(Long id, String password, Address address, String nickname,
-//        String tel, Gender gender, String email, String major, int price,
-//        String description, String snsAddr){
-//        this.major = major;
-//        this.price = price;
-//        this.description = description;
-//        this.snsAddr = snsAddr;
-//    }
-
     // 평점
     private float starRating;
 
@@ -59,8 +50,8 @@ public class PTTeacher extends UserBase {
     private String description;
 
     // SNS 링크
-    @Embedded
-    private Sns sns;
+    @OneToMany(mappedBy = "id",cascade = CascadeType.ALL )
+    private List<PTTeacherSns> ptTeacherSns = new ArrayList<>();
 
     // 경력 리스트
     @OneToMany(cascade = CascadeType.ALL)

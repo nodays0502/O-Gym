@@ -19,7 +19,7 @@ import lombok.NoArgsConstructor;
 public class Career {
 
     @Builder
-    public Career(String role,String company, LocalDate startDate, LocalDate endDate) {
+    public Career(String company, LocalDate startDate, LocalDate endDate,String role) {
         this.role = role;
         this.company = company;
         this.startDate = startDate;

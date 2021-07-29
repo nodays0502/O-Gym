@@ -10,7 +10,6 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
-import com.B305.ogym.domain.users.ptTeacher.Sns;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -151,10 +150,10 @@ public class InitDB {
             List<Career> careers = new ArrayList<>();
             careers.add(career);
 
-            Sns sns = Sns.builder()
-                .platform("facebook")
-                .url("https://www.instagram.com/physical_gallery_egg/?hl=ko")
-                .build();
+//            Sns sns = Sns.builder()
+//                .platform("facebook")
+//                .url("https://www.instagram.com/physical_gallery_egg/?hl=ko")
+//                .build();
 
             PTTeacher ptTeacher = PTTeacher.builder()
                 .password(passwordEncoder.encode("ssafy"))
@@ -168,7 +167,7 @@ public class InitDB {
                 .major("특공무술/재활/스트레칭/마사지/통증완화")
                 .gender(Gender.MAN)
                 .description("좋았어. 거짓은 머리털만큼도 없다! 신뢰와 정직으로 모시겠습니다")
-                .sns(sns)
+//                .sns(sns)
                 .price(500000)
                 .starRating(4)
                 .careers(careers)

@@ -5,7 +5,7 @@ import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
-import com.B305.ogym.domain.users.ptTeacher.Sns;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -76,9 +76,39 @@ public class UserDto {
         private String description;
 
         @NotEmpty
-        private List<Sns> snsAddrs;
+        private List<SnsDto> snsAddrs;
 
+        @Getter
+        @NoArgsConstructor(access = AccessLevel.PUBLIC)
+        static class SnsDto{
+            private String snsUrl;
+            private String snsName;
+        }
 
+        public PTTeacher toEntity() {
+
+            Gender gender = Gender.MAN;
+            if (this.gender == 1) {
+                gender = Gender.WOMAN;
+            }
+
+            Address address = Address.createAddress(
+                zipCode,
+                street,
+                detailedAddress
+            );
+
+            return PTTeacher.builder()
+                .email(email)
+                .username(username)
+                .nickname(nickname)
+                .gender(gender)
+                .tel(tel)
+                .address(address)
+                .description(description)
+                .price(price)
+                .build();
+        }
     }
 
     @Getter

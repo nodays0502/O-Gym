@@ -3,6 +3,7 @@ package com.B305.ogym.service;
 import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
+import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.autority.AuthorityRepository;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
@@ -40,20 +41,16 @@ public class UserService {
 
 
     @Transactional
-    public void signup(SaveStudentRequest studentSignupRequest) {
-        if (userRepository.findOneWithAuthoritiesByEmail(studentSignupRequest.getEmail())
+    public void signup(SaveStudentRequest StudentRequest) {
+        if (userRepository.findOneWithAuthoritiesByEmail(StudentRequest.getEmail())
             != null) {
             throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
         }
 
-        Authority studentAuthority = authorityRepository.findById("ROLE_PTSTUDENT").get();
-
-        PTStudent ptStudent = studentSignupRequest.toEntity();
-
-        ptStudent.setPassword(passwordEncoder.encode(studentSignupRequest.getPassword()));
-
-        ptStudent.setRole(studentAuthority);
-
+        Authority studentRole = authorityRepository.findById("ROLE_PTSTUDENT").get();
+        PTStudent ptStudent = StudentRequest.toEntity();
+        ptStudent.setPassword(passwordEncoder.encode(StudentRequest.getPassword()));
+        ptStudent.setRole(studentRole);
         ptStudentRepository.save(ptStudent);
 
         List<Monthly> months = monthlyRepository.findAll(); // 1 ~ 12
@@ -61,8 +58,8 @@ public class UserService {
 //            Optional<Monthly> month = monthlyRepository.findById(i + 1); //  미리 리스트로 받아서 사용하자
 //            Monthly monthly = month.orElse(new Monthly(i + 1));
             PTStudentMonthly ptStudentMonthly = PTStudentMonthly.createHealth(
-                studentSignupRequest.getMonthlyHeights().get(i),
-                studentSignupRequest.getMonthlyHeights().get(i),
+                StudentRequest.getMonthlyHeights().get(i),
+                StudentRequest.getMonthlyHeights().get(i),
                 ptStudent, //  연관관계 편의 메소드
                 months.get(i)
             );
@@ -71,7 +68,23 @@ public class UserService {
 
     }
 
+    @Transactional
+    public void signup(SaveTeacherRequest teacherRequest) {
+        if (userRepository.findOneWithAuthoritiesByEmail(teacherRequest.getEmail())
+            != null) {
+            throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
+        }
 
+        Authority teacherRole = authorityRepository.findById("ROLE_PTTEACHER").get();
+
+        PTTeacher ptTeacher = teacherRequest.toEntity();
+        ptTeacher.setPassword(passwordEncoder.encode(teacherRequest.getPassword()));
+        ptTeacher.setRole(teacherRole);
+
+        teacherRequest.getCertificates().stream().forEach( o -> ptTeacher.addCertificate(o));
+        teacherRequest.getCareers().stream().forEach( o -> ptTeacher.addCareer(o));
+        ptTeacherRepository.save(ptTeacher);
+    }
 
     @Transactional
     public void signup(UserDto.SaveUserRequest signupReqeust) {
