@@ -1,6 +1,6 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.common.exception.user.UserDuplicateException;
+import com.B305.ogym.exception.user.UserDuplicateException;
 import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.domain.autority.Authority;

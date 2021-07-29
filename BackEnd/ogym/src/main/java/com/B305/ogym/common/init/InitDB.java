@@ -1,5 +1,6 @@
 package com.B305.ogym.common.init;
 
+import com.B305.ogym.common.encrypt_sha256.Encrypt_sha256;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
@@ -11,15 +12,19 @@ import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.Sns;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import javax.xml.crypto.dsig.DigestMethod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,12 +32,12 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Component
-public class initDB {
+public class InitDB {
 
     private final InitService initService;
 
     @Autowired  // 단일 생성자이기 때문에 Annotation 붙이지 않아도 상관없음
-    public initDB(InitService initService) {
+    public InitDB(InitService initService) {
         this.initService = initService;
     }
 
@@ -48,6 +53,7 @@ public class initDB {
         // 각 자격증마다 가진 사람 리스트 저장 vs 각 PT 트레이너가 가진 자격증 저장
 //        initService.putCertificate();
 
+
     }
 
     @Service
@@ -60,6 +66,7 @@ public class initDB {
         // EMF 선언해서 EM을 따로 뽑아낼 필요가 없다!
         // 학생 더미데이터 추가
         private final PasswordEncoder passwordEncoder;
+
         public void putMonthly() {
             for (int i = 1; i <= 12; i++)
                 em.persist(new Monthly(i));

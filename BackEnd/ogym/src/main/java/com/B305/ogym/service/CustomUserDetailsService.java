@@ -1,6 +1,6 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.common.exception.user.UserNotFoundException;
+import com.B305.ogym.exception.user.UserNotFoundException;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;

@@ -1,11 +1,11 @@
-package com.B305.ogym.common.exception;
+package com.B305.ogym.exception;
 
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_USER;
 import static com.B305.ogym.common.util.constants.ResponseConstants.USER_NOT_FOUND;
 import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_FAILED;
 
-import com.B305.ogym.common.exception.user.UserDuplicateException;
-import com.B305.ogym.common.exception.user.UserNotFoundException;
+import com.B305.ogym.exception.user.UserDuplicateException;
+import com.B305.ogym.exception.user.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;

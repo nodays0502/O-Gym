@@ -1,4 +1,4 @@
-package com.B305.ogym.common.exception.user;
+package com.B305.ogym.exception.user;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

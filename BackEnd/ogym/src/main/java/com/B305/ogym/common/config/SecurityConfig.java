@@ -60,12 +60,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
-            .exceptionHandling()
-            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-            .accessDeniedHandler(jwtAccessDeniedHandler)
-
-            // enable h2-console
-            .and()
+//            .exceptionHandling()
+//            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+//            .accessDeniedHandler(jwtAccessDeniedHandler)
+//
+//            // enable h2-console
+//            .and()
             .headers()
             .frameOptions()
             .sameOrigin()
