@@ -1,6 +1,5 @@
 package com.B305.ogym.common.init;
 
-import com.B305.ogym.common.encrypt_sha256.Encrypt_sha256;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
@@ -12,19 +11,15 @@ import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.Sns;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
-import javax.xml.crypto.dsig.DigestMethod;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -73,6 +68,7 @@ public class InitDB {
 
             em.persist(new Authority("ROLE_USER"));
             em.persist(new Authority("ROLE_PTTEACHER"));
+            em.persist(new Authority("ROLE_PTSTUDENT"));
         }
 
         // 학생 더미데이터 추가
@@ -146,7 +142,7 @@ public class InitDB {
             LocalDate endDate = LocalDate.of(2021, 07, 22);
 
             Career career = Career.builder()
-                .description("피지컬갤러리")
+                .role("피지컬갤러리")
                 .company("OGYM")
                 .startDate(startDate)
                 .endDate(endDate)

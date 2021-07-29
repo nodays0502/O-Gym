@@ -1,9 +1,10 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.exception.user.UserDuplicateException;
 import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.UserDto;
+import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.domain.autority.Authority;
+import com.B305.ogym.domain.autority.AuthorityRepository;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthlyRepository;
 import com.B305.ogym.domain.users.UserRepository;
@@ -16,6 +17,8 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.exception.user.UserDuplicateException;
+import java.util.List;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -33,10 +36,45 @@ public class UserService {
     private final PTStudentMonthlyRepository ptStudentMonthlyRepository;
     private final PTTeacherRepository ptTeacherRepository;
     private final PTStudentRepository ptStudentRepository;
+    private final AuthorityRepository authorityRepository;
 
 
     @Transactional
-    public void signup(UserDto.SignupRequest signupReqeust) {
+    public void signup(SaveStudentRequest studentSignupRequest) {
+        if (userRepository.findOneWithAuthoritiesByEmail(studentSignupRequest.getEmail())
+            != null) {
+            throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
+        }
+
+        Authority studentAuthority = authorityRepository.findById("ROLE_PTSTUDENT").get();
+
+        PTStudent ptStudent = studentSignupRequest.toEntity();
+
+        ptStudent.setPassword(passwordEncoder.encode(studentSignupRequest.getPassword()));
+
+        ptStudent.setRole(studentAuthority);
+
+        ptStudentRepository.save(ptStudent);
+
+        List<Monthly> months = monthlyRepository.findAll(); // 1 ~ 12
+        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
+//            Optional<Monthly> month = monthlyRepository.findById(i + 1); //  미리 리스트로 받아서 사용하자
+//            Monthly monthly = month.orElse(new Monthly(i + 1));
+            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.createHealth(
+                studentSignupRequest.getMonthlyHeights().get(i),
+                studentSignupRequest.getMonthlyHeights().get(i),
+                ptStudent, //  연관관계 편의 메소드
+                months.get(i)
+            );
+            ptStudentMonthlyRepository.save(ptStudentMonthly);
+        }
+
+    }
+
+
+
+    @Transactional
+    public void signup(UserDto.SaveUserRequest signupReqeust) {
         if (userRepository.findOneWithAuthoritiesByEmail(signupReqeust.getEmail())
             != null) {
             throw new UserDuplicateException("이미 가입되어 있는 유저입니다.");
@@ -109,41 +147,6 @@ public class UserService {
         UserBase userBase = getMyUserWithAuthorities();
         userRepository.delete(userBase);
     }
-//    @Transactional
-//    public void changeStudent(UpdateStudentRequestDto updateStudentRequestDto) {
-//        UserBase userBase = getMyUserWithAuthorities();
-//        PTStudent ptStudent = (PTStudent) userBase;
-//        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
-//            Optional<Monthly> month = monthlyRepository.findById(i + 1);
-//            Monthly monthly = month.orElse(new Monthly(i+1));
-//            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.builder()
-//                .monthly(monthly)
-//                .height(updateStudentRequestDto.getMonthlyHeights().get(i))
-//                .weight(updateStudentRequestDto.getMonthlyWeights().get(i))
-//                .ptStudent(ptStudent)
-//                .build();
-//
-//        }
-//
-//    }
 
-    @Transactional
-    public void changeStudent(UserDto.UpdateStudentRequest updateStudentRequestDto) {
-        UserBase userBase = getMyUserWithAuthorities();
-        PTStudent ptStudent = (PTStudent) userBase;
-        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
-            Optional<Monthly> month = monthlyRepository.findById(i + 1);
-            Monthly monthly = month.orElse(new Monthly(i+1));
-            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.builder()
-                .monthly(monthly)
-                .height(updateStudentRequestDto.getMonthlyHeights().get(i))
-                .weight(updateStudentRequestDto.getMonthlyWeights().get(i))
-                .ptStudent(ptStudent)
-                .build();
-            ptStudentMonthlyRepository.save(ptStudentMonthly);
-        }
-    }
-    public void changeTeacher() {
 
-    }
 }

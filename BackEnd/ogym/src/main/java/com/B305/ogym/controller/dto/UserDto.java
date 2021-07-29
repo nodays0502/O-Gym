@@ -1,5 +1,7 @@
 package com.B305.ogym.controller.dto;
 
+import com.B305.ogym.domain.users.common.Address;
+import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
@@ -127,8 +129,25 @@ public class UserDto {
         private List<Integer> monthlyWeights;
 
         public PTStudent toEntity() {
-            return PTStudent.builder()
 
+            Gender gender = Gender.MAN;
+            if (this.gender == 1) {
+                gender = Gender.WOMAN;
+            }
+
+            Address address = Address.createAddress(
+                zipCode,
+                street,
+                detailedAddress
+            );
+
+            return PTStudent.builder()
+                .email(email)
+                .username(username)
+                .nickname(nickname)
+                .gender(gender)
+                .tel(tel)
+                .address(address)
                 .build();
         }
 

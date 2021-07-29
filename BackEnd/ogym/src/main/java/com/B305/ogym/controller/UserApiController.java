@@ -1,11 +1,9 @@
 package com.B305.ogym.controller;
 
-import static com.B305.ogym.controller.dto.UserDto.*;
 import static com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import static com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 
 import com.B305.ogym.controller.dto.SuccessResponseDto;
-import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.service.UserService;
 import java.util.HashMap;
@@ -82,14 +80,14 @@ public class UserApiController {
         ));
     }
 
-    @PostMapping("/user/teacher")
-    public ResponseEntity<SuccessResponseDto> signupTeacher(
-        @RequestBody @Valid SaveTeacherRequest teacherRequestDto) {
-        userService.signup(teacherRequestDto);
-        return ResponseEntity.ok (new SuccessResponseDto<Map> (
-            200, "회원정보 수정에 성공했습니다.", new HashMap ()
-        ));
-    }
+//    @PostMapping("/user/teacher")
+//    public ResponseEntity<SuccessResponseDto> signupTeacher(
+//        @RequestBody @Valid SaveTeacherRequest teacherRequestDto) {
+//        userService.signup(teacherRequestDto);
+//        return ResponseEntity.ok (new SuccessResponseDto<Map> (
+//            200, "회원정보 수정에 성공했습니다.", new HashMap ()
+//        ));
+//    }
 
     @GetMapping("/user/{username}")
     @PreAuthorize("hasAnyRole('ADMIN')")

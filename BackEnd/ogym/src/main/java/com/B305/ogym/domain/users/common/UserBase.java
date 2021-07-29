@@ -65,8 +65,11 @@ public class UserBase extends BaseTimeEntity {
         this.email = claims.get("name").toString();
 //        this.role = claims.get("role").toString();
     }
-    public void setAuthority(Authority authority){
+    public void setRole(Authority authority){
         this.authority = authority;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
