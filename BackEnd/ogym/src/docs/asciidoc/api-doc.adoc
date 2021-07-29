@@ -11,17 +11,20 @@ endif::[]
 
 == 2. 인증
 === 2-1. 회원가입
-===== request-fields
+==== request-fields
 include::{snippets}/userApi/signup/successful/request-fields.adoc[]
 
-===== Request Example
+==== Request Example
 include::{snippets}/userApi/signup/successful/http-request.adoc[]
 
-===== response-body
+==== response-body
 include::{snippets}/userApi/signup/successful/response-body.adoc[]
 
-===== Response Example
+==== Response Example
 include::{snippets}/userApi/signup/successful/http-response.adoc[]
+
+==== curl-request Example
+include::{snippets}/userApi/signup/successful/curl-request.adoc[]
 
 
 

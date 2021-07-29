@@ -75,7 +75,6 @@ class UserApiControllerTest {
     @Test
     public void createUser_success() throws Exception {
         //given
-        System.out.println(1);
         SaveTeacherRequest teacherRequest = SaveTeacherRequest.builder()
             .email("hello@naver.com")
             .password("asdasd")
@@ -102,7 +101,7 @@ class UserApiControllerTest {
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(teacherRequest)))
             .andDo(print())
-            .andExpect(status().isOk())
+            .andExpect(status().isOk()) // 201 isCreated()
             .andDo(document("userApi/signup/successful", requestFields(
                 fieldWithPath("email").type(JsonFieldType.STRING)
                     .description("The user's email address"),
