@@ -67,7 +67,7 @@ public class UserDto {
         private List<Certificate>certificates;
 
         @NotEmpty
-        public List<Career> careers = new ArrayList<>();
+        public List<Career> careers;
 
         @NotNull
         private int price;
@@ -107,6 +107,9 @@ public class UserDto {
                 .address(address)
                 .description(description)
                 .price(price)
+                .major(major)
+                .certificates(new ArrayList<>())
+                .careers(new ArrayList<>())
                 .build();
         }
     }
