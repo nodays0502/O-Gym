@@ -49,4 +49,16 @@ public class PTStudentMonthly {
         this.monthly = monthly;
     }
 
+    public static PTStudentMonthly createHealth(int height, int weight,PTStudent ptStudent, Monthly monthly){
+        PTStudentMonthly result = PTStudentMonthly.builder()
+            .height(height)
+            .weight(weight)
+            .ptStudent(ptStudent)
+            .monthly(monthly)
+            .build();
+        if(!ptStudent.getPtStudentMonthly().contains(result)){
+            ptStudent.getPtStudentMonthly().add(result);
+        }
+        return result;
+    }
 }

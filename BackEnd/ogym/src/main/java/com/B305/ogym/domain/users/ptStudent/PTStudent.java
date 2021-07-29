@@ -2,6 +2,8 @@ package com.B305.ogym.domain.users.ptStudent;
 
 import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
+import com.B305.ogym.domain.users.common.Address;
+import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +35,27 @@ public class PTStudent extends UserBase {
 //    }
 
     @Builder.Default
-    @OneToMany(mappedBy = "ptStudent")
+    @OneToMany(mappedBy = "ptStudent", cascade = CascadeType.ALL)
     private List<PTStudentMonthly> ptStudentMonthly = new ArrayList<>(); // 월 별 체중 , 키
 
     @Builder.Default
-    @OneToMany(mappedBy = "ptStudent", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "ptStudent")
     private List<PTStudentPTTeacher> ptStudentPTTeachers = new ArrayList<>(); // 예약 정보
+
+    public static PTStudent createPTStudent(
+        String email, String password, String username, String nickname, Gender gender, String tel,
+        Address address
+
+    ) {
+        return PTStudent.builder()
+            .email(email)
+            .password(password)
+            .username(username)
+            .nickname(nickname)
+            .gender(gender)
+            .tel(tel)
+            .address(address)
+            .build();
+    }
 
 }

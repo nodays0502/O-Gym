@@ -1,6 +1,9 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
+import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
+import com.B305.ogym.domain.users.common.Address;
+import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -71,11 +74,34 @@ public class PTTeacher extends UserBase {
 
     // 이력?
 
-    //
+    public static PTTeacher createPTTeacher(
+        String email, String password, String username, String nickname, Gender gender, String tel,
+        Address address, Authority authority, String major , int price
+    ) {
+        return PTTeacher.builder()
+            .email(email)
+            .password(password)
+            .username(username)
+            .nickname(nickname)
+            .gender(gender)
+            .tel(tel)
+            .address(address)
+            .authority(authority)
+            .major(major)
+            .price(price)
+            .build();
+    }
+
+
     public void addCertificate(Certificate certificate){
         this.certificates.add(certificate);
         if(certificate.getPtTeacher() != this){
             certificate.setPtTeacher(this);
         }
     }
+
+    public void addCareer(Career career){
+        this.careers.add(career);
+    }
+
 }
