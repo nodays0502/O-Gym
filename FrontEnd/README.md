@@ -88,10 +88,6 @@ Feature의 경우 /FE/Feature/기능명 으로 Develop브랜치에서 뽑아서 
 
 Release 브랜치에 문제가 발생하면 hotfix 브랜치 뽑아서 사용하기
 
-
-
-
-
 ## 서버 구조
 
 - Redis Server 분할(추후 리팩토링)
@@ -100,4 +96,10 @@ Release 브랜치에 문제가 발생하면 hotfix 브랜치 뽑아서 사용하
   - 캐시 데이터 저장소
 - AWS S3 & Lambda
   - AWS 프리 티어(이미지 저장 기본 50GB, Lambda 월별 무료요청 100만)
+
+## FrontEnd 디렉터리 구조 
+
+![](./)
+
+## FrontEnd 패키지 구조
 

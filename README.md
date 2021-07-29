@@ -101,3 +101,15 @@ Release 브랜치에 문제가 발생하면 hotfix 브랜치 뽑아서 사용하
 - AWS S3 & Lambda
   - AWS 프리 티어(이미지 저장 기본 50GB, Lambda 월별 무료요청 100만)
 
+
+
+## 기타 문서
+
+### UI / UX 및 초기 기획 설계 
+
+figma : [https://www.figma.com/file/QynWyOqhkcy7c0XnsIkaJk/SSAFY-%EA%B3%B5%ED%86%B5%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0%3A1](https://www.figma.com/file/QynWyOqhkcy7c0XnsIkaJk/SSAFY-공통프로젝트?node-id=0%3A1)
+
+TIL 업무 노트 & 자세한 이슈 사항을 적은 이슈 노트 
+
+Confluence : https://39ghwjd.atlassian.net/wiki/spaces/~106910883/pages/27918346/OGYM
+
