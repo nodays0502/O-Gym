@@ -19,5 +19,7 @@ export const InputState = atom<InputStateType>({
     registerZipcode: '',
     registerStreetAddress: '',
     registerDetailedAddress: '',
+    
+
   }
 })

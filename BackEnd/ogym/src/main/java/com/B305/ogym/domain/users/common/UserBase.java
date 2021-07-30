@@ -1,5 +1,6 @@
 package com.B305.ogym.domain.users.common;
 
+import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.users.BaseTimeEntity;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -11,14 +12,21 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "user_base")
-@DiscriminatorColumn(name = "DTYPE")
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@DiscriminatorColumn(name = "role")
 public class UserBase extends BaseTimeEntity {
 
     @Id
@@ -31,6 +39,9 @@ public class UserBase extends BaseTimeEntity {
     @Embedded
     private Address address; // 주소
 
+    private String username; // 이름
+
+    @Column(unique = true)
     private String nickname; // 닉네임
 
     private String tel; // 연락처
@@ -41,6 +52,33 @@ public class UserBase extends BaseTimeEntity {
     @Column(unique = true)
     private String email; // 이메일
 
-    @Enumerated
+    @Embedded
     private ProfilePicture profilePicture; // 프로필 사진
+
+    @ManyToOne
+    @JoinColumn(name = "authority")
+    private Authority authority;
+
+//    public UserBase(Long id, String password, Authority authority, String nickname, String email,String zipCode,
+//        String street, String detailedAddress, String tel, Gender gender){
+//        this.id = id;
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.authority = authority;
+//        this.address = Address.builder()
+//                        .zipCode(zipCode)
+//                        .street(street)
+//                        .detailedAddress(detailedAddress)
+//                        .build();
+//        this.email = email;
+//        this.tel = tel;
+//        this.gender = gender;
+//    }
+//    @Builder
+//    public UserBase(String email , String password , String nickname, Authority authority){
+//        this.email = email;
+//        this.password = password;
+//        this.nickname = nickname;
+//        this.authority = authority;
+//    }
 }

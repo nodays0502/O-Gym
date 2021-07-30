@@ -29,7 +29,7 @@ public class PTStudentMonthly {
     private int year; // 년도
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "pt_student_id")
     private PTStudent ptStudent; // 학생
 
     @OneToOne(fetch = FetchType.LAZY)

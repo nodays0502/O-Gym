@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.mapping.ToOne;
@@ -23,7 +24,6 @@ import org.hibernate.mapping.ToOne;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
 @Table(
     name = "pt_student_pt_teacher",
     uniqueConstraints = {
@@ -33,6 +33,14 @@ import org.hibernate.mapping.ToOne;
     }
 )
 public class PTStudentPTTeacher {
+
+    @Builder
+    public PTStudentPTTeacher(PTStudent ptStudent, PTTeacher ptTeacher,
+        LocalDateTime reservationDate) {
+        this.ptStudent = ptStudent;
+        this.ptTeacher = ptTeacher;
+        this.reservationDate = reservationDate;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
