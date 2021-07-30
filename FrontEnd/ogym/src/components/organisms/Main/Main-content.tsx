@@ -1,4 +1,32 @@
-import { Carousel } from "antd";
+import { Carousel, Image } from "antd";
+import styled from "styled-components";
+import crossFit from '../../../assets/pages/mainPage/carousel/crossfit.jpg';
+import dumbBell from '../../../assets/pages/mainPage/carousel/dumbbells.jpg';
+import weightLift from '../../../assets/pages/mainPage/carousel/weight_lifting.jpg';
+
+const StyledCarousel = styled(Carousel)`
+
+ .slick-dots li button {
+    // background: red;
+    opacity: 0.4;
+}
+
+ .slick-dots li.slick-active button {
+    opacity: 1;
+    // background: #ff4ef6;
+    // animation: fillBackground 1s infinite
+    background: linear-gradient(to left, rgba(0,0,0,0.4) 50%, #fff 50%);
+    background-size: 200% 100%;
+    background-position: bottom right;
+    transition: all 3s ease-in;
+}
+
+@keyframes fillBackground {
+    from {background: red;}
+  to {background: blue;}
+}
+`;
+
 
 const MainContent = (): JSX.Element => {
     
@@ -6,38 +34,24 @@ const MainContent = (): JSX.Element => {
         console.log(a, b, c);
       }
       
-      const contentStyle: any = {
-        height: '160px',
-        color: '#fff',
-        lineHeight: '160px',
-        textAlign: 'center',
-        background: '#364d79',
-      };
-    
+  
     return (
         <>
-            <Carousel afterChange={onChange}
-            
-                appendDots={
-                    dots => (<><ul>1</ul>
-                        <ul>1</ul><ul>1</ul>
-                        </>
-                        )
-                }
+            <StyledCarousel afterChange={onChange}
+                autoplay
             >
-                <div>
-                <h3 style={contentStyle}>1</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>2</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>3</h3>
-                </div>
-                <div>
-                <h3 style={contentStyle}>4</h3>
-                </div>
-            </Carousel>,
+              
+                <Image
+                  src={crossFit}
+                />
+                
+                <Image
+                  src={dumbBell}
+                />
+                 <Image
+                  src={weightLift}
+                />
+            </StyledCarousel>
         </>
     );
 }

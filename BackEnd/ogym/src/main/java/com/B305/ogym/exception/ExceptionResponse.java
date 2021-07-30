@@ -1,4 +1,4 @@
-package com.B305.ogym.common.exception;
+package com.B305.ogym.exception;
 
 import lombok.Builder;
 import lombok.Getter;

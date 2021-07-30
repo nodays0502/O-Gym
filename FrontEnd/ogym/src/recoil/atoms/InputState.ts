@@ -9,6 +9,17 @@ export const InputState = atom<InputStateType>({
   default: {
     loginEmail: '',
     loginPassword: '',
+    registerPassword: '',
+    registerPasswordConfirmation: '',
+    registerName: '',
+    registerNickname: '',
+    registerEmail: '',
+    registerPhone: '',
+    registerGender: 0,
+    registerZipcode: '',
+    registerStreetAddress: '',
+    registerDetailedAddress: '',
     
+
   }
 })
