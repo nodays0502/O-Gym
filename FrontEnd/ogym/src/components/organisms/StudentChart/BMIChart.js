@@ -4,7 +4,7 @@ const data = [
   {
     id: "hack",
     label: "hack",
-    value: 397,
+    value: 100,
     color: "hsl(120, 70%, 50%)",
   },
   {
