@@ -10,7 +10,6 @@ import LoginPage from './pages/LoginPage/LoginPage';
 import MainNavigation from './components/organisms/Main/Main-Navigation';
 import MainPage from './pages/MainPage/MainPage';
 
-
 function App() {
   return (
     <>

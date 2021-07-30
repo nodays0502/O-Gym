@@ -72,31 +72,9 @@ const MainNavigation = (): JSX.Element => {
             </StyledButton>
             <StyledModal
                 title="O-GYM"
-                style={isVisible ? 
-                  {
-                    position: "fixed",
-                    top: "0px",
-                    left: "0px",
-                    bottom: "0px",
-                    height: "100%",
-                    animation: "none",
-                    transition: "350ms",
-                  } :
-                  {
-                    position: "fixed",
-                    top: "0px",
-                    left: "-150px",
-                    bottom: "0px",
-                    height: "100%",
-                    animation: "none",
-                    transition: "550",
-                  }
-              }
                 visible={isVisible}
                 onOk={clickModalClose}
                 onCancel={clickModalClose}
-                transitionName=""
-                maskTransitionName=""
                 footer={null}
             >
               <ul style={{width: "100%"}}>
