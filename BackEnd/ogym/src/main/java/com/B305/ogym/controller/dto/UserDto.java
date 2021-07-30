@@ -15,13 +15,19 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 public class UserDto {
+
     @Getter
+    @AllArgsConstructor
+    @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveTeacherRequest {
+
         @NotEmpty
         @Size(min = 3, max = 50, message = "이메일 똑바로 입력하세요.")
         @Pattern(regexp = "\\S+@\\S+(.com)$")
@@ -33,7 +39,7 @@ public class UserDto {
         private String password;
 
         @NotEmpty
-        @Size(min = 2 , max = 10, message = "올바르게 이름을 입력하세요.")
+        @Size(min = 2, max = 10, message = "올바르게 이름을 입력하세요.")
         private String username;
 
         @NotEmpty
@@ -48,7 +54,7 @@ public class UserDto {
         private String tel;
 
         @NotEmpty
-        @Pattern(regexp = "\\d{5}" ,message = "올바른 우편번호를 입력하세요.")
+        @Pattern(regexp = "\\d{5}", message = "올바른 우편번호를 입력하세요.")
         private String zipCode; // 우편번호
 
         @NotEmpty(message = "도로명 주소를 입력하세요.")
@@ -63,11 +69,11 @@ public class UserDto {
         @NotBlank
         private String major;
 
-        @NotEmpty
-        private List<Certificate>certificates;
+//        @NotEmpty
+        private List<Certificate> certificates;
 
-        @NotEmpty
-        public List<Career> careers = new ArrayList<>();
+//        @NotEmpty
+        public List<Career> careers;
 
         @NotNull
         private int price;
@@ -75,12 +81,13 @@ public class UserDto {
         @NotBlank
         private String description;
 
-        @NotEmpty
+//        @NotEmpty
         private List<SnsDto> snsAddrs;
 
         @Getter
         @NoArgsConstructor(access = AccessLevel.PUBLIC)
-        static class SnsDto{
+        static class SnsDto {
+
             private String snsUrl;
             private String snsName;
         }
@@ -107,6 +114,9 @@ public class UserDto {
                 .address(address)
                 .description(description)
                 .price(price)
+                .major(major)
+                .certificates(new ArrayList<>())
+                .careers(new ArrayList<>())
                 .build();
         }
     }
@@ -114,6 +124,7 @@ public class UserDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveStudentRequest {
+
         @NotEmpty
         @Size(min = 3, max = 50, message = "이메일 똑바로 입력하세요.")
         @Pattern(regexp = "\\S+@\\S+(.com)$")
@@ -125,7 +136,7 @@ public class UserDto {
         private String password;
 
         @NotEmpty
-        @Size(min = 2 , max = 10, message = "올바르게 이름을 입력하세요.")
+        @Size(min = 2, max = 10, message = "올바르게 이름을 입력하세요.")
         private String username;
 
         @NotEmpty
@@ -140,7 +151,7 @@ public class UserDto {
         private String tel;
 
         @NotEmpty
-        @Pattern(regexp = "\\d{5}" ,message = "올바른 우편번호를 입력하세요.")
+        @Pattern(regexp = "\\d{5}", message = "올바른 우편번호를 입력하세요.")
         private String zipCode; // 우편번호
 
         @NotEmpty(message = "도로명 주소를 입력하세요.")
@@ -184,8 +195,6 @@ public class UserDto {
     }
 
 
-
-
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveUserRequest {
@@ -201,7 +210,7 @@ public class UserDto {
         private String password;
 
         @NotEmpty
-        @Size(min = 2 , max = 10, message = "올바르게 이름을 입력하세요.")
+        @Size(min = 2, max = 10, message = "올바르게 이름을 입력하세요.")
         private String username;
 
         @NotEmpty
@@ -216,7 +225,7 @@ public class UserDto {
         private String tel;
 
         @NotEmpty
-        @Pattern(regexp = "\\d{5}" ,message = "올바른 우편번호를 입력하세요.")
+        @Pattern(regexp = "\\d{5}", message = "올바른 우편번호를 입력하세요.")
         private String zipCode; // 우편번호
 
         @NotEmpty(message = "도로명 주소를 입력하세요.")
@@ -233,6 +242,7 @@ public class UserDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class GetUserInfoRequest {
+
         @NotEmpty
         private List<String> req;
     }
@@ -240,7 +250,8 @@ public class UserDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class GetUserInfoResponse {
-        private List<Map<String,Object>> info;
+
+        private List<Map<String, Object>> info;
     }
 
 

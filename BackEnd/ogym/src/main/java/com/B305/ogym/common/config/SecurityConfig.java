@@ -4,6 +4,7 @@ import com.B305.ogym.common.jwt.JwtAccessDeniedHandler;
 import com.B305.ogym.common.jwt.JwtAuthenticationEntryPoint;
 import com.B305.ogym.common.jwt.JwtSecurityConfig;
 import com.B305.ogym.common.jwt.TokenProvider;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -50,6 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 , "/favicon.ico"
                 , "/error"
             );
+        web.ignoring().antMatchers("/docs/**");
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Override
@@ -60,12 +63,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
 
-//            .exceptionHandling()
-//            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
-//            .accessDeniedHandler(jwtAccessDeniedHandler)
-//
-//            // enable h2-console
-//            .and()
+            .exceptionHandling()
+            .authenticationEntryPoint(jwtAuthenticationEntryPoint)
+            .accessDeniedHandler(jwtAccessDeniedHandler)
+
+            // enable h2-console
+            .and()
             .headers()
             .frameOptions()
             .sameOrigin()
@@ -80,9 +83,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/api/hello").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/signup").permitAll()
-            .antMatchers("/api/user/student").permitAll()
-            .antMatchers("/api/user/teacher").permitAll()
-
             .anyRequest().authenticated()
 
             .and()
