@@ -1,7 +1,13 @@
 package com.B305.ogym.domain.users.ptStudent;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -10,15 +16,32 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "monthly")
 public class Monthly {
 
-    public Monthly(int month) {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pt_student_monthly_id")
+    private Long id;   // 대리 키
+    private int month; // 달
+
+    private int height; // 키
+    private int weight; // 몸무게
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pt_student_id")
+    private PTStudent ptStudent; // 학생
+
+    @Builder
+    public Monthly(int month, int height, int weight, PTStudent ptStudent){
         this.month = month;
+        this.height = height;
+        this.weight = weight;
+        this.ptStudent = ptStudent;
+        if(!ptStudent.getMonthly().contains(this))
+            ptStudent.getMonthly().add(this);
     }
 
-    @Id
-    private int month; // 달
+
 }

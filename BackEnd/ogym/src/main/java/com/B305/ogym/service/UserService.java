@@ -6,7 +6,6 @@ import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.autority.AuthorityRepository;
-import com.B305.ogym.domain.mappingTable.PTStudentMonthly;
 import com.B305.ogym.domain.mappingTable.PTStudentMonthlyRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.Address;
@@ -54,17 +53,17 @@ public class UserService {
         ptStudentRepository.save(ptStudent);
 
         List<Monthly> months = monthlyRepository.findAll(); // 1 ~ 12
-        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
-//            Optional<Monthly> month = monthlyRepository.findById(i + 1); //  미리 리스트로 받아서 사용하자
-//            Monthly monthly = month.orElse(new Monthly(i + 1));
-            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.createHealth(
-                StudentRequest.getMonthlyHeights().get(i),
-                StudentRequest.getMonthlyHeights().get(i),
-                ptStudent, //  연관관계 편의 메소드
-                months.get(i)
-            );
-            ptStudentMonthlyRepository.save(ptStudentMonthly);
-        }
+//        for (int i = 0; i < 12; i++) { // 12개월 다 넣는다.
+////            Optional<Monthly> month = monthlyRepository.findById(i + 1); //  미리 리스트로 받아서 사용하자
+////            Monthly monthly = month.orElse(new Monthly(i + 1));
+//            PTStudentMonthly ptStudentMonthly = PTStudentMonthly.createHealth(
+//                StudentRequest.getMonthlyHeights().get(i),
+//                StudentRequest.getMonthlyHeights().get(i),
+//                ptStudent, //  연관관계 편의 메소드
+//                months.get(i)
+//            );
+//            ptStudentMonthlyRepository.save(ptStudentMonthly);
+//        }
 
     }
 
