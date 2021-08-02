@@ -9,7 +9,7 @@ function App() {
   
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(`http://demobackend:8081`);
+      const result = await axios.get(`http://10.152.183.31:8081`);
       setData(result.data);
     }
     fetchData();
