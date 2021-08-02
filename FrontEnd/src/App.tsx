@@ -12,6 +12,7 @@ function App() {
       const result = await axios.get(`http://ec2-13-124-95-248.ap-northeast-2.compute.amazonaws.com:32286/`);
       setData(result.data);
     }
+    fetchData();
   }, [])
 
   return (
