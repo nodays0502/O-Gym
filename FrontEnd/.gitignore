@@ -8,8 +8,7 @@
 # testing
 /coverage
 
-# production
-/build
+# production (/build) 여기서는 git에 올림 
 
 # misc
 .DS_Store
