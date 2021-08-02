@@ -12,7 +12,7 @@ public class testController {
     @CrossOrigin("*")
     @GetMapping(value = "/")
     public String hello(HttpServletResponse response) {
-        response.addHeader("Access-Control-Allow-Origin", "*");
+        response.addHeader("Access-Control-Allow-Origin", "true");
         return "Hello World!!";
     }
 }
