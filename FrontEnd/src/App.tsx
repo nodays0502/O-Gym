@@ -9,7 +9,7 @@ function App() {
   
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(`http://ec2-13-124-95-248.ap-northeast-2.compute.amazonaws.com:32286/`);
+      const result = await axios.get(`http://demobackend:8081`);
       setData(result.data);
     }
     fetchData();
