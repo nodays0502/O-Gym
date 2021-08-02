@@ -7,14 +7,12 @@ import Input from './components/atoms/Input';
 import Label from './components/atoms/Label';
 import ListItem from './components/molecules/ListItem';
 import LoginPage from './pages/LoginPage/LoginPage';
-import MainNavigation from './components/organisms/Main/Main-Navigation';
 import MainPage from './pages/MainPage/MainPage';
+
 
 function App() {
   return (
     <>
-      {/* <MainNavigation /> */}
-      <MainPage></MainPage>
       {/* <Button text='button' backgroundColor="blue"></Button>
       <Span text='테스트' />
       <div>
@@ -35,6 +33,7 @@ function App() {
       </ButtonList>
       </ListItem> */}
       {/* <LoginPage /> */}
+      <MainPage />
     </>
   );
 }
