@@ -57,4 +57,14 @@ public class PTStudent extends UserBase {
             .build();
     }
 
+    public void addMonthly(int month, int height, int weight){
+        Monthly monthly = Monthly.builder()
+            .month(month)
+            .height(height)
+            .weight(weight)
+            .ptStudent(this)
+            .build();
+        this.monthly.add(monthly);
+    }
+
 }

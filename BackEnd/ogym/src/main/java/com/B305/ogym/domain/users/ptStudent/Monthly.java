@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -17,13 +18,20 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "monthly")
+@Table(name = "monthly",
+    uniqueConstraints = {
+        @UniqueConstraint(
+            columnNames = {"pt_Student_id","month"}
+        )
+    })  // ptStudent, month 컬럼을 묶어서 UNIQUE 설정
 public class Monthly {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "pt_student_monthly_id")
+    @Column(name = "monthly_id")
     private Long id;   // 대리 키
+
+    @Column(name="month")
     private int month; // 달
 
     private int height; // 키
@@ -34,13 +42,14 @@ public class Monthly {
     private PTStudent ptStudent; // 학생
 
     @Builder
-    public Monthly(int month, int height, int weight, PTStudent ptStudent){
+    public Monthly(int month, int height, int weight, PTStudent ptStudent) {
         this.month = month;
         this.height = height;
         this.weight = weight;
         this.ptStudent = ptStudent;
-        if(!ptStudent.getMonthly().contains(this))
+        if (!ptStudent.getMonthly().contains(this)) {
             ptStudent.getMonthly().add(this);
+        }
     }
 
 
