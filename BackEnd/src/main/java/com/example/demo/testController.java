@@ -6,11 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-
+@CrossOrigin(origins = {"*"})
 @RestController
 public class testController {
 
-    @CrossOrigin("*")
+
     @GetMapping(value = "/")
     public String hello(HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
