@@ -6,7 +6,6 @@ import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.autority.AuthorityRepository;
-import com.B305.ogym.domain.mappingTable.PTStudentMonthlyRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
@@ -33,7 +32,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final MonthlyRepository monthlyRepository;
-    private final PTStudentMonthlyRepository ptStudentMonthlyRepository;
+//    private final PTStudentMonthlyRepository ptStudentMonthlyRepository;
     private final PTTeacherRepository ptTeacherRepository;
     private final PTStudentRepository ptStudentRepository;
     private final AuthorityRepository authorityRepository;

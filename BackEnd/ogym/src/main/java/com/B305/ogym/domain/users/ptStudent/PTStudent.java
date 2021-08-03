@@ -67,4 +67,8 @@ public class PTStudent extends UserBase {
         this.monthly.add(monthly);
     }
 
+    public void deleteMonthly(int month){
+
+    }
+
 }
