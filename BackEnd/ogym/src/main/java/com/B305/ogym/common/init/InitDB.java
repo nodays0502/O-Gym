@@ -61,6 +61,7 @@ public class InitDB {
         public void putAuth() {
             em.persist(new Authority("ROLE_USER"));
             em.persist(new Authority("ROLE_PTTEACHER"));
+            em.persist(new Authority("ROLE_PTSTUDENT"));
         }
 
         // 학생 더미데이터 추가

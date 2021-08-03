@@ -1,5 +1,7 @@
 package com.B305.ogym.common.jwt;
 
+import com.B305.ogym.domain.users.UserRepository;
+import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
@@ -41,16 +43,14 @@ public class TokenProvider implements InitializingBean {
 
     private Key key;
 
-    @Autowired
-    private PTTeacherRepository ptTeacherRepository;
-    @Autowired
-    private PTStudentRepository ptStudentRepository;
+    private final UserRepository userRepository;
 
     public TokenProvider(
         @Value("${jwt.secret}") String secret,
-        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds) {
+        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds, UserRepository userRepository) {
         this.secret = secret;
         this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -67,29 +67,16 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        if("ROLE_PTTEACHER".equals(authorities)){
-            PTTeacher ptTeacher = ptTeacherRepository.findByEmail(authentication.getName());
-            return Jwts.builder()
-                .setSubject(ptTeacherRepository.findByEmail(authentication.getName()).getEmail())
-                .claim("userId",ptTeacher.getId())
-                .claim("price",ptTeacher.getPrice())
-                .claim("description",ptTeacher.getDescription())
-                .claim(AUTHORITIES_KEY, authorities)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
-                .compact();
-        } else {
-            PTStudent ptStudent = ptStudentRepository.findByEmail(authentication.getName());
-            return Jwts.builder()
-                .setSubject(authentication.getName())
-                .claim("userId", ptStudent.getId())
-                .claim("", authorities)
-                .claim(AUTHORITIES_KEY, authorities)
-                .claim(AUTHORITIES_KEY, authorities)
-                .signWith(key, SignatureAlgorithm.HS512)
-                .setExpiration(validity)
-                .compact();
-        }
+        UserBase user = userRepository.findByEmail(authentication.getName());
+
+        return Jwts.builder()
+            .claim("id",user.getId())
+            .claim("email",user.getEmail())
+//            .setSubject(authentication.getName())
+            .claim(AUTHORITIES_KEY, authorities)
+            .signWith(key, SignatureAlgorithm.HS512)
+            .setExpiration(validity)
+            .compact();
     }
 
     public Authentication getAuthentication(String token) {
@@ -100,7 +87,7 @@ public class TokenProvider implements InitializingBean {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-        User principal = new User(claims.getSubject(), "", authorities);
+        User principal = new User((String)claims.get("email"), "", authorities);
 
         return new UsernamePasswordAuthenticationToken(principal, token, authorities);
     }
