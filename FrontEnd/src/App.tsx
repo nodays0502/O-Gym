@@ -13,7 +13,7 @@ function App() {
   
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(`http://ec2-13-124-95-248.ap-northeast-2.compute.amazonaws.com:32286/`);
+      const result = await axios.get(`http://i5b305.p.ssafy.io:32286`);
       console.log(result.statusText);
       setData(result.statusText);
     }
