@@ -13,14 +13,9 @@ function App() {
   
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(`http://ec2-13-124-95-248.ap-northeast-2.compute.amazonaws.com:32286`,
-        {
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          }
-        });
-      console.log(result.statusText);
-      setData(result.statusText);
+      const result = await axios.get(`http://13.124.95.248`);
+      console.log(result);
+      setData(result.data);
     }
     fetchData();
   }, [])
