@@ -3,10 +3,6 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
-axios.defaults.headers.common = {
-  Pragma: 'no-cache'
-};
-
 function App() {
 
   const [data, setData] = useState('');
