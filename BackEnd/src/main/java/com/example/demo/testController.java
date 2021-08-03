@@ -14,6 +14,7 @@ public class testController {
     @GetMapping(value = "/")
     public String hello(HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
+        response.setStatus(200);
         return "Hello World!!";
     }
 
