@@ -1,11 +1,26 @@
 package com.B305.ogym.common.jwt;
 
-import io.jsonwebtoken.*;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
+import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
+import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,12 +28,6 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-
-import java.security.Key;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Date;
-import java.util.stream.Collectors;
 
 @Component
 public class TokenProvider implements InitializingBean {
@@ -32,6 +41,10 @@ public class TokenProvider implements InitializingBean {
 
     private Key key;
 
+    @Autowired
+    private PTTeacherRepository ptTeacherRepository;
+    @Autowired
+    private PTStudentRepository ptStudentRepository;
 
     public TokenProvider(
         @Value("${jwt.secret}") String secret,
@@ -54,12 +67,29 @@ public class TokenProvider implements InitializingBean {
         long now = (new Date()).getTime();
         Date validity = new Date(now + this.tokenValidityInMilliseconds);
 
-        return Jwts.builder()
-            .setSubject(authentication.getName())
-            .claim(AUTHORITIES_KEY, authorities)
-            .signWith(key, SignatureAlgorithm.HS512)
-            .setExpiration(validity)
-            .compact();
+        if("ROLE_PTTEACHER".equals(authorities)){
+            PTTeacher ptTeacher = ptTeacherRepository.findByEmail(authentication.getName());
+            return Jwts.builder()
+                .setSubject(ptTeacherRepository.findByEmail(authentication.getName()).getEmail())
+                .claim("userId",ptTeacher.getId())
+                .claim("price",ptTeacher.getPrice())
+                .claim("description",ptTeacher.getDescription())
+                .claim(AUTHORITIES_KEY, authorities)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+        } else {
+            PTStudent ptStudent = ptStudentRepository.findByEmail(authentication.getName());
+            return Jwts.builder()
+                .setSubject(authentication.getName())
+                .claim("userId", ptStudent.getId())
+                .claim("", authorities)
+                .claim(AUTHORITIES_KEY, authorities)
+                .claim(AUTHORITIES_KEY, authorities)
+                .signWith(key, SignatureAlgorithm.HS512)
+                .setExpiration(validity)
+                .compact();
+        }
     }
 
     public Authentication getAuthentication(String token) {

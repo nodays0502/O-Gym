@@ -1,5 +1,7 @@
 package com.B305.ogym.common.init;
 
+
+import com.B305.ogym.domain.autority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
@@ -39,6 +41,8 @@ public class InitDB {
         initService.putPTStudent();
         initService.putPTTeacher();
         initService.putPTStudentPTTeacher();
+        initService.putAuth();
+
 //        initService.putCertificate();
 
     }
@@ -53,6 +57,11 @@ public class InitDB {
         // EMF 선언해서 EM을 따로 뽑아낼 필요가 없다!
         // 학생 더미데이터 추가
         private final PasswordEncoder passwordEncoder;
+
+        public void putAuth() {
+            em.persist(new Authority("ROLE_USER"));
+            em.persist(new Authority("ROLE_PTTEACHER"));
+        }
 
         // 학생 더미데이터 추가
         public void putPTStudent() {
@@ -133,6 +142,7 @@ public class InitDB {
 
             Career career = Career.builder()
 //                .description("피지컬갤러리")
+                .role("원장")
                 .company("OGYM")
                 .startDate(startDate)
                 .endDate(endDate)
@@ -172,17 +182,7 @@ public class InitDB {
             ptTeacher.addCertificate(certificate4);
 
             em.persist(ptTeacher);
-            List<PTTeacher> resultList = em
-                .createQuery("select t from PTTeacher t join fetch t.certificates c where t.id = 2",
-                    PTTeacher.class)
-                .getResultList();
-            System.out.println(resultList.size());
-            for (PTTeacher teacher : resultList) {
-                System.out.println(teacher.getId() + " ");
-                for (int i = 0; i < teacher.getCertificates().size(); i++) {
-                    System.out.println(teacher.getCertificates().get(i).getName());
-                }
-            }
+
         }
 
         // 예약시간 더미데이터 추가
