@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class testController {
 
     @CrossOrigin("*")
-    @GetMapping(value = "/hello")
+    @GetMapping(value = "/")
     public String hello(HttpServletResponse response) {
         response.addHeader("Access-Control-Allow-Origin", "*");
         return "Hello World!!";
