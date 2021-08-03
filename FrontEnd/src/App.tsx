@@ -3,13 +3,17 @@ import logo from './logo.svg';
 import './App.css';
 import axios from 'axios';
 
+axios.defaults.headers.common = {
+  Pragma: 'no-cache'
+};
+
 function App() {
 
   const [data, setData] = useState('');
   
   useEffect(() => {
     async function fetchData() {
-      const result = await axios.get(`http://ec2-13-124-95-248.ap-northeast-2.compute.amazonaws.com:32286/`);
+      const result = await axios.get(`/`);
       setData(result.data);
     }
     fetchData();
