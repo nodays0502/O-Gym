@@ -1,7 +1,7 @@
 package com.B305.ogym.common.init;
 
 
-import com.B305.ogym.domain.autority.Authority;
+import com.B305.ogym.domain.authority.Authority;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
