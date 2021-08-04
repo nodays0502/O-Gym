@@ -1,11 +1,15 @@
 package com.B305.ogym.controller;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
@@ -13,9 +17,11 @@ import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfig
 import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
+import com.B305.ogym.exception.user.UserDuplicateException;
 import com.B305.ogym.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -64,11 +70,8 @@ class UserApiControllerTest {
             .build();
     }
 
-    @DisplayName("선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
-    @Test
-    public void createTeacher_success() throws Exception {
-        //given
-        SaveTeacherRequest teacherRequest = SaveTeacherRequest.builder()
+    private SaveTeacherRequest createTeacherRequest() {
+        return SaveTeacherRequest.builder()
             .email("hello@naver.com")
             .password("asdasd")
             .username("juhu")
@@ -86,6 +89,33 @@ class UserApiControllerTest {
             .description("트레이너")
             .snsAddrs(new ArrayList<>())
             .build();
+    }
+
+    private SaveStudentRequest createStudentRequest() {
+        return SaveStudentRequest.builder()
+            .email("hello@naver.com")
+            .password("asdasd")
+            .username("한솥")
+            .nickname("nononoo1")
+            .gender(0)
+            .tel("010-0000-0000")
+            .zipCode("12345")
+            .street("도로명")
+            .detailedAddress("상세주소")
+            .role("ROLE_PTTEACHER")
+            .monthlyWeights(new ArrayList<Integer>(Arrays
+                .asList(180, 200, 210, 180, 200, 210, 180, 200, 210, 180, 200, 210)))
+            .monthlyHeights(new ArrayList<Integer>(Arrays
+                .asList(180, 200, 210, 180, 200, 210, 180, 200, 210, 180, 200, 210)))
+            .build();
+    }
+
+    @DisplayName("선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
+    @Test
+    public void createTeacher_success() throws Exception {
+        //given
+        SaveTeacherRequest teacherRequest = createTeacherRequest();
+
         //when
         doNothing().when(userService).signup(teacherRequest);
 
@@ -95,7 +125,7 @@ class UserApiControllerTest {
             .content(objectMapper.writeValueAsString(teacherRequest)))
             .andDo(print())
             .andExpect(status().isOk()) // 201 isCreated()
-            .andDo(document("userApi/signup/successful", requestFields(
+            .andDo(document("userApi/signup/teacher/successful", requestFields(
                 fieldWithPath("email").type(JsonFieldType.STRING)
                     .description("The user's email address"),
                 fieldWithPath("password").type(JsonFieldType.STRING)
@@ -135,20 +165,7 @@ class UserApiControllerTest {
     @Test
     public void createStudent_success() throws Exception {
         //given
-        var studentRequest = SaveStudentRequest.builder()
-            .email("hello@naver.com")
-            .password("asdasd")
-            .username("juhu")
-            .nickname("juhu")
-            .gender(0)
-            .tel("010-0000-0000")
-            .zipCode("12345")
-            .street("road 17")
-            .detailedAddress("juhu")
-            .role("ROLE_PTSTUDENT")
-            .monthlyWeights(new ArrayList<>())
-            .monthlyHeights(new ArrayList<>())
-            .build();
+        SaveStudentRequest studentRequest = createStudentRequest();
         //when
         doNothing().when(userService).signup(studentRequest);
 
@@ -158,7 +175,7 @@ class UserApiControllerTest {
             .content(objectMapper.writeValueAsString(studentRequest)))
             .andDo(print())
             .andExpect(status().isOk()) // 201 isCreated()
-            .andDo(document("userApi/signup/successful", requestFields(
+            .andDo(document("userApi/signup/student/successful", requestFields(
                 fieldWithPath("email").type(JsonFieldType.STRING)
                     .description("The user's email address"),
                 fieldWithPath("password").type(JsonFieldType.STRING)
@@ -180,20 +197,61 @@ class UserApiControllerTest {
                 fieldWithPath("role").type(JsonFieldType.STRING)
                     .description("The user's role"),
                 fieldWithPath("monthlyHeights").type(JsonFieldType.ARRAY)
-                    .description("The user's certificates"),
+                    .description("The user's monthlyHeights"),
                 fieldWithPath("monthlyWeights").type(JsonFieldType.ARRAY)
-                    .description("The user's careers")
+                    .description("The user's monthlyWeights")
             )));
     }
 
-    @DisplayName("회원가입 - 이메일 중복으로 인한 회원가입 실패")
+    @DisplayName("유저 회원가입 - 이메일 중복으로 인한 회원가입 실패")
     @Test
-    public void createUser_failure() throws Exception {
+    public void createUser_email_failure() throws Exception {
         //given
+        SaveTeacherRequest teacherRequest = createTeacherRequest();
 
         //when
-
+        doThrow(new UserDuplicateException("이메일 중복")).when(userService).signup(
+            (SaveTeacherRequest) any());
         //then
+        mockMvc.perform(post("/api/user/teacher")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(teacherRequest)))
+            .andDo(print())
+            .andExpect(status().isConflict())
+            .andDo(document("userApi/signup/teacher/failure", requestFields(
+                fieldWithPath("email").type(JsonFieldType.STRING)
+                    .description("The user's email address"),
+                fieldWithPath("password").type(JsonFieldType.STRING)
+                    .description("The user's password"),
+                fieldWithPath("username").type(JsonFieldType.STRING)
+                    .description("The user's username"),
+                fieldWithPath("nickname").type(JsonFieldType.STRING)
+                    .description("The user's nickname"),
+                fieldWithPath("gender").type(JsonFieldType.NUMBER)
+                    .description("The user's gender"),
+                fieldWithPath("tel").type(JsonFieldType.STRING)
+                    .description("The user's tel"),
+                fieldWithPath("zipCode").type(JsonFieldType.STRING)
+                    .description("The user's zipCode"),
+                fieldWithPath("street").type(JsonFieldType.STRING)
+                    .description("The user's street"),
+                fieldWithPath("detailedAddress").type(JsonFieldType.STRING)
+                    .description("The user's detailedAddress"),
+                fieldWithPath("role").type(JsonFieldType.STRING)
+                    .description("The user's role"),
+                fieldWithPath("major").type(JsonFieldType.STRING)
+                    .description("The user's major"),
+                fieldWithPath("certificates").type(JsonFieldType.ARRAY)
+                    .description("The user's certificates"),
+                fieldWithPath("careers").type(JsonFieldType.ARRAY)
+                    .description("The user's careers"),
+                fieldWithPath("price").type(JsonFieldType.NUMBER)
+                    .description("The user's price"),
+                fieldWithPath("description").type(JsonFieldType.STRING)
+                    .description("The user's description"),
+                fieldWithPath("snsAddrs").type(JsonFieldType.ARRAY)
+                    .description("The user's snsAddrs")
+            )));
     }
 
 }
