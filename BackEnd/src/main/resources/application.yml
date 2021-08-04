@@ -47,7 +47,7 @@ logging.level:
 # org.hibernate.type: trace
 
 server:
-  port: 8080
+  port: 8081
 
 ---
 
@@ -81,7 +81,7 @@ spring:
     activate:
       on-profile: "ec2db"
   datasource:
-    url: jdbc://mysql-575bb7b667-wpk29:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc://mysql:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
