@@ -1,9 +1,7 @@
 HELP.md
 .gradle
 build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/**/src/main/**/build/
-!**/**/src/test/**/build/
+
 
 ### STS ###
 .apt_generated
@@ -23,8 +21,8 @@ bin/
 *.iml
 *.ipr
 out/
-!**/**/src/main/**/out/
-!**/**/src/test/**/out/
+!**/src/main/**/out/
+!**/src/test/**/out/
 
 ### NetBeans ###
 /nbproject/private/
@@ -171,5 +169,9 @@ fabric.properties
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+!gradle-wrapper.jar
+!**/src/main/**/build/
+!**/src/test/**/build/
 
 # End of https://www.toptal.com/developers/gitignore/api/intellij,java
