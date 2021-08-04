@@ -1,6 +1,9 @@
 package com.B305.ogym.service;
 
 import com.B305.ogym.controller.dto.HealthDto;
+import com.B305.ogym.controller.dto.HealthDto.GetMyHealthResponse;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
+import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
