@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserApiControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserApiControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.B305.ogym.controller.html">com.B305.ogym.controller</a> &gt; UserApiControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">2</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.486s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">회원가입 - 이메일 중복으로 인한 회원가입 실패</td>
+<td class="success">createUser_failure()</td>
+<td class="success">0.050s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">회원가입 - 모든 유효성 검사에 통과했다면, 회원가입 성공</td>
+<td class="success">createUser_success()</td>
+<td class="success">0.436s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>14:23:48.186 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
+14:23:48.189 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
+14:23:48.202 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.B305.ogym.controller.UserApiControllerTest] from class [org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper]
+14:23:48.210 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
+14:23:48.213 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.B305.ogym.controller.UserApiControllerTest]: class path resource [com/B305/ogym/controller/UserApiControllerTest-context.xml] does not exist
+14:23:48.213 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.B305.ogym.controller.UserApiControllerTest]: class path resource [com/B305/ogym/controller/UserApiControllerTestContext.groovy] does not exist
+14:23:48.214 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+14:23:48.214 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+14:23:48.280 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.B305.ogym.controller.UserApiControllerTest]
+14:23:48.338 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\ssafy-common-sub3\BackEnd\build\classes\java\main\com\B305\ogym\OgymApplication.class]
+14:23:48.340 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
+14:23:48.343 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - @TestExecutionListeners is not present for class [com.B305.ogym.controller.UserApiControllerTest]: using defaults.
+14:23:48.344 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+14:23:48.371 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@71036b65, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@16d322bf, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@7193029f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@7161991b, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1bd39c11, org.springframework.test.context.support.DirtiesContextTestExecutionListener@149a830e, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7df4ecf8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@a00b1c, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@7143c0d, org.springframework.test.context.event.EventPublishingTestExecutionListener@47d64d12, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@1d9ffa3c, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1de7fa78, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@3bb5599d, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@4efe2d24, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2cd270dd, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@ec47b05, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1facb2f1]
+14:23:48.378 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@6de1fe10 testClass = UserApiControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@2fdf3343 testClass = UserApiControllerTest, locations = '{}', classes = '{class com.B305.ogym.OgymApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@262786ae, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@6554f743, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@4523b418, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@da2cddb9, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@1afb3d5e, [ImportsContextCustomizer@43aedeeb key = [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration, org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration, org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration, org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration, org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration, org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration, org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration, org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration, org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration, org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration, org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration, org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration, org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@4098b1ee, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@6ab54ce5, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@870684d9, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
+14:23:48.418 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.2)
+
+2021-08-04 14:23:48.787  INFO 8348 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 8348 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
+2021-08-04 14:23:48.789  INFO 8348 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
+2021-08-04 14:23:50.971  INFO 8348 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a39563f0-bf6c-4c6d-ad58-8d844015edfc
+
+2021-08-04 14:23:51.292  INFO 8348 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1af541f5, org.springframework.security.web.context.SecurityContextPersistenceFilter@1aef4a16, org.springframework.security.web.header.HeaderWriterFilter@28539003, org.springframework.security.web.csrf.CsrfFilter@7eb30f6f, org.springframework.security.web.authentication.logout.LogoutFilter@44869f45, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@52cb3449, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5c4e13f6, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@5f3167fc, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@e990afc, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6d04de6f, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@528209f6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@19b9580c, org.springframework.security.web.session.SessionManagementFilter@687a01ba, org.springframework.security.web.access.ExceptionTranslationFilter@63b171eb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@13c31ca4]
+2021-08-04 14:23:51.407  INFO 8348 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-04 14:23:51.408  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-04 14:23:51.409  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-04 14:23:51.440  INFO 8348 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 3.017 seconds (JVM running for 5.837)
+2021-08-04 14:23:51.492  INFO 8348 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-04 14:23:51.493  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-04 14:23:51.494  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-04 14:23:51.506  INFO 8348 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-04 14:23:51.506  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-04 14:23:51.507  INFO 8348 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/user/teacher
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;306&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;설명설명&quot;,&quot;snsAddrs&quot;:[]}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#signupTeacher(SaveTeacherRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:200,&quot;message&quot;:&quot;회원정보 수정에 성공했습니다.&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 4. 오후 2:23:52</p>
+</div>
+</div>
+</body>
+</html>
