@@ -70,10 +70,10 @@ public class UserDto {
         @NotBlank
         private String major;
 
-//        @NotEmpty
+        //        @NotEmpty
         private List<Certificate> certificates;
 
-//        @NotEmpty
+        //        @NotEmpty
         public List<Career> careers;
 
         @NotNull
@@ -82,7 +82,7 @@ public class UserDto {
         @NotBlank
         private String description;
 
-//        @NotEmpty
+        //        @NotEmpty
         private List<SnsDto> snsAddrs;
 
         @Getter
@@ -123,6 +123,8 @@ public class UserDto {
     }
 
     @Getter
+    @AllArgsConstructor
+    @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveStudentRequest {
 
@@ -250,7 +252,8 @@ public class UserDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class CareerDto{
+    public static class CareerDto {
+
         private String role;
 
         private LocalDate startDate;
@@ -261,7 +264,7 @@ public class UserDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    public static class CertificateDto{
+    public static class CertificateDto {
 
         private String name; // 자격증 명칭
 

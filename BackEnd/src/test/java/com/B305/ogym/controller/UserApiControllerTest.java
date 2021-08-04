@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
 import com.B305.ogym.common.config.SecurityConfig;
+import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -41,7 +42,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 )
 //@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
-//@AutoConfigureRestDocs
 @AutoConfigureMockMvc(addFilters = false)
 class UserApiControllerTest {
 
@@ -64,9 +64,9 @@ class UserApiControllerTest {
             .build();
     }
 
-    @DisplayName("회원가입 - 모든 유효성 검사에 통과했다면, 회원가입 성공")
+    @DisplayName("선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
     @Test
-    public void createUser_success() throws Exception {
+    public void createTeacher_success() throws Exception {
         //given
         SaveTeacherRequest teacherRequest = SaveTeacherRequest.builder()
             .email("hello@naver.com")
@@ -83,7 +83,7 @@ class UserApiControllerTest {
             .certificates(new ArrayList<>())
             .careers(new ArrayList<>())
             .price(1000)
-            .description("설명설명")
+            .description("트레이너")
             .snsAddrs(new ArrayList<>())
             .build();
         //when
@@ -129,7 +129,61 @@ class UserApiControllerTest {
                 fieldWithPath("snsAddrs").type(JsonFieldType.ARRAY)
                     .description("The user's snsAddrs")
             )));
+    }
 
+    @DisplayName("학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
+    @Test
+    public void createStudent_success() throws Exception {
+        //given
+        var studentRequest = SaveStudentRequest.builder()
+            .email("hello@naver.com")
+            .password("asdasd")
+            .username("juhu")
+            .nickname("juhu")
+            .gender(0)
+            .tel("010-0000-0000")
+            .zipCode("12345")
+            .street("road 17")
+            .detailedAddress("juhu")
+            .role("ROLE_PTSTUDENT")
+            .monthlyWeights(new ArrayList<>())
+            .monthlyHeights(new ArrayList<>())
+            .build();
+        //when
+        doNothing().when(userService).signup(studentRequest);
+
+        //then
+        mockMvc.perform(post("/api/user/student")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(studentRequest)))
+            .andDo(print())
+            .andExpect(status().isOk()) // 201 isCreated()
+            .andDo(document("userApi/signup/successful", requestFields(
+                fieldWithPath("email").type(JsonFieldType.STRING)
+                    .description("The user's email address"),
+                fieldWithPath("password").type(JsonFieldType.STRING)
+                    .description("The user's password"),
+                fieldWithPath("username").type(JsonFieldType.STRING)
+                    .description("The user's username"),
+                fieldWithPath("nickname").type(JsonFieldType.STRING)
+                    .description("The user's nickname"),
+                fieldWithPath("gender").type(JsonFieldType.NUMBER)
+                    .description("The user's gender"),
+                fieldWithPath("tel").type(JsonFieldType.STRING)
+                    .description("The user's tel"),
+                fieldWithPath("zipCode").type(JsonFieldType.STRING)
+                    .description("The user's zipCode"),
+                fieldWithPath("street").type(JsonFieldType.STRING)
+                    .description("The user's street"),
+                fieldWithPath("detailedAddress").type(JsonFieldType.STRING)
+                    .description("The user's detailedAddress"),
+                fieldWithPath("role").type(JsonFieldType.STRING)
+                    .description("The user's role"),
+                fieldWithPath("monthlyHeights").type(JsonFieldType.ARRAY)
+                    .description("The user's certificates"),
+                fieldWithPath("monthlyWeights").type(JsonFieldType.ARRAY)
+                    .description("The user's careers")
+            )));
     }
 
     @DisplayName("회원가입 - 이메일 중복으로 인한 회원가입 실패")
