@@ -81,7 +81,7 @@ spring:
     activate:
       on-profile: "ec2db"
   datasource:
-    url: jdbc:mysql://mysql:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mysql://mysql:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&autoReconnect=True&testOnBorrow=True
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
