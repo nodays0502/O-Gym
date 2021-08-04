@@ -13,6 +13,7 @@ import java.util.Map;
 import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,8 +49,10 @@ public class UserApiController {
     // 사용자 회원 탈퇴
     @DeleteMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','ADMIN','USER')")
-    public ResponseEntity<SuccessResponseDto> deleteMyUser() {
-        userService.deleteUserBase();
+    public ResponseEntity<SuccessResponseDto> deleteMyUser(
+        @AuthenticationPrincipal UserBase user
+    ) {
+        userService.deleteUserBase(user.getId());
         // Security Context에서도 지워야한다.
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원정보 삭제에 성공했습니다", new HashMap()
@@ -73,7 +76,7 @@ public class UserApiController {
         @RequestBody @Valid UserDto.SaveTeacherRequest teacherRequestDto) {
         userService.signup(teacherRequestDto);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
-            200, "회원정보 수정에 성공했습니다.", new HashMap()
+            200, "회원 가입에 성공했습니다.", new HashMap()
         ));
     }
 
@@ -81,9 +84,10 @@ public class UserApiController {
     @GetMapping("/user")
     @PreAuthorize("hasAnyRole('PTTEACHER','USER')")
     public ResponseEntity<SuccessResponseDto> getUserInfo(
+        @AuthenticationPrincipal UserBase user,
         @RequestBody @Valid UserDto.GetUserInfoRequest req) {
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
-            200, "회원 정보를 불러오는데 성공했습니다", userService.getUserInfo(req.getReq())
+            200, "회원 정보를 불러오는데 성공했습니다", userService.getUserInfo(user,req.getReq())
         ));
     }
 }

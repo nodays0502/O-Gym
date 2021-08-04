@@ -86,35 +86,30 @@ public class UserService {
     }
 
 
-    public UserBase getUserWithAuthority(String email) {
-        return userRepository.findOneWithAuthoritiesByEmail(email);
-    }
 
-    public UserBase getMyUserWithAuthorities() {
-        Optional<String> result = SecurityUtil.getCurrentUsername();
-        if (result.isEmpty()) {
-            return null;
-        } else {
-            return userRepository.findOneWithAuthoritiesByEmail(result.get());
-        }
 
+//    public UserBase getMyUserWithAuthorities() {
+//        Optional<String> result = SecurityUtil.getCurrentUsername();
+//        if (result.isEmpty()) {
+//            return null;
+//        } else {
+//            return userRepository.findOneWithAuthoritiesByEmail(result.get());
+//        }
+//
+//    }
+
+    @Transactional
+    public void deleteUserBase(Long userId) {
+        userRepository.deleteById(userId); // 이렇게 해도 되나?
     }
 
     @Transactional
-    public void deleteUserBase() {
-        UserBase userBase = getMyUserWithAuthorities();
-        userRepository.delete(userBase);
-    }
-
-    @Transactional
-    public Map<String, Object> getUserInfo(List<String> req) {
-        UserBase userBase = getMyUserWithAuthorities();
-        if (userBase.getAuthority().getAuthorityName().equals("ROLE_PTTEACHER")) {
-            return ptTeacherRepository.getInfo(userBase.getId(), req);
+    public Map<String, Object> getUserInfo(UserBase user,List<String> req) {
+        if ("ROLE_PTTEACHER".equals(user.getRole())) {
+            return ptTeacherRepository.getInfo(user.getId(), req);
         } else {
             return null;
         }
     }
-
 
 }
