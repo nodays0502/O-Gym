@@ -42,12 +42,10 @@ public class UserService {
 
     @Transactional
     public void signup(UserDto.SaveUserRequest userRequest) {
-        if (userRepository.findByEmail(userRequest.getEmail())
-            != null) {
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new UserDuplicateEmailException("이미 가입되어 있는 email입니다.");
         }
-        if (userRepository.findByNickname(userRequest.getNickname())
-            != null) {
+        if (userRepository.existsByNickname(userRequest.getNickname())) {
             throw new UserDuplicateNicknameException("이미 가입되어 있는 nickname입니다.");
         }
         if ("ROLE_PTTEACHER".equals(userRequest.getRole())) {
