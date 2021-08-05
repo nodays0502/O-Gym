@@ -1,4 +1,4 @@
-import { Carousel } from "antd";
+import { Carousel, Image } from "antd";
 import styled from "styled-components";
 import crossFit from '../../../assets/pages/mainPage/carousel/crossfit.jpg';
 import dumbBell from '../../../assets/pages/mainPage/carousel/dumbbells.jpg';
