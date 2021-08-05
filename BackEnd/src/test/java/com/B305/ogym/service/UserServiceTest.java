@@ -1,15 +1,16 @@
 package com.B305.ogym.service;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.when;
 
-import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
-import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
+import com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 import com.B305.ogym.domain.authority.AuthorityRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -31,8 +32,8 @@ class UserServiceTest {
     @InjectMocks
     UserService userService;
 
-    private SaveTeacherRequest createTeacherRequest() {
-        return SaveTeacherRequest.builder()
+    private SaveUserRequest createTeacherRequest() {
+        return SaveUserRequest.builder()
             .email("hello@naver.com")
             .password("asdasd")
             .username("juhu")
@@ -52,8 +53,8 @@ class UserServiceTest {
             .build();
     }
 
-    private SaveStudentRequest createStudentRequest() {
-        return SaveStudentRequest.builder()
+    private SaveUserRequest createStudentRequest() {
+        return SaveUserRequest.builder()
             .email("hello@naver.com")
             .password("asdasd")
             .username("한솥")
@@ -69,6 +70,15 @@ class UserServiceTest {
             .monthlyHeights(new ArrayList<Integer>(Arrays
                 .asList(180, 200, 210, 180, 200, 210, 180, 200, 210, 180, 200, 210)))
             .build();
+    }
+
+    @Test
+    public void emailDuplicate() throws Exception {
+        //given
+        SaveUserRequest studentRequest = createStudentRequest();
+        //when
+//        when(userRepository.ex)
+        //then
     }
 
 

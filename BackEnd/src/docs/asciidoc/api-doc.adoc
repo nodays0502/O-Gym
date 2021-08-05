@@ -43,13 +43,14 @@ include::{snippets}/userApi/signup/teacher/successful/http-response.adoc[]
 
 ==== 회원가입 실패 (이메일 중복)
 
-===== Request Example
+===== Response Example
+include::{snippets}/userApi/signup/duplicate/email/http-response.adoc[]
 
-include::{snippets}/userApi/signup/teacher/failure/http-request.adoc[]
+==== 회원가입 실패 (닉네임 중복)
 
 ===== Response Example
 
-include::{snippets}/userApi/signup/teacher/failure/http-response.adoc[]
+include::{snippets}/userApi/signup/duplicate/nickname/http-response.adoc[]
 
 
 
