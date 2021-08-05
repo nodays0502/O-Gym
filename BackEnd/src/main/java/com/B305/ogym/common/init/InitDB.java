@@ -43,7 +43,6 @@ public class InitDB {
         initService.putPTTeacher();
         initService.putPTStudentPTTeacher();
 
-
 //        initService.putCertificate();
 
     }
@@ -143,16 +142,12 @@ public class InitDB {
             LocalDate startDate = LocalDate.of(2018, 02, 11);
             LocalDate endDate = LocalDate.of(2021, 07, 22);
 
-
-
-
-
 //            Sns sns = Sns.builder()
 //                .platform("facebook")
 //                .url("https://www.instagram.com/physical_gallery_egg/?hl=ko")
 //                .build();
             Authority role_ptteahcer = em.find(Authority.class, "ROLE_PTTEACHER");
-            if(role_ptteahcer == null){
+            if (role_ptteahcer == null) {
                 System.out.println("null");
             }
             PTTeacher ptTeacher = PTTeacher.builder()

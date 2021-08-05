@@ -81,5 +81,11 @@ public class PTTeacher extends UserBase {
             career.setPtTeacher(this);
         }
     }
+    public void addSns(Sns sns){
+        this.Snss.add(sns);
+        if(sns.getPtTeacher() != this){
+            sns.setPtTeacher(this);
+        }
+    }
 
 }

@@ -1,6 +1,5 @@
 package com.B305.ogym.controller;
 
-import static com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import static com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 
 import com.B305.ogym.controller.dto.SuccessResponseDto;
@@ -59,30 +58,40 @@ public class UserApiController {
         ));
     }
 
-    // 학생 회원가입
-    @PostMapping("/user/student")
-    public ResponseEntity<SuccessResponseDto> signupStudent(
-        @RequestBody @Valid SaveStudentRequest studentRequestDto
-    ) {
-        userService.signup(studentRequestDto);
-        return ResponseEntity.ok(new SuccessResponseDto<Map>(
-            200, "회원 가입에  성공했습니다.", new HashMap()
-        ));
-    }
+//    // 학생 회원가입
+//    @PostMapping("/user/student")
+//    public ResponseEntity<SuccessResponseDto> signupStudent(
+//        @RequestBody @Valid SaveStudentRequest studentRequestDto
+//    ) {
+//        userService.signup(studentRequestDto);
+//        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+//            200, "회원 가입에  성공했습니다.", new HashMap()
+//        ));
+//    }
+//
+//    // 선생 회원가입
+//    @PostMapping("/user/teacher")
+//    public ResponseEntity<SuccessResponseDto> signupTeacher(
+//        @RequestBody @Valid UserDto.SaveTeacherRequest teacherRequestDto) {
+//        userService.signup(teacherRequestDto);
+//        return ResponseEntity.ok(new SuccessResponseDto<Map>(
+//            200, "회원 가입에 성공했습니다.", new HashMap()
+//        ));
+//    }
 
-    // 선생 회원가입
-    @PostMapping("/user/teacher")
-    public ResponseEntity<SuccessResponseDto> signupTeacher(
-        @RequestBody @Valid UserDto.SaveTeacherRequest teacherRequestDto) {
-        userService.signup(teacherRequestDto);
+    @PostMapping("/user")
+    public ResponseEntity<SuccessResponseDto> signup(
+        @RequestBody @Valid UserDto.SaveUserRequest userRequestDto) {
+        userService.signup(userRequestDto);
         return ResponseEntity.ok(new SuccessResponseDto<Map>(
             200, "회원 가입에 성공했습니다.", new HashMap()
         ));
     }
 
+
     // 사용자 회원 정보 조회
     @GetMapping("/user")
-    @PreAuthorize("hasAnyRole('PTTEACHER','USER')")
+    @PreAuthorize("hasAnyRole('PTTEACHER','USER','PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> getUserInfo(
         @AuthenticationPrincipal UserBase user,
         @RequestBody @Valid UserDto.GetUserInfoRequest req) {

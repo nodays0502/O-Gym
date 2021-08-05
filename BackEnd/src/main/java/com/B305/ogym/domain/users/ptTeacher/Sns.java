@@ -29,5 +29,8 @@ public class Sns {
     @JoinColumn(name = "pt_teacher_id")
     private PTTeacher ptTeacher;
 
+    public void setPtTeacher(PTTeacher ptTeacher){
+        this.ptTeacher = ptTeacher;
+    }
 }
 
