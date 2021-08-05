@@ -1,8 +1,9 @@
-import { Modal, Button } from "antd";
+import { Modal, Button, Image } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { NavigationData } from "./Main-NavigationData";
+import OGYM from '../../../assets/pages/mainPage/navButton/ogym.png';
 
 const StyledModal = styled(Modal)`
     
@@ -10,6 +11,16 @@ const StyledModal = styled(Modal)`
             height: 100%;
     }
 
+`;
+const StyledButton = styled(Button)`
+    position: fixed;
+    z-index: 2;
+    top: 10px;
+    left: 10px;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    // background-image: url(${OGYM});
 `;
 
 const StyledLi = styled.li`
@@ -53,9 +64,13 @@ const MainNavigation = (): JSX.Element => {
 
     return (
         <>
-            <Button onClick={clickMenuButton}>
-                show
-            </Button>
+            <StyledButton onClick={clickMenuButton}
+          shape="circle"
+          icon={<Image src={OGYM} preview={false} />}
+        >
+        
+            </StyledButton>
+
             <StyledModal
                 title="O-GYM"
                 style={isVisible ? 
