@@ -1,23 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/static/js/main.181237a2.chunk.js",
-    "main.js.map": "/static/js/main.181237a2.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.2f94b7d3.js",
-    "runtime-main.js.map": "/static/js/runtime-main.2f94b7d3.js.map",
-    "static/js/2.dac58fa8.chunk.js": "/static/js/2.dac58fa8.chunk.js",
-    "static/js/2.dac58fa8.chunk.js.map": "/static/js/2.dac58fa8.chunk.js.map",
-    "static/js/3.473e1e0c.chunk.js": "/static/js/3.473e1e0c.chunk.js",
-    "static/js/3.473e1e0c.chunk.js.map": "/static/js/3.473e1e0c.chunk.js.map",
+    "main.css": "/static/css/main.7d180cbf.chunk.css",
+    "main.js": "/static/js/main.f3c4b0b3.chunk.js",
+    "main.js.map": "/static/js/main.f3c4b0b3.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.c8727039.js",
+    "runtime-main.js.map": "/static/js/runtime-main.c8727039.js.map",
+    "static/css/2.af9592cd.chunk.css": "/static/css/2.af9592cd.chunk.css",
+    "static/js/2.72047bb5.chunk.js": "/static/js/2.72047bb5.chunk.js",
+    "static/js/2.72047bb5.chunk.js.map": "/static/js/2.72047bb5.chunk.js.map",
+    "static/js/3.7d4a7d52.chunk.js": "/static/js/3.7d4a7d52.chunk.js",
+    "static/js/3.7d4a7d52.chunk.js.map": "/static/js/3.7d4a7d52.chunk.js.map",
     "index.html": "/index.html",
-    "static/css/main.8c8b27cf.chunk.css.map": "/static/css/main.8c8b27cf.chunk.css.map",
-    "static/js/2.dac58fa8.chunk.js.LICENSE.txt": "/static/js/2.dac58fa8.chunk.js.LICENSE.txt",
-    "static/media/logo.6ce24c58.svg": "/static/media/logo.6ce24c58.svg"
+    "static/css/2.af9592cd.chunk.css.map": "/static/css/2.af9592cd.chunk.css.map",
+    "static/css/main.7d180cbf.chunk.css.map": "/static/css/main.7d180cbf.chunk.css.map",
+    "static/js/2.72047bb5.chunk.js.LICENSE.txt": "/static/js/2.72047bb5.chunk.js.LICENSE.txt",
+    "static/media/crossfit.9fefec1b.jpg": "/static/media/crossfit.9fefec1b.jpg",
+    "static/media/dumbbells.44fe51d5.jpg": "/static/media/dumbbells.44fe51d5.jpg",
+    "static/media/ogym.769eb225.png": "/static/media/ogym.769eb225.png",
+    "static/media/weight_lifting.b2dd2348.jpg": "/static/media/weight_lifting.b2dd2348.jpg"
   },
   "entrypoints": [
-    "static/js/runtime-main.2f94b7d3.js",
-    "static/js/2.dac58fa8.chunk.js",
-    "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.181237a2.chunk.js"
+    "static/js/runtime-main.c8727039.js",
+    "static/css/2.af9592cd.chunk.css",
+    "static/js/2.72047bb5.chunk.js",
+    "static/css/main.7d180cbf.chunk.css",
+    "static/js/main.f3c4b0b3.chunk.js"
   ]
 }
