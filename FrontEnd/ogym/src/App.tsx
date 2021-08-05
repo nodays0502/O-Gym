@@ -1,10 +1,7 @@
 import React from 'react';
 import './App.css';
 import 'antd/dist/antd.css';
-import MainPage from './pages/LoginPage/LoginPage';
-
-
-
+import MainPage from './pages/MainPage/MainPage';
 
 function App() {
   return (
