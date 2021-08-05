@@ -1,6 +1,8 @@
 import { Modal, Button } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { NavigationData } from "./Main-NavigationData";
 
 const StyledModal = styled(Modal)`
     
@@ -9,6 +11,7 @@ const StyledModal = styled(Modal)`
     }
 
 `;
+
 
 const MainNavigation = (): JSX.Element => {
 
@@ -28,24 +31,46 @@ const MainNavigation = (): JSX.Element => {
                 show
             </Button>
             <StyledModal
-                title="Text"
-                style={{
+                title="O-GYM"
+                style={isVisible ? 
+                  {
                     position: "fixed",
                     top: "0px",
                     left: "0px",
                     bottom: "0px",
-                    height: "100%"
-                }}
+                    height: "100%",
+                    animation: "none",
+                    transition: "350ms",
+                  } :
+                  {
+                    position: "fixed",
+                    top: "0px",
+                    left: "-150px",
+                    bottom: "0px",
+                    height: "100%",
+                    animation: "none",
+                    transition: "550",
+                  }
+              }
                 visible={isVisible}
                 onOk={clickModalClose}
                 onCancel={clickModalClose}
+                transitionName=""
+                maskTransitionName=""
                 footer={null}
             >
-                 <p>some contents...</p>
-                <p>some contents...</p>
-                <p>some contents...</p>
-             
-
+              <ul style={{width: "100%"}}>
+                {NavigationData.map((item, index) => {
+                  return (
+                    <StyledLi key={index} className={item.cName}>
+                      <Link to={item.path}>
+                        {item.icon}
+                        <span style={{marginLeft: "16px"}}>{item.title}</span>
+                      </Link>
+                    </StyledLi>
+                  );
+                })}
+              </ul>
             </StyledModal>
             
         </>

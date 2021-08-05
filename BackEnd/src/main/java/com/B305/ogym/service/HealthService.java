@@ -34,10 +34,8 @@ public class HealthService {
         return myHealthResponse;
     }
 
-    private final UserService userService;
 
-    public HealthDto.MyStudentsHealthListResponse findMyStudentsHealth() {
-        String teacherEmail = userService.getMyUserWithAuthorities().getEmail();
-        return ptTeacherRepository.findMyStudentsHealth(teacherEmail);
+    public HealthDto.MyStudentsHealthListResponse findMyStudentsHealth(Long teacherId) {
+        return ptTeacherRepository.findMyStudentsHealth(teacherId);
     }
 }
