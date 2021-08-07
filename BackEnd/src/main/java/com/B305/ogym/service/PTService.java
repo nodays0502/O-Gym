@@ -1,6 +1,7 @@
 package com.B305.ogym.service;
 
 import com.B305.ogym.controller.dto.PTDto;
+import com.B305.ogym.controller.dto.PTDto.CancelReservationRequest;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacherRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
@@ -31,5 +32,10 @@ public class PTService {
 
         PTStudentPTTeacher ptStudentPTTeacher = ptStudent.makeReservation(ptTeacher, ptStudent, time);
         ptStudentPTTeacherRepository.save(ptStudentPTTeacher);
+    }
+
+    @Transactional
+    public void cancleReservation(CancelReservationRequest request) {
+        ptStudentPTTeacherRepository.deleteById(Long.valueOf(request.getReservationId()));
     }
 }
