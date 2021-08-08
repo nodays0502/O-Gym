@@ -8,6 +8,8 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.exception.user.UserNotFoundException;
+import com.sun.jdi.request.DuplicateRequestException;
 import java.time.LocalDateTime;
 import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -28,10 +30,16 @@ public class PTService {
         LocalDateTime time = request.getReservationTime();
 
         PTTeacher ptTeacher = ptTeacherRepository.findByEmail(teacherEmail);
+        if(ptTeacher==null) throw new UserNotFoundException("teacher");
         PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail);
 
-        PTStudentPTTeacher ptStudentPTTeacher = ptStudent.makeReservation(ptTeacher, ptStudent, time);
-        ptStudentPTTeacherRepository.save(ptStudentPTTeacher);
+        try {
+            PTStudentPTTeacher ptStudentPTTeacher = ptStudent
+                .makeReservation(ptTeacher, ptStudent, time);
+            ptStudentPTTeacherRepository.save(ptStudentPTTeacher);
+        }catch(RuntimeException ex){
+            throw new DuplicateRequestException("중복된 예약");
+        }
     }
 
     @Transactional
