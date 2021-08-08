@@ -21,7 +21,6 @@ public class ResponseConstants {
     public static final ResponseEntity<Object> VALIDATION_FAILED =
         new ResponseEntity<>("Validation Failed.", HttpStatus.BAD_REQUEST);
 
-
     public static final ResponseEntity<String> DUPLICATION_EMAIL =
         new ResponseEntity<>("중복된 이메일입니다.", HttpStatus.CONFLICT);
 
@@ -41,9 +40,12 @@ public class ResponseConstants {
         new ResponseEntity<>(
             "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.", HttpStatus.NOT_FOUND
         );
+    public static final ResponseEntity<String> RESERVATION_NOT_FOUND =
+        new ResponseEntity<>("해당 예약을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+
     public static final ResponseEntity<String> TEACHER_NOT_FOUND =
         new ResponseEntity<>(
-          "선생님 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND
+            "선생님 정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND
         );
     public static final ResponseEntity<String> UNAUTHORIZED_USER =
         new ResponseEntity<>(
