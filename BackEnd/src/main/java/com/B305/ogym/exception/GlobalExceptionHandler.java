@@ -1,10 +1,29 @@
 package com.B305.ogym.exception;
 
+<<<<<<< HEAD
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_USER;
 import static com.B305.ogym.common.util.constants.ResponseConstants.USER_NOT_FOUND;
 import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_FAILED;
 
 import com.B305.ogym.exception.user.UserDuplicateException;
+=======
+import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_EMAIL;
+import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_NICKNAME;
+import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_RESERVATION;
+import static com.B305.ogym.common.util.constants.ResponseConstants.NOT_VALID_PARAM;
+import static com.B305.ogym.common.util.constants.ResponseConstants.RESERVATION_NOT_FOUND;
+import static com.B305.ogym.common.util.constants.ResponseConstants.TEACHER_NOT_FOUND;
+import static com.B305.ogym.common.util.constants.ResponseConstants.UNAUTHORIZED_USER;
+import static com.B305.ogym.common.util.constants.ResponseConstants.USER_NOT_FOUND;
+import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_FAILED;
+
+import com.B305.ogym.exception.user.NotValidRequestParamException;
+import com.B305.ogym.exception.user.ReservationDuplicateException;
+import com.B305.ogym.exception.user.UnauthorizedException;
+import com.B305.ogym.exception.user.UserDuplicateEmailException;
+import com.B305.ogym.exception.user.UserDuplicateException;
+import com.B305.ogym.exception.user.UserDuplicateNicknameException;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import com.B305.ogym.exception.user.UserNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
@@ -38,18 +57,65 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return VALIDATION_FAILED;
     }
 
+<<<<<<< HEAD
     // 이미 존재하는 유저 가입에 대한 에러 핸들러
     @ExceptionHandler(UserDuplicateException.class)
     public final ResponseEntity<String> handleUserDuplicateException(UserDuplicateException ex) {
         log.debug("중복 유저", ex);
         return DUPLICATION_USER;
+=======
+//    // 이미 존재하는 유저 가입에 대한 에러 핸들러
+//    @ExceptionHandler(UserDuplicateException.class)
+//    public final ResponseEntity<String> handleUserDuplicateException(UserDuplicateException ex) {
+//        log.debug("중복 유저", ex);
+//        return DUPLICATION_USER;
+//    }
+
+    // 이미 존재하는 Email 가입에 대한 에러 핸들러
+    @ExceptionHandler(UserDuplicateEmailException.class)
+    public final ResponseEntity<String> handleUserDuplicateEmailException(UserDuplicateEmailException ex) {
+        log.debug("중복 Email", ex);
+        return DUPLICATION_EMAIL;
+    }
+    // 이미 존재하는 Nickname 가입에 대한 에러 핸들러
+    @ExceptionHandler(UserDuplicateNicknameException.class)
+    public final ResponseEntity<String> handleUserDuplicateNicknameException(UserDuplicateNicknameException ex) {
+        log.debug("중복 Nickname", ex);
+        return DUPLICATION_NICKNAME;
+    }
+    // 예약시간 중복에 대한 에러 핸들러
+    @ExceptionHandler(ReservationDuplicateException.class)
+    public final ResponseEntity<String> handleReservationDuplicateException(
+        ReservationDuplicateException ex){
+        log.debug("중복된 예약", ex);
+        return DUPLICATION_RESERVATION;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     }
 
     // 존재하지 않는 유저 정보 조회에 대한 에러 핸들러
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
         log.debug("존재하지 않는 유저", ex);
+<<<<<<< HEAD
         return USER_NOT_FOUND;
+=======
+        if(ex.getMessage().equals("TEACHER")) return TEACHER_NOT_FOUND;
+        else if(ex.getMessage().equals("CANCLE_RESERVATION")) return RESERVATION_NOT_FOUND;
+        else return USER_NOT_FOUND;
+    }
+
+    // 입력해야하는 파라미터 중에 입력하지 않은 파라미터가 존재하는 경우
+    @ExceptionHandler(NotValidRequestParamException.class)
+    public final ResponseEntity<String> handleNotValidRequestParamException(NotValidRequestParamException ex) {
+        log.debug("입력하지 않은 파라미터 존재", ex);
+        return NOT_VALID_PARAM;
+    }
+
+    @ExceptionHandler(UnauthorizedException.class)
+    public final ResponseEntity<String> handleUnauthorizedException(UnauthorizedException ex){
+        log.debug("Unauthorized request", ex);
+        return UNAUTHORIZED_USER;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     }
 
     // 5xx error handler : 서버에서 발생한 전반적인 에러에 대한 핸들러

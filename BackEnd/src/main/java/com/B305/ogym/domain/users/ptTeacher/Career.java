@@ -3,6 +3,10 @@ package com.B305.ogym.domain.users.ptTeacher;
 import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+<<<<<<< HEAD
+=======
+import javax.persistence.FetchType;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -41,7 +45,11 @@ public class Career {
 
     private String company;
 
+<<<<<<< HEAD
     @ManyToOne
+=======
+    @ManyToOne(fetch = FetchType.LAZY)
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     @JoinColumn(name = "pt_teacher_id")
     private PTTeacher ptTeacher;
 

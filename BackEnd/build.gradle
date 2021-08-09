@@ -48,6 +48,11 @@ dependencies {
 //    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     testImplementation 'org.springframework.restdocs:spring-restdocs-mockmvc'
     asciidoctorExtensions 'org.springframework.restdocs:spring-restdocs-asciidoctor'
+<<<<<<< HEAD
+=======
+    testImplementation('org.springframework.security:spring-security-test')
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
     //querydsl 추가
     implementation 'com.querydsl:querydsl-jpa'
@@ -87,4 +92,8 @@ configurations {
 }
 compileQuerydsl {
     options.annotationProcessorPath = configurations.querydsl
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842

@@ -2,6 +2,10 @@ package com.B305.ogym.domain.users.common;
 
 import com.B305.ogym.domain.authority.Authority;
 import com.B305.ogym.domain.users.BaseTimeEntity;
+<<<<<<< HEAD
+=======
+import com.fasterxml.jackson.annotation.JsonIgnore;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import io.jsonwebtoken.Claims;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -16,6 +20,10 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+<<<<<<< HEAD
+=======
+import javax.persistence.Transient;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -60,10 +68,21 @@ public class UserBase extends BaseTimeEntity {
     @JoinColumn(name = "authority")
     private Authority authority;
 
+<<<<<<< HEAD
     public UserBase(Claims claims) {
         this.id = Long.valueOf(claims.get("userId").toString());
         this.email = claims.get("name").toString();
 //        this.role = claims.get("role").toString();
+=======
+    @JsonIgnore
+    @Transient
+    private String role;
+
+    public UserBase(Claims claims) {
+        this.id = Long.valueOf(claims.get("id").toString());
+        this.email = claims.get("email").toString();
+        this.role = claims.get("role").toString();
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     }
     public void setRole(Authority authority){
         this.authority = authority;

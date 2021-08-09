@@ -12,4 +12,9 @@ public interface UserRepository extends JpaRepository<UserBase, Long> {
     UserBase findOneWithAuthoritiesByEmail(String email);
 
     UserBase findByEmail(String email);
+<<<<<<< HEAD
+=======
+    boolean existsByEmail(String email);
+    boolean existsByNickname(String email);
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 }

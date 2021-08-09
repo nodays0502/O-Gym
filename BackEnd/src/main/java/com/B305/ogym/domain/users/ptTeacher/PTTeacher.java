@@ -1,7 +1,10 @@
 package com.B305.ogym.domain.users.ptTeacher;
 
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
+<<<<<<< HEAD
 import com.B305.ogym.domain.mappingTable.PTTeacherSns;
+=======
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import com.B305.ogym.domain.users.common.UserBase;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
@@ -37,7 +40,11 @@ public class PTTeacher extends UserBase {
 
     // 자격증 리스트
     @Builder.Default
+<<<<<<< HEAD
     @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+=======
+    @OneToMany(mappedBy = "ptTeacher", cascade = CascadeType.ALL)
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     private List<Certificate> certificates = new ArrayList<>();
 
     // 가격
@@ -49,7 +56,11 @@ public class PTTeacher extends UserBase {
     // SNS 링크
     @Builder.Default
     @OneToMany(mappedBy = "ptTeacher", cascade = CascadeType.ALL )
+<<<<<<< HEAD
     private List<PTTeacherSns> ptTeacherSns = new ArrayList<>();
+=======
+    private List<Sns> snss = new ArrayList<>();
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
     // 경력 리스트
     @Builder.Default
@@ -82,5 +93,14 @@ public class PTTeacher extends UserBase {
             career.setPtTeacher(this);
         }
     }
+<<<<<<< HEAD
+=======
+    public void addSns(Sns sns){
+        this.snss.add(sns);
+        if(sns.getPtTeacher() != this){
+            sns.setPtTeacher(this);
+        }
+    }
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
 }

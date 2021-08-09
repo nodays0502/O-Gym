@@ -1,20 +1,44 @@
 package com.B305.ogym.controller;
 
+<<<<<<< HEAD
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+=======
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
 import com.B305.ogym.common.config.SecurityConfig;
+<<<<<<< HEAD
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
 import com.B305.ogym.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
+=======
+import com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
+import com.B305.ogym.exception.user.UserDuplicateEmailException;
+import com.B305.ogym.exception.user.UserDuplicateException;
+import com.B305.ogym.exception.user.UserDuplicateNicknameException;
+import com.B305.ogym.service.UserService;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.ArrayList;
+import java.util.Arrays;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +54,12 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
+<<<<<<< HEAD
+=======
+import org.springframework.security.test.context.support.WithMockUser;
+import org.springframework.security.test.context.support.WithUserDetails;
+import org.springframework.test.context.transaction.BeforeTransaction;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -41,7 +71,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 )
 //@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
+<<<<<<< HEAD
 //@AutoConfigureRestDocs
+=======
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 @AutoConfigureMockMvc(addFilters = false)
 class UserApiControllerTest {
 
@@ -64,11 +97,17 @@ class UserApiControllerTest {
             .build();
     }
 
+<<<<<<< HEAD
     @DisplayName("회원가입 - 모든 유효성 검사에 통과했다면, 회원가입 성공")
     @Test
     public void createUser_success() throws Exception {
         //given
         SaveTeacherRequest teacherRequest = SaveTeacherRequest.builder()
+=======
+
+    private SaveUserRequest createTeacherRequest() {
+        return SaveUserRequest.builder()
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
             .email("hello@naver.com")
             .password("asdasd")
             .username("juhu")
@@ -83,19 +122,117 @@ class UserApiControllerTest {
             .certificates(new ArrayList<>())
             .careers(new ArrayList<>())
             .price(1000)
+<<<<<<< HEAD
             .description("설명설명")
             .snsAddrs(new ArrayList<>())
             .build();
+=======
+            .description("트레이너")
+            .build();
+    }
+
+    private SaveUserRequest createStudentRequest() {
+        return SaveUserRequest.builder()
+            .email("hello@naver.com")
+            .password("asdasd")
+            .username("한솥")
+            .nickname("nononoo1")
+            .gender(0)
+            .tel("010-0000-0000")
+            .zipCode("12345")
+            .street("도로명")
+            .detailedAddress("상세주소")
+            .role("ROLE_PTSTUDENT")
+            .monthlyWeights(new ArrayList<>(Arrays
+                .asList(180, 200, 210, 180, 200, 210, 180, 200, 210, 180, 200, 210)))
+            .monthlyHeights(new ArrayList<>(Arrays
+                .asList(180, 200, 210, 180, 200, 210, 180, 200, 210, 180, 200, 210)))
+            .build();
+    }
+
+    @DisplayName("선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
+    @Test
+    public void createTeacher_success() throws Exception {
+        //given
+        SaveUserRequest teacherRequest = createTeacherRequest();
+
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
         //when
         doNothing().when(userService).signup(teacherRequest);
 
         //then
+<<<<<<< HEAD
         mockMvc.perform(post("/api/user/teacher")
+=======
+        mockMvc.perform(post("/api/user")
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
             .contentType(MediaType.APPLICATION_JSON)
             .content(objectMapper.writeValueAsString(teacherRequest)))
             .andDo(print())
             .andExpect(status().isOk()) // 201 isCreated()
+<<<<<<< HEAD
             .andDo(document("userApi/signup/successful", requestFields(
+=======
+            .andDo(
+                document(
+                    "userApi/signup/teacher/successful",
+                    requestFields(
+                        fieldWithPath("email").type(JsonFieldType.STRING)
+                            .description("The user's email address"),
+                        fieldWithPath("password").type(JsonFieldType.STRING)
+                            .description("The user's password"),
+                        fieldWithPath("username").type(JsonFieldType.STRING)
+                            .description("The user's username"),
+                        fieldWithPath("nickname").type(JsonFieldType.STRING)
+                            .description("The user's nickname"),
+                        fieldWithPath("gender").type(JsonFieldType.NUMBER)
+                            .description("The user's gender"),
+                        fieldWithPath("tel").type(JsonFieldType.STRING)
+                            .description("The user's tel"),
+                        fieldWithPath("zipCode").type(JsonFieldType.STRING)
+                            .description("The user's zipCode"),
+                        fieldWithPath("street").type(JsonFieldType.STRING)
+                            .description("The user's street"),
+                        fieldWithPath("detailedAddress").type(JsonFieldType.STRING)
+                            .description("The user's detailedAddress"),
+                        fieldWithPath("role").type(JsonFieldType.STRING)
+                            .description("The user's role"),
+                        fieldWithPath("major").type(JsonFieldType.STRING)
+                            .description("The user's major"),
+                        fieldWithPath("certificates").type(JsonFieldType.ARRAY)
+                            .description("The user's certificates"),
+                        fieldWithPath("careers").type(JsonFieldType.ARRAY)
+                            .description("The user's careers"),
+                        fieldWithPath("price").type(JsonFieldType.NUMBER)
+                            .description("The user's price"),
+                        fieldWithPath("description").type(JsonFieldType.STRING)
+                            .description("The user's description"),
+                        fieldWithPath("snsAddrs").type(JsonFieldType.NULL)
+                            .description("The user's snsAddrs")
+                    ).and(
+                        fieldWithPath("monthlyHeights").type(JsonFieldType.NULL)
+                            .description("트레이너의 경우 입력받지 않습니다."),
+                        fieldWithPath("monthlyWeights").type(JsonFieldType.NULL)
+                            .description("트레이너의 경우 입력받지 않습니다.")
+                    )));
+    }
+
+    @DisplayName("학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공")
+    @Test
+    public void createStudent_success() throws Exception {
+        //given
+        SaveUserRequest studentRequest = createStudentRequest();
+        //when
+        doNothing().when(userService).signup(studentRequest);
+
+        //then
+        mockMvc.perform(post("/api/user")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(studentRequest)))
+            .andDo(print())
+            .andExpect(status().isOk()) // 201 isCreated()
+            .andDo(document("userApi/signup/student/successful", requestFields(
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
                 fieldWithPath("email").type(JsonFieldType.STRING)
                     .description("The user's email address"),
                 fieldWithPath("password").type(JsonFieldType.STRING)
@@ -116,6 +253,7 @@ class UserApiControllerTest {
                     .description("The user's detailedAddress"),
                 fieldWithPath("role").type(JsonFieldType.STRING)
                     .description("The user's role"),
+<<<<<<< HEAD
                 fieldWithPath("major").type(JsonFieldType.STRING)
                     .description("The user's major"),
                 fieldWithPath("certificates").type(JsonFieldType.ARRAY)
@@ -143,3 +281,82 @@ class UserApiControllerTest {
     }
 
 }
+=======
+                fieldWithPath("monthlyHeights").type(JsonFieldType.ARRAY)
+                    .description("The user's monthlyHeights"),
+                fieldWithPath("monthlyWeights").type(JsonFieldType.ARRAY)
+                    .description("The user's monthlyWeights"))
+                .and(
+                    fieldWithPath("major").type(JsonFieldType.STRING)
+                        .description("학생의 경우 입력받지 않습니다").optional(),
+                    fieldWithPath("certificates").type(JsonFieldType.ARRAY)
+                        .description("학생의 경우 입력받지 않습니다").optional(),
+                    fieldWithPath("careers").type(JsonFieldType.ARRAY)
+                        .description("학생의 경우 입력받지 않습니다").optional(),
+                    fieldWithPath("price").type(JsonFieldType.NUMBER)
+                        .description("학생의 경우 입력받지 않습니다").optional(),
+                    fieldWithPath("description").type(JsonFieldType.STRING)
+                        .description("학생의 경우 입력받지 않습니다").optional(),
+                    fieldWithPath("snsAddrs").type(JsonFieldType.NULL)
+                        .description("학생의 경우 입력받지 않습니다").optional()
+                )));
+    }
+
+    @DisplayName("유저 회원가입 - 이메일 중복으로 인한 회원가입 실패")
+    @Test
+    public void createUser_email_failure() throws Exception {
+        //given
+        SaveUserRequest teacherRequest = createTeacherRequest();
+
+        //when
+        doThrow(new UserDuplicateEmailException("이메일 중복")).when(userService).signup(any());
+        //then
+        mockMvc.perform(post("/api/user")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(teacherRequest)))
+            .andDo(print())
+            .andExpect(status().isConflict())
+            .andDo(document("userApi/signup/duplicate/email"
+            ));
+    }
+
+    @DisplayName("유저 회원가입 - 닉네임 중복으로 인한 회원가입 실패")
+    @Test
+    public void createUser_nickName_failure() throws Exception {
+        //given
+        SaveUserRequest teacherRequest = createTeacherRequest();
+
+        //when
+        doThrow(new UserDuplicateNicknameException("이메일 중복")).when(userService).signup(any());
+        //then
+        mockMvc.perform(post("/api/user")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(teacherRequest)))
+            .andDo(print())
+            .andExpect(status().isConflict())
+            .andDo(document("userApi/signup/duplicate/nickname"
+            ));
+    }
+
+    @WithUserDetails(value = "hello@naver.com")
+    @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
+    @Test
+    public void deleteUser_success() throws Exception {
+        //given
+        Long userId = 1L;
+
+        //when
+        doNothing().when(userService).deleteUserBase(userId);
+
+        //then
+//        mockMvc.perform(delete("/api/user")
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .content()
+//            .andDo(print())
+//            .andExpect(status().isConflict())
+//            .andDo(document("userApi/signup/duplicate/nickname"
+//            ));
+    }
+
+}
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842

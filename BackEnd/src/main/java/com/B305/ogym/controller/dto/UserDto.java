@@ -6,6 +6,10 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptTeacher.Career;
 import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
+<<<<<<< HEAD
+=======
+import com.B305.ogym.domain.users.ptTeacher.Sns;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,10 +28,17 @@ import lombok.NoArgsConstructor;
 public class UserDto {
 
     @Getter
+<<<<<<< HEAD
     @AllArgsConstructor
     @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveTeacherRequest {
+=======
+    @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class SaveUserRequest {
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
         @NotEmpty
         @Size(min = 3, max = 50, message = "이메일 똑바로 입력하세요.")
@@ -67,6 +78,7 @@ public class UserDto {
         @NotEmpty(message = "권한 주세요.")
         private String role;
 
+<<<<<<< HEAD
         @NotBlank
         private String major;
 
@@ -94,6 +106,16 @@ public class UserDto {
         }
 
         public PTTeacher toEntity() {
+=======
+        // --------------------------
+//        @NotEmpty
+        private List<Integer> monthlyHeights;
+
+        //        @NotEmpty
+        private List<Integer> monthlyWeights;
+
+        public PTStudent toPTStudentEntity() {
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
             Gender gender = Gender.MAN;
             if (this.gender == 1) {
@@ -106,13 +128,18 @@ public class UserDto {
                 detailedAddress
             );
 
+<<<<<<< HEAD
             return PTTeacher.builder()
+=======
+            return PTStudent.builder()
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
                 .email(email)
                 .username(username)
                 .nickname(nickname)
                 .gender(gender)
                 .tel(tel)
                 .address(address)
+<<<<<<< HEAD
                 .description(description)
                 .price(price)
                 .major(major)
@@ -171,6 +198,31 @@ public class UserDto {
         private List<Integer> monthlyWeights;
 
         public PTStudent toEntity() {
+=======
+                .build();
+        }
+        // ----------
+
+        //        @NotBlank
+        private String major;
+
+        //        @NotEmpty
+        private List<Certificate> certificates;
+
+        //        @NotEmpty
+        public List<Career> careers;
+
+        //        @NotNull
+        private int price;
+
+        //        @NotBlank
+        private String description;
+
+        //        @NotEmpty
+        private List<Sns> snsAddrs;
+
+        public PTTeacher toPTTeacherEntity() {
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
             Gender gender = Gender.MAN;
             if (this.gender == 1) {
@@ -183,13 +235,18 @@ public class UserDto {
                 detailedAddress
             );
 
+<<<<<<< HEAD
             return PTStudent.builder()
+=======
+            return PTTeacher.builder()
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
                 .email(email)
                 .username(username)
                 .nickname(nickname)
                 .gender(gender)
                 .tel(tel)
                 .address(address)
+<<<<<<< HEAD
                 .build();
         }
 
@@ -237,6 +294,15 @@ public class UserDto {
 
         @NotEmpty(message = "권한 주세요.")
         private String role;
+=======
+                .description(description)
+                .price(price)
+                .major(major)
+                .certificates(new ArrayList<>())
+                .careers(new ArrayList<>())
+                .build();
+        }
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     }
 
 
@@ -250,7 +316,12 @@ public class UserDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
+<<<<<<< HEAD
     public static class CareerDto{
+=======
+    public static class CareerDto {
+
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
         private String role;
 
         private LocalDate startDate;
@@ -261,7 +332,11 @@ public class UserDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
+<<<<<<< HEAD
     public static class CertificateDto{
+=======
+    public static class CertificateDto {
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
         private String name; // 자격증 명칭
 

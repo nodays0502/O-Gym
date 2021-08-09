@@ -80,11 +80,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
             .and()
             .authorizeRequests()
+<<<<<<< HEAD
             .antMatchers("/api/hello").permitAll()
             .antMatchers("/api/authenticate").permitAll()
             .antMatchers("/api/user/teacher").permitAll()
             .antMatchers("/api/user/student").permitAll()
             .antMatchers("/api/health/myhealth").permitAll()
+=======
+            .antMatchers("/api/authenticate").permitAll()
+            .antMatchers("/api/user").permitAll()
+            .antMatchers("/api/health/myhealth").permitAll()
+            .antMatchers("/api/pt").permitAll()
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
             .anyRequest().authenticated()
 
             .and()

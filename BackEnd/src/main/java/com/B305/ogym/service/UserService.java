@@ -2,8 +2,11 @@ package com.B305.ogym.service;
 
 import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.UserDto;
+<<<<<<< HEAD
 import com.B305.ogym.controller.dto.UserDto.SaveStudentRequest;
 import com.B305.ogym.controller.dto.UserDto.SaveTeacherRequest;
+=======
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import com.B305.ogym.domain.authority.Authority;
 import com.B305.ogym.domain.authority.AuthorityRepository;
 import com.B305.ogym.domain.users.UserRepository;
@@ -16,7 +19,14 @@ import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+<<<<<<< HEAD
 import com.B305.ogym.exception.user.UserDuplicateException;
+=======
+import com.B305.ogym.exception.user.NotValidRequestParamException;
+import com.B305.ogym.exception.user.UserDuplicateEmailException;
+import com.B305.ogym.exception.user.UserDuplicateException;
+import com.B305.ogym.exception.user.UserDuplicateNicknameException;
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -40,6 +50,7 @@ public class UserService {
 
 
     @Transactional
+<<<<<<< HEAD
     public void signup(SaveStudentRequest StudentRequest) {
         if (userRepository.findOneWithAuthoritiesByEmail(StudentRequest.getEmail())
             != null) {
@@ -117,4 +128,65 @@ public class UserService {
     }
 
 
+=======
+    public void signup(UserDto.SaveUserRequest userRequest) {
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
+            throw new UserDuplicateEmailException("이미 가입되어 있는 email입니다.");
+        }
+        if (userRepository.existsByNickname(userRequest.getNickname())) {
+            throw new UserDuplicateNicknameException("이미 가입되어 있는 nickname입니다.");
+        }
+        if ("ROLE_PTTEACHER".equals(userRequest.getRole())) {
+            Authority teacherRole = authorityRepository.findById("ROLE_PTTEACHER").get();
+
+            PTTeacher ptTeacher = userRequest.toPTTeacherEntity();
+            ptTeacher.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            ptTeacher.setRole(teacherRole);
+
+            userRequest.getCertificates().forEach(ptTeacher::addCertificate);
+            userRequest.getCareers().forEach(ptTeacher::addCareer);
+            userRequest.getSnsAddrs().forEach(ptTeacher::addSns);
+            ptTeacherRepository.save(ptTeacher);
+        } else {
+            Authority studentRole = authorityRepository.findById("ROLE_PTSTUDENT").get();
+            PTStudent ptStudent = userRequest.toPTStudentEntity();
+            ptStudent.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+            ptStudent.setRole(studentRole);
+            if (userRequest.getMonthlyHeights().size() != 12
+                || userRequest.getMonthlyWeights().size() != 12) {
+                throw new NotValidRequestParamException("12개월의 health 정보를 입력하지 않았습니다.");
+            }
+            for (int i = 0; i < 12; i++) {
+                ptStudent.addMonthly(i + 1, userRequest.getMonthlyHeights().get(i),
+                    userRequest.getMonthlyWeights().get(i));
+            }
+            ptStudentRepository.save(ptStudent);
+        }
+    }
+
+//    public UserBase getMyUserWithAuthorities() {
+//        Optional<String> result = SecurityUtil.getCurrentUsername();
+//        if (result.isEmpty()) {
+//            return null;
+//        } else {
+//            return userRepository.findOneWithAuthoritiesByEmail(result.get());
+//        }
+//
+//    }
+
+    @Transactional
+    public void deleteUserBase(Long userId) {
+        userRepository.deleteById(userId); // 이렇게 해도 되나?
+    }
+
+    @Transactional
+    public Map<String, Object> getUserInfo(UserBase user, List<String> req) {
+        if ("ROLE_PTTEACHER".equals(user.getRole())) {
+            return ptTeacherRepository.getInfo(user.getId(), req);
+        } else {
+            return ptStudentRepository.getInfo(user.getId(), req);
+        }
+    }
+
+>>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 }
