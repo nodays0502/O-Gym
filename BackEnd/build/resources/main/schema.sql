@@ -2,9 +2,9 @@ drop table if exists `pt_student_pt_teacher`;
 drop table if exists `monthly`;
 drop table if exists `certificate`;
 drop table if exists `career`;
+drop table if exists `sns`;
 drop table if exists `pt_student`;
 drop table if exists `pt_teacher`;
-drop table if exists `sns`;
 drop table if exists `user_base`;
 drop table if exists `authority`;
 

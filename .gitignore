@@ -142,7 +142,7 @@ fabric.properties
 
 ### Java ###
 # Compiled class file
-*.class
+
 
 # Log file
 *.log
@@ -164,7 +164,8 @@ fabric.properties
 
 HELP.md
 .gradle
-!**/build/
+!**/build/**
+*.class
 !**/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
