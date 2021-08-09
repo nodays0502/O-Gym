@@ -78,7 +78,7 @@ class TrainerInfo extends React.Component {
       loading: true,
     });
     if (data.length > 14) {
-      message.warning("Infinite List loaded all");
+      message.warning("트레이너를 모두 불러왔습니다.");
       this.setState({
         hasMore: false,
         loading: false,

@@ -8,7 +8,7 @@ function StudentCalendar() {
 
   return (
     <Space direction="vertical" size={12}>
-      <DatePicker renderExtraFooter={() => 'extra footer'} />
+      <DatePicker />
 
     </Space>
 

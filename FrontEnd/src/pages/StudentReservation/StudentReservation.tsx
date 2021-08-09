@@ -8,7 +8,7 @@ import TrainerSearch from '../../components/organisms/TrainerSearch/TrainerSearc
 import Payment from '../../components/organisms/Payment/Payment';
 import './styles.css';
 import {
-  AppstoreOutlined,
+  FieldTimeOutlined,
   BarChartOutlined,
   CloudOutlined,
   ShopOutlined,
@@ -16,7 +16,7 @@ import {
   UserOutlined,
   UploadOutlined,
   VideoCameraOutlined, 
-  MailOutlined, 
+  CalendarOutlined, 
   SettingOutlined
 } from '@ant-design/icons';
 import StudentCalendar from '../../components/molecules/StudentCalendar';
@@ -35,7 +35,10 @@ const Container = styled(Row)`
 const StyledSider = styled(Sider)`
   overflow: auto;
   height: 100vh;
-  width: 100vw;
+  background: none;
+  max-width: none;
+  min-width: none;
+  width: auto;
   /* position: fixed; */
   /* right: 0; */
   /* width: 100%; */
@@ -76,17 +79,16 @@ function StudentReservation() {
         <StyledSider><div className="logo" />
         <Menu
         onClick={handleClick}
-        style={{ width: 256 }}
+        style={{ width: "auto" }}
         defaultSelectedKeys={['1']}
         defaultOpenKeys={['sub1']}
         mode="inline"
+        
       >
-        <SubMenu key="sub1" icon={<MailOutlined />} title="날짜선택">
-          <Menu.ItemGroup key="g1" title="날짜선택">
+        <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
           <StudentCalendar />
-          </Menu.ItemGroup>
         </SubMenu>
-        <SubMenu key="sub2" icon={<AppstoreOutlined />} title="시간선택">
+        <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
           <TimeSchedule />
         </SubMenu>
         <Button type="primary" onClick={onClick}>예약하기</Button>
