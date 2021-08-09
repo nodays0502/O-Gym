@@ -41,7 +41,7 @@ public class ResponseConstants {
             "가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.", HttpStatus.NOT_FOUND
         );
     public static final ResponseEntity<String> RESERVATION_NOT_FOUND =
-        new ResponseEntity<>("해당 예약을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+        new ResponseEntity<>("권한이 없거나, 유효한 예약정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
     public static final ResponseEntity<String> TEACHER_NOT_FOUND =
         new ResponseEntity<>(
