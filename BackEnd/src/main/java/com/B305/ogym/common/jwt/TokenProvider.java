@@ -36,11 +36,7 @@ public class TokenProvider implements InitializingBean {
 
     private final Logger logger = LoggerFactory.getLogger(TokenProvider.class);
 
-<<<<<<< HEAD
-    private static final String AUTHORITIES_KEY = "auth";
-=======
     private static final String AUTHORITIES_KEY = "role";
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
     private final String secret;
     private final long tokenValidityInMilliseconds;
@@ -91,13 +87,7 @@ public class TokenProvider implements InitializingBean {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
 
-<<<<<<< HEAD
-        User principal = new User((String)claims.get("email"), "", authorities);
-
-        return new UsernamePasswordAuthenticationToken(principal, token, authorities);
-=======
         return new UsernamePasswordAuthenticationToken(new UserBase(claims), token, authorities);
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     }
 
     public boolean validateToken(String token) {

@@ -1,9 +1,5 @@
 package com.B305.ogym.service;
 
-<<<<<<< HEAD
-public class PTService {
-
-=======
 import com.B305.ogym.controller.dto.PTDto;
 import com.B305.ogym.controller.dto.PTDto.CancelReservationRequest;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
@@ -81,5 +77,4 @@ public class PTService {
             else ptStudentPTTeacherRepository.delete(ptStudentPTTeacher.get());
         }
     }
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 }

@@ -66,7 +66,7 @@ public class QPTTeacher extends EntityPathBase<PTTeacher> {
 
     public final SetPath<com.B305.ogym.domain.mappingTable.PTStudentPTTeacher, com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher> ptStudentPTTeachers = this.<com.B305.ogym.domain.mappingTable.PTStudentPTTeacher, com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher>createSet("ptStudentPTTeachers", com.B305.ogym.domain.mappingTable.PTStudentPTTeacher.class, com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher.class, PathInits.DIRECT2);
 
-    public final ListPath<com.B305.ogym.domain.mappingTable.PTTeacherSns, com.B305.ogym.domain.mappingTable.QPTTeacherSns> ptTeacherSns = this.<com.B305.ogym.domain.mappingTable.PTTeacherSns, com.B305.ogym.domain.mappingTable.QPTTeacherSns>createList("ptTeacherSns", com.B305.ogym.domain.mappingTable.PTTeacherSns.class, com.B305.ogym.domain.mappingTable.QPTTeacherSns.class, PathInits.DIRECT2);
+    public final ListPath<Sns, QSns> snss = this.<Sns, QSns>createList("snss", Sns.class, QSns.class, PathInits.DIRECT2);
 
     public final NumberPath<Float> starRating = createNumber("starRating", Float.class);
 

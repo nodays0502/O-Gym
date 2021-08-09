@@ -1,8 +1,5 @@
-<<<<<<< HEAD
-=======
 ## spring 2.4 이후에는 group
 
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 spring:
   profiles:
     group:
@@ -32,11 +29,7 @@ spring:
     database: mysql
     hibernate:
       #  dialect : org.hibernate.dialect.MySQL57Dialect // spring boot make dialect automatically?
-<<<<<<< HEAD
-      ddl-auto: create-drop
-=======
       ddl-auto: none
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
     properties:
       hibernate:
         default_batch_fetch_size: 100
@@ -56,11 +49,7 @@ logging.level:
 # org.hibernate.type: trace
 
 server:
-<<<<<<< HEAD
-  port: 8081
-=======
   port: 8080
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
 ---
 
@@ -73,14 +62,10 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
-<<<<<<< HEAD
-
-=======
   sql:
     init:
       mode: always
       encoding: utf-8
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 ---
 
 spring:
@@ -101,16 +86,8 @@ spring:
     activate:
       on-profile: "ec2db"
   datasource:
-<<<<<<< HEAD
-    url: jdbc:mysql://13.124.95.248:30036/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true&autoReconnect=True&testOnBorrow=True&validationQuery="select 1"
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: root
-
-=======
     url: jdbc://mysql-575bb7b667-wpk29:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 ---

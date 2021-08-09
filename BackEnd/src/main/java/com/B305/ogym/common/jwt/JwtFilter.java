@@ -53,28 +53,6 @@ public class JwtFilter extends GenericFilterBean {
         filterChain.doFilter(servletRequest, servletResponse);
     }
 
-<<<<<<< HEAD
-    private Authentication getAuthentication(HttpServletRequest request) {
-        String authHeader = request.getHeader(AUTHORIZATION_HEADER);
-        if (authHeader == null) {
-            return null;
-        }
-        String jwt = resolveToken(request);
-        String requestURI = request.getRequestURI();
-
-        Claims claims = null;
-        try {
-            claims = tokenProvider.getClaims(jwt);
-        } catch (JwtException e) {
-            logger.debug("JwtException 발생");
-        }
-        Set<GrantedAuthority> roles = new HashSet<>();
-        String role = (String)claims.get("role");
-        roles.add(new SimpleGrantedAuthority("ROLE_" + role));
-
-        return new UsernamePasswordAuthenticationToken(new UserBase(claims), null, roles);
-    }
-=======
 //    private Authentication getAuthentication(HttpServletRequest request) {
 //        String authHeader = request.getHeader(AUTHORIZATION_HEADER);
 //        if (authHeader == null) {
@@ -95,7 +73,6 @@ public class JwtFilter extends GenericFilterBean {
 //
 //        return new UsernamePasswordAuthenticationToken(new UserBase(claims), null, roles);
 //    }
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
 
     private String resolveToken(HttpServletRequest request) {

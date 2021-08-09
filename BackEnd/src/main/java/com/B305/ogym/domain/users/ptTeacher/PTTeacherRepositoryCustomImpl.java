@@ -53,11 +53,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     }
 
     @Override
-<<<<<<< HEAD
-    public MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
-=======
     public MyStudentsHealthListResponse findMyStudentsHealth(Long teacherId) {
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
         List<StudentHealth> result = queryFactory
             .select(Projections.fields(StudentHealth.class,
                 pTStudent.username.as("username"),
@@ -69,11 +65,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .from(pTStudentPTTeacher)
             .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
             .join(pTStudentPTTeacher.ptStudent, pTStudent)
-<<<<<<< HEAD
-            .where(pTStudentPTTeacher.ptTeacher.email.eq(teacherEmail))
-=======
             .where(pTStudentPTTeacher.ptTeacher.id.eq(teacherId))
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
             .fetch();
 
         List<String> students = result.stream().map(o -> o.getUsername())
@@ -111,10 +103,6 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .from(pTTeacher)
             .where(pTTeacher.id.eq(teacherId))
             .fetchOne(); // pTTeahcer의 정보
-<<<<<<< HEAD
-
-=======
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
         Map<String, Object> map = new HashMap<>();
 
         req.stream().forEach(o -> {
@@ -123,27 +111,13 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                     .select(Projections.fields(CertificateDto.class,
                         certificate.name.as("name"),
                         certificate.publisher.as("publisher"),
-<<<<<<< HEAD
-                        certificate.date.as("date; ")))
-=======
                         certificate.date.as("date")))
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
                     .from(certificate)
                     .where(certificate.ptTeacher.id.eq(teacherId))
                     .fetch();
                 map.put(o, certificates);
             } else if ("careers".equals(o)) {
                 List<CareerDto> careers = queryFactory
-<<<<<<< HEAD
-                        .select(Projections.fields(CareerDto.class,
-                            career.company.as("company"),
-                            career.startDate.as("startDate"),
-                            career.endDate.as("endDate"),
-                            career.role.as("role")))
-                        .from(career)
-                        .where(career.ptTeacher.id.eq(teacherId))
-                        .fetch();
-=======
                     .select(Projections.fields(CareerDto.class,
                         career.company.as("company"),
                         career.startDate.as("startDate"),
@@ -152,7 +126,6 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                     .from(career)
                     .where(career.ptTeacher.id.eq(teacherId))
                     .fetch();
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
                 map.put(o, careers);
             } else {
                 map.put(o, result.get(check.get(o)));

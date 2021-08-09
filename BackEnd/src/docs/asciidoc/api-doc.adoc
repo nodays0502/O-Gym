@@ -9,27 +9,6 @@ endif::[]
 
 == 1. 개요
 
-<<<<<<< HEAD
-== 2. 인증
-=== 2-1. 회원가입
-==== request-fields
-include::{snippets}/userApi/signup/successful/request-fields.adoc[]
-
-==== Request Example
-include::{snippets}/userApi/signup/successful/http-request.adoc[]
-
-==== response-body
-include::{snippets}/userApi/signup/successful/response-body.adoc[]
-
-==== Response Example
-include::{snippets}/userApi/signup/successful/http-response.adoc[]
-
-==== curl-request Example
-include::{snippets}/userApi/signup/successful/curl-request.adoc[]
-
-
-
-=======
 == 2. UserApi
 
 === 2-1. 회원가입
@@ -72,7 +51,6 @@ include::{snippets}/userApi/signup/duplicate/email/http-response.adoc[]
 ===== Response Example
 
 include::{snippets}/userApi/signup/duplicate/nickname/http-response.adoc[]
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 
 
 

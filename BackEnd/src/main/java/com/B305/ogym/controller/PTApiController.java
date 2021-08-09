@@ -1,9 +1,5 @@
 package com.B305.ogym.controller;
 
-<<<<<<< HEAD
-public class PTApiController {
-
-=======
 import com.B305.ogym.controller.dto.PTDto;
 import com.B305.ogym.controller.dto.SuccessResponseDto;
 import com.B305.ogym.controller.dto.UserDto;
@@ -56,5 +52,4 @@ public class PTApiController {
             200, "PT 삭제에 성공했습니다.", new HashMap()
         ));
     }
->>>>>>> 091e6aa5c83db24a5d5b183e28fef92ad935d842
 }
