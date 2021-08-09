@@ -9,14 +9,19 @@ import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestParam;
 
 public class PTDto {
+
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @Builder
+    @AllArgsConstructor
     public static class SaveReservationRequest {
 
         @NotNull
@@ -29,6 +34,7 @@ public class PTDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class CancelReservationRequest {
+
         @NotNull
         private int reservationId;
     }
@@ -36,15 +42,19 @@ public class PTDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class GetTeacherListRequest {
+
         @NotEmpty
-        private List<Map<String,String>> filter;
+        private List<Map<String, String>> filter;
     }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class GetTeacherReservationListResponse {
+
         private List<Reservation> teacherList;
-        static class Reservation{
+
+        static class Reservation {
+
             private String username;
             private String nickname;
             private int gender;
@@ -54,11 +64,13 @@ public class PTDto {
             private String major;
             private float star_rating;
             private String description;
-            private List<Career> careers ;
+            private List<Career> careers;
             private List<ReservationTime> alreadyReserveTime;
 
         }
-        static class ReservationTime{
+
+        static class ReservationTime {
+
             private String reservationId;
             private LocalDateTime time;
         }

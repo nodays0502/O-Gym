@@ -52,7 +52,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 )
 //@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
-@AutoConfigureMockMvc(addFilters = false)
+//@AutoConfigureMockMvc(addFilters = false)
 class UserApiControllerTest {
 
     @MockBean
@@ -264,7 +264,6 @@ class UserApiControllerTest {
             ));
     }
 
-    @WithUserDetails(value = "hello@naver.com")
     @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
     @Test
     public void deleteUser_success() throws Exception {
