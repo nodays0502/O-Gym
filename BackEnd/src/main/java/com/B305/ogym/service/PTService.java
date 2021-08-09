@@ -12,12 +12,13 @@ import com.B305.ogym.exception.user.UnauthorizedException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import com.sun.jdi.request.DuplicateRequestException;
 import java.time.LocalDateTime;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PTService {
 
     private final PTTeacherRepository ptTeacherRepository;
@@ -39,8 +40,11 @@ public class PTService {
         if (ptTeacher == null) {
             throw new UserNotFoundException("TEACHER");
         }
-        PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail)
-            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일은 존재하지 않습니다."));
+        PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail);
+        if(ptStudent==null){
+            throw new UserNotFoundException("해당하는 이메일은 존재하지 않습니다.");
+//            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일은 존재하지 않습니다."));
+        }
 
         try {
             PTStudentPTTeacher ptStudentPTTeacher = ptStudent

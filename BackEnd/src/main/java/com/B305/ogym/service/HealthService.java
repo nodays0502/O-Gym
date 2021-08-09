@@ -30,8 +30,11 @@ public class HealthService {
 //        if (!user.getRole().equals("ROLE_PTSTUDENT")) {
 //            throw new UnauthorizedException("허용되지 않은 접근입니다.");
 //        }
-        PTStudent ptStudent = ptStudentRepository.findByEmail(userEmail)
-            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+        PTStudent ptStudent = ptStudentRepository.findByEmail(userEmail);
+        if (ptStudent == null) {
+            throw new UserNotFoundException("해당하는 이메일이 존재하지 않습니다.");
+        }
+//            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
 
         MyHealthResponse myHealthResponse = ptStudent.getMyHealthResponse(ptStudent);
 
