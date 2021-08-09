@@ -52,14 +52,14 @@ public class PTStudent extends UserBase {
 
     ) {
         List<Monthly> monthly = new ArrayList<Monthly>();
-        for(int i = 1; i <= 12; i++){
-            Monthly data = Monthly.builder()
-                .month(i)
-                .weight(-1)
-                .height(-1)
-                .build();
-            monthly.add(data);
-        }
+//        for(int i = 1; i <= 12; i++){
+//            Monthly data = Monthly.builder()
+//                .month(i)
+//                .weight(-1)
+//                .height(-1)
+//                .build();
+//            monthly.add(data);
+//        }
 
         return PTStudent.builder()
             .email(email)
@@ -69,7 +69,7 @@ public class PTStudent extends UserBase {
             .gender(gender)
             .tel(tel)
             .address(address)
-            .monthly(monthly)
+//            .monthly(monthly)
             .build();
     }
 
@@ -92,10 +92,10 @@ public class PTStudent extends UserBase {
         List<Integer> heightList = new ArrayList<>();
         List<Integer> weightList = new ArrayList<>();
 
-//        for(int i = 0; i < 12; i++){
-//            heightList.add(-1);
-//            weightList.add(-1);
-//        }
+        for(int i = 0; i < 12; i++){
+            heightList.add(-1);
+            weightList.add(-1);
+        }
 
         for(Monthly data : monthly){
             int month = data.getMonth();
