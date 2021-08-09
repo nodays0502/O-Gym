@@ -27,6 +27,9 @@ public class ResponseConstants {
     public static final ResponseEntity<String> DUPLICATION_NICKNAME =
         new ResponseEntity<>("중복된 닉네임입니다.", HttpStatus.CONFLICT);
 
+    public static final ResponseEntity<String> DUPLICATION_MONTH =
+        new ResponseEntity<>("이미 해당 월의 정보가 존재합니다.", HttpStatus.CONFLICT);
+
     public static final ResponseEntity<String> DUPLICATION_RESERVATION =
         new ResponseEntity<>("해당 시간에 예약할 수 없습니다.", HttpStatus.CONFLICT);
 
