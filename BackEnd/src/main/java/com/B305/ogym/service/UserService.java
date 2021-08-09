@@ -40,43 +40,41 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
 
-
     @Transactional
     public void signup(UserDto.SaveUserRequest userRequest) {
-        if (userRepository.findByEmail(userRequest.getEmail())
-            != null) {
+        if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new UserDuplicateEmailException("이미 가입되어 있는 email입니다.");
         }
-        if (userRepository.findByNickname(userRequest.getNickname())
-            != null) {
+        if (userRepository.existsByNickname(userRequest.getNickname())) {
             throw new UserDuplicateNicknameException("이미 가입되어 있는 nickname입니다.");
         }
-        if("ROLE_PTTEACHER".equals(userRequest.getRole())){
+        if ("ROLE_PTTEACHER".equals(userRequest.getRole())) {
             Authority teacherRole = authorityRepository.findById("ROLE_PTTEACHER").get();
 
             PTTeacher ptTeacher = userRequest.toPTTeacherEntity();
             ptTeacher.setPassword(passwordEncoder.encode(userRequest.getPassword()));
             ptTeacher.setRole(teacherRole);
 
-            userRequest.getCertificates().stream().forEach(o -> ptTeacher.addCertificate(o));
-            userRequest.getCareers().stream().forEach(o -> ptTeacher.addCareer(o));
-            userRequest.getSnsAddrs().stream().forEach(o -> ptTeacher.addSns(o));
+            userRequest.getCertificates().forEach(ptTeacher::addCertificate);
+            userRequest.getCareers().forEach(ptTeacher::addCareer);
+            userRequest.getSnsAddrs().forEach(ptTeacher::addSns);
             ptTeacherRepository.save(ptTeacher);
-        }else{
+        } else {
             Authority studentRole = authorityRepository.findById("ROLE_PTSTUDENT").get();
             PTStudent ptStudent = userRequest.toPTStudentEntity();
             ptStudent.setPassword(passwordEncoder.encode(userRequest.getPassword()));
             ptStudent.setRole(studentRole);
-            if(userRequest.getMonthlyHeights().size() != 12 || userRequest.getMonthlyWeights().size() != 12){
+            if (userRequest.getMonthlyHeights().size() != 12
+                || userRequest.getMonthlyWeights().size() != 12) {
                 throw new NotValidRequestParamException("12개월의 health 정보를 입력하지 않았습니다.");
             }
-            for(int i = 0 ; i < 12 ; i++){
-                ptStudent.addMonthly(i+1,userRequest.getMonthlyHeights().get(i),userRequest.getMonthlyWeights().get(i));
+            for (int i = 0; i < 12; i++) {
+                ptStudent.addMonthly(i + 1, userRequest.getMonthlyHeights().get(i),
+                    userRequest.getMonthlyWeights().get(i));
             }
             ptStudentRepository.save(ptStudent);
         }
     }
-
 
 //    public UserBase getMyUserWithAuthorities() {
 //        Optional<String> result = SecurityUtil.getCurrentUsername();
@@ -94,7 +92,7 @@ public class UserService {
     }
 
     @Transactional
-    public Map<String, Object> getUserInfo(UserBase user,List<String> req) {
+    public Map<String, Object> getUserInfo(UserBase user, List<String> req) {
         if ("ROLE_PTTEACHER".equals(user.getRole())) {
             return ptTeacherRepository.getInfo(user.getId(), req);
         } else {

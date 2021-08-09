@@ -25,6 +25,8 @@ import lombok.NoArgsConstructor;
 public class UserDto {
 
     @Getter
+    @Builder
+    @AllArgsConstructor
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class SaveUserRequest {
 
@@ -70,7 +72,7 @@ public class UserDto {
 //        @NotEmpty
         private List<Integer> monthlyHeights;
 
-//        @NotEmpty
+        //        @NotEmpty
         private List<Integer> monthlyWeights;
 
         public PTStudent toPTStudentEntity() {
@@ -97,7 +99,7 @@ public class UserDto {
         }
         // ----------
 
-//        @NotBlank
+        //        @NotBlank
         private String major;
 
         //        @NotEmpty
@@ -106,10 +108,10 @@ public class UserDto {
         //        @NotEmpty
         public List<Career> careers;
 
-//        @NotNull
+        //        @NotNull
         private int price;
 
-//        @NotBlank
+        //        @NotBlank
         private String description;
 
         //        @NotEmpty

@@ -2,6 +2,7 @@ package com.B305.ogym.service;
 
 import com.B305.ogym.controller.dto.HealthDto;
 import com.B305.ogym.controller.dto.HealthDto.GetMyHealthResponse;
+import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
@@ -20,13 +21,10 @@ public class HealthService {
 
     // 로그인한 사용자의 건강정보 조회
     @Transactional
-    public HealthDto.GetMyHealthResponse getMyHealthResponse() {
+    public HealthDto.GetMyHealthResponse getMyHealthResponse(String email) {
 
-        ////
-        // Token으로부터 claim 걸어서 사용자 정보 가져와야함 (이메일)
-        ////
+        System.out.println("email: " +  email);
 
-        String email = "chuu@ssafy.com";
         PTStudent ptStudent = ptStudentRepository.findByEmail(email);
 
         GetMyHealthResponse myHealthResponse = ptStudent.getMyHealthResponse(ptStudent);
