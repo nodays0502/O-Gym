@@ -6,13 +6,13 @@ import { Radio } from 'antd';
 function TimeSchedule() {
   return (
     <>
-      <Radio.Group defaultValue="a" buttonStyle="solid">
-      <Radio.Button value="a">09:00</Radio.Button>
-      <Radio.Button value="b">10:00</Radio.Button>
-      <Radio.Button value="c">11:00</Radio.Button>
-      <Radio.Button value="d">12:00</Radio.Button>
-      <Radio.Button value="d">15:00</Radio.Button>
-      <Radio.Button value="d">20:00</Radio.Button>
+      <Radio.Group defaultValue="09:00" buttonStyle="solid">
+      <Radio.Button value="09:00">09:00</Radio.Button>
+      <Radio.Button value="10:00">10:00</Radio.Button>
+      <Radio.Button value="11:00">11:00</Radio.Button>
+      <Radio.Button value="12:00">12:00</Radio.Button>
+      <Radio.Button value="15:00">15:00</Radio.Button>
+      <Radio.Button value="20:00">20:00</Radio.Button>
     </Radio.Group>
     </>
   )
