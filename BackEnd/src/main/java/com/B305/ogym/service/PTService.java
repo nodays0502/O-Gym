@@ -36,15 +36,11 @@ public class PTService {
         String teacherEmail = request.getPtTeacherEmail();
         LocalDateTime time = request.getReservationTime();
 
-        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(teacherEmail);
-        if (ptTeacher == null) {
-            throw new UserNotFoundException("TEACHER");
-        }
-        PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail);
-        if(ptStudent==null){
-            throw new UserNotFoundException("해당하는 이메일은 존재하지 않습니다.");
-//            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일은 존재하지 않습니다."));
-        }
+        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(teacherEmail)
+            .orElseThrow(() -> new UserNotFoundException("TEACHER"));
+
+        PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail)
+            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일은 존재하지 않습니다."));
 
         try {
             PTStudentPTTeacher ptStudentPTTeacher = ptStudent
@@ -59,24 +55,18 @@ public class PTService {
     public void cancleReservation(String ptStudentEmail, reservationRequest request) {
 
         // 로그인한 사용자 찾을 수 없음
-        PTStudent ptStudent = ptStudentRepository.findByEmail(ptStudentEmail);
-        if (ptStudent == null) {
-            throw new UnauthorizedException("로그인한 사용자 없음");
-        }
+        PTStudent ptStudent = ptStudentRepository.findByEmail(ptStudentEmail)
+            .orElseThrow(() -> new UnauthorizedException("로그인한 사용자 없음"));
 
         // 선생님 정보 찾을 수 없음
-        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(request.getPtTeacherEmail());
-        if (ptTeacher == null) {
-            throw new UserNotFoundException("CANCLE_RESERVATION");
-        }
+        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(request.getPtTeacherEmail())
+            .orElseThrow(() -> new UserNotFoundException("CANCLE_RESERVATION"));
 
         // 예약정보 찾을 수 없음
         PTStudentPTTeacher ptStudentPTTeacher = ptStudentPTTeacherRepository
             .findByPtTeacherAndPtStudentAndReservationDate(ptTeacher, ptStudent,
-                request.getReservationTime());
-        if (ptStudentPTTeacher == null) {
-            throw new UserNotFoundException("CANCLE_RESERVATION");
-        }
+                request.getReservationTime())
+            .orElseThrow(() -> new UserNotFoundException("CANCLE_RESERVATION"));
 
         ptStudentPTTeacherRepository.delete(ptStudentPTTeacher);
 
