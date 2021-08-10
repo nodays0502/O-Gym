@@ -55,9 +55,5 @@ public class PTStudentPTTeacher {
     private LocalDateTime reservationDate; // 예약 월 일
 
 
-//    public PTDto.AllTeacherListResponse teacherListResponse(List<PTTeacher> ptTeachers){
-//
-//        return allTeacherListResponse;
-//    }
 
 }
