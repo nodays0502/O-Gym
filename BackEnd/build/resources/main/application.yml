@@ -61,7 +61,7 @@ spring:
     url: jdbc:mysql://localhost:3306/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: tpdus
+    password: root
   sql:
     init:
       mode: always
@@ -86,8 +86,12 @@ spring:
     activate:
       on-profile: "ec2db"
   datasource:
-    url: jdbc://mysql-575bb7b667-wpk29:3307/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
+    url: jdbc:mysql://i5b305.p.ssafy.io:30036/ssafy_web_db?useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Seoul&zeroDateTimeBehavior=convertToNull&rewriteBatchedStatements=true
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
     password: root
+  sql:
+    init:
+      mode: always
+      encoding: utf-8
 ---

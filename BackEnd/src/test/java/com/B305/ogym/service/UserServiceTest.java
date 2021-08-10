@@ -121,14 +121,13 @@ class UserServiceTest {
         //given
         var user = createStudent();
         String email = user.getEmail();
-        Long id = user.getId();
-//        given(userRepository.findByEmail(email)).willReturn(user);
+        given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
 
         //when
-        userService.deleteUserBase(id);
+        userService.deleteUserBase(email);
 
         //then
-        verify(userRepository, atLeastOnce()).deleteById(id);
+        verify(userRepository, atLeastOnce()).findByEmail(email);
     }
 
     @DisplayName("트레이너 회원 탈퇴 성공")
@@ -137,14 +136,13 @@ class UserServiceTest {
         //given
         var user = createTeacher();
         String email = user.getEmail();
-        Long id = user.getId();
-        given(userRepository.findByEmail(email)).willReturn(user);
+        given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
 
         //when
-        userService.deleteUserBase(id);
+        userService.deleteUserBase(email);
 
         //then
-        verify(userRepository, atLeastOnce()).deleteById(id);
+        verify(userRepository, atLeastOnce()).findByEmail(email);
     }
 
 

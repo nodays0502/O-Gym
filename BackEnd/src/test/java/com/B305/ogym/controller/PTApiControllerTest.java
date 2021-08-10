@@ -14,7 +14,6 @@ import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfig
 
 import com.B305.ogym.common.annotation.WithAuthUser;
 import com.B305.ogym.common.config.SecurityConfig;
-import com.B305.ogym.controller.dto.PTDto.SaveReservationRequest;
 import com.B305.ogym.service.PTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
@@ -69,11 +68,11 @@ class PTApiControllerTest {
             .build();
     }
 
-    private SaveReservationRequest createReservation() {
-        return SaveReservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
-    }
+//    private SaveReservationRequest createReservation() {
+//        return SaveReservationRequest.builder()
+//            .ptTeacherEmail("teacher@naver.com")
+//            .build();
+//    }
 
 //    @DisplayName("PT 예약 성공")
 //    @Test
