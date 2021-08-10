@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
+import com.B305.ogym.common.annotation.WithAuthUser;
 import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 import com.B305.ogym.exception.user.UserDuplicateEmailException;
@@ -264,14 +265,14 @@ class UserApiControllerTest {
             ));
     }
 
+//    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
     @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
     @Test
     public void deleteUser_success() throws Exception {
         //given
-        Long userId = 1L;
 
         //when
-        doNothing().when(userService).deleteUserBase(userId);
+//        doNothing().when(userService).deleteUserBase(userId);
 
         //then
 //        mockMvc.perform(delete("/api/user")

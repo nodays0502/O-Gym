@@ -12,6 +12,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
+import com.B305.ogym.common.annotation.WithAuthUser;
 import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.PTDto.SaveReservationRequest;
 import com.B305.ogym.service.PTService;
@@ -74,64 +75,21 @@ class PTApiControllerTest {
             .build();
     }
 
-//    @WithUserDetails("testUser")
-    @DisplayName("PT 예약 성공")
-    @Test
-    public void PT_Reservation_Success() throws Exception {
-        //given
-        var request = createReservation();
-
-        //when
-        doNothing().when(ptService).makeReservation(any(), request);
-
-        //then
+//    @DisplayName("PT 예약 성공")
+//    @Test
+//    public void PT_Reservation_Success() throws Exception {
+//        //given
+//        var request = createReservation();
+//
+//        //when
+//        doNothing().when(ptService).makeReservation(any(), request);
+//
+//        //then
 //        mockMvc.perform(post("/api/pt/reservation")
 //            .contentType(MediaType.APPLICATION_JSON)
 //            .content(objectMapper.writeValueAsString(request)))
 //            .andDo(print())
-//            .andExpect(status().isOk()) // 201 isCreated()
-//            .andDo(
-//                document(
-//                    "ptApi/reservation/successful",
-//                    requestFields(
-//                        fieldWithPath("email").type(JsonFieldType.STRING)
-//                            .description("The user's email address"),
-//                        fieldWithPath("password").type(JsonFieldType.STRING)
-//                            .description("The user's password"),
-//                        fieldWithPath("username").type(JsonFieldType.STRING)
-//                            .description("The user's username"),
-//                        fieldWithPath("nickname").type(JsonFieldType.STRING)
-//                            .description("The user's nickname"),
-//                        fieldWithPath("gender").type(JsonFieldType.NUMBER)
-//                            .description("The user's gender"),
-//                        fieldWithPath("tel").type(JsonFieldType.STRING)
-//                            .description("The user's tel"),
-//                        fieldWithPath("zipCode").type(JsonFieldType.STRING)
-//                            .description("The user's zipCode"),
-//                        fieldWithPath("street").type(JsonFieldType.STRING)
-//                            .description("The user's street"),
-//                        fieldWithPath("detailedAddress").type(JsonFieldType.STRING)
-//                            .description("The user's detailedAddress"),
-//                        fieldWithPath("role").type(JsonFieldType.STRING)
-//                            .description("The user's role"),
-//                        fieldWithPath("major").type(JsonFieldType.STRING)
-//                            .description("The user's major"),
-//                        fieldWithPath("certificates").type(JsonFieldType.ARRAY)
-//                            .description("The user's certificates"),
-//                        fieldWithPath("careers").type(JsonFieldType.ARRAY)
-//                            .description("The user's careers"),
-//                        fieldWithPath("price").type(JsonFieldType.NUMBER)
-//                            .description("The user's price"),
-//                        fieldWithPath("description").type(JsonFieldType.STRING)
-//                            .description("The user's description"),
-//                        fieldWithPath("snsAddrs").type(JsonFieldType.NULL)
-//                            .description("The user's snsAddrs")
-//                    ).and(
-//                        fieldWithPath("monthlyHeights").type(JsonFieldType.NULL)
-//                            .description("트레이너의 경우 입력받지 않습니다."),
-//                        fieldWithPath("monthlyWeights").type(JsonFieldType.NULL)
-//                            .description("트레이너의 경우 입력받지 않습니다.")
-//                    )));
-    }
+//            .andExpect(status().isOk());
+//    }
 
 }
