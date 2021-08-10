@@ -154,7 +154,6 @@ fabric.properties
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.nar
 *.ear
@@ -165,6 +164,7 @@ fabric.properties
 HELP.md
 .gradle
 !**/build/**
+*.jar
 *.class
 !**/gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
