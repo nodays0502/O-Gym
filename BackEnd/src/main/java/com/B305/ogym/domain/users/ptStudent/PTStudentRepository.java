@@ -4,6 +4,6 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface PTStudentRepository extends JpaRepository<PTStudent,Long>,PTStudentRepositoryCustom {
-    PTStudent findByEmail(String email);
+    Optional<PTStudent> findByEmail(String email);
 
 }
