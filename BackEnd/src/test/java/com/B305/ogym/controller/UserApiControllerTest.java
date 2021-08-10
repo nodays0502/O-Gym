@@ -14,6 +14,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
 
+import com.B305.ogym.common.annotation.WithAuthUser;
 import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 import com.B305.ogym.exception.user.UserDuplicateEmailException;
@@ -52,7 +53,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 )
 //@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
-@AutoConfigureMockMvc(addFilters = false)
+//@AutoConfigureMockMvc(addFilters = false)
 class UserApiControllerTest {
 
     @MockBean
@@ -264,24 +265,23 @@ class UserApiControllerTest {
             ));
     }
 
-//    @WithUserDetails(value = "hello@naver.com")
-//    @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
-//    @Test
-//    public void deleteUser_success() throws Exception {
-//        //given
-//        Long userId = 1L;
-//
-//        //when
+//    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
+    @Test
+    public void deleteUser_success() throws Exception {
+        //given
+
+        //when
 //        doNothing().when(userService).deleteUserBase(userId);
-//
-//        //then
-////        mockMvc.perform(delete("/api/user")
-////            .contentType(MediaType.APPLICATION_JSON)
-////            .content()
-////            .andDo(print())
-////            .andExpect(status().isConflict())
-////            .andDo(document("userApi/signup/duplicate/nickname"
-////            ));
-//    }
+
+        //then
+//        mockMvc.perform(delete("/api/user")
+//            .contentType(MediaType.APPLICATION_JSON)
+//            .content()
+//            .andDo(print())
+//            .andExpect(status().isConflict())
+//            .andDo(document("userApi/signup/duplicate/nickname"
+//            ));
+    }
 
 }
