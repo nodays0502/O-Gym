@@ -10,6 +10,7 @@ import TeacherReservation from './pages/TeacherReservation/TeacherReservation';
 function App() {
   return (
     <>
+  
       <Router>
         <Route exact path='/' component={MainPage} />
         <Route exact path='/studentreservation' component={StudentReservation} />

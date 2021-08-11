@@ -14,7 +14,7 @@ import {
   ConfirmationDialog
 } from "@devexpress/dx-react-scheduler-material-ui";
 import { appointments } from "./appointments";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { MuiThemeProvider, createMuiTheme, StylesProvider } from "@material-ui/core/styles";
 import { teal, blue } from "@material-ui/core/colors";
 
 const theme = createMuiTheme({
@@ -86,8 +86,10 @@ export default class Demo extends React.PureComponent {
     } = this.state;
 
     return (
+      <StylesProvider injectFirst>
+      
       <MuiThemeProvider theme={theme}>
-        <Paper>
+          <Paper>
           <Scheduler data={data} height={660}>
             <ViewState currentDate={currentDate} />
             <EditingState
@@ -108,7 +110,8 @@ export default class Demo extends React.PureComponent {
             <AppointmentForm />
           </Scheduler>
         </Paper>
-      </MuiThemeProvider>
+        </MuiThemeProvider>
+        </StylesProvider>
     );
   }
 }
