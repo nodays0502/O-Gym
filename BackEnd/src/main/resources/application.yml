@@ -52,6 +52,7 @@ logging.level:
 server:
   port: 8080
 
+
 ---
 
 spring:
@@ -67,6 +68,12 @@ spring:
     init:
       mode: always
       encoding: utf-8
+  cache:
+    type: redis
+  redis:
+    host: localhost
+    port: 6379
+
 ---
 
 spring:
@@ -79,7 +86,6 @@ spring:
     username: sa
     password:
 
----
 ---
 
 spring:
@@ -95,4 +101,9 @@ spring:
     init:
       mode: always
       encoding: utf-8
+  cache:
+    type: redis
+  redis:
+    host: i5b305.p.ssafy.io
+    port: 6379
 ---
