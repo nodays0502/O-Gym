@@ -15,6 +15,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,11 +79,13 @@ public class PTService {
     @Transactional
     public AllTeacherListResponse getTeacherList() {
 
-        List<PTTeacher> ptTeachers = ptTeacherRepository.findAll();
+//        List<PTTeacher> ptTeachers = ptTeacherRepository.findAll();
+        PageRequest pageRequest = PageRequest.of(0, 10);
+        Page<PTTeacher> ptTeachers = ptTeacherRepository.findAll(pageRequest);
 
         List<PTTeacherDto> ptTeacherDtos = new ArrayList<>();
-        for (int i = 0; i < ptTeachers.size(); i++) {
-            PTTeacher ptTeacher = ptTeachers.get(i);
+        for (int i = 0; i < ptTeachers.getSize(); i++) {
+            PTTeacher ptTeacher = ptTeachers.getContent().get(i);
             ptTeacherDtos.add(ptTeacher.toPTTeacherDto());
         }
 
