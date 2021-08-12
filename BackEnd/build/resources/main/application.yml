@@ -113,9 +113,20 @@ spring:
     init:
       mode: always
       encoding: utf-8
-  cache:
-    type: redis
   redis:
-    host: i5b305.p.ssafy.io
-    port: 6100
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 2
+    cache:
+      host: i5b305.p.ssafy.io
+      port: 6100
+    token:
+      host: i5b305.p.ssafy.io
+      port: 6101
+    blacklist:
+      host: i5b305.p.ssafy.io
+      port: 6102
+
 ---
