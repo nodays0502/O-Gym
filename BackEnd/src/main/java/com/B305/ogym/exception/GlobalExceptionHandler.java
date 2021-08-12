@@ -1,6 +1,7 @@
 package com.B305.ogym.exception;
 
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_EMAIL;
+import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_MONTH;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_NICKNAME;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_RESERVATION;
 import static com.B305.ogym.common.util.constants.ResponseConstants.NOT_VALID_PARAM;
@@ -10,6 +11,7 @@ import static com.B305.ogym.common.util.constants.ResponseConstants.UNAUTHORIZED
 import static com.B305.ogym.common.util.constants.ResponseConstants.USER_NOT_FOUND;
 import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_FAILED;
 
+import com.B305.ogym.exception.health.HealthDuplicateException;
 import com.B305.ogym.exception.user.NotValidRequestParamException;
 import com.B305.ogym.exception.user.ReservationDuplicateException;
 import com.B305.ogym.exception.user.UnauthorizedException;
@@ -75,13 +77,20 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.debug("중복된 예약", ex);
         return DUPLICATION_RESERVATION;
     }
+    // 건강정보 중복에 대한 에러 핸들러
+    @ExceptionHandler(HealthDuplicateException.class)
+    public final ResponseEntity<String> handleHealthDuplicateException(
+        ReservationDuplicateException ex){
+        log.debug("중복된 month정보", ex);
+        return DUPLICATION_MONTH;
+    }
 
     // 존재하지 않는 유저 정보 조회에 대한 에러 핸들러
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
         log.debug("존재하지 않는 유저", ex);
         if(ex.getMessage().equals("TEACHER")) return TEACHER_NOT_FOUND;
-        else if(ex.getMessage().equals("CANCLE_RESERVATION")) return RESERVATION_NOT_FOUND;
+        else if(ex.getMessage().equals("CANCEL_RESERVATION")) return RESERVATION_NOT_FOUND;
         else return USER_NOT_FOUND;
     }
 
