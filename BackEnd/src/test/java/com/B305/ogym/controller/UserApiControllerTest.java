@@ -1,6 +1,7 @@
 package com.B305.ogym.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
@@ -273,10 +274,11 @@ class UserApiControllerTest {
         String email = "teacher@naver.com";
 
         //when
-        doNothing().when(userService).deleteUserBase(email, any());
+        doNothing().when(userService).deleteUserBase(eq(email), any());
 
         //then
-        mockMvc.perform(delete("/api/user"))
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("userApi/delete/teacher/successful"
@@ -292,10 +294,11 @@ class UserApiControllerTest {
 
         //when
         doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
-            .deleteUserBase(email, any());
+            .deleteUserBase(eq(email), any());
 
         //then
-        mockMvc.perform(delete("/api/user"))
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
             .andDo(print())
             .andExpect(status().isNotFound())
             .andDo(document("userApi/delete/teacher/failure"
@@ -310,10 +313,11 @@ class UserApiControllerTest {
         String email = "student@naver.com";
 
         //when
-        doNothing().when(userService).deleteUserBase(email, any());
+        doNothing().when(userService).deleteUserBase(eq(email), any());
 
         //then
-        mockMvc.perform(delete("/api/user"))
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("userApi/delete/student/successful"
@@ -329,10 +333,11 @@ class UserApiControllerTest {
 
         //when
         doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
-            .deleteUserBase(email, any());
+            .deleteUserBase(eq(email), any());
 
         //then
-        mockMvc.perform(delete("/api/user"))
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
             .andDo(print())
             .andExpect(status().isNotFound())
             .andDo(document("userApi/delete/student/failure"
@@ -352,7 +357,8 @@ class UserApiControllerTest {
 
         given(userService.getUserInfo(email, req)).willReturn(data);
 
-        mockMvc.perform(get("/api/user/id,email"))
+        mockMvc.perform(get("/api/user/id,email")
+            .header("Authorization", "overStringLength7"))
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("userApi/getUserInfo/successful"));

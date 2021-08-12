@@ -1,4 +1,5 @@
 [source,bash]
 ----
-$ curl 'http://localhost:8080/api/user/id,email' -i -X GET
+$ curl 'http://localhost:8080/api/user/id,email' -i -X GET \
+    -H 'Authorization: overStringLength7'
 ----
