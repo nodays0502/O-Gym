@@ -4,6 +4,8 @@ import com.B305.ogym.common.util.SecurityUtil;
 import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.domain.authority.Authority;
 import com.B305.ogym.domain.authority.AuthorityRepository;
+import com.B305.ogym.domain.authority.RefreshToken;
+import com.B305.ogym.domain.authority.RefreshTokenRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.Address;
 import com.B305.ogym.domain.users.common.Gender;
@@ -41,6 +43,7 @@ public class UserService {
     private final PTTeacherRepository ptTeacherRepository;
     private final PTStudentRepository ptStudentRepository;
     private final AuthorityRepository authorityRepository;
+    private final RefreshTokenRepository refreshTokenRepository;
 
 
     @Transactional
@@ -91,6 +94,10 @@ public class UserService {
 
     @Transactional
     public void deleteUserBase(String userEmail) {
+        Optional<RefreshToken> refreshToken = refreshTokenRepository.findById(userEmail);
+        if(refreshToken.isPresent()){
+            refreshTokenRepository.delete(refreshToken.get());
+        }
         UserBase user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
         userRepository.delete(user); // 이렇게 해도 되나? teacher 만들어서 해얗나ㅏ?

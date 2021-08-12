@@ -49,7 +49,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         check.put("role", pTTeacher.authority);
         check.put("major", pTTeacher.major);
         check.put("price", pTTeacher.price);
-        check.put("description ", pTTeacher.description);
+        check.put("description", pTTeacher.description);
     }
 
     @Override
