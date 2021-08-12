@@ -8,7 +8,14 @@ import styled from "styled-components";
 import Postcode from "../../molecules/postcode/Postcode";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
+import { updateSourceFile } from "typescript";
+import AddSns from "../../molecules/register/AddSns";
+import { AddSNS } from '../../../recoil/atoms/AddSNS'
+import AddCert from "../../molecules/register/AddCert";
+import { AddCERT } from '../../../recoil/atoms/AddCERT';
+import AddCareer from "../../molecules/register/AddCareer";
+import { AddCAREER } from "../../../recoil/atoms/AddCAREER"
 
 
 const ErrorP = styled.p`
@@ -54,7 +61,10 @@ interface FormValues {
   detailedAddress: string;
   phone: string;
   gender: number;
-  role: string;
+  major: string;
+  price: number;
+  description: string;
+  snsAddrs: Array<string>;
 }
 
 const schema = yup.object().shape({
@@ -82,41 +92,93 @@ const schema = yup.object().shape({
     .required("상세 주소를 입력해주세요"),
   phone: yup.string()
     .required("전화번호를 입력해주세요")
-    .max(12, "올바른 전화번호 형식이 아닙니다"),
+    .max(14, "올바른 전화번호 형식이 아닙니다"),
   gender: yup.number()
     .required()
     .typeError("성별을 선택해주세요"),
-  role: yup.string()
-    .required()
-    .typeError("가입목적을 선택해주세요"),
-    
+  major: yup.string()
+    .required('전공을 입력해주세요')
+    .max(20, '올바른 전공을 입력해주세요'),
+  price: yup.number()
+    .required('금액을 입력해주세요')
+    .min(10000, '올바른 금액을 입력해주세요')
+    .max(200000, '올바른 금액을 입력해주세요'),
+  description: yup.string()
+    .required('자기소개를 입력해주세요')
+    .max(50, '50글자를 넘길 수 없습니다'),
+  // snsAddrs: yup.array()
+  //   .required('sns를 입력해주세요')
 });
 
-function RegisterContent() {
-
+function RegisterStudent() {
+  const [inputPhone, setInputPhone] = useState('');
   const zipcode = useRecoilValue(Zipcode)
   const streetAddress = useRecoilValue(StreetAddress)
+  const adsns = useRecoilValue(AddSNS)
+  const adcert = useRecoilValue(AddCERT)
+  const adcareer = useRecoilValue(AddCAREER)
   
   const { register, setValue, handleSubmit, formState: {errors} } = useForm<FormValues>({
     resolver: yupResolver(schema)
   });
 
   const onSubmit = (data: FormValues) => {
-    console.log(data)
-    // axios.post("test", {
-    //   email : data.email,
-    //   password : data.password,
-    //   username : data.username,
-    //   nickname : data.nickname,
-    //   gender : data.gender,
-    //   tel : data.phone,
-    //   zip_code : data.zipcode,
-    //   street : data.streetAddress,
-    //   detailed_address : data.detailedAddress,
-    //   role : data.role
+
+    // console.log({
+    // "email" : data.email,
+    // "password" : data.password,
+    // "username" : data.username,
+    // "nickname" : data.nickname,
+    // "gender" : data.gender,
+    // "tel" : data.phone,
+    // "zipCode" : data.zipcode,
+    // "street" : data.streetAddress,
+    // "detailedAddress" : data.detailedAddress,
+    // "role" : "ROLE_PTTEACHER",
+    // "certificates": adcert,
+    // "snsAddrs": adsns,
+    // "careers": adcareer
     // })
+    axios.post("/api/user/", {
+      "email" : data.email,
+      "password" : data.password,
+      "username" : data.username,
+      "nickname" : data.nickname,
+      "gender" : data.gender,
+      "tel" : data.phone,
+      "zipCode" : data.zipcode,
+      "street" : data.streetAddress,
+      "detailedAddress" : data.detailedAddress,
+      "role" : "ROLE_PTTEACHER",
+      "certificates": adcert,
+      "snsAddrs": adsns,
+      "careers": adcareer
+    })
+    // axios.get("/api/hello")
+    //   .then(res => console.log(res))
     
   }
+
+  // useEffect(() => {
+  //   axios.get('/api/hello')
+  //   .then(response => console.log(response))
+  // }, [])
+
+  const phoneChange = (e) => {
+    const regex = /^[0-9\b -]{0,13}$/;
+    if (regex.test(e.target.value)) {
+      setInputPhone(e.target.value);
+    }
+  }
+
+  useEffect(() => {
+    if (inputPhone.length === 10) {
+      setInputPhone(inputPhone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3'));
+    }
+    if (inputPhone.length === 13) {
+      setInputPhone(inputPhone.replace(/-/g, '').replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3'));
+    }
+  }, [inputPhone]);
 
   return (
     <StyledForm onSubmit={handleSubmit(onSubmit)} >
@@ -155,7 +217,7 @@ function RegisterContent() {
       {errors.detailedAddress?.message && <ErrorP>{errors.detailedAddress?.message}</ErrorP>}
 
       <StyledLabel htmlFor="phone">전화번호</StyledLabel>
-      <StyeldInput type="text" placeholder="phone"{...register("phone")} maxLength={12}/>
+      <StyeldInput type="text" placeholder="phone"{...register("phone")} maxLength={14}  onChange={phoneChange} value={inputPhone} />
       {errors.phone?.message && <ErrorP>{errors.phone?.message}</ErrorP>}
       
       <StyledLabel htmlFor="gender">성별</StyledLabel>
@@ -166,13 +228,26 @@ function RegisterContent() {
       </select>
       {errors.gender?.message && <ErrorP>{errors.gender?.message}</ErrorP>}
 
-      <StyledLabel htmlFor="role">가입목적</StyledLabel>
-      <select {...register("role")} id="role">
-        <option value="">Select</option>
-        <option value="ROLE_PTTEACHER">PT트레이너</option>
-        <option value="ROLE_PTSTUDENT">PT회원</option>
-      </select>
-      {errors.role?.message && <ErrorP>{errors.role?.message}</ErrorP>}
+      <StyledLabel htmlFor="major">전공</StyledLabel>
+      <StyeldInput type="text" placeholder="전공"{...register("major")} maxLength={20}/>
+      {errors.major?.message && <ErrorP>{errors.major?.message}</ErrorP>}
+
+      <StyledLabel htmlFor="certifications">자격증</StyledLabel>
+      <AddCert />
+
+      <StyledLabel htmlFor="careers">커리어</StyledLabel>
+      <AddCareer />
+
+      <StyledLabel htmlFor="price">시간당금액</StyledLabel>
+      <StyeldInput type="number" placeholder="시간당금액"{...register("price")} min={10000} max={200000}/>
+      {errors.price?.message && <ErrorP>{errors.price?.message}</ErrorP>}
+
+      <StyledLabel htmlFor="description">자기소개</StyledLabel>
+      <StyeldInput type="text" placeholder="자기소개"{...register("description")} maxLength={50}/>
+      {errors.description?.message && <ErrorP>{errors.description?.message}</ErrorP>}
+
+      <StyledLabel htmlFor="sns">SNS</StyledLabel>
+      <AddSns />
       
       <StyeldInput 
         type="submit"
@@ -186,4 +261,4 @@ function RegisterContent() {
   );
 }
 
-export default RegisterContent;
+export default RegisterStudent;
