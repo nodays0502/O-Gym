@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.NotEmpty;
@@ -130,7 +131,7 @@ public class PTDto {
         private List<LocalDateTime> reservations = new ArrayList<>();
 
         // 자격증 정보
-        private  List<CertificateDto> certificates = new ArrayList<>();
+        private List<CertificateDto> certificates = new ArrayList<>();
 
 
     }
@@ -169,6 +170,22 @@ public class PTDto {
     }
 
     /////////////////////////////////////////////////////////////
+
+    @Getter
+    @Builder
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    @AllArgsConstructor
+    public static class SearchDto {
+
+        @Builder.Default
+        private String name = null;
+        @Builder.Default
+        private Gender gender = null;
+        @Builder.Default
+        private Integer minPrice = null;
+        @Builder.Default
+        private Integer maxPrice = null;
+    }
 
 
     @Getter
