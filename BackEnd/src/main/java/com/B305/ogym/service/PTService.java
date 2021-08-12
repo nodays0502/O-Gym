@@ -17,6 +17,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -77,20 +78,24 @@ public class PTService {
 
     // 선생님 리스트 출력
     @Transactional
-    public AllTeacherListResponse getTeacherList() {
+    public AllTeacherListResponse getTeacherList(Pageable pageable) {
 
 //        List<PTTeacher> ptTeachers = ptTeacherRepository.findAll();
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        Page<PTTeacher> ptTeachers = ptTeacherRepository.findAll(pageRequest);
+//        PageRequest pageRequest = PageRequest.of(3, 10);
+        Page<PTTeacher> ptTeachers = ptTeacherRepository.findAll(pageable);
 
         List<PTTeacherDto> ptTeacherDtos = new ArrayList<>();
-        for (int i = 0; i < ptTeachers.getSize(); i++) {
+        for (int i = 0; i < ptTeachers.getNumberOfElements(); i++) {
             PTTeacher ptTeacher = ptTeachers.getContent().get(i);
             ptTeacherDtos.add(ptTeacher.toPTTeacherDto());
         }
 
         AllTeacherListResponse allTeacherListResponse = AllTeacherListResponse.builder()
             .teacherList(ptTeacherDtos)
+            .pageable(ptTeachers.getPageable())
+            .totalPages(ptTeachers.getTotalPages())
+            .totalElements(ptTeachers.getTotalElements())
+            .numberOfElements(ptTeachers.getNumberOfElements())
             .build();
 
         return allTeacherListResponse;

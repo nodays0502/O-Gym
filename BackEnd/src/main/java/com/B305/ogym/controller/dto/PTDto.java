@@ -22,6 +22,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.jni.Local;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -73,6 +74,13 @@ public class PTDto {
     public static class AllTeacherListResponse {
 
         private List<PTTeacherDto> teacherList;
+
+        private Pageable pageable;  // pagination 에 대한 정보
+
+        private int totalPages; // 전체 페이지 수
+        private long totalElements; // 전체 요소의 수
+
+        private int numberOfElements; // 현재 페이지에 조회된 요소의 수
 
     }
 
