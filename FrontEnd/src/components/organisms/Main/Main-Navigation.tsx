@@ -39,8 +39,14 @@ const StyledModal = styled(Modal)`
 
 
 `;
-const StyledButton = styled(Button)`
-    position: fixed;
+
+export interface MainNavigationType {
+  position?: string;
+}
+
+
+const StyledButton = styled(Button)<MainNavigationType>`
+    position: ${props=>props.position || "fixed"};
     z-index: 2;
     top: 10px;
     left: 10px;
@@ -56,7 +62,7 @@ const StyledCircledImage = styled(Image)`
 
 
 
-const MainNavigation = (): JSX.Element => {
+const MainNavigation = (props): JSX.Element => {
 
     const [isVisible, setIsVisible] = useState<boolean>(false);
     
@@ -71,7 +77,7 @@ const MainNavigation = (): JSX.Element => {
     return (
         <>
             <StyledButton onClick={clickMenuButton}
-          shape="circle"
+          shape="circle" position={props.position}
           icon={<StyledCircledImage src={OGYM} preview={false} />}
         >
         

@@ -1,374 +1,289 @@
-// @ts-nocheck
 import * as React from 'react';
-import { Grid, Box } from '@material-ui/core';
-import TableCell from '@material-ui/core/TableCell';
-import { darken, fade, lighten } from '@material-ui/core/styles/colorManipulator';
-import Typography from '@material-ui/core/Typography';
-import { ViewState, EditingState } from '@devexpress/dx-react-scheduler';
-import classNames from 'clsx';
+import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
-  Scheduler,
-  MonthView,
-  Appointments,
-  Toolbar,
-  DateNavigator,
-  AppointmentTooltip,
-  AppointmentForm,
-  EditRecurrenceMenu,
-  Resources,
-  DragDropProvider,
+  Scheduler, DayView, Appointments, MonthView, Toolbar,
+  DateNavigator, ViewSwitcher, TodayButton, Resources, AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
-import WbSunny from '@material-ui/icons/WbSunny';
-import FilterDrama from '@material-ui/icons/FilterDrama';
-import Opacity from '@material-ui/icons/Opacity';
-import ColorLens from '@material-ui/icons/ColorLens';
-import { withStyles } from '@material-ui/core/styles';
-import { owners } from './tasks';
+import { withStyles, Theme, createStyles } from '@material-ui/core';
+import { indigo, blue, teal } from '@material-ui/core/colors';
+import Paper from '@material-ui/core/Paper';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import { WithStyles } from '@material-ui/styles';
+import classNames from 'clsx';
 
 const appointments = [
   {
-    id: 0,
-    title: 'Watercolor Landscape',
-    startDate: new Date(2018, 6, 23, 9, 30),
-    endDate: new Date(2018, 6, 23, 11, 30),
-    ownerId: 1,
+    title: 'Prepare 2015 Marketing Plan',
+    startDate: new Date(2018, 5, 25, 13, 0),
+    endDate: new Date(2018, 5, 25, 13, 30),
+    priority: 2,
+    location: 'Room 3',
   }, {
-    id: 1,
-    title: 'Monthly Planning',
-    startDate: new Date(2018, 5, 28, 9, 30),
-    endDate: new Date(2018, 5, 28, 11, 30),
-    ownerId: 1,
+    title: 'Brochure Design Review',
+    startDate: new Date(2018, 5, 28, 14, 10),
+    endDate: new Date(2018, 5, 28, 15, 30),
+    priority: 1,
+    location: 'Room 1',
+  },
+  {
+    title: 'Website Re-Design Plan',
+    startDate: new Date(2018, 5, 29, 9, 30),
+    endDate: new Date(2018, 5, 29, 11, 30),
+    priority: 1,
+    location: 'Room 3',
   }, {
-    id: 2,
-    title: 'Recruiting students',
-    startDate: new Date(2018, 6, 9, 12, 0),
-    endDate: new Date(2018, 6, 9, 13, 0),
-    ownerId: 2,
+    title: 'Book Flights to San Fran for Sales Trip',
+    startDate: new Date(2018, 6, 2, 12, 0),
+    endDate: new Date(2018, 6, 2, 13, 0),
+    priority: 3,
+    location: 'Room 2',
   }, {
-    id: 3,
-    title: 'Oil Painting',
-    startDate: new Date(2018, 6, 18, 14, 30),
-    endDate: new Date(2018, 6, 18, 15, 30),
-    ownerId: 2,
+    title: 'Install New Router in Dev Room',
+    startDate: new Date(2018, 6, 2, 14, 30),
+    endDate: new Date(2018, 6, 2, 15, 30),
+    priority: 2,
+    location: 'Room 3',
   }, {
-    id: 4,
-    title: 'Open Day',
-    startDate: new Date(2018, 6, 20, 12, 0),
-    endDate: new Date(2018, 6, 20, 13, 35),
-    ownerId: 6,
+    title: 'Approve Personal Computer Upgrade Plan',
+    startDate: new Date(2018, 6, 4, 10, 0),
+    endDate: new Date(2018, 6, 4, 11, 0),
+    priority: 1,
+    location: 'Room 1',
   }, {
-    id: 5,
-    title: 'Watercolor Landscape',
-    startDate: new Date(2018, 6, 6, 13, 0),
-    endDate: new Date(2018, 6, 6, 14, 0),
-    rRule: 'FREQ=WEEKLY;BYDAY=FR;UNTIL=20180816',
-    exDate: '20180713T100000Z,20180727T100000Z',
-    ownerId: 2,
+    title: 'Final Budget Review',
+    startDate: new Date(2018, 6, 6, 12, 0),
+    endDate: new Date(2018, 6, 6, 13, 35),
+    priority: 3,
+    location: 'Room 1',
   }, {
-    id: 6,
-    title: 'Meeting of Instructors',
-    startDate: new Date(2018, 5, 28, 12, 0),
-    endDate: new Date(2018, 5, 28, 12, 30),
-    rRule: 'FREQ=WEEKLY;BYDAY=TH;UNTIL=20180727',
-    exDate: '20180705T090000Z,20180719T090000Z',
-    ownerId: 5,
+    title: 'New Brochures',
+    startDate: new Date(2018, 6, 6, 14, 30),
+    endDate: new Date(2018, 6, 6, 15, 45),
+    priority: 3,
+    location: 'Room 3',
   }, {
-    id: 7,
-    title: 'Oil Painting for Beginners',
-    startDate: new Date(2018, 6, 3, 11, 0),
-    endDate: new Date(2018, 6, 3, 12, 0),
-    rRule: 'FREQ=WEEKLY;BYDAY=TU;UNTIL=20180801',
-    exDate: '20180710T080000Z,20180724T080000Z',
-    ownerId: 3,
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 10, 9, 45),
+    endDate: new Date(2018, 6, 10, 11, 15),
+    priority: 2,
+    location: 'Room 2',
   }, {
-    id: 8,
-    title: 'Watercolor Workshop',
-    startDate: new Date(2018, 6, 9, 11, 0),
-    endDate: new Date(2018, 6, 9, 12, 0),
-    ownerId: 3,
+    title: 'Approve New Online Marketing Strategy',
+    startDate: new Date(2018, 6, 12, 12, 0),
+    endDate: new Date(2018, 6, 12, 14, 0),
+    priority: 1,
+    location: 'Room 2',
+  }, {
+    title: 'Upgrade Personal Computers',
+    startDate: new Date(2018, 6, 16, 15, 15),
+    endDate: new Date(2018, 6, 16, 16, 30),
+    priority: 2,
+    location: 'Room 3',
+  }, {
+    title: 'Customer Workshop',
+    startDate: new Date(2018, 6, 18, 11, 0),
+    endDate: new Date(2018, 6, 18, 12, 0),
+    priority: 3,
+    location: 'Room 1',
+  }, {
+    title: 'Prepare 2015 Marketing Plan',
+    startDate: new Date(2018, 6, 20, 11, 0),
+    endDate: new Date(2018, 6, 20, 13, 30),
+    priority: 1,
+    location: 'Room 3',
+  },
+  {
+    title: 'New Brochures',
+    startDate: new Date(2018, 6, 23, 14, 30),
+    endDate: new Date(2018, 6, 23, 15, 45),
+    priority: 2,
+    location: 'Room 3',
+  }, {
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 23, 9, 45),
+    endDate: new Date(2018, 6, 23, 11, 15),
+    priority: 3,
+    location: 'Room 2',
+  }, {
+    title: 'Approve New Online Marketing Strategy',
+    startDate: new Date(2018, 6, 26, 12, 0),
+    endDate: new Date(2018, 6, 26, 14, 0),
+    priority: 1,
+    location: 'Room 1',
+  }, {
+    title: 'Upgrade Personal Computers',
+    startDate: new Date(2018, 6, 31, 15, 15),
+    endDate: new Date(2018, 6, 31, 16, 30),
+    priority: 2,
+    location: 'Room 3',
+  }, {
+    title: 'Install New Database',
+    startDate: new Date(2018, 6, 31, 9, 45),
+    endDate: new Date(2018, 6, 31, 11, 15),
+    priority: 3,
+    location: 'Room 2',
   },
 ];
 
 const resources = [{
-  fieldName: 'ownerId',
-  title: 'Owners',
-  instances: owners,
+  fieldName: 'location',
+  title: 'Location',
+  instances: [
+    { id: 'Room 1', text: 'Room 1', color: indigo },
+    { id: 'Room 2', text: 'Room 2', color: blue },
+    { id: 'Room 3', text: 'Room 3', color: teal },
+  ],
+}, {
+  fieldName: 'priority',
+  title: 'Priority',
+  instances: [
+    { id: 1, text: 'High Priority', color: teal },
+    { id: 2, text: 'Medium Priority', color: blue },
+    { id: 3, text: 'Low Priority', color: indigo },
+  ],
 }];
 
-const getBorder = theme => (`1px solid ${
-  theme.palette.type === 'light'
-    ? lighten(fade(theme.palette.divider, 1), 0.88)
-    : darken(fade(theme.palette.divider, 1), 0.68)
-}`);
-
-const DayScaleCell = props => (
-  <MonthView.DayScaleCell {...props} style={{ textAlign: 'center', fontWeight: 'bold' }} />
-);
-
-const styles = theme => ({
-  cell: {
-    color: '#78909C!important',
-    position: 'relative',
-    userSelect: 'none',
-    verticalAlign: 'top',
-    padding: 0,
-    height: 100,
-    borderLeft: getBorder(theme),
-    '&:first-child': {
-      borderLeft: 'none',
-    },
-    '&:last-child': {
-      paddingRight: 0,
-    },
-    'tr:last-child &': {
-      borderBottom: 'none',
-    },
+const styles = ({ palette }: Theme) => createStyles({
+  appointment: {
+    borderRadius: 0,
+    borderBottom: 0,
+  },
+  highPriorityAppointment: {
+    borderLeft: `4px solid ${teal[500]}`,
+  },
+  mediumPriorityAppointment: {
+    borderLeft: `4px solid ${blue[500]}`,
+  },
+  lowPriorityAppointment: {
+    borderLeft: `4px solid ${indigo[500]}`,
+  },
+  weekEndCell: {
+    backgroundColor: fade(palette.action.disabledBackground, 0.04),
     '&:hover': {
-      backgroundColor: 'white',
+      backgroundColor: fade(palette.action.disabledBackground, 0.04),
     },
     '&:focus': {
-      backgroundColor: fade(theme.palette.primary.main, 0.15),
-      outline: 0,
+      backgroundColor: fade(palette.action.disabledBackground, 0.04),
     },
   },
-  content: {
-    display: 'flex',
-    justifyContent: 'center',
-    width: '100%',
-    height: '100%',
-    position: 'absolute',
-    alignItems: 'center',
+  weekEndDayScaleCell: {
+    backgroundColor: fade(palette.action.disabledBackground, 0.06),
   },
   text: {
-    padding: '0.5em',
-    textAlign: 'center',
-  },
-  sun: {
-    color: '#FFEE58',
-  },
-  cloud: {
-    color: '#90A4AE',
-  },
-  rain: {
-    color: '#4FC3F7',
-  },
-  sunBack: {
-    backgroundColor: '#FFFDE7',
-  },
-  cloudBack: {
-    backgroundColor: '#ECEFF1',
-  },
-  rainBack: {
-    backgroundColor: '#E1F5FE',
-  },
-  opacity: {
-    opacity: '0.5',
-  },
-  appointment: {
-    borderRadius: '10px',
-    '&:hover': {
-      opacity: 0.6,
-    },
-  },
-  apptContent: {
-    '&>div>div': {
-      whiteSpace: 'normal !important',
-      lineHeight: 1.2,
-    },
-  },
-  flexibleSpace: {
-    flex: 'none',
-  },
-  flexContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  tooltipContent: {
-    padding: theme.spacing(3, 1),
-    paddingTop: 0,
-    backgroundColor: theme.palette.background.paper,
-    boxSizing: 'border-box',
-    width: '400px',
-  },
-  tooltipText: {
-    ...theme.typography.body2,
-    display: 'inline-block',
-  },
-  title: {
-    ...theme.typography.h6,
-    color: theme.palette.text.secondary,
-    fontWeight: theme.typography.fontWeightBold,
     overflow: 'hidden',
     textOverflow: 'ellipsis',
     whiteSpace: 'nowrap',
   },
-  icon: {
-    color: theme.palette.action.active,
-    verticalAlign: 'middle',
-  },
-  circle: {
-    width: theme.spacing(4.5),
-    height: theme.spacing(4.5),
-    verticalAlign: 'super',
-  },
-  textCenter: {
-    textAlign: 'center',
-  },
-  dateAndTitle: {
-    lineHeight: 1.1,
-  },
-  titleContainer: {
-    paddingBottom: theme.spacing(2),
+  content: {
+    opacity: 0.7,
   },
   container: {
-    paddingBottom: theme.spacing(1.5),
+    width: '100%',
+    lineHeight: 1.2,
+    height: '100%',
   },
 });
 
-const WeatherIcon = ({ classes, id }) => {
-  switch (id) {
-    case 0:
-      return <Opacity className={classes.rain} fontSize="large" />;
-    case 1:
-      return <WbSunny className={classes.sun} fontSize="large" />;
-    case 2:
-      return <FilterDrama className={classes.cloud} fontSize="large" />;
-    default:
-      return null;
-  }
-};
+type AppointmentProps = Appointments.AppointmentProps & WithStyles<typeof styles>;
+type AppointmentContentProps = Appointments.AppointmentContentProps & WithStyles<typeof styles>;
+type TimeTableCellProps = MonthView.TimeTableCellProps & WithStyles<typeof styles>;
+type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
-const CellBase = React.memo(({
-  classes,
-  startDate,
-  formatDate,
-  otherMonth,
-}: any) => {
-  const iconId = Math.abs(Math.floor(Math.sin(startDate.getDate()) * 10) % 3);
-  const isFirstMonthDay = startDate.getDate() === 1;
-  const formatOptions = isFirstMonthDay
-    ? { day: 'numeric', month: 'long' }
-    : { day: 'numeric' };
-  return (
-    <TableCell
-      tabIndex={0}
-      className={classNames({
-        [classes.cell]: true,
-        [classes.rainBack]: iconId === 0,
-        [classes.sunBack]: iconId === 1,
-        [classes.cloudBack]: iconId === 2,
-        [classes.opacity]: otherMonth,
-      })}
-    >
-      <div className={classes.content}>
-        <WeatherIcon classes={classes} id={iconId} />
-      </div>
-      <div className={classes.text}>
-        {formatDate(startDate, formatOptions)}
-      </div>
-    </TableCell>
-  );
-});
+const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
+const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
 
-const TimeTableCell: any = withStyles(styles,
-  { name: 'Cell' })(CellBase);
-
-const Appointment = withStyles(styles, { name: 'Appointment' })(({ classes, ...restProps }) => (
-  <Appointments.Appointment 
+const DayScaleCell = withStyles(styles)(({
+  startDate, classes, ...restProps
+}: DayScaleCellProps) => (
+  <MonthView.DayScaleCell
+    className={classNames({
+      [classes.weekEndDayScaleCell]: isWeekEnd(startDate),
+    })}
+    startDate={startDate}
     {...restProps}
-    className={classes.appointment}
   />
 ));
 
-const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({ classes, ...restProps }) => (
-  <Appointments.AppointmentContent {...restProps} className={classes.apptContent} />
+const TimeTableCell = withStyles(styles)((
+  { startDate, classes, ...restProps }: TimeTableCellProps,
+) => (
+  <MonthView.TimeTableCell
+    className={classNames({
+      [classes.weekEndCell]: isWeekEnd(startDate!),
+    })}
+    startDate={startDate}
+    {...restProps}
+  />
 ));
 
-const FlexibleSpace = withStyles(styles, { name: 'ToolbarRoot' })(({ classes, ...restProps }) => (
-  <Toolbar.FlexibleSpace {...restProps} className={classes.flexibleSpace}>
-    <div className={classes.flexContainer}>
-      <ColorLens fontSize="large" htmlColor="#FF7043" />
-      <Typography variant="h5" style={{ marginLeft: '10px' }}>Art School</Typography>
-    </div>
-  </Toolbar.FlexibleSpace>
+const Appointment = withStyles(styles)(({
+  classes, data, ...restProps
+}: AppointmentProps) => (
+  <Appointments.Appointment
+    {...restProps}
+    className={classNames({
+      [classes.highPriorityAppointment]: data.priority === 1,
+      [classes.mediumPriorityAppointment]: data.priority === 2,
+      [classes.lowPriorityAppointment]: data.priority === 3,
+      [classes.appointment]: true,
+    })}
+    data={data}
+  />
 ));
 
+const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
+  classes, data, ...restProps
+}: AppointmentContentProps) =>  {
+  let priority = 'low';
+  if (data.priority === 2) priority = 'medium';
+  if (data.priority === 3) priority = 'high';
+  return (
+    <Appointments.AppointmentContent {...restProps} data={data}>
+      <div className={classes.container}>
+        <div className={classes.text}>
+          {data.title}
+        </div>
+        <div className={classNames(classes.text, classes.content)}>
+          {`Priority: ${priority}`}
+        </div>
+        <div className={classNames(classes.text, classes.content)}>
+          {`Location: ${data.location}`}
+        </div>
+      </div>
+    </Appointments.AppointmentContent>
+  );
+});
 
-class TeacherCalender extends React.PureComponent{
-    constructor(props) {
-        super(props);
-    
-        this.state = {
-          data: appointments,
-        };
-    
-        this.commitChanges = this.commitChanges.bind(this);
-      }
-    
-      commitChanges({ added, changed, deleted }) {
-        this.setState((state) => {
-          let { data } = state;
-          if (added) {
-            const startingAddedId = data.length > 0 ? data[data.length - 1].id + 1 : 0;
-            data = [...data, { id: startingAddedId, ...added }];
-          }
-          if (changed) {
-            data = data.map(appointment => (
-              changed[appointment.id] ? { ...appointment, ...changed[appointment.id] } : appointment));
-          }
-          if (deleted !== undefined) {
-            data = data.filter(appointment => appointment.id !== deleted);
-          }
-          return { data };
-        });
-      }
-    
-      render() {
-        const { data } = this.state;
-    
-        return (
+const TeacherCalender = () => (
+  <Paper>
+    <Scheduler
+      data={appointments}
+    >
+      <ViewState
+        defaultCurrentDate={defaultCurrentDate}
+      />
 
-          <Box style={{ width: "30vw", height: "50vh" }}>
-            <Scheduler
-              data={data}
-            >
-              <EditingState
-                onCommitChanges={this.commitChanges}
-              />
-              <ViewState
-                defaultCurrentDate="2018-07-17"
-              />
-    
-              <MonthView
-                timeTableCellComponent={TimeTableCell}
-                dayScaleCellComponent={DayScaleCell}
-              />
-    
-              <Appointments
-                appointmentComponent={Appointment}
-                appointmentContentComponent={AppointmentContent}
-              />
-              <Resources
-                data={resources}
-              />
-    
-              <Toolbar
-                flexibleSpaceComponent={FlexibleSpace}
-              />
-              <DateNavigator />
-    
-              <EditRecurrenceMenu />
-              <AppointmentTooltip
-                showCloseButton
-                showDeleteButton
-                showOpenButton
-              />
-              <AppointmentForm />
-              <DragDropProvider />
-            </Scheduler>
-          </Box>
-        );
-      }
-}
+      <MonthView
+        dayScaleCellComponent={DayScaleCell}
+        timeTableCellComponent={TimeTableCell}
+      />
+
+      <Appointments
+        appointmentComponent={Appointment}
+        appointmentContentComponent={AppointmentContent}
+      />
+      <Resources
+        data={resources}
+      />
+
+      <AppointmentTooltip
+        showCloseButton
+      />
+      <Toolbar />
+      <DateNavigator />
+      <TodayButton />
+    </Scheduler>
+  </Paper>
+);
 
 export default TeacherCalender;
