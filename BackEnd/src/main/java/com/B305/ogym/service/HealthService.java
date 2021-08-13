@@ -38,9 +38,9 @@ public class HealthService {
 
 
     public HealthDto.MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
-        if (!ptTeacherRepository.existByEmail(teacherEmail)) {
-            throw new UserNotFoundException("해당하는 이메일이 존재하지 않습니다.");
-        }
+        ptTeacherRepository.findByEmail(teacherEmail)
+            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+
         return ptTeacherRepository.findMyStudentsHealth(teacherEmail);
     }
 }
