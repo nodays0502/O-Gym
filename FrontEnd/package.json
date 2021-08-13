@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "@date-io/moment": "^2.11.0",
     "@devexpress/dx-react-core": "^2.7.6",
     "@devexpress/dx-react-scheduler": "^2.7.6",
     "@devexpress/dx-react-scheduler-material-ui": "^2.7.6",
@@ -67,5 +68,5 @@
       "last 1 safari version"
     ]
   },
-  "proxy" : "https://i5b305.p.ssafy.io"
+  "proxy": "https://i5b305.p.ssafy.io"
 }
