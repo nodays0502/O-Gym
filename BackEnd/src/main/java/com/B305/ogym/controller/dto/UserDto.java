@@ -46,7 +46,7 @@ public class UserDto {
         @Size(min = 2, max = 10, message = "이름을 올바르게 입력하세요.")
         private String username;
 
-        @NotEmpty
+        @NotNull
         @Positive(message = "나이를 올바르게 입력하세요.")
         @Max(value = 150, message = "나이를 올바르게 입력하세요.")
         private int age;
