@@ -94,7 +94,7 @@ public class UserService {
         userRepository.delete(user); // 이렇게 해도 되나? teacher 만들어서 해얗나ㅏ?
     }
 
-    @Cacheable(key = "#userEmail", value = "getUserInfo")
+//    @Cacheable(key = "#userEmail", value = "getUserInfo")
     @Transactional
     public Map<String, Object> getUserInfo(String userEmail, List<String> req) {
         UserBase user = userRepository.findByEmail(userEmail)
