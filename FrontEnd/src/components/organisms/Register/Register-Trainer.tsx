@@ -17,7 +17,64 @@ import { AddCERT } from '../../../recoil/atoms/AddCERT';
 import AddCareer from "../../molecules/register/AddCareer";
 import { AddCAREER } from "../../../recoil/atoms/AddCAREER"
 import { useHistory } from "react-router";
+import jwt_decode from "jwt-decode";
+// console.log(axios.post("/api/authenticate", {
+//   "email" : "eggkim@ssafy.com",
+//     "password" : "ssafy"
+// }));
 
+axios.post("/api/authenticate", {
+  "email" : "eggkim@ssafy.com",
+    "password" : "ssafy"
+}).then(async ({ data }) => {
+  console.log(data.data);
+  let { accessToken, refreshToken } = await data.data;
+
+  // header에 고정 
+  axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+  let checkDate: {
+    exp, email, role
+  } = jwt_decode(accessToken);
+  console.log(checkDate);
+  let currentDate = new Date();
+  let tokenDate = new Date(checkDate.exp * 1000)
+  console.log(currentDate.getTime() - tokenDate.getTime());
+  let diffTime = currentDate.getTime() - tokenDate.getTime();
+  
+  // let reAccessToken = await axios.post('/api/reissue', {
+  //   accessToken: accessToken,
+  //   refreshtoken: refreshtoken
+  // });
+  console.log("before: ", "\nAccessToken: ", accessToken, "\nRefreshToken: ",refreshToken)
+  
+  if (diffTime > 0) {
+    let refreshData = await axios.post('/api/reissue', {
+      accessToken: accessToken,
+      refreshToken: refreshToken
+    });
+    let updatedTokenData = refreshData.data.data;
+    console.log("After: ", updatedTokenData.accessToken,
+    updatedTokenData.refreshToken)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    let value = await axios.get('/api/hello', {
+      // headers: {
+      //   "Authorization": `Bearer ${accessToken}`
+      // }
+    });
+    console.log(value);
+    // reAccessToken을 사용한 요청 ;
+  }
+  else {
+    let value = await axios.get('/api/hello', {
+      // headers: {
+      //   "Authorization": `Bearer ${accessToken}`
+      // }
+    });
+    console.log(value);
+    
+  }
+  
+})
 
 const ErrorP = styled.p`
   color: red;
