@@ -11,12 +11,13 @@ import ProfileDetail from './components/organisms/ProfileDetail/ProfileDetail';
 function App() {
   return (
     <>
-    <Profile />
-      {/* <Router>
+    {/* <Profile /> */}
+      <Router>
         <Route exact path='/' component={MainPage} />
         <Route exact path='/studentreservation' component={StudentReservation} />
         <Route exact path='/login' component={LoginPage} />
-      </Router> */}
+        <Route exact path='/profile' component={Profile} />
+      </Router>
     </>
   );
 }

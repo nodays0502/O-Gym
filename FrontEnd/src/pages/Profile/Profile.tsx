@@ -3,8 +3,20 @@ import "./profile.css"
 import crossFit from '../../assets/pages/mainPage/carousel/crossfit.jpg';
 import ProfileRight from '../../components/organisms/ProfileRight/ProfileRight';
 import ProfileDetail from '../../components/organisms/ProfileDetail/ProfileDetail';
+import { useEffect, useState } from 'react';
+import axios from 'axios'
 
 function Profile() {
+  const [username, setUsername] = useState('');
+
+  // useEffect(() => {
+  //   axios.get("https://i5b305.p.ssafy.io/api/user/username", {
+  //     headers: {
+  //       "Authorization": `Bearer ${accessToken}`
+  //     }
+  //   })
+  //   .then((response) => console.log(response))
+  // })
   return (
     <>
       <div className="profile">
