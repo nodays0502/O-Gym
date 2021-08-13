@@ -34,6 +34,7 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom 
         check.put("email", pTStudent.email);
         check.put("username", pTStudent.username);
         check.put("nickname", pTStudent.nickname);
+        check.put("age", pTStudent.age);
         check.put("gender", pTStudent.gender);
         check.put("tel", pTStudent.tel);
         check.put("address", pTStudent.address);
@@ -44,7 +45,7 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom 
     public Map<String, Object> getInfo(String studentEmail, List<String> req) { // "username" , "id"
 
         Tuple result = queryFactory
-            .select(pTStudent.id, pTStudent.email, pTStudent.username, pTStudent.nickname,
+            .select(pTStudent.id, pTStudent.email, pTStudent.username, pTStudent.nickname, pTStudent.age,
                 pTStudent.gender, pTStudent.tel, pTStudent.address, pTStudent.authority)
             .from(pTStudent)
             .where(pTStudent.email.eq(studentEmail))
