@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.506s</div>
+<div class="counter">0.280s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,13 +81,13 @@
 <tr>
 <td class="success">PT 예약 취소하기 - 성공</td>
 <td class="success">cancelReservation_Success()</td>
-<td class="success">0.045s</td>
+<td class="success">0.021s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">PT 예약 취소하기 - 제거 요청한 예약이 존재하지 않아 실패</td>
 <td class="success">cancelReservation_reservationNotFound()</td>
-<td class="success">0.015s</td>
+<td class="success">0.014s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
@@ -105,19 +105,19 @@
 <tr>
 <td class="success">PT 예약하기 - 성공</td>
 <td class="success">makeReservation_Success()</td>
-<td class="success">0.014s</td>
+<td class="success">0.016s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">PT 예약하기 - 해당하는 학생 이메일이 존재하지 않아 실패</td>
 <td class="success">makeReservation_studentNotFound()</td>
-<td class="success">0.016s</td>
+<td class="success">0.013s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">PT 예약하기 - 해당하는 선생님 이메일이 존재하지 않아 실패</td>
 <td class="success">makeReservation_teacherNotFound()</td>
-<td class="success">0.390s</td>
+<td class="success">0.190s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -125,22 +125,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>11:51:18.197 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating CacheAwareContextLoaderDelegate from class [org.springframework.test.context.cache.DefaultCacheAwareContextLoaderDelegate]
-11:51:18.216 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating BootstrapContext using constructor [public org.springframework.test.context.support.DefaultBootstrapContext(java.lang.Class,org.springframework.test.context.CacheAwareContextLoaderDelegate)]
-11:51:18.274 [Test worker] DEBUG org.springframework.test.context.BootstrapUtils - Instantiating TestContextBootstrapper for test class [com.B305.ogym.controller.PTApiControllerTest] from class [org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper]
-11:51:18.288 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.PTApiControllerTest], using SpringBootContextLoader
-11:51:18.293 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.B305.ogym.controller.PTApiControllerTest]: class path resource [com/B305/ogym/controller/PTApiControllerTest-context.xml] does not exist
-11:51:18.294 [Test worker] DEBUG org.springframework.test.context.support.AbstractContextLoader - Did not detect default resource location for test class [com.B305.ogym.controller.PTApiControllerTest]: class path resource [com/B305/ogym/controller/PTApiControllerTestContext.groovy] does not exist
-11:51:18.294 [Test worker] INFO org.springframework.test.context.support.AbstractContextLoader - Could not detect default resource locations for test class [com.B305.ogym.controller.PTApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-11:51:18.295 [Test worker] INFO org.springframework.test.context.support.AnnotationConfigContextLoaderUtils - Could not detect default configuration classes for test class [com.B305.ogym.controller.PTApiControllerTest]: PTApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-11:51:18.390 [Test worker] DEBUG org.springframework.test.context.support.ActiveProfilesUtils - Could not find an 'annotation declaring class' for annotation type [org.springframework.test.context.ActiveProfiles] and class [com.B305.ogym.controller.PTApiControllerTest]
-11:51:18.497 [Test worker] DEBUG org.springframework.context.annotation.ClassPathScanningCandidateComponentProvider - Identified candidate component class: file [C:\ssafy-common-sub3\BackEnd\build\classes\java\main\com\B305\ogym\OgymApplication.class]
-11:51:18.498 [Test worker] INFO org.springframework.boot.test.context.SpringBootTestContextBootstrapper - Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.PTApiControllerTest
-11:51:18.502 [Test worker] DEBUG org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - @TestExecutionListeners is not present for class [com.B305.ogym.controller.PTApiControllerTest]: using defaults.
-11:51:18.503 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-11:51:18.532 [Test worker] INFO org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper - Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@be8cb25, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@31c5c32f, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@45ab655d, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@383e2575, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@754260b4, org.springframework.test.context.support.DirtiesContextTestExecutionListener@6a010988, org.springframework.test.context.transaction.TransactionalTestExecutionListener@749e1818, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@3dc29e73, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@5be30ebf, org.springframework.test.context.event.EventPublishingTestExecutionListener@394c1102, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@3d1690eb, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@148ea03c, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@57dbd2e4, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@e461d1c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@75e45f7, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@66309a60, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6ff528b0]
-11:51:18.537 [Test worker] DEBUG org.springframework.test.context.support.AbstractDirtiesContextTestExecutionListener - Before test class: context [DefaultTestContext@10e1f9c3 testClass = PTApiControllerTest, testInstance = [null], testMethod = [null], testException = [null], mergedContextConfiguration = [WebMergedContextConfiguration@7683cd19 testClass = PTApiControllerTest, locations = '{}', classes = '{class com.B305.ogym.OgymApplication}', contextInitializerClasses = '[]', activeProfiles = '{}', propertySourceLocations = '{}', propertySourceProperties = '{org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}', contextCustomizers = set[org.springframework.boot.test.autoconfigure.OverrideAutoConfigurationContextCustomizerFactory$DisableAutoConfigurationContextCustomizer@3fc1c802, org.springframework.boot.test.autoconfigure.actuate.metrics.MetricsExportContextCustomizerFactory$DisableMetricExportContextCustomizer@4c98b9de, org.springframework.boot.test.autoconfigure.filter.TypeExcludeFiltersContextCustomizer@c7add4de, org.springframework.boot.test.autoconfigure.properties.PropertyMappingContextCustomizer@35445939, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverContextCustomizerFactory$Customizer@6d5b8da4, [ImportsContextCustomizer@6411d801 key = [org.springframework.boot.autoconfigure.cache.CacheAutoConfiguration, org.springframework.boot.autoconfigure.context.MessageSourceAutoConfiguration, org.springframework.boot.autoconfigure.data.web.SpringDataWebAutoConfiguration, org.springframework.boot.autoconfigure.freemarker.FreeMarkerAutoConfiguration, org.springframework.boot.autoconfigure.groovy.template.GroovyTemplateAutoConfiguration, org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration, org.springframework.boot.autoconfigure.hateoas.HypermediaAutoConfiguration, org.springframework.boot.autoconfigure.http.HttpMessageConvertersAutoConfiguration, org.springframework.boot.autoconfigure.jackson.JacksonAutoConfiguration, org.springframework.boot.autoconfigure.jsonb.JsonbAutoConfiguration, org.springframework.boot.autoconfigure.mustache.MustacheAutoConfiguration, org.springframework.boot.autoconfigure.task.TaskExecutionAutoConfiguration, org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration, org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.HttpEncodingAutoConfiguration, org.springframework.boot.autoconfigure.web.servlet.WebMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebClientAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcWebDriverAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.client.servlet.OAuth2ClientAutoConfiguration, org.springframework.boot.autoconfigure.security.oauth2.resource.servlet.OAuth2ResourceServerAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.SecurityFilterAutoConfiguration, org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcSecurityConfiguration]], org.springframework.boot.test.context.filter.ExcludeFilterContextCustomizer@37ad5eb9, org.springframework.boot.test.json.DuplicateJsonObjectContextCustomizerFactory$DuplicateJsonObjectContextCustomizer@dacfa14, org.springframework.boot.test.mock.mockito.MockitoContextCustomizer@58c3818c, org.springframework.boot.test.context.SpringBootTestArgs@1, org.springframework.boot.test.context.SpringBootTestWebEnvironment@0], resourceBasePath = 'src/main/webapp', contextLoader = 'org.springframework.boot.test.context.SpringBootContextLoader', parent = [null]], attributes = map[[empty]]], class annotated with @DirtiesContext [false] with mode [null].
-11:51:18.592 [Test worker] DEBUG org.springframework.test.context.support.TestPropertySourceUtils - Adding inlined properties to environment: {spring.jmx.enabled=false, org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTestContextBootstrapper=true}
+<pre>2021-08-13 19:51:19.996  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.PTApiControllerTest], using SpringBootContextLoader
+2021-08-13 19:51:19.998  INFO 31660 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.PTApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-08-13 19:51:19.998  INFO 31660 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.PTApiControllerTest]: PTApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-08-13 19:51:20.004  INFO 31660 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.PTApiControllerTest
+2021-08-13 19:51:20.005  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-08-13 19:51:20.006  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@74615f98, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@13adc784, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@2bb1059f, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@524e3af2, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@2c2d22bc, org.springframework.test.context.support.DirtiesContextTestExecutionListener@51c1515a, org.springframework.test.context.transaction.TransactionalTestExecutionListener@72ff3b00, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@51c51607, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@14b8e641, org.springframework.test.context.event.EventPublishingTestExecutionListener@4fa82e0d, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@44843bc3, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3d88687a, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@6ed10b64, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@600788f5, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@538ed15, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@7b8d8e70, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@1d61304e]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -150,27 +140,27 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.5.2)
 
-2021-08-13 11:51:19.079  INFO 24944 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : Starting PTApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 24944 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
-2021-08-13 11:51:19.082  INFO 24944 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : No active profile set, falling back to default profiles: default
-2021-08-13 11:51:21.994  INFO 24944 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2021-08-13 19:51:20.049  INFO 31660 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : Starting PTApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 31660 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
+2021-08-13 19:51:20.050  INFO 31660 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : No active profile set, falling back to default profiles: default
+2021-08-13 19:51:21.028  INFO 31660 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 6ba82190-1e95-4103-99a5-2c5fcfa62247
+Using generated security password: 4d688413-bb65-40c1-a02a-5c4133e20c4a
 
-2021-08-13 11:51:22.321  INFO 24944 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6f3dbe41, org.springframework.security.web.context.SecurityContextPersistenceFilter@576d7733, org.springframework.security.web.header.HeaderWriterFilter@3ab452de, org.springframework.security.web.csrf.CsrfFilter@16662d98, org.springframework.security.web.authentication.logout.LogoutFilter@6e92f955, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5865727c, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@9c8b895, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@2099e8fa, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@29d4e8bf, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3dc9fe61, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4843fbbc, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2e866d46, org.springframework.security.web.session.SessionManagementFilter@4637ac71, org.springframework.security.web.access.ExceptionTranslationFilter@4f5cab22, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@f2b0432]
-2021-08-13 11:51:22.484  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:22.484  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:22.486  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 2 ms
-2021-08-13 11:51:22.525  INFO 24944 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : Started PTApiControllerTest in 3.923 seconds (JVM running for 5.626)
-2021-08-13 11:51:22.604  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:22.604  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:22.605  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:21.189  INFO 31660 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2813e979, org.springframework.security.web.context.SecurityContextPersistenceFilter@7137540, org.springframework.security.web.header.HeaderWriterFilter@3430562e, org.springframework.security.web.csrf.CsrfFilter@293bf29b, org.springframework.security.web.authentication.logout.LogoutFilter@8bff322, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@51d399b2, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@3445cae7, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@2803b497, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@75678081, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b70e3c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3280b9a2, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6550a62c, org.springframework.security.web.session.SessionManagementFilter@71cafec8, org.springframework.security.web.access.ExceptionTranslationFilter@9414cc2, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2b5568a4]
+2021-08-13 19:51:21.254  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.255  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.255  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:21.272  INFO 31660 --- [    Test worker] c.B.ogym.controller.PTApiControllerTest  : Started PTApiControllerTest in 1.262 seconds (JVM running for 7.851)
+2021-08-13 19:51:21.284  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.285  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.285  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;student@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -201,16 +191,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:22.932  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:22.932  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:22.932  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:21.473  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.473  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.474  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;student@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -241,16 +231,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:22.949  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:22.949  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:22.951  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:21.490  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.490  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.491  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;student@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -281,16 +271,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:22.996  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:22.996  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:22.997  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:21.512  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.512  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.513  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -321,16 +311,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:23.014  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:23.014  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:23.015  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:21.526  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.526  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.527  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -361,16 +351,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:23.031  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:23.031  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:23.031  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:21.545  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.545  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.545  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;student@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -401,16 +391,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:23.047  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:23.047  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:23.048  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:21.560  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:21.560  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:21.561  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
       Request URI = /api/pt/reservation
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;61&quot;]
-             Body = {&quot;ptTeacherEmail&quot;:&quot;teacher@naver.com&quot;,&quot;reservationTime&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;84&quot;]
+             Body = {&quot;ptTeacherEmail&quot;:&quot;student@naver.com&quot;,&quot;reservationTime&quot;:null,&quot;description&quot;:&quot;상체&quot;}
     Session Attrs = {}
 
 Handler:
@@ -452,7 +442,7 @@ MockHttpServletResponse:
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 13. 오전 11:51:24</p>
+<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 13. 오후 7:51:23</p>
 </div>
 </div>
 </body>

@@ -23,7 +23,7 @@
 <tr>
 <td>
 <div class="infoBox" id="tests">
-<div class="counter">9</div>
+<div class="counter">10</div>
 <p>tests</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.441s</div>
+<div class="counter">0.540s</div>
 <p>duration</p>
 </div>
 </td>
@@ -81,55 +81,61 @@
 <tr>
 <td class="success">학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공</td>
 <td class="success">createStudent_success()</td>
-<td class="success">0.067s</td>
+<td class="success">0.117s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공</td>
 <td class="success">createTeacher_success()</td>
-<td class="success">0.040s</td>
+<td class="success">0.036s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">유저 회원가입 - 이메일 중복으로 인한 회원가입 실패</td>
 <td class="success">createUser_email_failure()</td>
-<td class="success">0.028s</td>
+<td class="success">0.031s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">유저 회원가입 - 닉네임 중복으로 인한 회원가입 실패</td>
 <td class="success">createUser_nickName_failure()</td>
-<td class="success">0.161s</td>
+<td class="success">0.149s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)</td>
 <td class="success">deleteStudent_failure()</td>
-<td class="success">0.025s</td>
+<td class="success">0.028s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">학생 회원탈퇴 - 회원탈퇴 성공</td>
 <td class="success">deleteStudent_success()</td>
-<td class="success">0.033s</td>
+<td class="success">0.031s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)</td>
 <td class="success">deleteTeacher_failure()</td>
-<td class="success">0.023s</td>
+<td class="success">0.022s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">선생님 회원탈퇴 - 회원탈퇴 성공</td>
 <td class="success">deleteTeacher_success()</td>
-<td class="success">0.026s</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패</td>
+<td class="success">getUserInfo_failure()</td>
+<td class="success">0.073s</td>
 <td class="success">passed</td>
 </tr>
 <tr>
 <td class="success">회원 정보조회 - 정보조회 성공</td>
 <td class="success">getUserInfo_success()</td>
-<td class="success">0.038s</td>
+<td class="success">0.029s</td>
 <td class="success">passed</td>
 </tr>
 </table>
@@ -137,12 +143,12 @@
 <div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
-<pre>2021-08-13 11:51:23.124  INFO 24944 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
-2021-08-13 11:51:23.125  INFO 24944 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-08-13 11:51:23.126  INFO 24944 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-08-13 11:51:23.129  INFO 24944 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
-2021-08-13 11:51:23.130  INFO 24944 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2021-08-13 11:51:23.131  INFO 24944 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@c2e1fa0, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2b917ed6, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@458bedb3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@159e763, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@7d763bf7, org.springframework.test.context.support.DirtiesContextTestExecutionListener@5d319d41, org.springframework.test.context.transaction.TransactionalTestExecutionListener@474d0521, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@9618054, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@4504bb0c, org.springframework.test.context.event.EventPublishingTestExecutionListener@140efd78, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@3bc586d5, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@3e23c2d9, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@5e9fd2ca, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@3d99115c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2a7dcb14, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@ae8f188, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2ac16b9d]
+<pre>2021-08-13 19:51:21.576  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
+2021-08-13 19:51:21.578  INFO 31660 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-08-13 19:51:21.578  INFO 31660 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-08-13 19:51:21.581  INFO 31660 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
+2021-08-13 19:51:21.582  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-08-13 19:51:21.582  INFO 31660 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@57200519, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@2759b0ec, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@10e67c71, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@87823cc, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@5fa7e717, org.springframework.test.context.support.DirtiesContextTestExecutionListener@3593f2df, org.springframework.test.context.transaction.TransactionalTestExecutionListener@16b505e8, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@5f1a22b1, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@3f65f91a, org.springframework.test.context.event.EventPublishingTestExecutionListener@15caf123, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@2bee3c37, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@25ef9c51, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@35521cdf, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@77d3b0bf, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@2d8625f6, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@74d22903, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@51c367a2]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -152,27 +158,67 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.5.2)
 
-2021-08-13 11:51:23.165  INFO 24944 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 24944 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
-2021-08-13 11:51:23.166  INFO 24944 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
-2021-08-13 11:51:23.971  INFO 24944 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2021-08-13 19:51:21.618  INFO 31660 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 31660 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
+2021-08-13 19:51:21.619  INFO 31660 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
+2021-08-13 19:51:22.445  INFO 31660 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 20abed15-77ac-4acf-9297-9cf81c0d8014
+Using generated security password: f0fc7906-f157-4397-b024-7d3e02ed373a
 
-2021-08-13 11:51:24.119  INFO 24944 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3f4d235, org.springframework.security.web.context.SecurityContextPersistenceFilter@13dd6df7, org.springframework.security.web.header.HeaderWriterFilter@21b367c6, org.springframework.security.web.csrf.CsrfFilter@51ec73d4, org.springframework.security.web.authentication.logout.LogoutFilter@1c691bee, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@57d5031d, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@cc96ea9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@f1d505f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@6499b255, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1100361c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2bb7eead, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@702f674a, org.springframework.security.web.session.SessionManagementFilter@211dd8d3, org.springframework.security.web.access.ExceptionTranslationFilter@7b6f3616, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@7f9e6f63]
-2021-08-13 11:51:24.185  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.186  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.186  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2021-08-13 11:51:24.203  INFO 24944 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 1.069 seconds (JVM running for 7.305)
-2021-08-13 11:51:24.210  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.211  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.211  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:22.610  INFO 31660 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@59783c25, org.springframework.security.web.context.SecurityContextPersistenceFilter@8afe532, org.springframework.security.web.header.HeaderWriterFilter@5313b351, org.springframework.security.web.csrf.CsrfFilter@8bcf13a, org.springframework.security.web.authentication.logout.LogoutFilter@2a8ea0af, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@24340621, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@288c301c, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@7a47df4f, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@1d22c52f, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@5b6b2d77, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@152c9470, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7e46db28, org.springframework.security.web.session.SessionManagementFilter@67f5edd7, org.springframework.security.web.access.ExceptionTranslationFilter@4ae33e9e, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@68f97cb1]
+2021-08-13 19:51:22.689  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:22.690  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:22.690  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:22.709  INFO 31660 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 1.123 seconds (JVM running for 9.288)
+2021-08-13 19:51:22.721  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:22.721  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:22.721  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/id,email
+       Parameters = {}
+          Headers = [Authorization:&quot;overStringLength7&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#getUserInfo(UserBase, List)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserNotFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;72&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-13 19:51:22.791  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:22.791  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:22.792  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/user
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;352&quot;]
-             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;361&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
     Session Attrs = {}
 
 Handler:
@@ -203,16 +249,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.371  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.371  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.372  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:22.942  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:22.942  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:22.943  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/user
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;352&quot;]
-             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;361&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
     Session Attrs = {}
 
 Handler:
@@ -243,9 +289,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.403  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.403  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.404  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:22.975  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:22.975  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:22.976  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -283,16 +329,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.433  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.434  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.434  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:23.005  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.006  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.006  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/user
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;445&quot;]
-             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;한솥&quot;,&quot;nickname&quot;:&quot;nononoo1&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;도로명&quot;,&quot;detailedAddress&quot;:&quot;상세주소&quot;,&quot;role&quot;:&quot;ROLE_PTSTUDENT&quot;,&quot;monthlyHeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;monthlyWeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;major&quot;:null,&quot;certificates&quot;:null,&quot;careers&quot;:null,&quot;price&quot;:0,&quot;description&quot;:null,&quot;snsAddrs&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;454&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;한솥&quot;,&quot;age&quot;:16,&quot;nickname&quot;:&quot;nononoo1&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;도로명&quot;,&quot;detailedAddress&quot;:&quot;상세주소&quot;,&quot;role&quot;:&quot;ROLE_PTSTUDENT&quot;,&quot;monthlyHeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;monthlyWeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;major&quot;:null,&quot;certificates&quot;:null,&quot;careers&quot;:null,&quot;price&quot;:0,&quot;description&quot;:null,&quot;snsAddrs&quot;:null}
     Session Attrs = {}
 
 Handler:
@@ -323,9 +369,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.503  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.503  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.504  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:23.124  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.124  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.125  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -363,9 +409,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.529  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.529  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.531  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:23.154  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.154  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.155  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -403,16 +449,16 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.555  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.555  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.556  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-13 19:51:23.179  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.179  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.180  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
       Request URI = /api/user
        Parameters = {}
-          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;352&quot;]
-             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;361&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:null}
     Session Attrs = {}
 
 Handler:
@@ -443,9 +489,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.597  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.597  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.597  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:23.216  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.216  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.217  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -483,9 +529,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-13 11:51:24.621  INFO 24944 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-13 11:51:24.621  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-13 11:51:24.621  INFO 24944 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-13 19:51:23.241  INFO 31660 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-13 19:51:23.242  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-13 19:51:23.242  INFO 31660 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = GET
@@ -534,7 +580,7 @@ MockHttpServletResponse:
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 13. 오전 11:51:24</p>
+<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 13. 오후 7:51:23</p>
 </div>
 </div>
 </body>

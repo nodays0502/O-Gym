@@ -37,6 +37,7 @@ CREATE TABLE `authority` (
 
 CREATE TABLE `user_base` (
                              `role` varchar(31) NOT NULL,
+                             `age` int NOT NULL,
                              `user_id` bigint NOT NULL AUTO_INCREMENT,
                              `created_date` datetime(6) DEFAULT NULL,
                              `modified_date` datetime(6) DEFAULT NULL,
@@ -142,6 +143,7 @@ CREATE TABLE `monthly` (
 CREATE TABLE `pt_student_pt_teacher` (
                                          `pt_student_pt_teacher_id` bigint NOT NULL AUTO_INCREMENT,
                                          `reservation_date` datetime(6) DEFAULT NULL,
+                                         `description` varchar(255) not null,
                                          `pt_student_id` bigint DEFAULT NULL,
                                          `pt_teacher_id` bigint DEFAULT NULL,
                                          PRIMARY KEY (`pt_student_pt_teacher_id`),

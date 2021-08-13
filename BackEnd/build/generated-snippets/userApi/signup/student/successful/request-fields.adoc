@@ -17,6 +17,10 @@
 |`+String+`
 |The user's nickname
 
+|`+age+`
+|`+Number+`
+|The user's age
+
 |`+gender+`
 |`+Number+`
 |The user's gender

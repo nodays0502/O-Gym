@@ -45,9 +45,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @WebMvcTest(controllers = PTApiController.class, excludeFilters = {
     @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)}
 )
-//@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
-//@AutoConfigureMockMvc(addFilters = false)
 class PTApiControllerTest {
 
     @MockBean
@@ -69,6 +67,12 @@ class PTApiControllerTest {
             .build();
     }
 
+    public reservationRequest createReservationRequset(String email) {
+        return reservationRequest.builder()
+            .ptTeacherEmail(email)
+            .description("상체")
+            .build();
+    }
 
 //    @WithAuthUser(email = "student@naver.com", role = "ROLE_PTSTUDENT")
 //    @DisplayName("선생님 리스트 불러오기 - 성공")
@@ -84,13 +88,11 @@ class PTApiControllerTest {
 //            .andExpect(status().isOk());
 //    }
 
-    @WithAuthUser(email = "student@naver.com", role = "ROLE_PTSTUDENT")
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTSTUDENT")
     @DisplayName("PT 예약하기 - 성공")
     @Test
     public void makeReservation_Success() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("teacher@naver.com");
 
         doNothing().when(ptService).makeReservation(any(), any());
 
@@ -105,9 +107,7 @@ class PTApiControllerTest {
     @DisplayName("PT 예약하기 - 해당하는 선생님 이메일이 존재하지 않아 실패")
     @Test
     public void makeReservation_teacherNotFound() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("student@naver.com");
 
         doThrow(new UserNotFoundException("존재하지 않는 트레이너입니다.")).when(ptService)
             .makeReservation(any(), any());
@@ -119,13 +119,11 @@ class PTApiControllerTest {
             .andExpect(status().isNotFound());
     }
 
-    @WithAuthUser(email = "student@naver.com", role = "ROLE_PTSTUDENT")
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
     @DisplayName("PT 예약하기 - 해당하는 학생 이메일이 존재하지 않아 실패")
     @Test
     public void makeReservation_studentNotFound() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("teacher@naver.com");
 
         doThrow(new UserNotFoundException("존재하지 않는 트레이너입니다.")).when(ptService)
             .makeReservation(any(), any());
@@ -141,9 +139,7 @@ class PTApiControllerTest {
     @DisplayName("PT 예약 취소하기 - 성공")
     @Test
     public void cancelReservation_Success() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("student@naver.com");
 
         doNothing().when(ptService).cancelReservation(eq("student@naver.com"), eq(req));
 
@@ -158,9 +154,7 @@ class PTApiControllerTest {
     @DisplayName("PT 예약 취소하기 - 요청한 학생이 존재하지 않아 실패")
     @Test
     public void cancelReservation_studentNotFound() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("student@naver.com");
 
         doThrow(new UserNotFoundException("존재하지 않는 학생입니다.")).when(ptService)
             .cancelReservation(any(), any());
@@ -176,9 +170,7 @@ class PTApiControllerTest {
     @DisplayName("PT 예약 취소하기 - 요청한 트레이너가 존재하지 않아 실패")
     @Test
     public void cancelReservation_teacherNotFound() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("student@naver.com");
 
         doThrow(new UserNotFoundException("존재하지 않는 트레이너입니다.")).when(ptService)
             .cancelReservation(any(), any());
@@ -194,9 +186,7 @@ class PTApiControllerTest {
     @DisplayName("PT 예약 취소하기 - 제거 요청한 예약이 존재하지 않아 실패")
     @Test
     public void cancelReservation_reservationNotFound() throws Exception {
-        reservationRequest req = reservationRequest.builder()
-            .ptTeacherEmail("teacher@naver.com")
-            .build();
+        reservationRequest req = createReservationRequset("student@naver.com");
 
         doThrow(new UserNotFoundException("존재하지 않는 예약입니다.")).when(ptService)
             .cancelReservation(any(), any());

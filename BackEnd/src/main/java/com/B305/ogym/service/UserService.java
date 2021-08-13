@@ -94,15 +94,15 @@ public class UserService {
         userRepository.delete(user); // 이렇게 해도 되나? teacher 만들어서 해얗나ㅏ?
     }
 
-//    @Cacheable(key = "#userEmail", value = "getUserInfo")
+    //    @Cacheable(key = "#userEmail", value = "getUserInfo")
     @Transactional
     public Map<String, Object> getUserInfo(String userEmail, List<String> req) {
         UserBase user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
         if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
-            return ptTeacherRepository.getInfo(user.getId(), req);
+            return ptTeacherRepository.getInfo(userEmail, req);
         } else {
-            return ptStudentRepository.getInfo(user.getId(), req);
+            return ptStudentRepository.getInfo(userEmail, req);
         }
     }
 

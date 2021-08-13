@@ -7,4 +7,7 @@ public interface PTTeacherRepository extends JpaRepository<PTTeacher, Long>,
     PTTeacherRepositoryCustom {
 
     Optional<PTTeacher> findByEmail(String email);
+
+    boolean existByEmail(String email);
+
 }

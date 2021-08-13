@@ -94,6 +94,7 @@ class UserApiControllerTest {
             .careers(new ArrayList<>())
             .price(1000)
             .description("트레이너")
+            .age(20)
             .build();
     }
 
@@ -107,6 +108,7 @@ class UserApiControllerTest {
             .tel("010-0000-0000")
             .zipCode("12345")
             .street("도로명")
+            .age(16)
             .detailedAddress("상세주소")
             .role("ROLE_PTSTUDENT")
             .monthlyWeights(new ArrayList<>(Arrays
@@ -143,6 +145,8 @@ class UserApiControllerTest {
                             .description("The user's username"),
                         fieldWithPath("nickname").type(JsonFieldType.STRING)
                             .description("The user's nickname"),
+                        fieldWithPath("age").type(JsonFieldType.NUMBER)
+                            .description("The user's age"),
                         fieldWithPath("gender").type(JsonFieldType.NUMBER)
                             .description("The user's gender"),
                         fieldWithPath("tel").type(JsonFieldType.STRING)
@@ -198,6 +202,8 @@ class UserApiControllerTest {
                     .description("The user's username"),
                 fieldWithPath("nickname").type(JsonFieldType.STRING)
                     .description("The user's nickname"),
+                fieldWithPath("age").type(JsonFieldType.NUMBER)
+                    .description("The user's age"),
                 fieldWithPath("gender").type(JsonFieldType.NUMBER)
                     .description("The user's gender"),
                 fieldWithPath("tel").type(JsonFieldType.STRING)
@@ -362,6 +368,24 @@ class UserApiControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("userApi/getUserInfo/successful"));
+    }
+
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @DisplayName("회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패")
+    @Test
+    public void getUserInfo_failure() throws Exception {
+        String email = "teacher@naver.com";
+
+        ArrayList<String> req = new ArrayList<>(Arrays.asList("id", "email"));
+
+        given(userService.getUserInfo(email, req))
+            .willThrow(new UserNotFoundException("해당하는 유저가 존재하지 않습니다"));
+
+        mockMvc.perform(get("/api/user/id,email")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isNotFound())
+            .andDo(document("userApi/getUserInfo/failure"));
     }
 
 
