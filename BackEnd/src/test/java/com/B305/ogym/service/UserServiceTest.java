@@ -128,6 +128,8 @@ class UserServiceTest {
 //        String email = user.getEmail();
 //        String token = "AccessToken";
 //        given(userRepository.findByEmail(email)).willReturn(Optional.of(user));
+//        willDoNothing().given(redisUtil).setBlackList(any(), any(), any());
+//        willDoNothing().given(redisUtil).delete(any());
 //
 //        //when
 //        userService.deleteUserBase(user.getEmail(), token);
