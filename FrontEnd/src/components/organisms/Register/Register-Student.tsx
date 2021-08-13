@@ -9,7 +9,7 @@ import Postcode from "../../molecules/postcode/Postcode";
 import { useRecoilValue } from "recoil";
 import axios from "axios";
 import {useState, useEffect} from 'react';
-import { updateSourceFile } from "typescript";
+import { useHistory } from "react-router";
 
 
 const ErrorP = styled.p`
@@ -103,6 +103,7 @@ const schema = yup.object().shape({
 });
 
 function RegisterStudent() {
+  const history = useHistory();
   const [inputPhone, setInputPhone] = useState('');
   const zipcode = useRecoilValue(Zipcode)
   const streetAddress = useRecoilValue(StreetAddress)
@@ -133,7 +134,21 @@ function RegisterStudent() {
     }
 
     // console.log(data)
-    console.log({
+    // console.log({
+    // "email" : data.email,
+    // "password" : data.password,
+    // "username" : data.username,
+    // "nickname" : data.nickname,
+    // "gender" : data.gender,
+    // "tel" : data.phone,
+    // "zipCode" : data.zipcode,
+    // "street" : data.streetAddress,
+    // "detailedAddress" : data.detailedAddress,
+    // "role" : "ROLE_PTSTUDENT",
+    // "monthlyHeights" : heights,
+    // "monthlyWeights" : weights
+    // })
+    axios.post("/api/user", {
     "email" : data.email,
     "password" : data.password,
     "username" : data.username,
@@ -147,23 +162,9 @@ function RegisterStudent() {
     "monthlyHeights" : heights,
     "monthlyWeights" : weights
     })
-    // axios.post("/api/user", {
-    //   "email" : data.email,
-    //   "password" : data.password,
-    //   "username" : data.username,
-    //   "nickname" : data.nickname,
-    //   "gender" : data.gender,
-    //   "tel" : "010-1234-5678",
-    //   "zipCode" : data.zipcode,
-    //   "street" : data.streetAddress,
-    //   "detailedAddress" : data.detailedAddress,
-    //   "role" : "ROLE_PTSTUDENT",
-    //   "monthlyHeights" : [-1, -1, -1, -1, -1, 175, -1, -1, -1, -1, -1, -1],
-    //   "monthlyWeights" : [-1, -1, -1, -1, -1, 67, -1, -1, -1, -1, -1, -1]
-    // })
-    // console.log()
     
-  }
+  
+}
 
   // useEffect(() => {
   //   axios.get('/api/hello')
