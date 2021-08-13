@@ -11,7 +11,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PTTeacherRepositoryCustom {
+
     MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail);
-    Map<String,Object> getInfo(Long teacherId, List<String> req);
+
+    Map<String, Object> getInfo(String teacherEmail, List<String> req);
+
     Page<PTTeacher> searchAll(SearchDto searchDto, Pageable pageable);
 }

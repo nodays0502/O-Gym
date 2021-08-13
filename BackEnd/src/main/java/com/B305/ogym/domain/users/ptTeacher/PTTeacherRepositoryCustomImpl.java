@@ -23,6 +23,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -69,7 +70,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .where(pTStudentPTTeacher.ptTeacher.email.eq(teacherEmail))
             .fetch();
 
-        List<String> students = result.stream().map(o -> o.getUsername())
+        List<String> students = result.stream().map(StudentHealth::getUsername)
             .collect(Collectors.toList());
 
         List<Tuple> studentshealth = queryFactory
@@ -80,9 +81,9 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .orderBy(monthly.month.asc())
             .fetch();
 
-        result.stream().forEach(o -> {
-            studentshealth.stream().forEach(t -> {
-                if (t.get(monthly.ptStudent.username).equals(o.getUsername())) {
+        result.forEach(o -> {
+            studentshealth.forEach(t -> {
+                if (Objects.equals(t.get(monthly.ptStudent.username), o.getUsername())) {
                     o.addHeight(t.get(monthly.height));
                     o.addWeight(t.get(monthly.weight));
                 }
@@ -95,18 +96,18 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     }
 
     @Override
-    public Map<String, Object> getInfo(Long teacherId, List<String> req) { // "username" , "id"
+    public Map<String, Object> getInfo(String teacherEmail, List<String> req) { // "username" , "id"
 
         Tuple result = queryFactory
             .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname,
                 pTTeacher.gender, pTTeacher.tel, pTTeacher.address, pTTeacher.authority,
                 pTTeacher.major, pTTeacher.price, pTTeacher.description)
             .from(pTTeacher)
-            .where(pTTeacher.id.eq(teacherId))
+            .where(pTTeacher.email.eq(teacherEmail))
             .fetchOne(); // pTTeahcer의 정보
         Map<String, Object> map = new HashMap<>();
 
-        req.stream().forEach(o -> {
+        req.forEach(o -> {
             if ("certificates".equals(o)) {
                 List<CertificateDto> certificates = queryFactory
                     .select(Projections.fields(CertificateDto.class,
@@ -114,7 +115,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                         certificate.publisher.as("publisher"),
                         certificate.date.as("date")))
                     .from(certificate)
-                    .where(certificate.ptTeacher.id.eq(teacherId))
+                    .where(certificate.ptTeacher.email.eq(teacherEmail))
                     .fetch();
                 map.put(o, certificates);
             } else if ("careers".equals(o)) {
@@ -125,10 +126,11 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                         career.endDate.as("endDate"),
                         career.role.as("role")))
                     .from(career)
-                    .where(career.ptTeacher.id.eq(teacherId))
+                    .where(career.ptTeacher.email.eq(teacherEmail))
                     .fetch();
                 map.put(o, careers);
             } else {
+                assert result != null;
                 map.put(o, result.get(check.get(o)));
             }
         });
