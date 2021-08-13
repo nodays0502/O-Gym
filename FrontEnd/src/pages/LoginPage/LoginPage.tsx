@@ -2,19 +2,9 @@ import { Modal, Tabs } from "antd";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 import LoginContent from "../../components/organisms/Login/Login-content";
-import { ModalState } from "../../recoil/pages/LoginPageState";
 import RegisterContent from "../../components/organisms/Register/Register-content";
 
 const { TabPane } = Tabs;
-
-// const LoginTag = () => {
-//     return (
-//         <div className={styles.loginwidth}>
-
-//         </div>
-//     );
-// }
-
 
 const StyledTabs = styled(Tabs)`
     width: 100%;
@@ -29,9 +19,7 @@ const StyledTabPane = styled(TabPane)`
 `;
 
 const LoginPage = (): JSX.Element => {
-    
-    // const [isModalVisible, setIsModalVisible] = useRecoilState(ModalState);
-
+        
     // const handleOk = () => {
     //     setIsModalVisible(false);
     // }

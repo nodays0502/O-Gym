@@ -6,6 +6,10 @@ import Input from "../../atoms/Input"
 import Label from "../../atoms/Label";
 import ButtonList from "../../molecules/ButtonList";
 import ListItem from "../../molecules/ListItem"
+import { LoginTokenState } from "../../../recoil/pages/LoginPageState";
+import { useRecoilState, useRecoilValue } from "recoil";
+import axios from "axios";
+import { InputState } from "../../../recoil/atoms/InputState";
 
 
 const LabelDiv = styled.div`
@@ -20,8 +24,19 @@ const LoginContent = (): JSX.Element => {
 
     const [isShow, setIsShow] = useState(true);
 
+    const loginInfo = useRecoilValue(InputState);
+    
+    const [LodalTokenState, setLodalTokenState] = useRecoilState(LoginTokenState);
+
     const handleShowButton = () => {
         setIsShow(!isShow);
+    }
+
+    const requestLogin = async () => {
+        let id = loginInfo.loginEmail;
+        let pw = loginInfo.loginPassword;
+        console.log(id, pw);
+        let responseData = axios.post('/api/user');
     }
 
     return (
@@ -37,7 +52,9 @@ const LoginContent = (): JSX.Element => {
             
             <ListItem flexdirection="column">
                 <Label label="Email" fontweight="bold"/>
-                <Input type="text" inputType="loginEmail" placeholder="email"/>
+                <Input type="text" inputType="loginEmail" placeholder="email"
+                    
+                />
             </ListItem>
             
             <Divider />
@@ -55,14 +72,23 @@ const LoginContent = (): JSX.Element => {
 
             <Divider />
             <ButtonList>
-                <Button text="Forgot your password?" width="100%"></Button>
-                <Button text="Log In" width="100%"></Button>
+                <Button width="100%"
+                    backgroundColor="light-gray"
+                    color="red"
+                    borderRadius="10px"
+                >Forgot your password?</Button>
+                <Button width="100%"
+                    backgroundColor="green"
+                    color="black"
+                    borderRadius="10px"
+                    onClick={requestLogin}
+                >Log In</Button>
             </ButtonList>
             <Divider />
             <ButtonList>
-                <Button text="Sign in with Facebook" width="100%" signInType="facebook"></Button>
-                <Button text="Sign in with Google" width="100%" signInType="google"></Button>
-                <Button text="Sign in with Naver" width="100%" signInType="naver"></Button>
+                <Button width="100%" signInType="facebook">Sign in with Facebook</Button>
+                <Button width="100%" signInType="google">Sign in with Google</Button>
+                <Button width="100%" signInType="naver">Sign in with Naver</Button>
             </ButtonList>
         </>
     );
