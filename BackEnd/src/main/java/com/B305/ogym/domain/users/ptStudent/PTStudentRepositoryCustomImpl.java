@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 
-public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom{
+public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom {
 
     private final EntityManager em;
     private final JPAQueryFactory queryFactory;
@@ -40,33 +40,35 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom{
     }
 
     @Override
-    public Map<String, Object> getInfo(Long studentId, List<String> req) { // "username" , "id"
+    public Map<String, Object> getInfo(String studentEmail, List<String> req) { // "username" , "id"
 
         Tuple result = queryFactory
             .select(pTStudent.id, pTStudent.email, pTStudent.username, pTStudent.nickname,
                 pTStudent.gender, pTStudent.tel, pTStudent.address, pTStudent.authority)
             .from(pTStudent)
-            .where(pTStudent.id.eq(studentId))
+            .where(pTStudent.email.eq(studentEmail))
             .fetchOne(); // pTStudent의 정보
         Map<String, Object> map = new HashMap<>();
 
-        List<Tuple> monthlyList = queryFactory.select(monthly.height,monthly.height)
+        List<Tuple> monthlyList = queryFactory.select(monthly.height, monthly.height)
             .from(monthly)
-            .where(monthly.ptStudent.id.eq(studentId))
+            .where(monthly.ptStudent.email.eq(studentEmail))
             .orderBy(monthly.month.asc())
             .fetch();
 
-        req.stream().forEach(o -> { // 리펙토링 필요
+        req.forEach(o -> { // 리펙토링 필요
             if ("heights".equals(o)) {
 //                map.put(o,result.get(pTStudent.monthly).stream()
 //                    .map(t -> t.getHeight()).collect(Collectors.toList()));
-                map.put(o,monthlyList.stream().map(t -> t.get(monthly.height)).collect(Collectors.toList()));
-            } else if("weights".equals(o)){
+                map.put(o, monthlyList.stream().map(t -> t.get(monthly.height))
+                    .collect(Collectors.toList()));
+            } else if ("weights".equals(o)) {
 //                map.put(o,result.get(pTStudent.monthly).stream()
 //                    .map(t -> t.getWeight()).collect(Collectors.toList()));
-                map.put(o,monthlyList.stream().map(t -> t.get(monthly.weight)).collect(Collectors.toList()));
-            }
-            else {
+                map.put(o, monthlyList.stream().map(t -> t.get(monthly.weight))
+                    .collect(Collectors.toList()));
+            } else {
+                assert result != null;
                 map.put(o, result.get(check.get(o)));
             }
         });
