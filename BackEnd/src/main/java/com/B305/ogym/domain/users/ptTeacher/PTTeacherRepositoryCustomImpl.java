@@ -7,12 +7,15 @@ import static com.B305.ogym.domain.users.ptStudent.QPTStudent.pTStudent;
 import static com.B305.ogym.domain.users.ptTeacher.QCareer.career;
 import static com.B305.ogym.domain.users.ptTeacher.QCertificate.certificate;
 import static com.B305.ogym.domain.users.ptTeacher.QPTTeacher.pTTeacher;
+import static com.B305.ogym.domain.users.ptTeacher.QSns.sns;
 
 import com.B305.ogym.controller.dto.HealthDto.MyStudentsHealthListResponse;
 import com.B305.ogym.controller.dto.HealthDto.StudentHealth;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
+import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.controller.dto.UserDto.CareerDto;
 import com.B305.ogym.controller.dto.UserDto.CertificateDto;
+import com.B305.ogym.controller.dto.UserDto.SnsDto;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Gender;
 import com.querydsl.core.QueryResults;
@@ -102,7 +105,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     public Map<String, Object> getInfo(String teacherEmail, List<String> req) { // "username" , "id"
 
         Tuple result = queryFactory
-            .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname,
+            .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname, pTTeacher.age,
                 pTTeacher.gender, pTTeacher.tel, pTTeacher.address, pTTeacher.authority,
                 pTTeacher.major, pTTeacher.price, pTTeacher.description)
             .from(pTTeacher)
@@ -132,7 +135,16 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                     .where(career.ptTeacher.email.eq(teacherEmail))
                     .fetch();
                 map.put(o, careers);
-            } else {
+            } else if ("snss".equals(o)) {
+                List<SnsDto> snss = queryFactory
+                    .select(Projections.fields(SnsDto.class,
+                        sns.url.as("url"),
+                        sns.platform.as("platform")))
+                    .from(sns)
+                    .where(sns.ptTeacher.email.eq(teacherEmail))
+                    .fetch();
+                map.put(o, snss);
+            }else {
                 assert result != null;
                 map.put(o, result.get(check.get(o)));
             }

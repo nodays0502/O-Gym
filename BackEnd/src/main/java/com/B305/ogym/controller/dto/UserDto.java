@@ -185,4 +185,14 @@ public class UserDto {
         private LocalDate date; // 획득일
     }
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PUBLIC)
+    public static class SnsDto {
+
+        private String url; // 주소
+
+        private String platform; // 플랫폼
+    }
+
+
 }
