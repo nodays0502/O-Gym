@@ -46,7 +46,6 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom{
             .select(pTStudent.id, pTStudent.email, pTStudent.username, pTStudent.nickname,
                 pTStudent.gender, pTStudent.tel, pTStudent.address, pTStudent.authority)
             .from(pTStudent)
-            .join(monthly)
             .where(pTStudent.id.eq(studentId))
             .fetchOne(); // pTStudent의 정보
         Map<String, Object> map = new HashMap<>();
