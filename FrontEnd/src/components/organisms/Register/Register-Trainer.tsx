@@ -16,6 +16,7 @@ import AddCert from "../../molecules/register/AddCert";
 import { AddCERT } from '../../../recoil/atoms/AddCERT';
 import AddCareer from "../../molecules/register/AddCareer";
 import { AddCAREER } from "../../../recoil/atoms/AddCAREER"
+import { useHistory } from "react-router";
 import jwt_decode from "jwt-decode";
 // console.log(axios.post("/api/authenticate", {
 //   "email" : "eggkim@ssafy.com",
@@ -75,7 +76,6 @@ axios.post("/api/authenticate", {
   
 })
 
-
 const ErrorP = styled.p`
   color: red;
 `;
@@ -122,7 +122,6 @@ interface FormValues {
   major: string;
   price: number;
   description: string;
-  snsAddrs: Array<string>;
 }
 
 const schema = yup.object().shape({
@@ -169,6 +168,8 @@ const schema = yup.object().shape({
 });
 
 function RegisterStudent() {
+  const history = useHistory();
+
   const [inputPhone, setInputPhone] = useState('');
   const zipcode = useRecoilValue(Zipcode)
   const streetAddress = useRecoilValue(StreetAddress)
@@ -181,9 +182,7 @@ function RegisterStudent() {
   });
 
   const onSubmit = (data: FormValues) => {
-
-    // console.log({
-    // "email" : data.email,
+    // console.log({"email" : data.email,
     // "password" : data.password,
     // "username" : data.username,
     // "nickname" : data.nickname,
@@ -193,11 +192,13 @@ function RegisterStudent() {
     // "street" : data.streetAddress,
     // "detailedAddress" : data.detailedAddress,
     // "role" : "ROLE_PTTEACHER",
+    // "major": data.major,
+    // "price": data.price,
+    // "description": data.description,
     // "certificates": adcert,
     // "snsAddrs": adsns,
-    // "careers": adcareer
-    // })
-    axios.post("/api/user/", {
+    // "careers": adcareer})
+    axios.post("/api/user", {
       "email" : data.email,
       "password" : data.password,
       "username" : data.username,
@@ -208,13 +209,13 @@ function RegisterStudent() {
       "street" : data.streetAddress,
       "detailedAddress" : data.detailedAddress,
       "role" : "ROLE_PTTEACHER",
+      "major": data.major,
+      "price": data.price,
+      "description": data.description,
       "certificates": adcert,
       "snsAddrs": adsns,
       "careers": adcareer
     })
-    // axios.get("/api/hello")
-    //   .then(res => console.log(res))
-    
   }
 
   // useEffect(() => {
