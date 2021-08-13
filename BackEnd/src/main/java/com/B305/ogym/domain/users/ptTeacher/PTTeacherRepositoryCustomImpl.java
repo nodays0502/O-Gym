@@ -210,8 +210,9 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         return pTTeacher.age.goe(minAge);
 
     }
+
     @Override
-    public List<LocalDateTime> reservationTime (String teacherEmail){
+    public List<LocalDateTime> reservationTime(String teacherEmail) {
         return em.createQuery("select st.reservationDate "
             + " From PTTeacher t "
             + " join t.ptStudentPTTeachers st "
@@ -220,3 +221,5 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .getResultList();
     }
 }
+
+
