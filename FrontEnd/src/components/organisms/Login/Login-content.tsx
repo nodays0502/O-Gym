@@ -1,4 +1,4 @@
-import { Divider } from "antd"
+import { Divider, message } from "antd"
 import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
@@ -6,11 +6,12 @@ import Input from "../../atoms/Input"
 import Label from "../../atoms/Label";
 import ButtonList from "../../molecules/ButtonList";
 import ListItem from "../../molecules/ListItem"
-import { LoginTokenState } from "../../../recoil/pages/LoginPageState";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import axios from "axios";
 import { InputState } from "../../../recoil/atoms/InputState";
-
+// @ts-ignore
+import jwt_decode from "jwt-decode";
+import { useHistory } from "react-router";
 
 const LabelDiv = styled.div`
     text-align: center;
@@ -24,19 +25,73 @@ const LoginContent = (): JSX.Element => {
 
     const [isShow, setIsShow] = useState(true);
 
-    const loginInfo = useRecoilValue(InputState);
-    
-    const [LodalTokenState, setLodalTokenState] = useRecoilState(LoginTokenState);
+    const [loginInfo, setLoginInfo] = useRecoilState(InputState);
+    const resetLoginInfo = useResetRecoilState(InputState);
+    const history = useHistory();
+    // const [LodalTokenState, setLodalTokenState] = useRecoilState(LoginTokenState);
 
     const handleShowButton = () => {
         setIsShow(!isShow);
     }
 
+    const success = () => {
+        message.success('Login Success');
+        history.push('/');
+        resetLoginInfo();
+    };
+    
+    const error = () => {
+        message.error('Login Error');
+        history.push('/login');
+        resetLoginInfo();
+    };
+
     const requestLogin = async () => {
         let id = loginInfo.loginEmail;
         let pw = loginInfo.loginPassword;
         console.log(id, pw);
-        let responseData = axios.post('/api/user');
+        try {
+            
+            let responseData = await axios.post('https://i5b305.p.ssafy.io/api/authenticate', {
+                email: id,
+                password: pw
+            });
+
+            let { accessToken, refreshToken } = await responseData.data.data;
+
+            localStorage.setItem('accessToken', accessToken);
+            localStorage.setItem('refreshToken', refreshToken);
+
+            axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+    
+            let checkDate: {
+                exp, email, role
+            } = jwt_decode(accessToken);
+            console.log(checkDate);
+            let currentDate = new Date();
+            let tokenDate = new Date(checkDate.exp * 1000)
+            let diffTime = currentDate.getTime() - tokenDate.getTime();
+            
+            if (diffTime > 0) {
+                let refreshData = await axios.post('/api/reissue', {
+                    accessToken: accessToken,
+                    refreshToken: refreshToken
+                });
+                let updatedTokenData = refreshData.data.data;
+                axios.defaults.headers.common['Authorization'] = `Bearer ${updatedTokenData.accessToken}`;
+                
+                localStorage.setItem('accessToken', updatedTokenData.accessToken);
+                localStorage.setItem('refreshToken', updatedTokenData.refreshToken);
+            }
+    
+            success();
+        }
+        catch (err) {
+            error();
+        }
+
+      
+        
     }
 
     return (
@@ -66,7 +121,11 @@ const LoginContent = (): JSX.Element => {
                 </ListItem>
                 
                 <StyledDivider type="vertical" />
-                <Button text={isShow === true ? "show" : "hide"} onclick={handleShowButton}></Button>
+                <Button onClick={handleShowButton}
+                 backgroundColor="light-gray"
+                 color="black"
+                    borderRadius="10px"
+                >{isShow === true ? "show" : "hide"}</Button>
             
             </ListItem>
 

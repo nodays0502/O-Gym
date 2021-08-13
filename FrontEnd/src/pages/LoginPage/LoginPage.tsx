@@ -1,10 +1,12 @@
 import { Modal, Tabs } from "antd";
-import { useRecoilState } from "recoil";
+import { useHistory } from "react-router-dom";
+import { useRecoilState, useRecoilValue } from "recoil";
 import styled from "styled-components";
 import LoginContent from "../../components/organisms/Login/Login-content";
 import RegisterStudent from "../../components/organisms/Register/Register-Student";
 import RegisterTrainer from "../../components/organisms/Register/Register-Trainer";
-
+import { InputState } from "../../recoil/atoms/InputState";
+import jwt_decode from "jwt-decode";
 const { TabPane } = Tabs;
 
 const StyledTabs = styled(Tabs)`
@@ -19,12 +21,26 @@ const StyledTabPane = styled(TabPane)`
     width: 100%;
 `;
 
+export interface LoginInfo {
+    accessToken: string,
+    refreshToken: string
+}
+
 const LoginPage = (): JSX.Element => {
         
-    // const handleOk = () => {
-    //     setIsModalVisible(false);
-    // }
+    const history = useHistory();
+    let accessToken = localStorage.getItem('accessToken');
+    if (accessToken) {
 
+        let { role }: { role: string }  = jwt_decode(accessToken);
+        
+        if (role === 'ROLE_PTSTUDENT') {
+            history.push('/studentreservation');
+        }
+        else if (role === 'ROLE_PTTEACHER') {
+            history.push('/');
+        }
+    }
     // const handleCancel = () => {
     //     setIsModalVisible(false);
     // }

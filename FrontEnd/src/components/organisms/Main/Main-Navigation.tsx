@@ -1,4 +1,4 @@
-import { Modal, Button, Image, Row, Col } from "antd";
+import { Modal, Typography, Button, Image, Row, Col } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -8,7 +8,9 @@ import conference from "../../../assets/pages/mainPage/navButton/conference.png"
 import onlineBooking from "../../../assets/pages/mainPage/navButton/online-booking.png"
 import reserved from "../../../assets/pages/mainPage/navButton/reserved.png"
 import work from "../../../assets/pages/mainPage/navButton/work.png"
+import jwt_decode from "jwt-decode";
 
+const { Text } = Typography;
 const StyledModal = styled(Modal)`
   position: fixed;
   top: 0px;
@@ -54,12 +56,31 @@ const StyledCircledImage = styled(Image)`
   clip-path : circle(50%);
 `;
 
+const titleComponent = (): JSX.Element => {
+  
+  return (
+    <Button type="primary">
+      "O-GYM"
+    </Button>
+  );
+}
 
 
 const MainNavigation = (): JSX.Element => {
 
     const [isVisible, setIsVisible] = useState<boolean>(false);
     
+    
+    try {
+      const accessToken = localStorage.getItem('accessToken');
+      
+    }
+
+    catch (error) {
+      
+    }
+  
+  
     const clickMenuButton = () => {
         setIsVisible(!isVisible)
     }
@@ -78,7 +99,16 @@ const MainNavigation = (): JSX.Element => {
             </StyledButton>
 
             <StyledModal
-                title="O-GYM"
+          title={
+            <Row>
+              <Col span={8}>O-GYM</Col>
+              <Col span={2} offset={10}>
+                <Button type="primary">
+                  Login
+                </Button>
+              </Col>
+            </Row>
+          }
                 visible={isVisible}
                 onOk={clickModalClose}
                 onCancel={clickModalClose}
