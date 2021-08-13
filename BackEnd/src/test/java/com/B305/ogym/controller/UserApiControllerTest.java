@@ -94,6 +94,7 @@ class UserApiControllerTest {
             .careers(new ArrayList<>())
             .price(1000)
             .description("트레이너")
+            .age(20)
             .build();
     }
 
@@ -107,6 +108,7 @@ class UserApiControllerTest {
             .tel("010-0000-0000")
             .zipCode("12345")
             .street("도로명")
+            .age(16)
             .detailedAddress("상세주소")
             .role("ROLE_PTSTUDENT")
             .monthlyWeights(new ArrayList<>(Arrays
@@ -143,6 +145,8 @@ class UserApiControllerTest {
                             .description("The user's username"),
                         fieldWithPath("nickname").type(JsonFieldType.STRING)
                             .description("The user's nickname"),
+                        fieldWithPath("age").type(JsonFieldType.NUMBER)
+                            .description("The user's age"),
                         fieldWithPath("gender").type(JsonFieldType.NUMBER)
                             .description("The user's gender"),
                         fieldWithPath("tel").type(JsonFieldType.STRING)
@@ -198,6 +202,8 @@ class UserApiControllerTest {
                     .description("The user's username"),
                 fieldWithPath("nickname").type(JsonFieldType.STRING)
                     .description("The user's nickname"),
+                fieldWithPath("age").type(JsonFieldType.NUMBER)
+                    .description("The user's age"),
                 fieldWithPath("gender").type(JsonFieldType.NUMBER)
                     .description("The user's gender"),
                 fieldWithPath("tel").type(JsonFieldType.STRING)
