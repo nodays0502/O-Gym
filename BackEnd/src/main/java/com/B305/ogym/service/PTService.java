@@ -109,7 +109,7 @@ public class PTService {
     }
 
     public List<LocalDateTime> getTeacherReservationTime(String teacherEmail) {
-        if(!userRepository.existsByEmail(teacherEmail)){
+        if (!userRepository.existsByEmail(teacherEmail)) {
             throw new UserNotFoundException("해당 이메일이 존재하지 않습니다.");
         }
         return ptTeacherRepository.reservationTime(teacherEmail);
@@ -119,29 +119,33 @@ public class PTService {
         UserBase user = userRepository.findByEmail(email).orElseThrow(() ->
             new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
         List<reservationDto> result = new ArrayList<>();
-        if ("ROLE_PTTEACHER".equals(user.getEmail())) {
+        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
             ptTeacherRepository.getReservationTime(email).stream().forEach(
-                o-> {result.add(
-                    reservationDto.builder()
-                        .description(o.getDescription())
-                        .reservationTime(o.getReservationDate())
-                        .nickname(o.getPtStudent().getNickname())
-                        .username(o.getPtStudent().getUsername())
-                        .email(o.getPtStudent().getEmail())
-                        .build()
-                );}
+                o -> {
+                    result.add(
+                        reservationDto.builder()
+                            .description(o.getDescription())
+                            .reservationTime(o.getReservationDate())
+                            .nickname(o.getPtStudent().getNickname())
+                            .username(o.getPtStudent().getUsername())
+                            .email(o.getPtStudent().getEmail())
+                            .build()
+                    );
+                }
             );
         } else {
             ptStudentRepository.getReservationTime(email).stream().forEach(
-                o-> {result.add(
-                    reservationDto.builder()
-                        .description(o.getDescription())
-                        .reservationTime(o.getReservationDate())
-                        .nickname(o.getPtTeacher().getNickname())
-                        .username(o.getPtTeacher().getUsername())
-                        .email(o.getPtTeacher().getEmail())
-                        .build()
-                );}
+                o -> {
+                    result.add(
+                        reservationDto.builder()
+                            .description(o.getDescription())
+                            .reservationTime(o.getReservationDate())
+                            .nickname(o.getPtTeacher().getNickname())
+                            .username(o.getPtTeacher().getUsername())
+                            .email(o.getPtTeacher().getEmail())
+                            .build()
+                    );
+                }
             );
         }
         return result;
