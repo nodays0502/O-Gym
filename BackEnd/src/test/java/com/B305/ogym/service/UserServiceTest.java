@@ -33,6 +33,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 
 @ExtendWith(MockitoExtension.class)
@@ -48,6 +49,8 @@ class UserServiceTest {
     PTStudentRepository ptStudentRepository;
     @Mock
     AuthorityRepository authorityRepository;
+    @Mock
+    PasswordEncoder passwordEncoder;
 
     @InjectMocks
     UserService userService;
@@ -57,7 +60,7 @@ class UserServiceTest {
             .email("hello@naver.com")
             .password("asdasd")
             .username("juhu")
-            .nickname("juhu")
+            .nickname("주현")
             .gender(0)
             .tel("010-0000-0000")
             .zipCode("12345")
@@ -75,9 +78,9 @@ class UserServiceTest {
     private SaveUserRequest createStudentRequest() {
         return SaveUserRequest.builder()
             .email("hello@naver.com")
-            .password("asdasd")
+            .password("비밀번호")
             .username("한솥")
-            .nickname("nononoo1")
+            .nickname("닉네임")
             .gender(0)
             .tel("010-0000-0000")
             .zipCode("12345")
@@ -99,7 +102,24 @@ class UserServiceTest {
         return createTeacherRequest().toPTTeacherEntity();
     }
 
-    // 회원가입 성공은 아래의 두 예외처리가 성공한다면 순수하게 userRepositry.save뿐이므로, 생략
+    @DisplayName("학생 회원가입 성공")
+    @Test
+    public void signUp_success() throws Exception {
+        //given
+        SaveUserRequest studentRequest = createStudentRequest();
+        given(userRepository.existsByEmail("hello@naver.com")).willReturn(false);
+        given(userRepository.existsByNickname("닉네임")).willReturn(false);
+        given(authorityRepository.findById("ROLE_PTSTUDENT"))
+            .willReturn(Optional.of(new Authority("ROLE_PTSTUDENT")));
+        given(passwordEncoder.encode("비밀번호")).willReturn("encodePassword");
+        //when
+        userService.signup(studentRequest);
+        //then
+
+        verify(userRepository, atLeastOnce()).existsByEmail("hello@naver.com");
+        verify(userRepository, atLeastOnce()).existsByNickname("닉네임");
+    }
+
     @DisplayName("이메일 중복 시 회원가입 실패")
     @Test
     public void signUp_emailDuplicate() throws Exception {
@@ -119,12 +139,12 @@ class UserServiceTest {
         //given
         SaveUserRequest studentRequest = createStudentRequest();
         //when
-        when(userRepository.existsByNickname("nononoo1")).thenReturn(true);
+        when(userRepository.existsByNickname("닉네임")).thenReturn(true);
         //then
         assertThrows(UserDuplicateNicknameException.class,
             () -> userService.signup(studentRequest));
 
-        verify(userRepository, atLeastOnce()).existsByNickname("nononoo1");
+        verify(userRepository, atLeastOnce()).existsByNickname("닉네임");
     }
 
     @DisplayName("학생 회원 탈퇴 - 성공")
@@ -214,6 +234,25 @@ class UserServiceTest {
         verify(userRepository, atLeastOnce()).findByEmail(email);
     }
 
+    @DisplayName("트레이너 회원 정보 조회 - 성공")
+    @Test
+    public void getTeacherInfo_failure() throws Exception {
+        //given
+        var user = createTeacher();
+        String email = user.getEmail();
+        Map<String, Object> userInfo = new HashMap<>();
+        user.setRole(new Authority("ROLE_PTTEACHER"));
+        List<String> req = new ArrayList<>(Arrays.asList("email", "nickname"));
+        given(userRepository.findByEmail(email))
+            .willThrow(new UserNotFoundException("해당하는 트레이너는 존재하지 않습니다."));
+
+        //when
+        assertThrows(UserNotFoundException.class, () -> userService.getUserInfo(email, req));
+
+        //then
+        verify(userRepository, atLeastOnce()).findByEmail(email);
+    }
+
     @DisplayName("학생 회원 정보 조회 - 성공")
     @Test
     public void getStudentInfo_success() throws Exception {
@@ -228,6 +267,25 @@ class UserServiceTest {
 
         //when
         assertEquals(userInfo, userService.getUserInfo(email, req));
+
+        //then
+        verify(userRepository, atLeastOnce()).findByEmail(email);
+    }
+
+    @DisplayName("트레이너 회원 정보 조회 - 성공")
+    @Test
+    public void getStudentInfo_failure() throws Exception {
+        //given
+        var user = createStudent();
+        String email = user.getEmail();
+        Map<String, Object> userInfo = new HashMap<>();
+        user.setRole(new Authority("ROLE_PTSTUDENT"));
+        List<String> req = new ArrayList<>(Arrays.asList("email", "nickname"));
+        given(userRepository.findByEmail(email))
+            .willThrow(new UserNotFoundException("해당하는 학생은 존재하지 않습니다."));
+
+        //when
+        assertThrows(UserNotFoundException.class, () -> userService.getUserInfo(email, req));
 
         //then
         verify(userRepository, atLeastOnce()).findByEmail(email);

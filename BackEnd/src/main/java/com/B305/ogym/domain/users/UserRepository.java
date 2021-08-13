@@ -6,13 +6,14 @@ import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
-
 public interface UserRepository extends JpaRepository<UserBase, Long> {
 
     @EntityGraph(attributePaths = "authority")
     Optional<UserBase> findOneWithAuthoritiesByEmail(String email);
 
     Optional<UserBase> findByEmail(String email);
+
     boolean existsByEmail(String email);
-    boolean existsByNickname(String email);
+
+    boolean existsByNickname(String nickname);
 }
