@@ -31,21 +31,16 @@ public class HealthService {
     // 로그인한 사용자의 건강정보 조회
     @Transactional
     public MyHealthResponse getMyHealth(String userEmail) {
-//        UserBase user = userRepository.findByEmail(userEmail)
-//            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
-//        if (!user.getRole().equals("ROLE_PTSTUDENT")) {
-//            throw new UnauthorizedException("허용되지 않은 접근입니다.");
-//        }
         PTStudent ptStudent = ptStudentRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
-
         return ptStudent.getMyHealthResponse(ptStudent);
     }
 
 
     public HealthDto.MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
-        ptTeacherRepository.findByEmail(teacherEmail)
-            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+        if (!ptTeacherRepository.existByEmail(teacherEmail)) {
+            throw new UserNotFoundException("해당하는 이메일이 존재하지 않습니다.");
+        }
         return ptTeacherRepository.findMyStudentsHealth(teacherEmail);
     }
 }

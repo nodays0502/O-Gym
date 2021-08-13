@@ -110,17 +110,31 @@ class HealthServiceTest {
     }
 
 
-    //예외처리 코드 생기면 테스트
-    @DisplayName("내 건강정보 확인 - 성공")
+    @DisplayName("내 학생들의 건강정보 리스트 확인 - 성공")
     @Test
-    public void findMyStudentsHealth_Success() throws Exception {
+    public void findMyStudentsHealth_success() throws Exception {
         //given
         var user = createTeacher();
-//        given(ptStudentRepository.findByEmail(user.getEmail())).willReturn(Optional.of(user));
+        given(ptTeacherRepository.existByEmail(user.getEmail())).willReturn(true);
         //when
         healthService.findMyStudentsHealth(user.getEmail());
         //then
-//        verify(ptStudentRepository, atLeastOnce()).findByEmail(user.getEmail());
+        verify(ptTeacherRepository, atLeastOnce()).existByEmail(user.getEmail());
+    }
+
+    //예외처리 코드 생기면 테스트
+    @DisplayName("내 학생들의 건강정보 리스트 확인 - 이미 탈퇴한 회원 정보로 인한 실패")
+    @Test
+    public void findMyStudentsHealth_failure() throws Exception {
+        //given
+        var user = createTeacher();
+        given(ptTeacherRepository.existByEmail(user.getEmail()))
+            .willThrow(new UserNotFoundException("이미 탈퇴한 회원입니다"));
+        //when
+        assertThrows(UserNotFoundException.class,
+            () -> healthService.findMyStudentsHealth(user.getEmail()));
+        //then
+        verify(ptTeacherRepository, atLeastOnce()).existByEmail(user.getEmail());
     }
 
 }

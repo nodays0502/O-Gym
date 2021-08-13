@@ -22,6 +22,8 @@ public class QPTStudentPTTeacher extends EntityPathBase<PTStudentPTTeacher> {
 
     public static final QPTStudentPTTeacher pTStudentPTTeacher = new QPTStudentPTTeacher("pTStudentPTTeacher");
 
+    public final StringPath description = createString("description");
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final com.B305.ogym.domain.users.ptStudent.QPTStudent ptStudent;
