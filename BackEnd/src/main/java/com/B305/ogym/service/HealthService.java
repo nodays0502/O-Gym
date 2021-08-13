@@ -39,9 +39,7 @@ public class HealthService {
         PTStudent ptStudent = ptStudentRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
 
-        MyHealthResponse myHealthResponse = ptStudent.getMyHealthResponse(ptStudent);
-
-        return myHealthResponse;
+        return ptStudent.getMyHealthResponse(ptStudent);
     }
 
 
