@@ -16,7 +16,6 @@
     "@types/styled-components": "^5.1.11",
     "antd": "^4.16.7",
     "axios": "^0.21.1",
-    "http-proxy-middleware": "^2.0.1",
     "node-sass": "^6.0.1",
     "openvidu-react": "^2.19.0",
     "react": "^17.0.2",
@@ -59,5 +58,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
 }
