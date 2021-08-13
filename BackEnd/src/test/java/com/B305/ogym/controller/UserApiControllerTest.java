@@ -364,5 +364,23 @@ class UserApiControllerTest {
             .andDo(document("userApi/getUserInfo/successful"));
     }
 
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @DisplayName("회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패")
+    @Test
+    public void getUserInfo_failure() throws Exception {
+        String email = "teacher@naver.com";
+
+        ArrayList<String> req = new ArrayList<>(Arrays.asList("id", "email"));
+
+        given(userService.getUserInfo(email, req))
+            .willThrow(new UserNotFoundException("해당하는 유저가 존재하지 않습니다"));
+
+        mockMvc.perform(get("/api/user/id,email")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isNotFound())
+            .andDo(document("userApi/getUserInfo/failure"));
+    }
+
 
 }

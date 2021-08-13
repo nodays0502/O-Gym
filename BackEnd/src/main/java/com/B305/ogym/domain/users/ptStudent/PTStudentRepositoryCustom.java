@@ -6,5 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface PTStudentRepositoryCustom {
-    Map<String,Object> getInfo(Long studentId, List<String> req);
+
+    Map<String, Object> getInfo(String studentEmail, List<String> req);
 }
