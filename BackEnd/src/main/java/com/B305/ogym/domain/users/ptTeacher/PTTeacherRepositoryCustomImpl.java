@@ -18,6 +18,8 @@ import com.B305.ogym.controller.dto.UserDto.CertificateDto;
 import com.B305.ogym.controller.dto.UserDto.SnsDto;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Gender;
+import com.B305.ogym.domain.users.ptStudent.Monthly;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
@@ -25,6 +27,7 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,38 +65,31 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
 
     @Override
     public MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
-        List<StudentHealth> result = queryFactory
-            .select(Projections.fields(StudentHealth.class,
-                pTStudent.username.as("username"),
-                pTStudent.nickname.as("nickname"),
-                pTStudent.gender.as("gender"),
-                pTStudent.profilePicture.pictureAddr.as("profileUrl")
-
-            ))
+        List<PTStudent> students = queryFactory.select(pTStudent)
             .from(pTStudentPTTeacher)
-            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
             .join(pTStudentPTTeacher.ptStudent, pTStudent)
-            .where(pTStudentPTTeacher.ptTeacher.email.eq(teacherEmail))
+            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
+            .where(pTTeacher.email.eq(teacherEmail))
             .fetch();
 
-        List<String> students = result.stream().map(StudentHealth::getUsername)
-            .collect(Collectors.toList());
-
-        List<Tuple> studentshealth = queryFactory
-            .select(monthly.height, monthly.weight, monthly.ptStudent.username)
-            .from(monthly)
-            .join(monthly.ptStudent, pTStudent)
-            .where(monthly.ptStudent.username.in(students))
-            .orderBy(monthly.month.asc())
-            .fetch();
-
-        result.forEach(o -> {
-            studentshealth.forEach(t -> {
-                if (Objects.equals(t.get(monthly.ptStudent.username), o.getUsername())) {
-                    o.addHeight(t.get(monthly.height));
-                    o.addWeight(t.get(monthly.weight));
-                }
+        List<StudentHealth> result = new ArrayList<>();
+        students.stream().forEach(o->{
+            StudentHealth studentHealth = StudentHealth.builder()
+                .username(o.getUsername())
+                .nickname(o.getNickname())
+                .age(o.getAge())
+                .gender(o.getGender())
+//                .profileUrl(o.getProfilePicture().getPictureAddr())
+                .build();
+            List<Monthly> monthly = o.getMonthly();
+            monthly.sort((o1,o2)->{
+                return o1.getMonth() - o2.getMonth();
             });
+            monthly.stream().forEach( m -> {
+                studentHealth.addWeight(m.getWeight());
+                studentHealth.addHeight(m.getHeight());
+            });
+            result.add(studentHealth);
         });
 
         MyStudentsHealthListResponse myStudentsHealthListResponse = new MyStudentsHealthListResponse();
