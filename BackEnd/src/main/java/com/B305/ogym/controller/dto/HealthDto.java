@@ -61,7 +61,7 @@ public class HealthDto {
 
         private List<StudentHealth> studentHealthList;
         public void setStudentHealthList(List<StudentHealth> studentHealthList){
-            studentHealthList = studentHealthList;
+            this.studentHealthList = studentHealthList;
         }
 
     }
@@ -90,6 +90,16 @@ public class HealthDto {
                 weightList = new ArrayList<>();
             }
             weightList.add(weight);
+        }
+        @Builder
+        public StudentHealth(String username, String nickname, int age,
+            Gender gender, String profileUrl, List<Integer> heightList,
+            List<Integer> weightList) {
+            this.username = username;
+            this.nickname = nickname;
+            this.age = age;
+            this.gender = gender;
+            this.profileUrl = profileUrl;
         }
     }
 

@@ -100,6 +100,7 @@ public class UserDto {
                 .username(username)
                 .nickname(nickname)
                 .gender(gender)
+                .age(age)
                 .tel(tel)
                 .address(address)
                 .build();
@@ -142,6 +143,7 @@ public class UserDto {
                 .username(username)
                 .nickname(nickname)
                 .gender(gender)
+                .age(age)
                 .tel(tel)
                 .address(address)
                 .description(description)

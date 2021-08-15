@@ -18,6 +18,8 @@ import com.B305.ogym.controller.dto.UserDto.CertificateDto;
 import com.B305.ogym.controller.dto.UserDto.SnsDto;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.users.common.Gender;
+import com.B305.ogym.domain.users.ptStudent.Monthly;
+import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
@@ -25,10 +27,12 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -41,7 +45,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
 
     private final JPAQueryFactory queryFactory;
     Map<String, Expression> check = new HashMap<>();
-
+    Map<String, Function> check2 = new HashMap<>();
     public PTTeacherRepositoryCustomImpl(EntityManager em) {
         this.em = em;
         queryFactory = new JPAQueryFactory(em);
@@ -58,42 +62,37 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         check.put("major", pTTeacher.major);
         check.put("price", pTTeacher.price);
         check.put("description", pTTeacher.description);
+
     }
 
     @Override
     public MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
-        List<StudentHealth> result = queryFactory
-            .select(Projections.fields(StudentHealth.class,
-                pTStudent.username.as("username"),
-                pTStudent.nickname.as("nickname"),
-                pTStudent.gender.as("gender"),
-                pTStudent.profilePicture.pictureAddr.as("profileUrl")
-
-            ))
+        List<PTStudent> students = queryFactory.select(pTStudent)
             .from(pTStudentPTTeacher)
-            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
             .join(pTStudentPTTeacher.ptStudent, pTStudent)
-            .where(pTStudentPTTeacher.ptTeacher.email.eq(teacherEmail))
+            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
+            .where(pTTeacher.email.eq(teacherEmail))
             .fetch();
 
-        List<String> students = result.stream().map(StudentHealth::getUsername)
-            .collect(Collectors.toList());
+        List<StudentHealth> result = new ArrayList<>();
 
-        List<Tuple> studentshealth = queryFactory
-            .select(monthly.height, monthly.weight, monthly.ptStudent.username)
-            .from(monthly)
-            .join(monthly.ptStudent, pTStudent)
-            .where(monthly.ptStudent.username.in(students))
-            .orderBy(monthly.month.asc())
-            .fetch();
-
-        result.forEach(o -> {
-            studentshealth.forEach(t -> {
-                if (Objects.equals(t.get(monthly.ptStudent.username), o.getUsername())) {
-                    o.addHeight(t.get(monthly.height));
-                    o.addWeight(t.get(monthly.weight));
-                }
+        students.stream().forEach(o -> {
+            StudentHealth studentHealth = StudentHealth.builder()
+                .username(o.getUsername())
+                .nickname(o.getNickname())
+                .age(o.getAge())
+                .gender(o.getGender())
+//                .profileUrl(o.getProfilePicture().getPictureAddr())
+                .build();
+            List<Monthly> monthly = o.getMonthly();
+            monthly.sort((o1, o2) -> {
+                return o1.getMonth() - o2.getMonth();
             });
+            monthly.stream().forEach(m -> {
+                studentHealth.addWeight(m.getWeight());
+                studentHealth.addHeight(m.getHeight());
+            });
+            result.add(studentHealth);
         });
 
         MyStudentsHealthListResponse myStudentsHealthListResponse = new MyStudentsHealthListResponse();
@@ -105,14 +104,15 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     public Map<String, Object> getInfo(String teacherEmail, List<String> req) { // "username" , "id"
 
         Tuple result = queryFactory
-            .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname, pTTeacher.age,
+            .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname,
+                pTTeacher.age,
                 pTTeacher.gender, pTTeacher.tel, pTTeacher.address, pTTeacher.authority,
                 pTTeacher.major, pTTeacher.price, pTTeacher.description)
             .from(pTTeacher)
             .where(pTTeacher.email.eq(teacherEmail))
             .fetchOne(); // pTTeahcer의 정보
-        Map<String, Object> map = new HashMap<>();
 
+        Map<String, Object> map = new HashMap<>();
         req.forEach(o -> {
             if ("certificates".equals(o)) {
                 List<CertificateDto> certificates = queryFactory
@@ -144,7 +144,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                     .where(sns.ptTeacher.email.eq(teacherEmail))
                     .fetch();
                 map.put(o, snss);
-            }else {
+            } else {
                 assert result != null;
                 map.put(o, result.get(check.get(o)));
             }
@@ -235,16 +235,15 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     }
 
 
-
     @Override
-    public List<PTStudentPTTeacher> getReservationTime(String teacherEmail){
+    public List<PTStudentPTTeacher> getReservationTime(String teacherEmail) {
         return em.createQuery("select pt"
             + " from PTStudentPTTeacher pt"
             + " join fetch pt.ptTeacher t"
             + " join fetch pt.ptStudent s"
             + " where t.email =: teacherEmail"
-            + " order by pt.reservationDate",PTStudentPTTeacher.class)
-            .setParameter("teacherEmail",teacherEmail)
+            + " order by pt.reservationDate", PTStudentPTTeacher.class)
+            .setParameter("teacherEmail", teacherEmail)
             .getResultList();
     }
 }

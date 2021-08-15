@@ -52,7 +52,7 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom 
             .fetchOne(); // pTStudent의 정보
         Map<String, Object> map = new HashMap<>();
 
-        List<Tuple> monthlyList = queryFactory.select(monthly.height, monthly.height)
+        List<Tuple> monthlyList = queryFactory.select(monthly.height, monthly.weight)
             .from(monthly)
             .where(monthly.ptStudent.email.eq(studentEmail))
             .orderBy(monthly.month.asc())
