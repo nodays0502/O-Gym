@@ -6,10 +6,6 @@ import reportWebVitals from './reportWebVitals';
 import { RecoilRoot } from 'recoil';
 import { BrowserRouter as Router } from 'react-router-dom';
 import GlobalStyle from './assets/styles/global-styles';
-import axios from 'axios';
-
-axios.defaults.baseURL = "https://i5b305.p.ssafy.io";
-axios.defaults.withCredentials = true;
 
 ReactDOM.render(
   <StrictMode>

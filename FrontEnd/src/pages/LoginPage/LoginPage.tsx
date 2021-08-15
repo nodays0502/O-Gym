@@ -4,7 +4,6 @@ import styled from "styled-components";
 import LoginContent from "../../components/organisms/Login/Login-content";
 import { ModalState } from "../../recoil/pages/LoginPageState";
 import RegisterContent from "../../components/organisms/Register/Register-content";
-import Login from "../../components/organisms/Login/Login";
 
 const { TabPane } = Tabs;
 
@@ -52,8 +51,7 @@ const LoginPage = (): JSX.Element => {
             >
                 <StyledTabs  type="card">
                     <StyledTabPane tab="LOGIN" key="1">
-                        {/* <LoginContent /> */}
-                        <Login />
+                        <LoginContent />
                     </StyledTabPane>
                     
                     <StyledTabPane tab="REGISTER" key="2">

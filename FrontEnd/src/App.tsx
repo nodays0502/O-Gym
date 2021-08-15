@@ -5,18 +5,14 @@ import 'antd/dist/antd.css';
 import MainPage from './pages/MainPage/MainPage';
 import StudentReservation from './pages/StudentReservation/StudentReservation';
 import LoginPage from './pages/LoginPage/LoginPage';
-import Profile from './pages/Profile/Profile';
-import ProfileDetail from './components/organisms/ProfileDetail/ProfileDetail';
 
 function App() {
   return (
     <>
-    {/* <Profile /> */}
       <Router>
         <Route exact path='/' component={MainPage} />
         <Route exact path='/studentreservation' component={StudentReservation} />
         <Route exact path='/login' component={LoginPage} />
-        <Route exact path='/profile' component={Profile} />
       </Router>
     </>
   );
