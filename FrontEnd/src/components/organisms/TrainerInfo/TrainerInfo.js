@@ -169,6 +169,9 @@ class TrainerInfo extends React.Component {
                         <p>저는 이러이러한 사람이고</p>
                         <p>저는 이러이러한 사람이고</p>
                       </Col>
+                      <button onClick={() => console.log(List.Item)}>
+                        버튼
+                      </button>
                     </Row>
                   }
                   // description={item.email}

@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
@@ -6,6 +6,7 @@ import { Row, Col, Button } from 'antd';
 import TrainerInfo from '../../components/organisms/TrainerInfo/TrainerInfo';
 import TrainerSearch from '../../components/organisms/TrainerSearch/TrainerSearch';
 import Payment from '../../components/organisms/Payment/Payment';
+import axios from 'axios';
 import './styles.css';
 import {
   FieldTimeOutlined,
@@ -22,6 +23,12 @@ import {
 import StudentCalendar from '../../components/molecules/StudentCalendar';
 import TimeSchedule from '../../components/molecules/TimeSchedule';
 import MainNavigation from '../../components/organisms/Main/Main-Navigation';
+import TrainerInfo2 from '../../components/organisms/TrainerInfo/TrainerInfo2';
+import { ReservationState } from '../../recoil/atoms/Reservation/ReservationState';
+import { useRecoilState } from 'recoil';
+import { Email } from '../../recoil/atoms/Reservation/Email';
+import { Time } from '../../recoil/atoms/Reservation/Time';
+import { Date } from '../../recoil/atoms/Reservation/Date';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -55,59 +62,177 @@ const StyledDiv = styled.div`
 `;
 
 function StudentReservation() {
-
-  const [selectReservation, setSelectReservation] = useState(false);
+  // const [selectReservation, setSelectReservation] = useState(false);
+  const [teacherList, setTeacherList] = useState<any>([])
+  const [reservationTab, setReservationTab] = useRecoilState(ReservationState)
+  const [email, setEmail] = useRecoilState(Email)
+  const [time, setTime] = useRecoilState(Time)
+  const [date, setDate] = useRecoilState(Date)
 
   const handleClick = (e: any) => {
     console.log('click ', e);
   };
 
-  const onClick = () => {
-    setSelectReservation(!selectReservation)
+  // const onClick = (e) => {
+  //   setSelectReservation(!selectReservation)
+  //   console.log(e)
+  // }
+
+  function ptReservation () {
+    console.log(date, time, email)
+    axios({
+      method: 'post',
+      url: 'https://i5b305.p.ssafy.io/api/pt/reservation',
+      data: {
+        ptTeacherEmail : email,
+        reservationTime : date+"T"+time+":00",
+        description : "예약"
+      },
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    })
   }
 
-  return (
-    <Container align='middle' justify='center' >
-      <MainNavigation />
-      <Col span={18}>
-        <div style={{margin: 'auto'}}>
-          <TrainerInfo onClick={onClick}/>
-        </div>
-      </Col>
-      <Col span={6}>
-        { selectReservation ?
-        <StyledSider><div className="logo" />
-        <Menu
-        onClick={handleClick}
-        style={{ width: "auto" }}
-        defaultSelectedKeys={['1']}
-        defaultOpenKeys={['sub1']}
-        mode="inline"
-        
-      >
-        <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
-          <StudentCalendar />
-        </SubMenu>
-        <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
-          <TimeSchedule />
-        </SubMenu>
-        <Button type="primary" onClick={onClick}>예약하기</Button>
-      </Menu></StyledSider>
-      :
-      <>
-      <StyledDiv>
-      <TrainerSearch />
-      </StyledDiv>
-      <StyledDiv>
-        <Payment />
-      </StyledDiv>
-      </>
+  useEffect(() => {
+    let teacher = []
+    axios.get(
+      'https://i5b305.p.ssafy.io/api/pt/teacherlist', {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
       }
+    )
+    .then((response) => {
+      console.log(response.data.data.teacherList)
+      setTeacherList(response.data.data.teacherList)
+    })
+  }, [])
 
 
-      </Col>
-    </Container>
+  return (
+    <Layout>
+      <MainNavigation />
+      <Content>
+          <TrainerInfo2 teacherList={teacherList}/>
+      </Content>
+      <Sider style={{height: '100vh', background: "none"}}>
+        { reservationTab ?
+          <StyledSider><div className="logo" />
+          <Menu
+            onClick={handleClick}
+            style={{ width: "auto" }}
+            defaultSelectedKeys={['1']}
+            defaultOpenKeys={['sub1']}
+            mode="inline" 
+          >
+          <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
+            <StudentCalendar />
+          </SubMenu>
+          <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
+            <TimeSchedule />
+          </SubMenu>
+            <div>
+              <p>날짜: </p>
+              <p>시간: </p>
+              <p>금액: </p>
+            </div>
+            <Button type="primary" >예약닫기</Button>
+            <Button type="primary" onClick={ptReservation}>예약하기</Button>
+          </Menu></StyledSider>
+          :
+          <>
+            <StyledDiv>
+              <TrainerSearch />
+            </StyledDiv>
+            <StyledDiv>
+              <Payment />
+            </StyledDiv>
+          </>
+          }
+      </Sider>
+    </Layout>
+    // <Container align='middle' justify='center' >
+    //   <MainNavigation />
+    //   <Col span={18}>
+    //     <div style={{margin: 'auto'}}>
+    //       <TrainerInfo onClick={onClick}/>
+    //     </div>
+    //   </Col>
+    //   <Col span={6}>
+    //     { selectReservation ?
+    //     <StyledSider><div className="logo" />
+    //     <Menu
+    //     onClick={handleClick}
+    //     style={{ width: "auto" }}
+    //     defaultSelectedKeys={['1']}
+    //     defaultOpenKeys={['sub1']}
+    //     mode="inline"
+        
+    //   >
+    //     <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
+    //       <StudentCalendar />
+    //     </SubMenu>
+    //     <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
+    //       <TimeSchedule />
+    //     </SubMenu>
+    //     <Button type="primary" onClick={onClick}>예약하기</Button>
+    //   </Menu></StyledSider>
+    //   :
+    //   <>
+    //   <StyledDiv>
+    //   <TrainerSearch />
+    //   </StyledDiv>
+    //   <StyledDiv>
+    //     <Payment />
+    //   </StyledDiv>
+    //   </>
+    //   }
+
+
+    //   </Col>
+    // </Container>
   )
 }
 
 export default StudentReservation
+{/* <Container align='middle' justify='center' >
+<MainNavigation />
+<Col span={18}>
+  <div style={{margin: 'auto'}}>
+    <TrainerInfo onClick={onClick}/>
+  </div>
+</Col>
+<Col span={6}>
+  { selectReservation ?
+  <StyledSider><div className="logo" />
+  <Menu
+  onClick={handleClick}
+  style={{ width: "auto" }}
+  defaultSelectedKeys={['1']}
+  defaultOpenKeys={['sub1']}
+  mode="inline"
+  
+>
+  <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
+    <StudentCalendar />
+  </SubMenu>
+  <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
+    <TimeSchedule />
+  </SubMenu>
+  <Button type="primary" onClick={onClick}>예약하기</Button>
+</Menu></StyledSider>
+:
+<>
+<StyledDiv>
+<TrainerSearch />
+</StyledDiv>
+<StyledDiv>
+  <Payment />
+</StyledDiv>
+</>
+}
+
+
+</Col>
+</Container> */}
