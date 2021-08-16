@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
-import StudentList from '../../components/organisms/TrainerChart/StudentList';
+import StudentList from '../../components/organisms/ChartTrainer/StudentList';
 import axios from 'axios';
 import { useRecoilState } from 'recoil'
-import { Weight } from '../../recoil/atoms/Weight';
+import { Weight } from '../../recoil/atoms/chart/Weight';
 
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -15,17 +15,17 @@ import "swiper/swiper.min.css";
 import "swiper/components/pagination/pagination.min.css"
 
 import "./styles.css";
-import man from "../../assets/images/man.jpg"
+import man from "../../assets/pages/chart/man.jpg"
 
 import SwiperCore, {
   EffectFade, Mousewheel,Pagination
 } from 'swiper/core';
 import styled from "styled-components";
-import WeightFlowApex2 from "../../components/organisms/StudentChart/WeightFlowApex2";
-import Obesity2 from "../../components/organisms/StudentChart/Obesity2";
-import Bullet2 from "../../components/organisms/StudentChart/Bullet2";
-import { StudentIndex } from '../../recoil/atoms/StudentIndex';
-import { SelectedInfo } from '../../recoil/atoms/SelectedInfo';
+import WeightFlowChart from '../../components/organisms/ChartTrainer/WeightFlowChart';
+import BmiChart from '../../components/organisms/ChartTrainer/BmiChart';
+import PibwChart from '../../components/organisms/ChartTrainer/PibwChart'
+import { StudentIndex } from '../../recoil/atoms/chart/StudentIndex';
+import { SelectedInfo } from '../../recoil/atoms/chart/SelectedInfo';
 
 // install Swiper modules
 SwiperCore.use([EffectFade, Mousewheel,Pagination]);
@@ -65,9 +65,6 @@ function TrainerChartPage() {
   const [seletedStudent, setSelectedStudent] = useState<any>({})
   const [selectedUser, setSelectedUser] = useRecoilState(SelectedInfo)
 
-
-  const accessToken = 'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InRyYWluZXIxQGdvb2dsZS5jb20iLCJuaWNrbmFtZSI6InRyYWluZXJuaWNrbmFtZTEiLCJyb2xlIjoiUk9MRV9QVFRFQUNIRVIiLCJleHAiOjE2MjkxNDMxODV9.FIDI4b3TJdd2ERVCF3Z0UiutUrNpyozSV_Ir5v3iIq2f0VS-LfRnMRCjRpUuOFvi_iPNWbWpOYAspp2bQRbTaA'
-
   useEffect(() => {
     let today = new Date()
     let month = today.getMonth()
@@ -93,6 +90,7 @@ function TrainerChartPage() {
       <Sider><StudentList myStudent={myStudent}/></Sider>
       <Layout style={{height: "100vh"}}>
         <Content>
+          <div style={{height: "100vh"}}>
           <Swiper direction={'vertical'} slidesPerView={1} spaceBetween={30} mousewheel={true} pagination={{"clickable": true}} className="mySwiper">
             <SwiperSlide>
               <ImgDiv>
@@ -104,19 +102,20 @@ function TrainerChartPage() {
               </ImgDiv>
             </SwiperSlide>
             <SwiperSlide>
-              <Bullet2 myStudent={myStudent} />
+              <BmiChart myStudent={myStudent} />
             </SwiperSlide>
             <SwiperSlide>
-              <Obesity2 />
+              <PibwChart />
             </SwiperSlide>
             <SwiperSlide >
             {/* style={{backgroundColor: "#343E59"}} */}
               <div style={{height: "70%", width: "70%", margin: "auto"}}>
                 {/* <WeightFlow /> */}
-                <WeightFlowApex2 />
+                <WeightFlowChart />
               </div>
             </SwiperSlide>
           </Swiper>
+          </div>
         </Content>
       </Layout>
     </Layout>

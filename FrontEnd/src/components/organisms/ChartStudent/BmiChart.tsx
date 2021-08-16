@@ -12,11 +12,6 @@ import { Weight } from "../../../recoil/atoms/chart/Weight";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Divider, Row, Col, Table } from 'antd'
-import { StudentIndex } from "../../../recoil/atoms/chart/StudentIndex";
-import { useRecoilValue } from "recoil";
-import { Bmi } from "../../../recoil/atoms/chart/Bmi";
-import { SelectedWeight } from "../../../recoil/atoms/chart/SelectedWeight";
-import { SelectedHeight } from "../../../recoil/atoms/chart/SelectedHeight";
 
 const columns = [
   {
@@ -54,12 +49,7 @@ const dataSource = [
   },
 ];
 
-const BmiChart = (props:any) => {
-  const selectedIndex = useRecoilValue(StudentIndex)
-  const myInfo = props.myStudent
-  const myBmi = useRecoilValue(Bmi)
-  const height = useRecoilValue(SelectedHeight)
-  const weight = useRecoilValue(SelectedWeight)
+const BmiChart = () => {
   const [manData, setManData] = useState([
     {
       id: "나의 BMI",
@@ -67,28 +57,36 @@ const BmiChart = (props:any) => {
       measures: [20],
     },
   ]);
+  const [bmiInfo, setBmiInfo] = useState(0)
+  const [height, setHeight] = useState(0)
+  const [weight, setWeight] = useState(0)
 
   useEffect(() => {
-    console.log(myInfo[selectedIndex.index])
-  }, [])
-
-  // useEffect(() => {
-  //   let today = new Date()
-  //   let month = today.getMonth()
-  //   let myWeight = myInfo[selectedIndex.index].weightList[month]
-  //   let myHeight = myInfo[selectedIndex.index].heightList[month] /100
-  //   let myBMI = Math.round(myWeight/myHeight/myHeight)
-  //   setHeight(myInfo[selectedIndex.index].heightList[month])
-  //   setWeight(myInfo[selectedIndex.index].weightList[month])
-  //   setBmiInfo(myBMI)
-  //   setManData([
-  //     {
-  //       id: "나의 BMI",
-  //       ranges: [0, 18.5, 22.9, 24.9, 29.9, 34.9, 60],
-  //       measures: [myBMI]
-  //     }
-  //   ])
-  // }, []);
+    let today = new Date()
+    let month = today.getMonth()
+    axios.get(
+      'https://i5b305.p.ssafy.io/api/health/myhealth', {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then((response) => {
+      let myWeight = response.data.data.weightList[month]
+      let myHeight = response.data.data.heightList[month] /100
+      let myBMI = Math.round(myWeight/myHeight/myHeight)
+      setHeight(response.data.data.heightList[month])
+      setWeight(response.data.data.weightList[month])
+      setBmiInfo(myBMI)
+      setManData([
+        {
+          id: "나의 BMI",
+          ranges: [0, 18.5, 22.9, 24.9, 29.9, 34.9, 60],
+          measures: [myBMI]
+        }
+      ])
+    })
+  }, []);
 
   return (
     <>
@@ -98,7 +96,7 @@ const BmiChart = (props:any) => {
         </Col>
         <Col span={12} style={{height: "30%"}}>
           <div style={{height: "100%"}}>
-            <h1>나의 BMI는 {myBmi} 입니다.</h1>
+            <h1>나의 BMI는 {bmiInfo} 입니다.</h1>
             <Divider />
             <ResponsiveBullet
               data={manData}

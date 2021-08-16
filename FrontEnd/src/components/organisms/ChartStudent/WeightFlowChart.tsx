@@ -7,6 +7,28 @@ import { Weight } from "../../../recoil/atoms/chart/Weight";
 
 function WeightFlowChart() {
   const [series, setSeries] = useRecoilState(Weight);
+  // const [series, setSeries] = useState([{
+  //   name: "체중(kg)",
+  //   data: []}]);
+
+  useEffect(() => {
+    let today = new Date()
+    let month = today.getMonth()
+    axios.get(
+      'https://i5b305.p.ssafy.io/api/health/myhealth', {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then((response) => {
+      setSeries([{
+      name: "체중 (kg)",
+      data: response.data.data.weightList.map((weight: any, index: any) => { return weight !== -1 ? weight : null})
+    }])
+  }
+    )
+  }, [])
 
   const options:Object = {
     chart: {

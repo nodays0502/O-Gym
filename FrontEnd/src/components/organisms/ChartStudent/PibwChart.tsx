@@ -3,10 +3,6 @@ import { CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import axios from 'axios';
 import {Table, Row, Col, Divider} from 'antd'
-import { Pibw } from '../../../recoil/atoms/chart/Pibw';
-import { useRecoilValue } from 'recoil';
-import { SelectedWeight } from '../../../recoil/atoms/chart/SelectedWeight';
-import { SelectedHeight } from '../../../recoil/atoms/chart/SelectedHeight';
 
 const columns = [
   {
@@ -44,10 +40,30 @@ const dataSource = [
   },
 ];
 
-function Obesity2() {
-  const percentage = useRecoilValue(Pibw)
-  const height = useRecoilValue(SelectedHeight)
-  const weight = useRecoilValue(SelectedWeight)
+function PibwChart() {
+  const [percentage, setPercentage] = useState(0)
+  const [height, setHeight] = useState(0)
+  const [weight, setWeight] = useState(0)
+
+  useEffect(() => {
+    let today = new Date()
+    let month = today.getMonth()
+    axios.get(
+      'https://i5b305.p.ssafy.io/api/health/myhealth', {
+        headers: {
+          "Authorization": `Bearer ${accessToken}`
+        }
+      }
+    )
+    .then((response) => {
+      setHeight(response.data.data.heightList[month])
+      setWeight(response.data.data.weightList[month])
+      const kg = response.data.data.weightList[month]
+      const cm = response.data.data.heightList[month]
+      setPercentage(Math.round(kg/(cm*cm*22/10000)*100))
+    })
+    console.log(percentage)
+  }, [])
 
   return (
     <Row style={{height: "70%", width: "70%", margin: "auto", display: "flex"}}>
@@ -71,4 +87,8 @@ function Obesity2() {
   )
 }
 
-export default Obesity2
+export default PibwChart
+
+// <div style={{ width: 300, height: 200}}>
+// <CircularProgressbar value={percentage} maxValue={200} text={`${percentage}%`} />;
+// </div>
