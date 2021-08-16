@@ -35,13 +35,13 @@ const LoginContent = (): JSX.Element => {
     }
 
     const success = () => {
-        message.success('Login Success');
+        message.success('성공적으로 로그인 되었습니다.');
         history.push('/');
         resetLoginInfo();
     };
     
     const error = () => {
-        message.error('Login Error');
+        message.error('아이디나 비밀번호가 잘못되었습니다. 다시 입력해주세요');
         history.push('/login');
         resetLoginInfo();
     };

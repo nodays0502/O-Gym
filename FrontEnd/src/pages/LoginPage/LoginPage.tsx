@@ -6,6 +6,7 @@ import LoginContent from "../../components/organisms/Login/Login-content";
 import RegisterStudent from "../../components/organisms/Register/Register-Student";
 import RegisterTrainer from "../../components/organisms/Register/Register-Trainer";
 import { InputState } from "../../recoil/atoms/InputState";
+// @ts-ignore
 import jwt_decode from "jwt-decode";
 const { TabPane } = Tabs;
 
