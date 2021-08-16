@@ -15,5 +15,4 @@ public interface PTStudentRepositoryCustom {
 
     List<PTStudentPTTeacher> getReservationTime(String stduentEamil);
 
-    String getNowReservation(String studentEmail, LocalDateTime now);
 }

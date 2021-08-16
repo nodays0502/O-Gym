@@ -100,13 +100,20 @@ public class PTApiController {
 
     //
     @GetMapping("/nowreservation")
-    @PreAuthorize("hasAnyRole('PTSTUDENT')")
+    @PreAuthorize("hasAnyRole('PTTEACHER','PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> getNowReservation(
         @AuthenticationPrincipal UserBase user
     ) {
-
+        nowReservationDto result = null;
+        if("ROLE_PTTEACHER".equals(user.getRole())){
+            result = ptService.getNowReservation(user.getEmail(),null);
+        }else if("ROLE_PTSTUDENT".equals(user.getRole())){
+            result = ptService.getNowReservation(null,user.getEmail());
+        }else{
+            System.out.println("asd");
+        }
         return ResponseEntity.ok(new SuccessResponseDto<nowReservationDto>(
-            200, "현재 예약 정보 조회에 성공했습니다.", ptService.getNowReservation(user.getEmail())
-        ));
+            200, "현재 예약 정보 조회에 성공했습니다.", result)
+        );
     }
 }

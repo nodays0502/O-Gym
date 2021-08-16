@@ -96,32 +96,4 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom 
 
     }
 
-    @Override
-    public String getNowReservation(String studentEmail, LocalDateTime now) {
-        LocalDateTime from = now.minusMinutes(10);
-        LocalDateTime to = now.plusMinutes(10);
-        return queryFactory.select(pTTeacher.nickname)
-            .from(pTStudentPTTeacher)
-            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
-            .join(pTStudentPTTeacher.ptStudent, pTStudent)
-            .where(pTStudentPTTeacher.reservationDate.between(from,to),
-                pTStudent.email.eq(studentEmail))
-            .fetchOne();
-    }
-
 }
-/*
-*     @Override
-    public PTTeacher getNowReservation(String studentEmail, LocalDateTime time){
-
-        return em.createQuery("select t"
-            + " from PTStudentPTTeacher pt"
-            + " join fetch pt.ptTeacher t"
-            + " join fetch pt.ptStudent s"
-            + " where s.email =: studentEmail"
-            + " and pt.reservationDate.", PTTeacher.class)
-            .setParameter("studentEmail", studentEmail)
-            .getSingleResult();
-    }
-*
-* */

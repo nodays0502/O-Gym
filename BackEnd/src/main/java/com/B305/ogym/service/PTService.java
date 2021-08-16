@@ -150,10 +150,16 @@ public class PTService {
         }
         return result;
     }
-    public nowReservationDto getNowReservation(String studentEmail){
-        String teacherEmail = ptStudentRepository
-            .getNowReservation(studentEmail, LocalDateTime.now());
-        nowReservationDto result = nowReservationDto.builder().teacherEmail(teacherEmail).build();
+    public nowReservationDto getNowReservation(String teacherEmail, String studentEmail){
+        List<String> nowReservation = ptStudentPTTeacherRepository
+            .getNowReservation(teacherEmail, studentEmail, LocalDateTime.now());
+        if(nowReservation == null) {
+            return null;
+        }
+        nowReservationDto result = nowReservationDto.builder()
+            .teacherNickname(nowReservation.get(0))
+            .studentNickname(nowReservation.get(1))
+            .build();
         return result;
     }
 }

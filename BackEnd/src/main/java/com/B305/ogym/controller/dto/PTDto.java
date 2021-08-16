@@ -223,11 +223,13 @@ public class PTDto {
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     public static class nowReservationDto{
-        private String teacherEmail; // 설명
+        private String teacherNickname;
+        private String studentNickname;
 
         @Builder
-        public nowReservationDto(String teacherEmail) {
-            this.teacherEmail = teacherEmail;
+        public nowReservationDto(String teacherNickname, String studentNickname) {
+            this.teacherNickname = teacherNickname;
+            this.studentNickname = studentNickname;
         }
     }
 }
