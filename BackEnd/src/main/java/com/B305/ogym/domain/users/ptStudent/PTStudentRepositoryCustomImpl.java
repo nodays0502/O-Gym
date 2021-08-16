@@ -3,22 +3,27 @@ package com.B305.ogym.domain.users.ptStudent;
 import static com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher.pTStudentPTTeacher;
 import static com.B305.ogym.domain.users.ptStudent.QMonthly.monthly;
 import static com.B305.ogym.domain.users.ptStudent.QPTStudent.pTStudent;
+import static com.B305.ogym.domain.users.ptTeacher.QPTTeacher.pTTeacher;
 
 import com.B305.ogym.controller.dto.UserDto.CareerDto;
 import com.B305.ogym.controller.dto.UserDto.CertificateDto;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher;
+import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.QPTTeacher;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Expression;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
+import org.apache.tomcat.jni.Local;
 
 public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom {
 
@@ -90,4 +95,33 @@ public class PTStudentRepositoryCustomImpl implements PTStudentRepositoryCustom 
             .getResultList();
 
     }
+
+    @Override
+    public String getNowReservation(String studentEmail, LocalDateTime now) {
+        LocalDateTime from = now.minusMinutes(10);
+        LocalDateTime to = now.plusMinutes(10);
+        return queryFactory.select(pTTeacher.nickname)
+            .from(pTStudentPTTeacher)
+            .join(pTStudentPTTeacher.ptTeacher, pTTeacher)
+            .join(pTStudentPTTeacher.ptStudent, pTStudent)
+            .where(pTStudentPTTeacher.reservationDate.between(from,to),
+                pTStudent.email.eq(studentEmail))
+            .fetchOne();
+    }
+
 }
+/*
+*     @Override
+    public PTTeacher getNowReservation(String studentEmail, LocalDateTime time){
+
+        return em.createQuery("select t"
+            + " from PTStudentPTTeacher pt"
+            + " join fetch pt.ptTeacher t"
+            + " join fetch pt.ptStudent s"
+            + " where s.email =: studentEmail"
+            + " and pt.reservationDate.", PTTeacher.class)
+            .setParameter("studentEmail", studentEmail)
+            .getSingleResult();
+    }
+*
+* */

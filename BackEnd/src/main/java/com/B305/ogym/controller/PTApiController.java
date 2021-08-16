@@ -2,6 +2,7 @@ package com.B305.ogym.controller;
 
 import com.B305.ogym.controller.dto.PTDto;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
+import com.B305.ogym.controller.dto.PTDto.nowReservationDto;
 import com.B305.ogym.controller.dto.SuccessResponseDto;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.service.PTService;
@@ -85,7 +86,7 @@ public class PTApiController {
         ));
     }
 
-    // PT 선생님에 대한 예약된 시간 조히
+    // 자신의 예약정보 조회
     @GetMapping("/reservation")
     @PreAuthorize("hasAnyRole('PTTEACHER','PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> getReservationTime(
@@ -97,5 +98,15 @@ public class PTApiController {
         ));
     }
 
+    //
+    @GetMapping("/nowreservation")
+    @PreAuthorize("hasAnyRole('PTSTUDENT')")
+    public ResponseEntity<SuccessResponseDto> getNowReservation(
+        @AuthenticationPrincipal UserBase user
+    ) {
 
+        return ResponseEntity.ok(new SuccessResponseDto<nowReservationDto>(
+            200, "현재 예약 정보 조회에 성공했습니다.", ptService.getNowReservation(user.getEmail())
+        ));
+    }
 }

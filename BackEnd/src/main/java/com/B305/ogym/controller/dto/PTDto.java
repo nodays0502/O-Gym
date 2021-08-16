@@ -219,4 +219,15 @@ public class PTDto {
             this.reservationTime = reservationTime;
         }
     }
+
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class nowReservationDto{
+        private String teacherEmail; // 설명
+
+        @Builder
+        public nowReservationDto(String teacherEmail) {
+            this.teacherEmail = teacherEmail;
+        }
+    }
 }
