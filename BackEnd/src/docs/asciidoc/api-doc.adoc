@@ -2,10 +2,44 @@ ifndef::snippets[]
 :snippets: ../../../build/generated-snippets
 endif::[]
 
-= REST API
-:toc: left
-:toclevels: 2
+= API Document
+:doctype: book
+:icons: font
 :source-highlighter: highlightjs
+:toc: left
+:toclevels: 3
+:sectlinks:
+:docinfo: shared-head
+
+[[introduction]]
+== 소개
+
+O-GYM API
+
+[[common]]
+== 공통 사항
+
+API에 관계없이 아래 사항을 지켜주셔야 합니다.
+
+=== Domain
+
+|===
+| 환경 | Domain
+
+| 개발서버
+| `https://i5b305.p.ssafy.io:8080`
+
+| 운영서버
+| `https://i5b305.p.ssafy.io`
+|===
+
+=== Common Response
+
+include::{snippets}/common/commonResponse/custom-response-fields.adoc[]
+
+include::{snippets}/common/apiResponseCode/custom-response-fields.adoc[]
+
+&#160;
 
 == 1. 개요
 
@@ -13,7 +47,7 @@ endif::[]
 
 === 2-1. 회원가입
 
-==== 학생 Request Field
+==== 학생 회원가입
 
 include::{snippets}/userApi/signup/student/successful/request-fields.adoc[]
 
@@ -27,7 +61,7 @@ include::{snippets}/userApi/signup/student/successful/http-request.adoc[]
 
 include::{snippets}/userApi/signup/student/successful/http-response.adoc[]
 
-==== 트레이너 Request Field
+==== 트레이너 회원가입
 
 include::{snippets}/userApi/signup/teacher/successful/request-fields.adoc[]
 
@@ -41,16 +75,55 @@ include::{snippets}/userApi/signup/teacher/successful/http-request.adoc[]
 
 include::{snippets}/userApi/signup/teacher/successful/http-response.adoc[]
 
-==== 회원가입 실패 (이메일 중복)
+==== 유저 회원가입 실패 (이메일 중복)
 
 ===== Response Example
+
 include::{snippets}/userApi/signup/duplicate/email/http-response.adoc[]
 
-==== 회원가입 실패 (닉네임 중복)
+==== 유저 회원가입 실패 (닉네임 중복)
 
 ===== Response Example
 
 include::{snippets}/userApi/signup/duplicate/nickname/http-response.adoc[]
+
+=== 2-2. 회원탈퇴
+
+JWT 토큰에서 유저 정보를 추출하여 회원 탈퇴과정을 진행하므로, 별도의 추가 전달 내용 없음.
+
+==== 회원 탈퇴 성공
+
+===== Request Header
+
+include::{snippets}/userApi/delete/student/successful/request-headers.adoc[]
+
+===== Request Example
+
+include::{snippets}/userApi/delete/student/successful/http-request.adoc[]
+
+===== Response Example
+
+include::{snippets}/userApi/delete/student/successful/http-response.adoc[]
+
+===== 회원 탈퇴 실패
+
+include::{snippets}/userApi/delete/student/failure/http-response.adoc[]
+
+=== 2-3. 회원 조회
+
+include::{snippets}/userApi/getUserInfo/successful/path-parameters.adoc[]
+
+==== Request Header
+
+include::{snippets}/userApi/getUserInfo/successful/request-headers.adoc[]
+
+==== 회원 정보 조회 성공
+
+include::{snippets}/userApi/getUserInfo/successful/http-response.adoc[]
+
+==== 회원 정보 조회 실패
+
+include::{snippets}/userApi/getUserInfo/failure/http-response.adoc[]
 
 
 
