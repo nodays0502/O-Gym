@@ -1,7 +1,6 @@
 ifndef::snippets[]
 :snippets: ../../../build/generated-snippets
 endif::[]
-
 = API Document
 :doctype: book
 :icons: font
@@ -113,7 +112,7 @@ include::{snippets}/userApi/getUserInfo/successful/http-response.adoc[]
 
 Request Header
 
-PT API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
+IMPORTANT: PT API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
 
 include::{snippets}/userApi/delete/student/successful/request-headers.adoc[]
 
@@ -184,7 +183,7 @@ include::{snippets}/PTApi/getReservationTime/successful/http-response.adoc[]
 
 Request Header
 
-Health API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
+IMPORTANT: Health API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
 
 include::{snippets}/userApi/delete/student/successful/request-headers.adoc[]
 

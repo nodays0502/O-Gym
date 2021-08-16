@@ -51,7 +51,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 , "/favicon.ico"
                 , "/error"
             );
-        web.ignoring().antMatchers("/docs/**");
+        web.ignoring().antMatchers("/api/docs/**");
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
