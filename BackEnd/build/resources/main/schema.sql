@@ -7,6 +7,7 @@ drop table if exists `pt_student`;
 drop table if exists `pt_teacher`;
 drop table if exists `user_base`;
 drop table if exists `authority`;
+drop table if exists `refresh_token`;
 
 -- ssafy_web_db.authority definition
 
@@ -36,6 +37,7 @@ CREATE TABLE `authority` (
 
 CREATE TABLE `user_base` (
                              `role` varchar(31) NOT NULL,
+                             `age` int NOT NULL,
                              `user_id` bigint NOT NULL AUTO_INCREMENT,
                              `created_date` datetime(6) DEFAULT NULL,
                              `modified_date` datetime(6) DEFAULT NULL,
@@ -141,6 +143,7 @@ CREATE TABLE `monthly` (
 CREATE TABLE `pt_student_pt_teacher` (
                                          `pt_student_pt_teacher_id` bigint NOT NULL AUTO_INCREMENT,
                                          `reservation_date` datetime(6) DEFAULT NULL,
+                                         `description` varchar(255) not null,
                                          `pt_student_id` bigint DEFAULT NULL,
                                          `pt_teacher_id` bigint DEFAULT NULL,
                                          PRIMARY KEY (`pt_student_pt_teacher_id`),
@@ -149,3 +152,11 @@ CREATE TABLE `pt_student_pt_teacher` (
                                          CONSTRAINT `FK4i941psqignu9orw9o8fppn97` FOREIGN KEY (`pt_teacher_id`) REFERENCES `pt_teacher` (`pt_teacher_id`),
                                          CONSTRAINT `FKjmg2wr1mh6rc7dcfungkws46l` FOREIGN KEY (`pt_student_id`) REFERENCES `pt_student` (`pt_student_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+
+create table refresh_token (
+                               user_email varchar(255) not null,
+                               value varchar(255),
+                               primary key (user_email)
+) engine=InnoDB

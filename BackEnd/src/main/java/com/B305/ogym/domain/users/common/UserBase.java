@@ -39,6 +39,8 @@ public class UserBase extends BaseTimeEntity {
 
     private String password; // 비밀번호
 
+    private int age; // 나이
+
     @Embedded
     private Address address; // 주소
 
@@ -69,6 +71,7 @@ public class UserBase extends BaseTimeEntity {
     public UserBase(Claims claims) {
 //        this.id = Long.valueOf(claims.get("id").toString());
         this.email = claims.get("email").toString();
+        this.nickname = claims.get("nickname").toString();
         this.role = claims.get("role").toString();
     }
     public void setRole(Authority authority){

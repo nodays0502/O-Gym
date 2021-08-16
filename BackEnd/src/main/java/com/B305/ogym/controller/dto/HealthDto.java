@@ -57,16 +57,17 @@ public class HealthDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PUBLIC)
-    @Data
     public static class MyStudentsHealthListResponse {
 
         private List<StudentHealth> studentHealthList;
-
+        public void setStudentHealthList(List<StudentHealth> studentHealthList){
+            this.studentHealthList = studentHealthList;
+        }
 
     }
 
     @NoArgsConstructor
-    @Data
+    @Getter
     public static class StudentHealth {
 
         private String username;
@@ -89,6 +90,16 @@ public class HealthDto {
                 weightList = new ArrayList<>();
             }
             weightList.add(weight);
+        }
+        @Builder
+        public StudentHealth(String username, String nickname, int age,
+            Gender gender, String profileUrl, List<Integer> heightList,
+            List<Integer> weightList) {
+            this.username = username;
+            this.nickname = nickname;
+            this.age = age;
+            this.gender = gender;
+            this.profileUrl = profileUrl;
         }
     }
 

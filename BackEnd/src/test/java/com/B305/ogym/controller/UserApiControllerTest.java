@@ -1,15 +1,18 @@
 package com.B305.ogym.controller;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
@@ -18,18 +21,19 @@ import com.B305.ogym.common.annotation.WithAuthUser;
 import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.UserDto.SaveUserRequest;
 import com.B305.ogym.exception.user.UserDuplicateEmailException;
-import com.B305.ogym.exception.user.UserDuplicateException;
 import com.B305.ogym.exception.user.UserDuplicateNicknameException;
+import com.B305.ogym.exception.user.UserNotFoundException;
 import com.B305.ogym.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
@@ -39,9 +43,6 @@ import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.JsonFieldType;
-import org.springframework.security.test.context.support.WithMockUser;
-import org.springframework.security.test.context.support.WithUserDetails;
-import org.springframework.test.context.transaction.BeforeTransaction;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -93,6 +94,7 @@ class UserApiControllerTest {
             .careers(new ArrayList<>())
             .price(1000)
             .description("트레이너")
+            .age(20)
             .build();
     }
 
@@ -106,6 +108,7 @@ class UserApiControllerTest {
             .tel("010-0000-0000")
             .zipCode("12345")
             .street("도로명")
+            .age(16)
             .detailedAddress("상세주소")
             .role("ROLE_PTSTUDENT")
             .monthlyWeights(new ArrayList<>(Arrays
@@ -142,6 +145,8 @@ class UserApiControllerTest {
                             .description("The user's username"),
                         fieldWithPath("nickname").type(JsonFieldType.STRING)
                             .description("The user's nickname"),
+                        fieldWithPath("age").type(JsonFieldType.NUMBER)
+                            .description("The user's age"),
                         fieldWithPath("gender").type(JsonFieldType.NUMBER)
                             .description("The user's gender"),
                         fieldWithPath("tel").type(JsonFieldType.STRING)
@@ -197,6 +202,8 @@ class UserApiControllerTest {
                     .description("The user's username"),
                 fieldWithPath("nickname").type(JsonFieldType.STRING)
                     .description("The user's nickname"),
+                fieldWithPath("age").type(JsonFieldType.NUMBER)
+                    .description("The user's age"),
                 fieldWithPath("gender").type(JsonFieldType.NUMBER)
                     .description("The user's gender"),
                 fieldWithPath("tel").type(JsonFieldType.STRING)
@@ -265,23 +272,121 @@ class UserApiControllerTest {
             ));
     }
 
-//    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
     @DisplayName("선생님 회원탈퇴 - 회원탈퇴 성공")
     @Test
-    public void deleteUser_success() throws Exception {
+    public void deleteTeacher_success() throws Exception {
         //given
+        String email = "teacher@naver.com";
 
         //when
-//        doNothing().when(userService).deleteUserBase(userId);
+        doNothing().when(userService).deleteUserBase(eq(email), any());
 
         //then
-//        mockMvc.perform(delete("/api/user")
-//            .contentType(MediaType.APPLICATION_JSON)
-//            .content()
-//            .andDo(print())
-//            .andExpect(status().isConflict())
-//            .andDo(document("userApi/signup/duplicate/nickname"
-//            ));
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(document("userApi/delete/teacher/successful"
+            ));
     }
+
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTSTUDENT")
+    @DisplayName("학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)")
+    @Test
+    public void deleteTeacher_failure() throws Exception {
+        //given
+        String email = "teacher@naver.com";
+
+        //when
+        doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
+            .deleteUserBase(eq(email), any());
+
+        //then
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isNotFound())
+            .andDo(document("userApi/delete/teacher/failure"
+            ));
+    }
+
+    @WithAuthUser(email = "student@naver.com", role = "ROLE_PTSTUDENT")
+    @DisplayName("학생 회원탈퇴 - 회원탈퇴 성공")
+    @Test
+    public void deleteStudent_success() throws Exception {
+        //given
+        String email = "student@naver.com";
+
+        //when
+        doNothing().when(userService).deleteUserBase(eq(email), any());
+
+        //then
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(document("userApi/delete/student/successful"
+            ));
+    }
+
+    @WithAuthUser(email = "student@naver.com", role = "ROLE_PTSTUDENT")
+    @DisplayName("학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)")
+    @Test
+    public void deleteStudent_failure() throws Exception {
+        //given
+        String email = "student@naver.com";
+
+        //when
+        doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
+            .deleteUserBase(eq(email), any());
+
+        //then
+        mockMvc.perform(delete("/api/user")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isNotFound())
+            .andDo(document("userApi/delete/student/failure"
+            ));
+    }
+
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @DisplayName("회원 정보조회 - 정보조회 성공")
+    @Test
+    public void getUserInfo_success() throws Exception {
+        String email = "teacher@naver.com";
+        Map<String, Object> data = new HashMap<>();
+        data.put("id", 1);
+        data.put("email", "teacher@naver.com");
+
+        ArrayList<String> req = new ArrayList<>(Arrays.asList("id", "email"));
+
+        given(userService.getUserInfo(email, req)).willReturn(data);
+
+        mockMvc.perform(get("/api/user/id,email")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(document("userApi/getUserInfo/successful"));
+    }
+
+    @WithAuthUser(email = "teacher@naver.com", role = "ROLE_PTTEACHER")
+    @DisplayName("회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패")
+    @Test
+    public void getUserInfo_failure() throws Exception {
+        String email = "teacher@naver.com";
+
+        ArrayList<String> req = new ArrayList<>(Arrays.asList("id", "email"));
+
+        given(userService.getUserInfo(email, req))
+            .willThrow(new UserNotFoundException("해당하는 유저가 존재하지 않습니다"));
+
+        mockMvc.perform(get("/api/user/id,email")
+            .header("Authorization", "overStringLength7"))
+            .andDo(print())
+            .andExpect(status().isNotFound())
+            .andDo(document("userApi/getUserInfo/failure"));
+    }
+
 
 }

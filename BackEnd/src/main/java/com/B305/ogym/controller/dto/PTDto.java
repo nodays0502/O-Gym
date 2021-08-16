@@ -11,8 +11,10 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PastOrPresent;
@@ -22,6 +24,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.apache.tomcat.jni.Local;
+import org.springframework.data.domain.Pageable;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -37,12 +40,16 @@ public class PTDto {
         @FutureOrPresent(message = "현재/미래만 입력 가능합니다")
         private LocalDateTime reservationTime;
 
+        @NotBlank
+        private String description;
+
         @Builder
-        public reservationRequest(String ptTeacherEmail, LocalDateTime reservationTime) {
+        public reservationRequest(String ptTeacherEmail, LocalDateTime reservationTime,
+            String description) {
             this.ptTeacherEmail = ptTeacherEmail;
             this.reservationTime = reservationTime;
+            this.description = description;
         }
-
     }
 //
 //    @Getter
@@ -74,6 +81,13 @@ public class PTDto {
 
         private List<PTTeacherDto> teacherList;
 
+        private Pageable pageable;  // pagination 에 대한 정보
+
+        private int totalPages; // 전체 페이지 수
+        private long totalElements; // 전체 요소의 수
+
+        private int numberOfElements; // 현재 페이지에 조회된 요소의 수
+
     }
 
     @Getter
@@ -87,6 +101,9 @@ public class PTDto {
 
         // 성별
         private Gender gender;
+
+        // 나이
+        private int age;
 
         // 닉네임
         private String nickname;
@@ -122,7 +139,7 @@ public class PTDto {
         private List<LocalDateTime> reservations = new ArrayList<>();
 
         // 자격증 정보
-        private  List<CertificateDto> certificates = new ArrayList<>();
+        private List<CertificateDto> certificates = new ArrayList<>();
 
 
     }
@@ -162,35 +179,44 @@ public class PTDto {
 
     /////////////////////////////////////////////////////////////
 
-
     @Getter
+    @Builder
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class GetTeacherReservationListResponse {
+    @AllArgsConstructor
+    public static class SearchDto {
 
-        private List<Reservation> teacherList;
-
-        static class Reservation {
-
-            private String username;
-            private String nickname;
-            private int gender;
-            private String profile_url;
-            private int price;
-            private String sns_addrs;
-            private String major;
-            private float star_rating;
-            private String description;
-            private List<Career> careers;
-            private List<ReservationTime> alreadyReserveTime;
-
-        }
-
-        static class ReservationTime {
-
-            private String reservationId;
-            private LocalDateTime time;
-        }
+        @Builder.Default
+        private String name = null;
+        @Builder.Default
+        private Gender gender = null;
+        @Builder.Default
+        private Integer minAge = null;
+        @Builder.Default
+        private Integer maxAge = null;
+        @Builder.Default
+        private Integer minPrice = null;
+        @Builder.Default
+        private Integer maxPrice = null;
     }
 
 
+    @Getter
+    @NoArgsConstructor(access = AccessLevel.PROTECTED)
+    public static class reservationDto{
+        private String description; // 설명
+        private String nickname ; // 상대방 닉네임
+        private String username ; // 상대방 이름
+        private String email ; // 상대방 이메일
+        private LocalDateTime reservationTime ; // 예약 시간,
+
+        @Builder
+        public reservationDto(String description, String nickname, String username, String email,
+            LocalDateTime reservationTime) {
+            this.description = description;
+            this.nickname = nickname;
+            this.username = username;
+            this.email = email;
+            this.reservationTime = reservationTime;
+        }
+    }
 }
