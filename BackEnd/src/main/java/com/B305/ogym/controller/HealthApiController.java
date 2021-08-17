@@ -21,6 +21,7 @@ public class HealthApiController {
 
     private final HealthService healthService;
 
+    // 선생님 : 학생의 건강정보 조회
     @GetMapping("/mystudents")
     @PreAuthorize("hasAnyRole('PTTEACHER')")
     public ResponseEntity<SuccessResponseDto> getMyStudentsHealth(
@@ -31,6 +32,7 @@ public class HealthApiController {
         ));
     }
 
+    // 학생 : 자신의 건강정보 조회
     @GetMapping("/myhealth")
     @PreAuthorize("hasAnyRole('PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> getMyHealth(@AuthenticationPrincipal UserBase user) {
