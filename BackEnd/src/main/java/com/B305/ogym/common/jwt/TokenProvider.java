@@ -1,11 +1,15 @@
 package com.B305.ogym.common.jwt;
 
+import com.B305.ogym.common.util.RedisUtil;
+import com.B305.ogym.controller.dto.AuthDto;
+import com.B305.ogym.controller.dto.AuthDto.TokenDto;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.exception.user.UnauthorizedException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -40,7 +44,9 @@ public class TokenProvider implements InitializingBean {
     private static final String AUTHORITIES_KEY = "role";
 
     private final String secret;
-    private final long tokenValidityInMilliseconds;
+    private final long accessTokenValidityInMilliseconds;
+    private final long refreshTokenValidityInMilliseconds;
+    private final RedisUtil redisUtil;
 
     private Key key;
 
@@ -48,11 +54,14 @@ public class TokenProvider implements InitializingBean {
 
     public TokenProvider(
         @Value("${jwt.secret}") String secret,
-        @Value("${jwt.token-validity-in-seconds}") long tokenValidityInSeconds,
-        UserRepository userRepository) {
+        @Value("${jwt.access-token-validity-in-seconds}") long accessTokenValidityInSeconds,
+        @Value("${jwt.refresh-token-validity-in-seconds}") long refreshTokenValidityInSeconds,
+        UserRepository userRepository, RedisUtil redisUtil) {
         this.secret = secret;
-        this.tokenValidityInMilliseconds = tokenValidityInSeconds * 1000;
+        this.accessTokenValidityInMilliseconds = accessTokenValidityInSeconds * 1000;
+        this.refreshTokenValidityInMilliseconds = refreshTokenValidityInSeconds * 1000;
         this.userRepository = userRepository;
+        this.redisUtil = redisUtil;
     }
 
     @Override
@@ -61,26 +70,41 @@ public class TokenProvider implements InitializingBean {
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
-    public String createToken(Authentication authentication) {
-        String authorities = authentication.getAuthorities().stream()
-            .map(GrantedAuthority::getAuthority)
-            .collect(Collectors.joining(","));
+    public TokenDto createToken(String email,
+        String authorities) { // authentication Principal mail , Credential password
 
         long now = (new Date()).getTime();
-        Date validity = new Date(now + this.tokenValidityInMilliseconds);
-
-        UserBase user = userRepository.findByEmail(authentication.getName())
+//        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+        UserBase user = userRepository.findByEmail(email) // princial.toSTring()
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
 
-        return Jwts.builder()
+        String accessToken = Jwts.builder()
+            .claim("email", user.getEmail())
+            .claim("nickname",user.getNickname())
+            .claim(AUTHORITIES_KEY, authorities)
+            .setExpiration(new Date(now + accessTokenValidityInMilliseconds))
+            .signWith(key, SignatureAlgorithm.HS512)
+            .compact();
+
+        String refreshToken = Jwts.builder()
+            .claim(AUTHORITIES_KEY, authorities)
+            .setExpiration(new Date(now + refreshTokenValidityInMilliseconds))
+            .signWith(key, SignatureAlgorithm.HS512)
+            .compact();
+
+        return new TokenDto(accessToken, refreshToken);
+
+/*        return Jwts.builder()
 //            .claim("id",user.getId())
             .claim("email", user.getEmail())
 //            .setSubject(authentication.getName())
             .claim(AUTHORITIES_KEY, authorities)
             .signWith(key, SignatureAlgorithm.HS512)
             .setExpiration(validity)
-            .compact();
+            .compact();*/
+
     }
+
 
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
@@ -89,13 +113,18 @@ public class TokenProvider implements InitializingBean {
             Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-
-        return new UsernamePasswordAuthenticationToken(new UserBase(claims), token, authorities);
+//        String email = claims.get("email").toString();
+        return new UsernamePasswordAuthenticationToken(new UserBase(claims), null, authorities);
+//        return new UsernamePasswordAuthenticationToken(email, "", authorities);
     }
 
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            System.out.println("validate 들어옴");
+            if (redisUtil.hasKeyBlackList(token)) {
+                throw new UnauthorizedException("이미 탈퇴한 회원입니다");
+            }
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             logger.info("잘못된 JWT 서명입니다.");
@@ -105,17 +134,22 @@ public class TokenProvider implements InitializingBean {
             logger.info("지원되지 않는 JWT 토큰입니다.");
         } catch (IllegalArgumentException e) {
             logger.info("JWT 토큰이 잘못되었습니다.");
+        } catch (UnauthorizedException e) {
+            logger.info("이미 탈퇴한 회원입니다.");
         }
         return false;
     }
 
     public Claims getClaims(String token) {
-        return Jwts
-            .parserBuilder()
-            .setSigningKey(key)
-            .build()
-            .parseClaimsJws(token)
-            .getBody();
-
+        try {
+            return Jwts
+                .parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
     }
 }

@@ -1,21 +1,44 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 import OpenViduSession from 'openvidu-react';
+import jwt_decode from "jwt-decode";
+
 
 class SessionPage extends Component {
     OPENVIDU_SERVER_URL: any;
     OPENVIDU_SERVER_SECRET: any;
     state: any;
-    constructor(props) {
+    constructor(props: any) {
         super(props);
         // this.OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-        this.OPENVIDU_SERVER_URL = 'https://' + 'i5b305.p.ssafy.io' + ':4443';
+        this.OPENVIDU_SERVER_URL = 'https://' + 'i5b305.p.ssafy.io' + ':3443';
         this.OPENVIDU_SERVER_SECRET = 'password';
-        this.state = {
-            mySessionId: 'SessionA',
-            myUserName: 'OpenVidu_User_' + Math.floor(Math.random() * 100),
-            token: undefined,
-        };
+        
+        const accessToken = localStorage.getItem('accessToken');
+    
+        if (accessToken != null) {
+        
+            const decoded: {
+                nickname, role
+            } = jwt_decode(accessToken);
+        
+            this.state = {
+                mySessionId: 'SessionA',
+                myUserName: decoded['nickname'],
+                token: undefined,
+            };
+
+        }
+        else {
+
+            this.state = {
+                mySessionId: 'SessionA',
+                myUserName: 'OpenVidu_User_' + Math.floor(Math.random() * 100),
+                token: undefined,
+            };
+
+            
+        }
 
         this.handlerJoinSessionEvent = this.handlerJoinSessionEvent.bind(this);
         this.handlerLeaveSessionEvent = this.handlerLeaveSessionEvent.bind(this);
@@ -40,19 +63,19 @@ class SessionPage extends Component {
         console.log('Leave session');
     }
 
-    handleChangeSessionId(e) {
+    handleChangeSessionId(e: any) {
         this.setState({
             mySessionId: e.target.value,
         });
     }
 
-    handleChangeUserName(e) {
+    handleChangeUserName(e: any) {
         this.setState({
             myUserName: e.target.value,
         });
     }
 
-    joinSession(event) {
+    joinSession(event: any) {
         if (this.state.mySessionId && this.state.myUserName) {
             this.getToken().then((token) => {
                 this.setState({
@@ -136,7 +159,7 @@ class SessionPage extends Component {
             .catch((Err) => console.error(Err));
     }
 
-    createSession(sessionId) {
+    createSession(sessionId: any) {
         return new Promise((resolve, reject) => {
             var data = JSON.stringify({ customSessionId: sessionId });
             axios
@@ -176,7 +199,7 @@ class SessionPage extends Component {
         });
     }
 
-    createToken(sessionId) {
+    createToken(sessionId: any) {
         return new Promise((resolve, reject) => {
             var data = JSON.stringify({});
             axios
