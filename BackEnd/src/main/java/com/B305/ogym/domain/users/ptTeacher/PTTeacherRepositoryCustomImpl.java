@@ -2,7 +2,6 @@ package com.B305.ogym.domain.users.ptTeacher;
 
 
 import static com.B305.ogym.domain.mappingTable.QPTStudentPTTeacher.pTStudentPTTeacher;
-import static com.B305.ogym.domain.users.ptStudent.QMonthly.monthly;
 import static com.B305.ogym.domain.users.ptStudent.QPTStudent.pTStudent;
 import static com.B305.ogym.domain.users.ptTeacher.QCareer.career;
 import static com.B305.ogym.domain.users.ptTeacher.QCertificate.certificate;
@@ -12,7 +11,6 @@ import static com.B305.ogym.domain.users.ptTeacher.QSns.sns;
 import com.B305.ogym.controller.dto.HealthDto.MyStudentsHealthListResponse;
 import com.B305.ogym.controller.dto.HealthDto.StudentHealth;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
-import com.B305.ogym.controller.dto.UserDto;
 import com.B305.ogym.controller.dto.UserDto.CareerDto;
 import com.B305.ogym.controller.dto.UserDto.CertificateDto;
 import com.B305.ogym.controller.dto.UserDto.SnsDto;
@@ -31,9 +29,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -46,6 +42,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
     private final JPAQueryFactory queryFactory;
     Map<String, Expression> check = new HashMap<>();
     Map<String, Function> check2 = new HashMap<>();
+
     public PTTeacherRepositoryCustomImpl(EntityManager em) {
         this.em = em;
         queryFactory = new JPAQueryFactory(em);
@@ -64,7 +61,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         check.put("description", pTTeacher.description);
 
     }
-
+    // 해당 선생님 관련 학생들의 건강정보 조회 메서드
     @Override
     public MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
         List<PTStudent> students = queryFactory.select(pTStudent)
@@ -82,7 +79,6 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                 .nickname(o.getNickname())
                 .age(o.getAge())
                 .gender(o.getGender())
-//                .profileUrl(o.getProfilePicture().getPictureAddr())
                 .build();
             List<Monthly> monthly = o.getMonthly();
             monthly.sort((o1, o2) -> {
@@ -99,7 +95,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         myStudentsHealthListResponse.setStudentHealthList(result);
         return myStudentsHealthListResponse;
     }
-
+    // 선생님의 정보 조회 메서드
     @Override
     public Map<String, Object> getInfo(String teacherEmail, List<String> req) { // "username" , "id"
 
@@ -110,7 +106,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
                 pTTeacher.major, pTTeacher.price, pTTeacher.description)
             .from(pTTeacher)
             .where(pTTeacher.email.eq(teacherEmail))
-            .fetchOne(); // pTTeahcer의 정보
+            .fetchOne();
 
         Map<String, Object> map = new HashMap<>();
         req.forEach(o -> {
@@ -223,7 +219,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         return pTTeacher.age.goe(minAge);
 
     }
-
+    // 선생님의 예약 정보 조회 메서드
     @Override
     public List<LocalDateTime> reservationTime(String teacherEmail) {
         return em.createQuery("select st.reservationDate "
@@ -234,7 +230,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .getResultList();
     }
 
-
+    // 자신의 예약정보 조회
     @Override
     public List<PTStudentPTTeacher> getReservationTime(String teacherEmail) {
         return em.createQuery("select pt"
