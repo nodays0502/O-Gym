@@ -8,8 +8,6 @@ import StudentReservation from './pages/StudentReservation/StudentReservation';
 function App() {
   return (
     <>
-    {/* <StudentReservation /> */}
-      {/* <MainPage></MainPage> */}
       <Router>
         <Route exact path='/' component={MainPage} />
         <Route exact path='/studentreservation' component={StudentReservation} />

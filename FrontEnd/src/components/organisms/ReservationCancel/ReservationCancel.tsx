@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useEffect } from "react";
+import { useHistory } from "react-router-dom";
+import { message } from 'antd'
 
 const StyledDiv = styled.div`
   display: flex;
@@ -11,7 +13,9 @@ const StyledDiv = styled.div`
 `;
 
 function ReservationCancel(props) {
+  const history = useHistory();
   const myReservationList = props.reservationList
+  let accessToken = localStorage.getItem('accessToken');
 
   return (
     <>
@@ -41,6 +45,10 @@ function ReservationCancel(props) {
                 headers: {
                   "Authorization": `Bearer ${accessToken}`
                 }
+              })
+              .then((response) => {
+                message.success('예약이 취소되었습니다.')
+                history.push('/profile')
               })
           }}>예약취소</button>
           </div>

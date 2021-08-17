@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
-import { Row, Col, Button } from 'antd';
+import { Row, Col, Button, message } from 'antd';
 import TrainerSearch from '../../components/organisms/TrainerSearch/TrainerSearch';
 import axios from 'axios';
 import './styles.css';
@@ -29,6 +29,7 @@ import { Time } from '../../recoil/atoms/Reservation/Time';
 import { Date } from '../../recoil/atoms/Reservation/Date';
 import { ReservationList } from '../../recoil/atoms/Reservation/ReservationList';
 import ReservationCancel from '../../components/organisms/ReservationCancel/ReservationCancel';
+import { useHistory } from 'react-router-dom';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -62,7 +63,8 @@ const StyledDiv = styled.div`
 `;
 
 function StudentReservation() {
-  const accessToken = 'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InN0dWRlbnQzQGdvb2dsZS5jb20iLCJuaWNrbmFtZSI6IuuLieuEpOyehDMiLCJyb2xlIjoiUk9MRV9QVFNUVURFTlQiLCJleHAiOjE2MjkxNTk0MzB9.p6E0XRjlSn5yIvG5CgHWXfkGPsSBSjBQWyRUNkyQCHMfjjlglx9NOHnZQRHPZ9Qy3wPSSSjjn_N1q-ONLDfsfw'
+  const history = useHistory();
+  let accessToken = localStorage.getItem('accessToken');
   // const [selectReservation, setSelectReservation] = useState(false);
   const [teacherList, setTeacherList] = useState<any>([])
   const [reservationTab, setReservationTab] = useRecoilState(ReservationState)
@@ -81,6 +83,7 @@ function StudentReservation() {
   // }
 
   function ptReservation () {
+
     console.log(date, time, email)
     axios({
       method: 'post',
@@ -93,6 +96,10 @@ function StudentReservation() {
       headers: {
         "Authorization": `Bearer ${accessToken}`
       }
+    })
+    .then((response) => {
+      message.success('성공적으로 예약 되었습니다.');
+      history.push('/profile')
     })
   }
 
