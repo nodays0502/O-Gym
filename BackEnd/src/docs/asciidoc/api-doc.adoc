@@ -187,7 +187,7 @@ IMPORTANT: Health API의 모든 Request는 JWT 인증 토큰을 헤더에 포함
 
 include::{snippets}/userApi/delete/student/successful/request-headers.adoc[]
 
-=== 4.1 내 학생들의 건강정보 조회
+=== 4-1 내 학생들의 건강정보 조회
 
 Request Example
 
@@ -197,7 +197,7 @@ Response Example
 
 include::{snippets}/healthApi/getMyStudentsHealth/success/http-response.adoc[]
 
-=== 4.2 내 건강정보 조회
+=== 4-2 내 건강정보 조회
 
 Request Example
 
