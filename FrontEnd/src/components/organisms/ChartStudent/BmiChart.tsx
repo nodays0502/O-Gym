@@ -60,6 +60,7 @@ const BmiChart = () => {
   const [bmiInfo, setBmiInfo] = useState(0)
   const [height, setHeight] = useState(0)
   const [weight, setWeight] = useState(0)
+  let accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     let today = new Date()

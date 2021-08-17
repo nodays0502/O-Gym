@@ -10,6 +10,7 @@ function WeightFlowChart() {
   // const [series, setSeries] = useState([{
   //   name: "체중(kg)",
   //   data: []}]);
+  let accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     let today = new Date()

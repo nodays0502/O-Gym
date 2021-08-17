@@ -53,6 +53,7 @@ const ImgCover = styled.div`
 
 function StudentChartPage() {
   const [username, setUsername] = useState('')
+  let accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     axios.get(

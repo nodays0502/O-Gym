@@ -64,6 +64,7 @@ function TrainerChartPage() {
   const [myStudent, setMyStudent] = useState<any>([])
   const [seletedStudent, setSelectedStudent] = useState<any>({})
   const [selectedUser, setSelectedUser] = useRecoilState(SelectedInfo)
+  let accessToken = localStorage.getItem('accessToken');
 
   useEffect(() => {
     let today = new Date()
