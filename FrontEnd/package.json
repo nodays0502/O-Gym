@@ -10,14 +10,11 @@
     "@devexpress/dx-react-scheduler-material-ui": "^2.7.6",
     "@fontsource/roboto": "^4.5.0",
     "@hookform/resolvers": "^2.7.1",
-<<<<<<< HEAD
     "@nivo/bullet": "^0.73.0",
     "@nivo/core": "^0.73.0",
-=======
     "@material-ui/core": "^4.12.3",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/styles": "^4.11.4",
->>>>>>> e82bfe74ab49055393a283e4bd92f7171ee520ab
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
@@ -30,10 +27,7 @@
     "antd": "^4.16.7",
     "apexcharts": "^3.27.3",
     "axios": "^0.21.1",
-<<<<<<< HEAD
-=======
     "clsx": "^1.1.1",
->>>>>>> e82bfe74ab49055393a283e4bd92f7171ee520ab
     "http-proxy-middleware": "^2.0.1",
     "inko": "^1.1.1",
     "jwt-decode": "^3.1.2",
@@ -82,10 +76,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
   }
-=======
-  },
-  "proxy": "https://i5b305.p.ssafy.io"
->>>>>>> e82bfe74ab49055393a283e4bd92f7171ee520ab
 }
