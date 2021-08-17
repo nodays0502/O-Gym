@@ -72,8 +72,6 @@ public class PTDto {
 
         private List<PTTeacherDto> teacherList;
 
-        private Pageable pageable;  // pagination 에 대한 정보
-
         private int totalPages; // 전체 페이지 수
 
         private long totalElements; // 전체 요소의 수

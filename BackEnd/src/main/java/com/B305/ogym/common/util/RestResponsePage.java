@@ -11,6 +11,10 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
+/*
+    PageImpl 직렬화를 위한 커스텀 PageImpl
+ */
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class RestResponsePage<T> extends PageImpl<T> {
 
@@ -25,7 +29,6 @@ public class RestResponsePage<T> extends PageImpl<T> {
         @JsonProperty("first") boolean first,
         @JsonProperty("numberOfElements") int numberOfElements) {
         super(content, PageRequest.of(number, size), totalElements);
-        System.out.println("RestResponsePage 28Line");
     }
 
     public RestResponsePage(List<T> content, Pageable pageable, long total) {

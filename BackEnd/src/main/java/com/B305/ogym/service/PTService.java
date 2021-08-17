@@ -105,7 +105,6 @@ public class PTService {
 
         return AllTeacherListResponse.builder()
             .teacherList(ptTeacherDtos)
-            .pageable(ptTeachers.getPageable())
             .totalPages(ptTeachers.getTotalPages())
             .totalElements(ptTeachers.getTotalElements())
             .numberOfElements(ptTeachers.getNumberOfElements())
