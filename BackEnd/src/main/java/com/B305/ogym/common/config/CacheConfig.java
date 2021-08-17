@@ -28,6 +28,11 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/*
+    Redis 캐시서버를 위한 환경설정
+ */
+
+
 @RequiredArgsConstructor
 @EnableCaching
 @Configuration
@@ -49,13 +54,6 @@ public class CacheConfig {
 
 
     private ObjectMapper objectMapper() {
-
-        // 2.9 이하 버전까지 적용 가능
-//        ObjectMapper mapper = new ObjectMapper();
-//        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
-//        mapper.registerModule(new JavaTimeModule());
-//        mapper.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL, JsonTypeInfo.As.PROPERTY);
-
         // jackson 2.10이상 3.0버전까지 적용 가능
         PolymorphicTypeValidator ptv = BasicPolymorphicTypeValidator.builder()
             .allowIfSubType(Object.class)
