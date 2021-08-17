@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import javax.validation.constraints.FutureOrPresent;
@@ -175,6 +176,29 @@ public class PTDto {
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
     @AllArgsConstructor
     public static class SearchDto {
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            SearchDto searchDto = (SearchDto) o;
+            return Objects.equals(getName(), searchDto.getName()) && getGender() == searchDto
+                .getGender() && Objects.equals(getMinAge(), searchDto.getMinAge())
+                && Objects.equals(getMaxAge(), searchDto.getMaxAge()) && Objects
+                .equals(getMinPrice(), searchDto.getMinPrice()) && Objects
+                .equals(getMaxPrice(), searchDto.getMaxPrice());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects
+                .hash(getName(), getGender(), getMinAge(), getMaxAge(), getMinPrice(),
+                    getMaxPrice());
+        }
 
         @Builder.Default
         private String name = null;

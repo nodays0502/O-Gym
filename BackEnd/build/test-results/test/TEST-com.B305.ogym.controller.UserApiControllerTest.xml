@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.B305.ogym.controller.UserApiControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-08-17T02:05:29" hostname="DESKTOP-H7093P3" time="0.409">
+<testsuite name="com.B305.ogym.controller.UserApiControllerTest" tests="10" skipped="0" failures="0" errors="0" timestamp="2021-08-17T10:11:01" hostname="DESKTOP-H7093P3" time="0.322">
   <properties/>
-  <testcase name="회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.028"/>
-  <testcase name="유저 회원가입 - 닉네임 중복으로 인한 회원가입 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.117"/>
-  <testcase name="유저 회원가입 - 이메일 중복으로 인한 회원가입 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.029"/>
-  <testcase name="학생 회원탈퇴 - 회원탈퇴 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.034"/>
-  <testcase name="학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.036"/>
-  <testcase name="학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.025"/>
-  <testcase name="선생님 회원탈퇴 - 회원탈퇴 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.027"/>
-  <testcase name="선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.036"/>
-  <testcase name="학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.04"/>
-  <testcase name="회원 정보조회 - 정보조회 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.027"/>
-  <system-out><![CDATA[2021-08-17 11:05:28.178  INFO 22164 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
-2021-08-17 11:05:28.179  INFO 22164 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
-2021-08-17 11:05:28.179  INFO 22164 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2021-08-17 11:05:28.182  INFO 22164 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
-2021-08-17 11:05:28.183  INFO 22164 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
-2021-08-17 11:05:28.183  INFO 22164 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@28c56824, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@5356db64, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@41937c92, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4ca5d2c0, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@4fa21738, org.springframework.test.context.support.DirtiesContextTestExecutionListener@2a4a7853, org.springframework.test.context.transaction.TransactionalTestExecutionListener@7067f664, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@1236097a, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@4df2d7d3, org.springframework.test.context.event.EventPublishingTestExecutionListener@3483b6de, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@7b98a2fc, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@59c7092c, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@2500188, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@2bcc625a, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@15fdaa9d, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@74125f67, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@764c5c2c]
+  <testcase name="회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.026"/>
+  <testcase name="유저 회원가입 - 닉네임 중복으로 인한 회원가입 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.106"/>
+  <testcase name="유저 회원가입 - 이메일 중복으로 인한 회원가입 실패" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.018"/>
+  <testcase name="학생 회원탈퇴 - 회원탈퇴 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.027"/>
+  <testcase name="학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.034"/>
+  <testcase name="학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.02"/>
+  <testcase name="선생님 회원탈퇴 - 회원탈퇴 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.017"/>
+  <testcase name="선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.027"/>
+  <testcase name="학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.019"/>
+  <testcase name="회원 정보조회 - 정보조회 성공" classname="com.B305.ogym.controller.UserApiControllerTest" time="0.02"/>
+  <system-out><![CDATA[2021-08-17 19:11:01.042  INFO 14828 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
+2021-08-17 19:11:01.043  INFO 14828 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-08-17 19:11:01.043  INFO 14828 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-08-17 19:11:01.046  INFO 14828 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
+2021-08-17 19:11:01.047  INFO 14828 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-08-17 19:11:01.047  INFO 14828 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@645d229b, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@23013520, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@23373ce6, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@6fd4d7c, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@b39eec2, org.springframework.test.context.support.DirtiesContextTestExecutionListener@21bb72b0, org.springframework.test.context.transaction.TransactionalTestExecutionListener@3b71aa6d, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@578b96d2, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@13002d1f, org.springframework.test.context.event.EventPublishingTestExecutionListener@69d4e33d, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@5f400ea8, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@54762e94, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@468c89d0, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@88f4737, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@57652dc0, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@3202ab36, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@10e266af]
 
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
@@ -26,24 +26,24 @@
  =========|_|==============|___/=/_/_/_/
  :: Spring Boot ::                (v2.5.2)
 
-2021-08-17 11:05:28.229  INFO 22164 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 22164 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
-2021-08-17 11:05:28.230  INFO 22164 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
-2021-08-17 11:05:28.991  INFO 22164 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+2021-08-17 19:11:01.081  INFO 14828 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 14828 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
+2021-08-17 19:11:01.082  INFO 14828 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
+2021-08-17 19:11:01.737  INFO 14828 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: ff73ed2c-e129-42b5-bfb3-4d429e378983
+Using generated security password: 6736cafd-5280-424b-bcd1-5a783f76d40e
 
-2021-08-17 11:05:29.113  INFO 22164 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@75a6639e, org.springframework.security.web.context.SecurityContextPersistenceFilter@6e40ccf, org.springframework.security.web.header.HeaderWriterFilter@7a99b097, org.springframework.security.web.csrf.CsrfFilter@62db307, org.springframework.security.web.authentication.logout.LogoutFilter@420b59ed, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@a179d45, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@4aad1594, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@64cc8b88, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@5b557031, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6ffcfa52, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@5856e232, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5287dfe1, org.springframework.security.web.session.SessionManagementFilter@6d3a2fe4, org.springframework.security.web.access.ExceptionTranslationFilter@34cba756, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6d2f52f]
-2021-08-17 11:05:29.171  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.171  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.171  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
-2021-08-17 11:05:29.185  INFO 22164 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 0.998 seconds (JVM running for 9.938)
-2021-08-17 11:05:29.195  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.195  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.195  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-17 19:11:01.864  INFO 14828 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3779ce1b, org.springframework.security.web.context.SecurityContextPersistenceFilter@3a44289d, org.springframework.security.web.header.HeaderWriterFilter@3b935ec3, org.springframework.security.web.csrf.CsrfFilter@52a606aa, org.springframework.security.web.authentication.logout.LogoutFilter@7afaad7b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@6fafd2cd, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6d4d6c44, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@48af8a3, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@49497594, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@37540e9e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@16102bf1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@15226b45, org.springframework.security.web.session.SessionManagementFilter@58b5f677, org.springframework.security.web.access.ExceptionTranslationFilter@593a94e7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@39014827]
+2021-08-17 19:11:01.917  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:01.917  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:01.917  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-17 19:11:01.930  INFO 14828 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 0.88 seconds (JVM running for 9.285)
+2021-08-17 19:11:01.937  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:01.937  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:01.937  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = GET
-      Request URI = /api/user/id,email
+      Request URI = /api/user/%5Bid,%20email%5D
        Parameters = {}
           Headers = [Authorization:"JWT ACCESS TOKEN"]
              Body = null
@@ -51,7 +51,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#getUserInfo(UserBase, List)
+           Method = com.B305.ogym.controller.UserApiController#getUserInfo(String, List)
 
 Async:
     Async started = false
@@ -77,9 +77,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.221  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.221  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.222  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:01.962  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:01.962  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:01.963  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -117,9 +117,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.338  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.338  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.339  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.068  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.068  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.069  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -157,9 +157,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.369  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.369  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.370  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.087  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.088  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.088  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -171,7 +171,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(UserBase, HttpServletRequest)
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
 
 Async:
     Async started = false
@@ -197,9 +197,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.404  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.404  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.404  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-17 19:11:02.115  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.116  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.116  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -237,9 +237,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.441  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.441  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.442  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.151  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.151  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.151  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -251,7 +251,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(UserBase, HttpServletRequest)
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
 
 Async:
     Async started = false
@@ -277,9 +277,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.466  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.466  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.467  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.171  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.171  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.171  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -291,7 +291,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(UserBase, HttpServletRequest)
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
 
 Async:
     Async started = false
@@ -317,9 +317,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.495  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.495  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.495  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+2021-08-17 19:11:02.188  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.188  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.188  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = POST
@@ -357,9 +357,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.533  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.533  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.534  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.216  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.216  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.217  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 
 MockHttpServletRequest:
       HTTP Method = DELETE
@@ -371,7 +371,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(UserBase, HttpServletRequest)
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
 
 Async:
     Async started = false
@@ -397,9 +397,9 @@ MockHttpServletResponse:
     Forwarded URL = null
    Redirected URL = null
           Cookies = []
-2021-08-17 11:05:29.574  INFO 22164 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
-2021-08-17 11:05:29.574  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
-2021-08-17 11:05:29.575  INFO 22164 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-17 19:11:02.237  INFO 14828 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-17 19:11:02.237  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-17 19:11:02.237  INFO 14828 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
 [id, email]
 
 MockHttpServletRequest:
@@ -412,7 +412,7 @@ MockHttpServletRequest:
 
 Handler:
              Type = com.B305.ogym.controller.UserApiController
-           Method = com.B305.ogym.controller.UserApiController#getUserInfo(UserBase, List)
+           Method = com.B305.ogym.controller.UserApiController#getUserInfo(String, List)
 
 Async:
     Async started = false
