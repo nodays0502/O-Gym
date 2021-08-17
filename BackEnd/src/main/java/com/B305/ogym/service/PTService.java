@@ -1,51 +1,61 @@
 package com.B305.ogym.service;
 
-import com.B305.ogym.controller.dto.PTDto;
-import com.B305.ogym.controller.dto.PTDto.CancelReservationRequest;
+import com.B305.ogym.controller.dto.PTDto.AllTeacherListResponse;
+import com.B305.ogym.controller.dto.PTDto.PTTeacherDto;
+import com.B305.ogym.controller.dto.PTDto.SearchDto;
+import com.B305.ogym.controller.dto.PTDto.nowReservationDto;
+import com.B305.ogym.controller.dto.PTDto.reservationDto;
+import com.B305.ogym.controller.dto.PTDto.reservationRequest;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacherRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
+import com.B305.ogym.domain.users.common.UserBaseRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
-import com.B305.ogym.exception.user.ReservationDuplicateException;
-import com.B305.ogym.exception.user.UnauthorizedException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import com.sun.jdi.request.DuplicateRequestException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
-import javax.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class PTService {
 
     private final PTTeacherRepository ptTeacherRepository;
     private final PTStudentRepository ptStudentRepository;
     private final PTStudentPTTeacherRepository ptStudentPTTeacherRepository;
+    private final UserRepository userRepository;
 
     // 예약 생성
     @Transactional
-    public void makeReservation(UserBase user, PTDto.SaveReservationRequest request) {
-        if(!user.getRole().equals("ROLE_PTSTUDENT")) throw new UnauthorizedException("선생님은 예약불가능");
+    public void makeReservation(String ptStudentEmail, reservationRequest request) {
 
-        String studentEmail = user.getEmail();
-        String teacherEmail = request.getPtTeacherEmail();
+        String ptTeacherEmail = request.getPtTeacherEmail();
         LocalDateTime time = request.getReservationTime();
+        String description = request.getDescription();
+        // 선생님 정보 찾을 수 없음
+        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(ptTeacherEmail)
+            .orElseThrow(() -> new UserNotFoundException("TEACHER"));
 
-        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(teacherEmail);
-        if (ptTeacher == null) {
-            throw new UserNotFoundException("TEACHER");
-        }
-        PTStudent ptStudent = ptStudentRepository.findByEmail(studentEmail);
+        // 학생 정보 찾을 수 없음
+        PTStudent ptStudent = ptStudentRepository.findByEmail(ptStudentEmail)
+            .orElseThrow(() -> new UserNotFoundException("해당하는 이메일은 존재하지 않습니다."));
 
+        // 해당 시간에 예약이 이미 존재함
         try {
             PTStudentPTTeacher ptStudentPTTeacher = ptStudent
-                .makeReservation(ptTeacher, ptStudent, time);
+                .makeReservation(ptTeacher, ptStudent, time, description);
             ptStudentPTTeacherRepository.save(ptStudentPTTeacher);
         } catch (RuntimeException ex) {
             throw new DuplicateRequestException("중복된 예약");
@@ -53,28 +63,103 @@ public class PTService {
     }
 
     @Transactional
-    public void cancleReservation(UserBase user, CancelReservationRequest request) {
-        Optional<PTStudentPTTeacher> ptStudentPTTeacher = ptStudentPTTeacherRepository
-            .findById(Long.valueOf(request.getReservationId()));
-        if (ptStudentPTTeacher.isEmpty()) {
-            // 해당 예약이 존재하지 않는 경우
-            throw new UserNotFoundException("CANCLE_RESERVATION");
-        } else {
-            // 로그인한 사용자의 선생님/학생 역할을 고려하여 적절한 비교 ID를 thisId에 저장
-            Long thisId;
-            switch (user.getRole()){
-                case "ROLE_PTSTUDENT": thisId = ptStudentPTTeacher.get().getPtStudent().getId();
-                break;
-                case "ROLE_PTTEACHER": thisId = ptStudentPTTeacher.get().getPtTeacher().getId();
-                break;
-                default: throw new UnauthorizedException("허용되지 않는 기능입니다.");
-            }
+    public void cancelReservation(String ptStudentEmail, reservationRequest request) {
 
-            if (thisId != user.getId()) {
-                // 삭제하려는 예약이 로그인한 사용자의 것이 아닌 경우
-                throw new UnauthorizedException("CANCLE_RESERVATION");
-            }
-            else ptStudentPTTeacherRepository.delete(ptStudentPTTeacher.get());
+        // 로그인한 사용자 찾을 수 없음
+        PTStudent ptStudent = ptStudentRepository.findByEmail(ptStudentEmail)
+            .orElseThrow(() -> new UserNotFoundException("로그인한 사용자 없음"));
+
+        // 선생님 정보 찾을 수 없음
+        PTTeacher ptTeacher = ptTeacherRepository.findByEmail(request.getPtTeacherEmail())
+            .orElseThrow(() -> new UserNotFoundException("이미 탈퇴한 선생님입니다."));
+
+        // 예약정보 찾을 수 없음
+        PTStudentPTTeacher ptStudentPTTeacher = ptStudentPTTeacherRepository
+            .findByPtTeacherAndPtStudentAndReservationDate(ptTeacher, ptStudent,
+                request.getReservationTime())
+            .orElseThrow(() -> new UserNotFoundException("CANCEL_RESERVATION"));
+
+        ptStudentPTTeacherRepository.delete(ptStudentPTTeacher);
+
+    }
+
+    // 선생님 리스트 출력
+    @Transactional
+    public AllTeacherListResponse getTeacherList(SearchDto searchDto, Pageable pageable) {
+
+        // 조건 검색
+        Page<PTTeacher> ptTeachers = ptTeacherRepository.searchAll(searchDto, pageable);
+
+        // PTTeacher 에서 원하는 정보만 담아 PTTeacherDto로 변환
+        List<PTTeacherDto> ptTeacherDtos = new ArrayList<>();
+        for (int i = 0; i < ptTeachers.getNumberOfElements(); i++) {
+            PTTeacher ptTeacher = ptTeachers.getContent().get(i);
+            ptTeacherDtos.add(ptTeacher.toPTTeacherDto());
         }
+
+        // Content와 Paging 정보를 함께 Response 객체에 담아 반환
+
+        return AllTeacherListResponse.builder()
+            .teacherList(ptTeacherDtos)
+            .pageable(ptTeachers.getPageable())
+            .totalPages(ptTeachers.getTotalPages())
+            .totalElements(ptTeachers.getTotalElements())
+            .numberOfElements(ptTeachers.getNumberOfElements())
+            .build();
+    }
+
+    public List<LocalDateTime> getTeacherReservationTime(String teacherEmail) {
+        if (!userRepository.existsByEmail(teacherEmail)) {
+            throw new UserNotFoundException("해당 이메일이 존재하지 않습니다.");
+        }
+        return ptTeacherRepository.reservationTime(teacherEmail);
+    }
+
+    public List<reservationDto> getReservationTime(String email) {
+        UserBase user = userRepository.findByEmail(email).orElseThrow(() ->
+            new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+        List<reservationDto> result = new ArrayList<>();
+        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
+            ptTeacherRepository.getReservationTime(email).forEach(
+                o -> {
+                    result.add(
+                        reservationDto.builder()
+                            .description(o.getDescription())
+                            .reservationTime(o.getReservationDate())
+                            .nickname(o.getPtStudent().getNickname())
+                            .username(o.getPtStudent().getUsername())
+                            .email(o.getPtStudent().getEmail())
+                            .build()
+                    );
+                }
+            );
+        } else {
+            ptStudentRepository.getReservationTime(email).forEach(
+                o -> {
+                    result.add(
+                        reservationDto.builder()
+                            .description(o.getDescription())
+                            .reservationTime(o.getReservationDate())
+                            .nickname(o.getPtTeacher().getNickname())
+                            .username(o.getPtTeacher().getUsername())
+                            .email(o.getPtTeacher().getEmail())
+                            .build()
+                    );
+                }
+            );
+        }
+        return result;
+    }
+    public nowReservationDto getNowReservation(String teacherEmail, String studentEmail){
+        List<String> nowReservation = ptStudentPTTeacherRepository
+            .getNowReservation(teacherEmail, studentEmail, LocalDateTime.now());
+        if(nowReservation == null) {
+            return null;
+        }
+        nowReservationDto result = nowReservationDto.builder()
+            .teacherNickname(nowReservation.get(0))
+            .studentNickname(nowReservation.get(1))
+            .build();
+        return result;
     }
 }
