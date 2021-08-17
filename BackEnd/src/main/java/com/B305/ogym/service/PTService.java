@@ -159,7 +159,7 @@ public class PTService {
         String teacherEmail = null;
         String studentEmail = null;
         UserBase user = userRepository.findByEmail(userEmail).orElseThrow();
-        if("ROLE_PTTEACHER".equals(user.getAuthority())){
+        if("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())){
             teacherEmail = userEmail;
         }else{
             studentEmail = userEmail;
