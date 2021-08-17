@@ -26,6 +26,7 @@ import BmiChart from '../../components/organisms/ChartTrainer/BmiChart';
 import PibwChart from '../../components/organisms/ChartTrainer/PibwChart'
 import { StudentIndex } from '../../recoil/atoms/chart/StudentIndex';
 import { SelectedInfo } from '../../recoil/atoms/chart/SelectedInfo';
+import MainNavigation from '../../components/organisms/Main/Main-Navigation';
 
 // install Swiper modules
 SwiperCore.use([EffectFade, Mousewheel,Pagination]);
@@ -87,6 +88,7 @@ function TrainerChartPage() {
 
   return (
     <>
+    <MainNavigation />
     <Layout style={{height: "100vh"}}>
       <Sider><StudentList myStudent={myStudent}/></Sider>
       <Layout style={{height: "100vh"}}>
@@ -96,12 +98,15 @@ function TrainerChartPage() {
             <SwiperSlide>
               <ImgDiv>
               <ImgContent>
-                <h1 style={{color:'white'}}>{selectedUser.username}님의 건강 차트</h1>
+                {selectedUser.username && <h1 style={{color:'white'}}>{selectedUser.username}님의 건강 차트</h1>}
+                {/* <h1 style={{color:'white'}}>{selectedUser.username}님의 건강 차트</h1> */}
                 {/* <h1 style={{color:'white'}}>건강 차트</h1> */}
               </ImgContent>
               <ImgCover></ImgCover>
               </ImgDiv>
             </SwiperSlide>
+            {selectedUser.username &&
+            <>
             <SwiperSlide>
               <BmiChart myStudent={myStudent} />
             </SwiperSlide>
@@ -115,6 +120,7 @@ function TrainerChartPage() {
                 <WeightFlowChart />
               </div>
             </SwiperSlide>
+            </>}
           </Swiper>
           </div>
         </Content>
