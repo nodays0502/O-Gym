@@ -17,6 +17,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.filter.CorsFilter;
 
+/*
+    Spring Security 환경설정
+ */
+
+
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -51,7 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 , "/favicon.ico"
                 , "/error"
             );
-        web.ignoring().antMatchers("/docs/**");
+        web.ignoring().antMatchers("/api/docs/**");
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 

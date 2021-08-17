@@ -11,6 +11,10 @@ import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.test.context.support.WithSecurityContextFactory;
 
+/*
+    @WithAuthUser 어노테이션의 동작을 위한 SecurityContextFactory
+ */
+
 public class WithAuthUserSecurityContextFactory implements
     WithSecurityContextFactory<WithAuthUser> {
 
