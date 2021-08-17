@@ -41,6 +41,10 @@ import CalendarToday from '@material-ui/icons/CalendarToday';
 import Create from '@material-ui/icons/Create';
 import './TeacherReservationConfirm.css'
 import { appointments } from './appointments';
+import axios from 'axios';
+// @ts-ignore
+import Inko from 'inko';
+import jwt_decode from 'jwt-decode';
 
 const containerStyles = theme => ({
   container: {
@@ -96,8 +100,9 @@ class AppointmentFormContainerBasic extends React.PureComponent {
       appointmentChanges: {},
     };
 
-    this.getAppointmentData = () => {
+    this.getAppointmentData = async () => {
       const { appointmentData } = this.props;
+
       return appointmentData;
     };
     this.getAppointmentChanges = () => {
@@ -137,6 +142,7 @@ class AppointmentFormContainerBasic extends React.PureComponent {
     });
   }
 
+  
   render() {
     const {
       classes,
@@ -311,9 +317,11 @@ const styles = theme => ({
 class Demo extends React.PureComponent {
   constructor(props) {
     super(props);
+    const nowDate = new Date();
     this.state = {
       data: appointments,
-      currentDate: '2018-06-27',
+      // currentDate: `${nowDate.getFullYear()}-${nowDate.getMonth()+1}-${nowDate.getDate()}`,
+      currentDate: `2021-07-28`,
       confirmationVisible: false,
       editingFormVisible: false,
       deletedAppointmentId: undefined,
@@ -324,6 +332,9 @@ class Demo extends React.PureComponent {
       endDayHour: 19,
       isNewAppointment: false,
     };
+
+
+    // this.getFirstData = this.getFirstData.bind(this);
 
     this.toggleConfirmationVisible = this.toggleConfirmationVisible.bind(this);
     this.commitDeletedAppointment = this.commitDeletedAppointment.bind(this);
@@ -363,6 +374,67 @@ class Demo extends React.PureComponent {
         cancelAppointment,
       };
     });
+  }
+
+  async componentDidMount() {
+    const { data } = this.state;
+    //console.log(data);
+    //console.log(localStorage.getItem('accessToken'))
+    let accessToken = localStorage.getItem('accessToken');
+      
+    if (accessToken) {
+      let checkDate: {
+        exp, email, role, nickname
+      } = jwt_decode(accessToken);
+    
+      let data2 = await axios.get(`https://i5b305.p.ssafy.io/api/pt/reservation`, {
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    });
+      let data21: { data } = await data2.data;
+      let inko = new Inko();
+    //console.log(data21.data);
+    let changeData = data21.data.map(({
+      description,
+      nickname,
+      username,
+      email,
+      reservationTime
+    }) => {
+      //console.log(reservationTime);
+      
+      let startDate = new Date(reservationTime);
+
+      let endDate = new Date(reservationTime);
+      endDate.setHours(startDate.getHours()+1);
+      //console.log(startDate, endDate);
+      return {
+        title: `${nickname}님 PT - ${
+          description
+        }`,
+        startDate: startDate,
+        endDate: endDate,
+        id: 0,
+        location: inko.ko2en(nickname) + inko.ko2en(
+          checkDate['nickname']
+        ),
+      }
+    });
+    
+    // {
+    //   // title: 'Website Re-Design Plan',
+    //   // startDate: new Date(2021, 8, 8, 9, 35),
+    //   // endDate: new Date(2021, 8, 10, 11, 30),
+    //   // id: 0,
+    //   // location: 'Room 1',
+      
+    // };
+    
+    this.setState({ data : changeData });
+
+    }
+    
   }
 
   componentDidUpdate() {
@@ -444,6 +516,7 @@ class Demo extends React.PureComponent {
       <Paper
         className="teacherReservation"
         style={{
+          width: "85vh",
           height: "90vh",
       }}>
         <Scheduler
@@ -506,7 +579,20 @@ class Demo extends React.PureComponent {
           </DialogActions>
         </Dialog>
 
-        
+        <Fab
+          color="secondary"
+          className={classes.addButton}
+          onClick={() => {
+            this.setState({ editingFormVisible: true });
+            this.onEditingAppointmentChange(undefined);
+            this.onAddedAppointmentChange({
+              startDate: new Date(currentDate).setHours(startDayHour),
+              endDate: new Date(currentDate).setHours(startDayHour + 1),
+            });
+          }}
+        >
+          <AddIcon />
+        </Fab>
       </Paper>
     );
   }

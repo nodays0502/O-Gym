@@ -1,9 +1,11 @@
+import Title from "antd/lib/typography/Title";
+
 
 const TeacherTodoList = () => {
     return (
-        <div>
-        
-        </div>
+        <Title>
+            This part is Footer
+        </Title>
     );
 }
 

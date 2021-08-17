@@ -1,4 +1,5 @@
 import * as React from 'react';
+// @ts-ignore
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
   Scheduler, DayView, Appointments, MonthView, Toolbar,
@@ -10,120 +11,11 @@ import Paper from '@material-ui/core/Paper';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { WithStyles } from '@material-ui/styles';
 import classNames from 'clsx';
-
-const appointments = [
-  {
-    title: 'Prepare 2015 Marketing Plan',
-    startDate: new Date(2018, 5, 25, 13, 0),
-    endDate: new Date(2018, 5, 25, 13, 30),
-    priority: 2,
-    location: 'Room 3',
-  }, {
-    title: 'Brochure Design Review',
-    startDate: new Date(2018, 5, 28, 14, 10),
-    endDate: new Date(2018, 5, 28, 15, 30),
-    priority: 1,
-    location: 'Room 1',
-  },
-  {
-    title: 'Website Re-Design Plan',
-    startDate: new Date(2018, 5, 29, 9, 30),
-    endDate: new Date(2018, 5, 29, 11, 30),
-    priority: 1,
-    location: 'Room 3',
-  }, {
-    title: 'Book Flights to San Fran for Sales Trip',
-    startDate: new Date(2018, 6, 2, 12, 0),
-    endDate: new Date(2018, 6, 2, 13, 0),
-    priority: 3,
-    location: 'Room 2',
-  }, {
-    title: 'Install New Router in Dev Room',
-    startDate: new Date(2018, 6, 2, 14, 30),
-    endDate: new Date(2018, 6, 2, 15, 30),
-    priority: 2,
-    location: 'Room 3',
-  }, {
-    title: 'Approve Personal Computer Upgrade Plan',
-    startDate: new Date(2018, 6, 4, 10, 0),
-    endDate: new Date(2018, 6, 4, 11, 0),
-    priority: 1,
-    location: 'Room 1',
-  }, {
-    title: 'Final Budget Review',
-    startDate: new Date(2018, 6, 6, 12, 0),
-    endDate: new Date(2018, 6, 6, 13, 35),
-    priority: 3,
-    location: 'Room 1',
-  }, {
-    title: 'New Brochures',
-    startDate: new Date(2018, 6, 6, 14, 30),
-    endDate: new Date(2018, 6, 6, 15, 45),
-    priority: 3,
-    location: 'Room 3',
-  }, {
-    title: 'Install New Database',
-    startDate: new Date(2018, 6, 10, 9, 45),
-    endDate: new Date(2018, 6, 10, 11, 15),
-    priority: 2,
-    location: 'Room 2',
-  }, {
-    title: 'Approve New Online Marketing Strategy',
-    startDate: new Date(2018, 6, 12, 12, 0),
-    endDate: new Date(2018, 6, 12, 14, 0),
-    priority: 1,
-    location: 'Room 2',
-  }, {
-    title: 'Upgrade Personal Computers',
-    startDate: new Date(2018, 6, 16, 15, 15),
-    endDate: new Date(2018, 6, 16, 16, 30),
-    priority: 2,
-    location: 'Room 3',
-  }, {
-    title: 'Customer Workshop',
-    startDate: new Date(2018, 6, 18, 11, 0),
-    endDate: new Date(2018, 6, 18, 12, 0),
-    priority: 3,
-    location: 'Room 1',
-  }, {
-    title: 'Prepare 2015 Marketing Plan',
-    startDate: new Date(2018, 6, 20, 11, 0),
-    endDate: new Date(2018, 6, 20, 13, 30),
-    priority: 1,
-    location: 'Room 3',
-  },
-  {
-    title: 'New Brochures',
-    startDate: new Date(2018, 6, 23, 14, 30),
-    endDate: new Date(2018, 6, 23, 15, 45),
-    priority: 2,
-    location: 'Room 3',
-  }, {
-    title: 'Install New Database',
-    startDate: new Date(2018, 6, 23, 9, 45),
-    endDate: new Date(2018, 6, 23, 11, 15),
-    priority: 3,
-    location: 'Room 2',
-  }, {
-    title: 'Approve New Online Marketing Strategy',
-    startDate: new Date(2018, 6, 26, 12, 0),
-    endDate: new Date(2018, 6, 26, 14, 0),
-    priority: 1,
-    location: 'Room 1',
-  }, {
-    title: 'Upgrade Personal Computers',
-    startDate: new Date(2018, 6, 31, 15, 15),
-    endDate: new Date(2018, 6, 31, 16, 30),
-    priority: 2,
-    location: 'Room 3',
-  }, {
-    title: 'Install New Database',
-    startDate: new Date(2018, 6, 31, 9, 45),
-    endDate: new Date(2018, 6, 31, 11, 15),
-    priority: 3,
-    location: 'Room 2',
-  },
-];
+import axios from 'axios';
+import jwt_decode from 'jwt-decode';
+// @ts-ignore
+import Inko from 'inko';
+import { useEffect, useState } from 'react';
 
 const resources = [{
   fieldName: 'location',
@@ -145,7 +37,7 @@ const resources = [{
 
 const styles = ({ palette }: Theme) => createStyles({
   appointment: {
-    borderRadius: 0,
+    borderRadius: 5,
     borderBottom: 0,
   },
   highPriorityAppointment: {
@@ -190,7 +82,7 @@ type TimeTableCellProps = MonthView.TimeTableCellProps & WithStyles<typeof style
 type DayScaleCellProps = MonthView.DayScaleCellProps & WithStyles<typeof styles>;
 
 const isWeekEnd = (date: Date): boolean => date.getDay() === 0 || date.getDay() === 6;
-const defaultCurrentDate = new Date(2018, 6, 2, 11, 15);
+const defaultCurrentDate = new Date();
 
 const DayScaleCell = withStyles(styles)(({
   startDate, classes, ...restProps
@@ -201,7 +93,9 @@ const DayScaleCell = withStyles(styles)(({
     })}
     startDate={startDate}
     {...restProps}
+    
   />
+
 ));
 
 const TimeTableCell = withStyles(styles)((
@@ -213,12 +107,16 @@ const TimeTableCell = withStyles(styles)((
     })}
     startDate={startDate}
     {...restProps}
+    style={{
+      height: '14vh'
+    }}
   />
 ));
 
 const Appointment = withStyles(styles)(({
   classes, data, ...restProps
 }: AppointmentProps) => (
+  
   <Appointments.Appointment
     {...restProps}
     className={classNames({
@@ -228,23 +126,21 @@ const Appointment = withStyles(styles)(({
       [classes.appointment]: true,
     })}
     data={data}
-  />
+    />
+    
 ));
 
 const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   classes, data, ...restProps
 }: AppointmentContentProps) =>  {
-  let priority = 'low';
-  if (data.priority === 2) priority = 'medium';
-  if (data.priority === 3) priority = 'high';
+  // let priority = 'high';
+  // if (data.priority === 2) priority = 'medium';
+  // if (data.priority === 3) priority = 'low';
   return (
     <Appointments.AppointmentContent {...restProps} data={data}>
       <div className={classes.container}>
         <div className={classes.text}>
           {data.title}
-        </div>
-        <div className={classNames(classes.text, classes.content)}>
-          {`Priority: ${priority}`}
         </div>
         <div className={classNames(classes.text, classes.content)}>
           {`Location: ${data.location}`}
@@ -254,36 +150,117 @@ const AppointmentContent = withStyles(styles, { name: 'AppointmentContent' })(({
   );
 });
 
-const TeacherCalender = () => (
-  <Paper>
-    <Scheduler
-      data={appointments}
-    >
-      <ViewState
-        defaultCurrentDate={defaultCurrentDate}
-      />
+const TeacherCalender = () => {
+  
+  const [appointments, setAppointments] = useState<{
+    title: string,
+    startDate: Date,
+    endDate: Date,
+    priority: number,
+    location: string
+  }[]>([]);
+  
+  useEffect(() => {
+    const getData = async () => {
 
-      <MonthView
-        dayScaleCellComponent={DayScaleCell}
-        timeTableCellComponent={TimeTableCell}
-      />
+      let accessToken = localStorage.getItem('accessToken');
+      
+      if (accessToken) {
+        let checkDate: {
+          exp, email, role, nickname
+        } = jwt_decode(accessToken);
+        if (checkDate['nickname']) {
+            let data = await axios.get(`https://i5b305.p.ssafy.io/api/pt/reservation`, {
+              headers: {
+                "Authorization": `Bearer ${accessToken}`
+              }
+            });
+            let data21: {data } = await data.data;
+            console.log('teacherCalender', data21.data);
+          let inko = new Inko();
+          
+          let addArr: {
+            title: string,
+            startDate: Date,
+            endDate: Date,
+            priority: number,
+            location: string
+          }[] = [];
+  
+            data21.data.forEach(({
+              description,
+              email,
+              nickname,
+              reservationTime,
+              username
+            }) => {
+  
+              console.log(reservationTime);
+              let startDate = new Date(reservationTime);
+        
+              let endDate = new Date(reservationTime);
+              endDate.setHours(startDate.getHours()+1);
+              console.log(startDate, endDate);
+              addArr.push(
+                {
+                  title: `${nickname}님 PT - ${
+                    description
+                  }`,
+                  startDate: startDate,
+                    endDate: endDate,
+                  priority: 3,
+                  location: inko.ko2en(nickname) + inko.ko2en(
+                    checkDate['nickname']
+                  ), 
+                }
+              );
+            
+            });
+          
+          setAppointments(addArr);
+          
+        }
+        
+      }
+    };
+    getData();
+  }, []);
 
-      <Appointments
-        appointmentComponent={Appointment}
-        appointmentContentComponent={AppointmentContent}
-      />
-      <Resources
-        data={resources}
-      />
+  return (
 
-      <AppointmentTooltip
-        showCloseButton
-      />
-      <Toolbar />
-      <DateNavigator />
-      <TodayButton />
-    </Scheduler>
-  </Paper>
-);
+
+    <Paper style={{
+      height: "90vh",
+    }}>
+      <Scheduler
+        data={appointments}
+      >
+        <ViewState
+          defaultCurrentDate={defaultCurrentDate}
+        />
+
+        <MonthView
+          dayScaleCellComponent={DayScaleCell}
+          timeTableCellComponent={TimeTableCell}
+        />
+
+        <Appointments
+          appointmentComponent={Appointment}
+          appointmentContentComponent={AppointmentContent}
+        />
+        <Resources
+          data={resources}
+        />
+
+        <AppointmentTooltip
+          showCloseButton
+        />
+        <Toolbar />
+        <DateNavigator />
+        <TodayButton />
+      </Scheduler>
+    </Paper>
+  );
+}
 
 export default TeacherCalender;

@@ -219,10 +219,10 @@ const MainNavigation = (props): JSX.Element => {
             
             {role === 'ROLE_PTTEACHER' ?
             <Col span={12} style={{backgroundColor: "#dcdcdc", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Link to={'/예약현황확인'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+            <Link to={'/teacherreservation'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
             <img src={onlineBooking} alt="예약 현황 확인" style={{width: "80%"}}/>
             </Link>
-            <Link to={'/예약현황확인'}>
+            <Link to={'/teacherreservation'}>
             <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>예약 현황 확인</p>
             </Link>
               </Col>
