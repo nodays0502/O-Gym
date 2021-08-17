@@ -37,7 +37,7 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
     private final RedisUtil redisUtil;
 
-
+    // 회원가입 메서드
     @Transactional
     public void signup(UserDto.SaveUserRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.getEmail())) {
@@ -74,16 +74,7 @@ public class UserService {
         }
     }
 
-//    public UserBase getMyUserWithAuthorities() {
-//        Optional<String> result = SecurityUtil.getCurrentUsername();
-//        if (result.isEmpty()) {
-//            return null;
-//        } else {
-//            return userRepository.findOneWithAuthoritiesByEmail(result.get());
-//        }
-//
-//    }
-
+    // 회원탈퇴 메서드
     @Transactional
     public void deleteUserBase(String userEmail, String accessToken) {
         redisUtil.setBlackList(accessToken, userEmail, 1800);
@@ -91,10 +82,10 @@ public class UserService {
         redisUtil.delete(userEmail);
         UserBase user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
-        userRepository.delete(user); // 이렇게 해도 되나? teacher 만들어서 해얗나ㅏ?
+        userRepository.delete(user);
     }
 
-    //    @Cacheable(key = "#userEmail", value = "getUserInfo")
+    // 유저 정보 조회 메서드
     @Transactional
     public Map<String, Object> getUserInfo(String userEmail, List<String> req) {
         UserBase user = userRepository.findByEmail(userEmail)

@@ -24,10 +24,11 @@ public class AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final RedisUtil redisUtil;
 
+    // 로그인 관련 메서드
     @Transactional
     public TokenDto authorize(String email, String password) {
         UsernamePasswordAuthenticationToken authenticationToken =
-            new UsernamePasswordAuthenticationToken(email, password); // 인증 전 객체
+            new UsernamePasswordAuthenticationToken(email, password);
 
         Authentication authentication = authenticationManagerBuilder.getObject()
             .authenticate(authenticationToken);
@@ -36,28 +37,24 @@ public class AuthService {
         String authorities = getAuthorities(authentication);
         TokenDto tokenDto = tokenProvider.createToken(authentication.getName(), authorities);
 
-        redisUtil.set(email, tokenDto.getRefreshToken(), 60 * 24 * 7); // 7일동안 refreshtoken 저장
+        redisUtil.set(email, tokenDto.getRefreshToken(), 60 * 24 * 7);
         return tokenDto;
     }
 
+    // 재발급 관련 메서드
     @Transactional
     public TokenDto reissue(String requestAccessToken, String requestRefreshToken) {
-        // Refresh 토큰 검증
         if (!tokenProvider.validateToken(requestRefreshToken)) {
             throw new UnauthorizedException("유효하지 않은 RefreshToken 입니다");
         }
-        // Access Token
         Authentication authentication = tokenProvider.getAuthentication(requestAccessToken);
 
-        // Email에 해당하는 refreshToken이 존재하는지 체크 (로그아웃 OR 회원탈퇴? -> 회원탈퇴 수정)
         UserBase principal = (UserBase) authentication.getPrincipal();
-//        RefreshToken refreshToken = refreshTokenRepository.findById(authentication.getName()) // 헷갈리네
 
         if (!redisUtil.hasKey(principal.getEmail())) {
             throw new UnauthorizedException("인증되지 않은 유저입니다");
         }
 
-        // 4. Refresh Token 일치하는지 검사
         if (!redisUtil.get(principal.getEmail()).equals(requestRefreshToken)) {
             throw new RuntimeException("토큰이 일치하지 않습니다.");
         }
@@ -70,7 +67,7 @@ public class AuthService {
 
         return tokenDto;
     }
-
+    // 권한 가져오기
     public String getAuthorities(Authentication authentication) {
         return authentication.getAuthorities().stream()
             .map(GrantedAuthority::getAuthority)
