@@ -2,6 +2,9 @@ package com.B305.ogym.service;
 
 import com.B305.ogym.common.util.RedisUtil;
 import com.B305.ogym.controller.dto.UserDto;
+import com.B305.ogym.controller.dto.UserDto.CareerDto;
+import com.B305.ogym.controller.dto.UserDto.CertificateDto;
+import com.B305.ogym.controller.dto.UserDto.SnsDto;
 import com.B305.ogym.domain.authority.Authority;
 import com.B305.ogym.domain.authority.AuthorityRepository;
 import com.B305.ogym.domain.users.UserRepository;
@@ -9,12 +12,17 @@ import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.MonthlyRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
+import com.B305.ogym.domain.users.ptTeacher.Career;
+import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.domain.users.ptTeacher.Sns;
 import com.B305.ogym.exception.user.NotValidRequestParamException;
 import com.B305.ogym.exception.user.UserDuplicateEmailException;
 import com.B305.ogym.exception.user.UserDuplicateNicknameException;
 import com.B305.ogym.exception.user.UserNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -90,11 +98,61 @@ public class UserService {
     public Map<String, Object> getUserInfo(String userEmail, List<String> req) {
         UserBase user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+        Map<String, Object> map = new HashMap<>();
         if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
-            return ptTeacherRepository.getInfo(userEmail, req);
+            PTTeacher teacher = ptTeacherRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+            req.stream().forEach(o -> {
+                if ("snss".equals(o)) {
+                    List<SnsDto> snssDto = new ArrayList<>();
+                    List<Sns> snss = teacher.getSnss();
+                    snss.stream().forEach(sns -> {
+                        snssDto.add(
+                            SnsDto.builder()
+                                .platform(sns.getPlatform())
+                                .url(sns.getUrl())
+                                .build()
+                        );
+                    });
+                    map.put(o,snssDto);
+                } else if ("careers".equals(o)) {
+                    List<CareerDto> careersDto = new ArrayList<>();
+                    List<Career> careers = teacher.getCareers();
+                    careers.stream().forEach(career -> {
+                        careersDto.add(
+                            CareerDto.builder()
+                                .company(career.getCompany())
+                                .startDate(career.getStartDate())
+                                .endDate(career.getEndDate())
+                                .role(career.getRole())
+                                .build());
+                    });
+                    map.put(o,careersDto);
+                } else if ("certificates".equals(o)) {
+                    List<CertificateDto> certificatesDto = new ArrayList<>();
+                    List<Certificate> certificates = teacher.getCertificates();
+                    certificates.stream().forEach(certificate -> {
+                            certificatesDto.add(
+                                CertificateDto.builder()
+                                    .name(certificate.getName())
+                                    .date(certificate.getDate())
+                                    .publisher(certificate.getPublisher())
+                                    .build());
+                        }
+                    );
+                    map.put(o,certificatesDto);
+                } else {
+                    map.put(o, teacher.getInfo(o));
+                }
+            });
+            return map;
         } else {
-            return ptStudentRepository.getInfo(userEmail, req);
+            PTStudent student = ptStudentRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
+            req.stream().forEach(o -> {
+                map.put(o, student.getInfo(o));
+            });
+            return map;
         }
     }
-
 }
