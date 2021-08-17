@@ -8,7 +8,7 @@ import './ProfileRightStudent.css'
 
 function ProfileRightStudent() {
   const [myReservation, setMyReservation] = useState<any[]>([])
-
+  let accessToken = localStorage.getItem('accessToken');
   
   useEffect(() => {
     axios.get("https://i5b305.p.ssafy.io/api/pt/reservation", {

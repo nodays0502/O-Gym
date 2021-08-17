@@ -26,6 +26,8 @@ function Profile() {
     heights: {}
   });
 
+  let accessToken = localStorage.getItem('accessToken');
+  
   useEffect(() => {
     axios.get("https://i5b305.p.ssafy.io/api/user/username,nickname,email,tel,major,description,certificates,careers,gender,age,snss,role,weights,heights", {
       headers: {

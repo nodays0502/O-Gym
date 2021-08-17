@@ -8,7 +8,7 @@ import './ProfileRightTrainer.css'
 
 function ProfileRightTrainer() {
   const [myStudents, setMyStudents] = useState<any[]>([])
-
+  let accessToken = localStorage.getItem('accessToken');
   
   useEffect(() => {
     axios.get("https://i5b305.p.ssafy.io/api/health/mystudents", {
