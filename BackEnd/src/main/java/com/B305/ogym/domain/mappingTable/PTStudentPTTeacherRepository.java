@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface PTStudentPTTeacherRepository extends JpaRepository<PTStudentPTTeacher, Long>, PTStudentPTTeacherCustom {
-    Optional<PTStudentPTTeacher> findByPtTeacherAndPtStudentAndReservationDate(PTTeacher ptTeacher, PTStudent ptStudent,LocalDateTime reservationTime);
+public interface PTStudentPTTeacherRepository extends JpaRepository<PTStudentPTTeacher, Long>,
+    PTStudentPTTeacherCustom {
+
+    Optional<PTStudentPTTeacher> findByPtTeacherAndPtStudentAndReservationDate(PTTeacher ptTeacher,
+        PTStudent ptStudent, LocalDateTime reservationTime);
 }

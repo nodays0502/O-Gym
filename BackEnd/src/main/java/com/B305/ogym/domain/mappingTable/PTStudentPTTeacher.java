@@ -33,7 +33,7 @@ public class PTStudentPTTeacher {
 
     @Builder
     public PTStudentPTTeacher(PTStudent ptStudent, PTTeacher ptTeacher,
-        LocalDateTime reservationDate,String description) {
+        LocalDateTime reservationDate, String description) {
         this.ptStudent = ptStudent;
         this.ptTeacher = ptTeacher;
         this.reservationDate = reservationDate;
@@ -43,7 +43,7 @@ public class PTStudentPTTeacher {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "pt_student_pt_teacher_id")
-    private Long id;
+    private Long id; // 대리 키
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "pt_student_id")

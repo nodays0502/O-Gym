@@ -43,8 +43,14 @@ const StyledModal = styled(Modal)`
 
 
 `;
-const StyledButton = styled(Button)`
-    position: fixed;
+
+export interface MainNavigationType {
+  position?: string;
+}
+
+
+const StyledButton = styled(Button)<MainNavigationType>`
+    position: ${props=>props.position || "fixed"};
     z-index: 2;
     top: 10px;
     left: 10px;
@@ -64,7 +70,7 @@ const LoggedDiv = styled.div`
 `;
 
 
-const MainNavigation = (): JSX.Element => {
+const MainNavigation = (props): JSX.Element => {
 
     const [isVisible, setIsVisible] = useState<boolean>(false);
     const [logged, setLogged] = useState<string>('');
@@ -124,7 +130,7 @@ const MainNavigation = (): JSX.Element => {
     return (
         <>
             <StyledButton onClick={clickMenuButton}
-          shape="circle"
+          shape="circle" position={props.position}
           icon={<StyledCircledImage src={OGYM} preview={false} />}
         >
         
@@ -180,10 +186,10 @@ const MainNavigation = (): JSX.Element => {
             {role === 'ROLE_PTSTUDENT' ? 
             
             <Col span={12} style={{ backgroundColor: "#F08C8C", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-              <Link to={'/내건강분석'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+              <Link to={'/StudentChartPage'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
               <img src={barChart} alt="내 건강분석" style={{width: "80%"}}/>
               </Link>
-              <Link to={'/내건강분석'}>
+              <Link to={'/StudentChartPage'}>
               <p style={{color: "white", fontSize: "1.5rem"}}>내 건강 분석</p>
               </Link>
             </Col>
@@ -198,10 +204,10 @@ const MainNavigation = (): JSX.Element => {
             {role === 'ROLE_PTTEACHER' ?
             
             <Col span={12} style={{backgroundColor: "#dcdcdc", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Link to={'/내학생관리'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+            <Link to={'/TrainerChartPage'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
             <img src={work} alt="내 학생 관리" style={{width: "80%"}}/>
             </Link>
-            <Link to={'/내학생관리'}>
+            <Link to={'/TrainerChartPage'}>
             <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>내 학생 관리</p>
             </Link>
               </Col>
@@ -213,10 +219,10 @@ const MainNavigation = (): JSX.Element => {
             
             {role === 'ROLE_PTTEACHER' ?
             <Col span={12} style={{backgroundColor: "#dcdcdc", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Link to={'/예약현황확인'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+            <Link to={'/teacherreservation'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
             <img src={onlineBooking} alt="예약 현황 확인" style={{width: "80%"}}/>
             </Link>
-            <Link to={'/예약현황확인'}>
+            <Link to={'/teacherreservation'}>
             <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>예약 현황 확인</p>
             </Link>
               </Col>
@@ -249,10 +255,10 @@ const MainNavigation = (): JSX.Element => {
                 
             {role === 'ROLE_PTSTUDENT' ?
               <Col span={12} style={{backgroundColor: "#91F8D0", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-              <Link to={'/화상채팅접속'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+              <Link to={'/dovideo'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
                 <img src={conference} alt="예약" style={{width: "80%"}}/>
               </Link>
-              <Link to={'/화상채팅접속'}>
+              <Link to={'/dovideo'}>
                 <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>PT 화상 채팅방 접속하기</p>
               </Link>
               </Col>
@@ -265,10 +271,10 @@ const MainNavigation = (): JSX.Element => {
             {role === 'ROLE_PTTEACHER' ? 
             
             <Col span={12} style={{backgroundColor: "#dcdcdc", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Link to={'/화상채팅접속'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+            <Link to={'/dovideo'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
             <img src={conference} alt="예약" style={{width: "80%"}}/>
             </Link>
-            <Link to={'화상채팅접속'}>
+            <Link to={'/dovideo'}>
             <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>PT 화상 채팅방 개설하기</p>
             </Link>
               </Col>

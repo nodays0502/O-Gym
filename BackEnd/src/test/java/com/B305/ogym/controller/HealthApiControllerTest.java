@@ -2,12 +2,10 @@ package com.B305.ogym.controller;
 
 import static com.B305.ogym.ApiDocumentUtils.getDocumentRequest;
 import static com.B305.ogym.ApiDocumentUtils.getDocumentResponse;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
@@ -21,7 +19,6 @@ import com.B305.ogym.domain.users.common.Gender;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import com.B305.ogym.service.HealthService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -35,7 +32,6 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
-import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.test.web.servlet.MockMvc;
@@ -143,9 +139,9 @@ class HealthApiControllerTest {
             .andDo(print())
             .andExpect(status().isOk())
             .andDo(document("healthApi/getMyHealth/success",
-            getDocumentRequest(),
-            getDocumentResponse()
-        ));
+                getDocumentRequest(),
+                getDocumentResponse()
+            ));
 
     }
 

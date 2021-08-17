@@ -29,10 +29,6 @@ class HealthServiceTest {
     PTTeacherRepository ptTeacherRepository;
     @Mock
     PTStudentRepository ptStudentRepository;
-    @Mock
-    MonthlyRepository monthlyRepository;
-    @Mock
-    UserRepository userRepository;
 
     @InjectMocks
     HealthService healthService;

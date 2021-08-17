@@ -65,12 +65,7 @@ public class PTTeacher extends UserBase {
     @OneToMany(mappedBy = "ptTeacher", cascade = CascadeType.ALL)
     private Set<PTStudentPTTeacher> ptStudentPTTeachers = new LinkedHashSet<>();
 
-    // 이력?
-
     public void addCertificate(Certificate certificate) {
-//        if(this.certificates == null){
-//            this.certificates = new ArrayList<>();
-//        }
         this.certificates.add(certificate);
         if (certificate.getPtTeacher() != this) {
             certificate.setPtTeacher(this);
@@ -78,9 +73,6 @@ public class PTTeacher extends UserBase {
     }
 
     public void addCareer(Career career) {
-//        if(this.careers == null) {
-//            this.careers = new ArrayList<>();
-//        }
         this.careers.add(career);
         if (career.getPtTeacher() != this) {
             career.setPtTeacher(this);

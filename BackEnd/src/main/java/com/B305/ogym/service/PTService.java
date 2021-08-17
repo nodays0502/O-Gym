@@ -10,17 +10,16 @@ import com.B305.ogym.domain.mappingTable.PTStudentPTTeacher;
 import com.B305.ogym.domain.mappingTable.PTStudentPTTeacherRepository;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
-import com.B305.ogym.domain.users.common.UserBaseRepository;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.exception.pt.ReservationNotFoundException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import com.sun.jdi.request.DuplicateRequestException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -62,6 +61,7 @@ public class PTService {
         }
     }
 
+    // 예약 취소
     @Transactional
     public void cancelReservation(String ptStudentEmail, reservationRequest request) {
 
@@ -77,7 +77,7 @@ public class PTService {
         PTStudentPTTeacher ptStudentPTTeacher = ptStudentPTTeacherRepository
             .findByPtTeacherAndPtStudentAndReservationDate(ptTeacher, ptStudent,
                 request.getReservationTime())
-            .orElseThrow(() -> new UserNotFoundException("CANCEL_RESERVATION"));
+            .orElseThrow(() -> new ReservationNotFoundException("CANCEL_RESERVATION"));
 
         ptStudentPTTeacherRepository.delete(ptStudentPTTeacher);
 
@@ -108,6 +108,7 @@ public class PTService {
             .build();
     }
 
+    // 선생님의 PT 예약정보를 조회
     public List<LocalDateTime> getTeacherReservationTime(String teacherEmail) {
         if (!userRepository.existsByEmail(teacherEmail)) {
             throw new UserNotFoundException("해당 이메일이 존재하지 않습니다.");
@@ -115,6 +116,7 @@ public class PTService {
         return ptTeacherRepository.reservationTime(teacherEmail);
     }
 
+    // 특정 유저의 PT 예약정보를 조회
     public List<reservationDto> getReservationTime(String email) {
         UserBase user = userRepository.findByEmail(email).orElseThrow(() ->
             new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
@@ -150,10 +152,12 @@ public class PTService {
         }
         return result;
     }
-    public nowReservationDto getNowReservation(String teacherEmail, String studentEmail){
+
+    // 현재 예약정보를 조회
+    public nowReservationDto getNowReservation(String teacherEmail, String studentEmail) {
         List<String> nowReservation = ptStudentPTTeacherRepository
             .getNowReservation(teacherEmail, studentEmail, LocalDateTime.now());
-        if(nowReservation == null) {
+        if (nowReservation == null) {
             return null;
         }
         nowReservationDto result = nowReservationDto.builder()

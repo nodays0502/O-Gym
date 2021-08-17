@@ -98,18 +98,18 @@ public class PTApiController {
         ));
     }
 
-    //
+    // 현재 예약정보 조회
     @GetMapping("/nowreservation")
     @PreAuthorize("hasAnyRole('PTTEACHER','PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> getNowReservation(
         @AuthenticationPrincipal UserBase user
     ) {
         nowReservationDto result = null;
-        if("ROLE_PTTEACHER".equals(user.getRole())){
-            result = ptService.getNowReservation(user.getEmail(),null);
-        }else if("ROLE_PTSTUDENT".equals(user.getRole())){
-            result = ptService.getNowReservation(null,user.getEmail());
-        }else{
+        if ("ROLE_PTTEACHER".equals(user.getRole())) {
+            result = ptService.getNowReservation(user.getEmail(), null);
+        } else if ("ROLE_PTSTUDENT".equals(user.getRole())) {
+            result = ptService.getNowReservation(null, user.getEmail());
+        } else {
             System.out.println("asd");
         }
         return ResponseEntity.ok(new SuccessResponseDto<nowReservationDto>(

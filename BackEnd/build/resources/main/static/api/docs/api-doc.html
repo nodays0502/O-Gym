@@ -435,12 +435,85 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 #footer-text{color:rgba(0,0,0,.6);font-size:.9em}}
 @media amzn-kf8{#header,#content,#footnotes,#footer{padding:0}}
 </style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body class="article">
+<body class="book toc2 toc-left">
 <div id="header">
+<h1>API Document</h1>
+<div class="details">
+<span id="revnumber">version 0.0.1-SNAPSHOT</span>
+</div>
+<div id="toc" class="toc2">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#introduction">소개</a></li>
+<li><a href="#common">공통 사항</a>
+<ul class="sectlevel2">
+<li><a href="#_domain">Domain</a></li>
+<li><a href="#_common_response">Common Response</a></li>
+</ul>
+</li>
+<li><a href="#_1_개요">1. 개요</a></li>
+<li><a href="#_2_userapi">2. UserApi</a>
+<ul class="sectlevel2">
+<li><a href="#_2_1_회원가입">2-1. 회원가입</a>
+<ul class="sectlevel3">
+<li><a href="#_학생_회원가입">학생 회원가입</a></li>
+</ul>
+</li>
+<li><a href="#_request_fields">Request Fields</a>
+<ul class="sectlevel3">
+<li><a href="#_학생_회원가입_성공">학생 회원가입 성공</a></li>
+<li><a href="#_트레이너_회원가입">트레이너 회원가입</a></li>
+</ul>
+</li>
+<li><a href="#_request_fields_2">Request Fields</a>
+<ul class="sectlevel3">
+<li><a href="#_트레이너_회원가입_2">트레이너 회원가입</a></li>
+</ul>
+</li>
+<li><a href="#_2_2_회원탈퇴">2-2. 회원탈퇴</a></li>
+<li><a href="#_2_3_회원_조회">2-3. 회원 조회</a>
+<ul class="sectlevel4">
+<li><a href="#_end_point">End Point</a></li>
+<li><a href="#_path_parameters">Path Parameters</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#_3_ptapi">3. PTApi</a>
+<ul class="sectlevel2">
+<li><a href="#_공통사항">공통사항</a></li>
+<li><a href="#_3_1_선생님_리스트_조회하기">3-1. 선생님 리스트 조회하기</a>
+<ul class="sectlevel4">
+<li><a href="#_request_parameters">Request Parameters</a></li>
+<li><a href="#_선생님_리스트_조회_성공">선생님 리스트 조회 성공</a></li>
+</ul>
+</li>
+<li><a href="#_3_2_pt_예약하기">3-2. PT 예약하기</a></li>
+<li><a href="#_request_fields_3">Request Fields</a></li>
+<li><a href="#_3_3_pt_예약_취소하기">3-3. PT 예약 취소하기</a></li>
+<li><a href="#_request_fields_4">Request Fields</a></li>
+<li><a href="#_3_4_선생님_예약_불가_시간_조회">3-4. 선생님 예약 불가 시간 조회</a>
+<ul class="sectlevel4">
+<li><a href="#_end_point_2">End Point</a></li>
+<li><a href="#_path_parameters_2">Path Parameters</a></li>
+</ul>
+</li>
+<li><a href="#_3_5_유저의_예약된_시간_조회">3-5. 유저의 예약된 시간 조회</a></li>
+</ul>
+</li>
+<li><a href="#_4_healthapi">4. HealthApi</a>
+<ul class="sectlevel2">
+<li><a href="#_공통사항_2">공통사항</a></li>
+<li><a href="#_4_1_내_학생들의_건강정보_조회">4.1 내 학생들의 건강정보 조회</a></li>
+<li><a href="#_4_2_내_건강정보_조회">4.2 내 건강정보 조회</a></li>
+</ul>
+</li>
+</ul>
+</div>
 </div>
 <div id="content">
-<h1 id="_api_document" class="sect0">API Document</h1>
 <div class="sect1">
 <h2 id="introduction"><a class="link" href="#introduction">소개</a></h2>
 <div class="sectionbody">
@@ -756,7 +829,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/user HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/user HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 596
 Host: i5b305.ssafy.io
@@ -789,7 +862,7 @@ Host: i5b305.ssafy.io
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
 Content-Length: 98
 
@@ -968,7 +1041,7 @@ Content-Length: 98
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/user HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/user HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Content-Length: 478
 Host: i5b305.ssafy.io
@@ -1001,7 +1074,7 @@ Host: i5b305.ssafy.io
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
 Content-Length: 98
 
@@ -1045,7 +1118,7 @@ Content-Length: 98
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/user HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /api/user HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1055,7 +1128,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 103
 
@@ -1124,7 +1197,7 @@ Content-Length: 103
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/user/%5Bid,%20email%5D HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/user/%5Bid,%20email%5D HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1134,7 +1207,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 166
 
@@ -1160,8 +1233,17 @@ Content-Length: 166
 <div class="paragraph">
 <p>Request Header</p>
 </div>
-<div class="paragraph">
-<p>PT API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+PT API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1253,7 +1335,7 @@ Content-Length: 166
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/pt/teacherlist?page=0&amp;size=10&amp;name=%EC%84%9C%ED%98%84%EC%A7%84&amp;gender=WOMAN&amp;minPrice=100&amp;maxPrice=200000&amp;minAge=1&amp;maxAge=100 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/pt/teacherlist?page=0&amp;size=10&amp;name=%EC%84%9C%ED%98%84%EC%A7%84&amp;gender=WOMAN&amp;minPrice=100&amp;maxPrice=200000&amp;minAge=1&amp;maxAge=100 HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1263,7 +1345,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 782
 
@@ -1350,7 +1432,7 @@ Content-Length: 782
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">POST /api/pt/reservation HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">POST /api/pt/reservation HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Authorization: JWT ACCESS TOKEN
 Content-Length: 121
@@ -1368,7 +1450,7 @@ Host: i5b305.ssafy.io
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 201 Created
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 201 Created
 Content-Type: application/json;charset=UTF-8
 Content-Length: 96
 
@@ -1432,7 +1514,7 @@ Content-Length: 96
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">DELETE /api/pt/reservation HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">DELETE /api/pt/reservation HTTP/1.1
 Content-Type: application/json;charset=UTF-8
 Authorization: JWT ACCESS TOKEN
 Content-Length: 121
@@ -1450,7 +1532,7 @@ Host: i5b305.ssafy.io
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 94
 
@@ -1498,7 +1580,7 @@ Content-Length: 94
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/pt/reservation/teacher@naver.com HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/pt/reservation/teacher@naver.com HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1508,7 +1590,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Disposition: inline;filename=f.txt
 Content-Type: application/json;charset=UTF-8
 Content-Length: 150
@@ -1529,7 +1611,7 @@ Content-Length: 150
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/pt/reservation HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/pt/reservation HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1539,7 +1621,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 294
 
@@ -1567,8 +1649,17 @@ Content-Length: 294
 <div class="paragraph">
 <p>Request Header</p>
 </div>
-<div class="paragraph">
-<p>Health API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.</p>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Health API의 모든 Request는 JWT 인증 토큰을 헤더에 포함해야 합니다.
+</td>
+</tr>
+</table>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -1596,7 +1687,7 @@ Content-Length: 294
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/health/mystudents HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/health/mystudents HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1606,7 +1697,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 386
 
@@ -1635,7 +1726,7 @@ Content-Length: 386
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">GET /api/health/myhealth HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">GET /api/health/myhealth HTTP/1.1
 Authorization: JWT ACCESS TOKEN
 Host: i5b305.ssafy.io</code></pre>
 </div>
@@ -1645,7 +1736,7 @@ Host: i5b305.ssafy.io</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight nowrap"><code class="language-http" data-lang="http">HTTP/1.1 200 OK
+<pre class="highlightjs highlight nowrap"><code data-lang="http" class="language-http hljs">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
 Content-Length: 208
 
@@ -1666,8 +1757,11 @@ Content-Length: 208
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2021-08-16 17:52:26 +0900
+Last updated 2021-08-16 20:24:26 +0900
 </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/github.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+<script>hljs.initHighlighting()</script>
 </body>
 </html>

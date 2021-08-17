@@ -19,8 +19,6 @@ public class HealthService {
 
     private final PTTeacherRepository ptTeacherRepository;
     private final PTStudentRepository ptStudentRepository;
-    private final MonthlyRepository monthlyRepository;
-    private final UserRepository userRepository;
 
     // 로그인한 사용자의 건강정보 조회
     @Transactional
@@ -30,7 +28,7 @@ public class HealthService {
         return ptStudent.getMyHealthResponse(ptStudent);
     }
 
-
+    // 선생님 : 학생들에 대한 건강정보 조회
     public HealthDto.MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
 
         if (!ptTeacherRepository.existsByEmail(teacherEmail)) {

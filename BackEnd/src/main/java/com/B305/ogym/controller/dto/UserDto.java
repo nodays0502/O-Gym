@@ -10,9 +10,7 @@ import com.B305.ogym.domain.users.ptTeacher.Sns;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import javax.validation.constraints.Max;
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -37,7 +35,6 @@ public class UserDto {
         @Pattern(regexp = "\\S+@\\S+(.com)$")
         private String email;
 
-        //    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
         @NotEmpty
         @Size(min = 3, max = 20, message = "비밀번호는 3자이상 20자 이하로 입력해주세요.")
         private String password;
@@ -76,10 +73,10 @@ public class UserDto {
         private String role;
 
         // --------------------------
-//        @NotEmpty
+
         private List<Integer> monthlyHeights;
 
-        //        @NotEmpty
+
         private List<Integer> monthlyWeights;
 
         public PTStudent toPTStudentEntity() {
@@ -107,22 +104,16 @@ public class UserDto {
         }
         // ----------
 
-        //        @NotBlank
         private String major;
 
-        //        @NotEmpty
         private List<Certificate> certificates;
 
-        //        @NotEmpty
         public List<Career> careers;
 
-        //        @NotNull
         private int price;
 
-        //        @NotBlank
         private String description;
 
-        //        @NotEmpty
         private List<Sns> snsAddrs;
 
         public PTTeacher toPTTeacherEntity() {

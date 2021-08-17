@@ -51,16 +51,6 @@ public class PTDto {
             this.description = description;
         }
     }
-//
-//    @Getter
-//    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//    public static class CancelReservationRequest {
-//        @NotNull
-//        private String ptTeacherEmail;
-//
-//
-//        private LocalDateTime reservationTime;
-//    }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -84,6 +74,7 @@ public class PTDto {
         private Pageable pageable;  // pagination 에 대한 정보
 
         private int totalPages; // 전체 페이지 수
+
         private long totalElements; // 전체 요소의 수
 
         private int numberOfElements; // 현재 페이지에 조회된 요소의 수
@@ -202,12 +193,13 @@ public class PTDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class reservationDto{
+    public static class reservationDto {
+
         private String description; // 설명
-        private String nickname ; // 상대방 닉네임
-        private String username ; // 상대방 이름
-        private String email ; // 상대방 이메일
-        private LocalDateTime reservationTime ; // 예약 시간,
+        private String nickname; // 상대방 닉네임
+        private String username; // 상대방 이름
+        private String email; // 상대방 이메일
+        private LocalDateTime reservationTime; // 예약 시간,
 
         @Builder
         public reservationDto(String description, String nickname, String username, String email,
@@ -222,7 +214,8 @@ public class PTDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class nowReservationDto{
+    public static class nowReservationDto {
+
         private String teacherNickname;
         private String studentNickname;
 
