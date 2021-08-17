@@ -3,9 +3,7 @@ import styled from 'styled-components'
 import 'antd/dist/antd.css';
 import { Layout, Menu } from 'antd';
 import { Row, Col, Button } from 'antd';
-import TrainerInfo from '../../components/organisms/TrainerInfo/TrainerInfo';
 import TrainerSearch from '../../components/organisms/TrainerSearch/TrainerSearch';
-import Payment from '../../components/organisms/Payment/Payment';
 import axios from 'axios';
 import './styles.css';
 import {
@@ -29,6 +27,8 @@ import { useRecoilState } from 'recoil';
 import { Email } from '../../recoil/atoms/Reservation/Email';
 import { Time } from '../../recoil/atoms/Reservation/Time';
 import { Date } from '../../recoil/atoms/Reservation/Date';
+import { ReservationList } from '../../recoil/atoms/Reservation/ReservationList';
+import ReservationCancel from '../../components/organisms/ReservationCancel/ReservationCancel';
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -62,12 +62,14 @@ const StyledDiv = styled.div`
 `;
 
 function StudentReservation() {
+  const accessToken = 'eyJhbGciOiJIUzUxMiJ9.eyJlbWFpbCI6InN0dWRlbnQzQGdvb2dsZS5jb20iLCJuaWNrbmFtZSI6IuuLieuEpOyehDMiLCJyb2xlIjoiUk9MRV9QVFNUVURFTlQiLCJleHAiOjE2MjkxNTk0MzB9.p6E0XRjlSn5yIvG5CgHWXfkGPsSBSjBQWyRUNkyQCHMfjjlglx9NOHnZQRHPZ9Qy3wPSSSjjn_N1q-ONLDfsfw'
   // const [selectReservation, setSelectReservation] = useState(false);
   const [teacherList, setTeacherList] = useState<any>([])
   const [reservationTab, setReservationTab] = useRecoilState(ReservationState)
   const [email, setEmail] = useRecoilState(Email)
   const [time, setTime] = useRecoilState(Time)
   const [date, setDate] = useRecoilState(Date)
+  const [reservationList, setReservationList] = useRecoilState(ReservationList)
 
   const handleClick = (e: any) => {
     console.log('click ', e);
@@ -106,6 +108,16 @@ function StudentReservation() {
     .then((response) => {
       console.log(response.data.data.teacherList)
       setTeacherList(response.data.data.teacherList)
+    })
+
+    axios.get('https://i5b305.p.ssafy.io/api/pt/reservation', {
+      headers: {
+        "Authorization": `Bearer ${accessToken}`
+      }
+    })
+    .then((response) => {
+      setReservationList(response.data.data)
+      console.log(response.data.data)
     })
   }, [])
 
@@ -146,7 +158,7 @@ function StudentReservation() {
               <TrainerSearch />
             </StyledDiv>
             <StyledDiv>
-              <Payment />
+              <ReservationCancel reservationList={reservationList} />
             </StyledDiv>
           </>
           }
@@ -196,43 +208,3 @@ function StudentReservation() {
 }
 
 export default StudentReservation
-{/* <Container align='middle' justify='center' >
-<MainNavigation />
-<Col span={18}>
-  <div style={{margin: 'auto'}}>
-    <TrainerInfo onClick={onClick}/>
-  </div>
-</Col>
-<Col span={6}>
-  { selectReservation ?
-  <StyledSider><div className="logo" />
-  <Menu
-  onClick={handleClick}
-  style={{ width: "auto" }}
-  defaultSelectedKeys={['1']}
-  defaultOpenKeys={['sub1']}
-  mode="inline"
-  
->
-  <SubMenu key="sub1" icon={<CalendarOutlined />} title="날짜선택">
-    <StudentCalendar />
-  </SubMenu>
-  <SubMenu key="sub2" icon={<FieldTimeOutlined />} title="시간선택">
-    <TimeSchedule />
-  </SubMenu>
-  <Button type="primary" onClick={onClick}>예약하기</Button>
-</Menu></StyledSider>
-:
-<>
-<StyledDiv>
-<TrainerSearch />
-</StyledDiv>
-<StyledDiv>
-  <Payment />
-</StyledDiv>
-</>
-}
-
-
-</Col>
-</Container> */}
