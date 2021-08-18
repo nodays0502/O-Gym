@@ -269,6 +269,32 @@ INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
 (164,9,49,2),
 (163,10,48,2),
 (164,11,47,2);
+INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+(173,1,65,46),
+(173,2,64,46),
+(173,3,62,46),
+(173,4,63,46),
+(173,5,61,46),
+(173,6,62,46),
+(173,7,63,46);
+INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+(158,2,45,47),
+(158,3,44,47),
+(158,4,45,47),
+(158,5,45,47),
+(158,6,46,47),
+INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+(164,4,54,48),
+(164,5,54,48),
+(164,6,54,48);
+INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+(161,1,54,49),
+(161,2,53,49),
+(161,3,53,49),
+(161,4,53,49),
+(161,5,53,49),
+(161,6,52,49),
+(161,7,51,49);
 
 INSERT INTO pt_student_pt_teacher (reservation_date,pt_student_id,pt_teacher_id,description) VALUES
 ('2021-07-28 13:00:00',1,3,'가슴+삼두'),
