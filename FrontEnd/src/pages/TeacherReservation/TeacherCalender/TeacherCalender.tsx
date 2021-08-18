@@ -176,7 +176,6 @@ const TeacherCalender = () => {
               }
             });
             let data21: {data } = await data.data;
-            console.log('teacherCalender', data21.data);
           let inko = new Inko();
           
           let addArr: {
@@ -195,12 +194,9 @@ const TeacherCalender = () => {
               username
             }) => {
   
-              console.log(reservationTime);
               let startDate = new Date(reservationTime);
-        
               let endDate = new Date(reservationTime);
               endDate.setHours(startDate.getHours()+1);
-              console.log(startDate, endDate);
               addArr.push(
                 {
                   title: `${nickname}님 PT - ${

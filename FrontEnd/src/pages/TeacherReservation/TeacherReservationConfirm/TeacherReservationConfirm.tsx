@@ -101,7 +101,6 @@ class AppointmentFormContainerBasic extends React.PureComponent {
 
     this.getAppointmentData = async () => {
       const { appointmentData } = this.props;
-
       return appointmentData;
     };
     this.getAppointmentChanges = () => {
@@ -288,7 +287,7 @@ const Appointment = ({
     {...restProps}
     style={{
       ...style,
-      backgroundColor: '#FFC107',
+      backgroundColor: '#8395fc',
       borderRadius: '8px',
     }}
   >
@@ -390,13 +389,10 @@ class Demo extends React.PureComponent {
       email,
       reservationTime
     }) => {
-      //console.log(reservationTime);
       
       let startDate = new Date(reservationTime);
-
       let endDate = new Date(reservationTime);
       endDate.setHours(startDate.getHours()+1);
-      console.log(startDate, endDate);
       return {
         title: `${nickname}님 PT - ${
           description
@@ -492,7 +488,6 @@ class Demo extends React.PureComponent {
       startDayHour,
       endDayHour,
     } = this.state;
-    const { classes } = this.props;
 
     return (
       <Paper
