@@ -10,8 +10,13 @@ const StyledDiv = styled.div`
 const StyledColumnDiv = styled.div`
    display: flex;
    flex-direction: column;
+
 `;
 
+const NavigationButtonHeader = styled.div`
+    height: 14vh;
+    background-image : url("https://ogymbucket.s3.ap-northeast-2.amazonaws.com/teacher_navbar.jpg")
+`;
 
 const TeacherReservation = (): JSX.Element => {
     return (
@@ -19,9 +24,9 @@ const TeacherReservation = (): JSX.Element => {
             <StyledDiv>
                 <StyledColumnDiv
                     >
-                    <div style={{height: "10vh"}}>
+                    <NavigationButtonHeader>
                         <MainNavigation position="sticky" /> 
-                    </div>
+                    </NavigationButtonHeader>
                     <TeacherReservationConfirm />
                 </StyledColumnDiv>
                 <StyledColumnDiv>
