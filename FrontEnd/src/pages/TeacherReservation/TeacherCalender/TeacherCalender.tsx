@@ -170,7 +170,7 @@ const TeacherCalender = () => {
           exp, email, role, nickname
         } = jwt_decode(accessToken);
         if (checkDate['nickname']) {
-            let data = await axios.get(`https://i5b305.p.ssafy.io/api/pt/reservation`, {
+            let data = await axios.get(`${process.env.REACT_APP_API_ROOT_ADDRESS}/api/pt/reservation`, {
               headers: {
                 "Authorization": `Bearer ${accessToken}`
               }
