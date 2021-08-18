@@ -14,6 +14,7 @@ import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_F
 
 import com.B305.ogym.exception.health.HealthDuplicateException;
 import com.B305.ogym.exception.pt.ReservationNotFoundException;
+import com.B305.ogym.exception.user.AuthorityNotFoundException;
 import com.B305.ogym.exception.user.NotValidRequestParamException;
 import com.B305.ogym.exception.pt.ReservationDuplicateException;
 import com.B305.ogym.exception.user.UnauthorizedException;
@@ -122,7 +123,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // 존재하지 않는 권한 조회에 대한 에러 핸들러
-    @ExceptionHandler(ReservationNotFoundException.class)
+    @ExceptionHandler(AuthorityNotFoundException.class)
     public final ResponseEntity<String> handleAuthorityNotFoundException(
         ReservationNotFoundException ex) {
         log.debug("존재하지 않는 권한", ex);
