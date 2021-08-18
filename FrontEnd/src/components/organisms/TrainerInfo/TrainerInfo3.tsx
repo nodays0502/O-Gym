@@ -89,7 +89,7 @@ function TrainerInfo3 () {
   };
 
   return (
-    <div className="demo-infinite-container">
+    <div className="demo-infinite-container" style={{height: "70vh"}}>
       <InfiniteScroll
         initialLoad={false}
         pageStart={0}

@@ -33,7 +33,7 @@ function ReservationCancel(props) {
   };
 
   return (
-    <>
+    <div>
       <List
             header={<div style={{marginLeft: "1rem"}}>예약현황</div>}
             itemLayout="horizontal"
@@ -91,7 +91,7 @@ function ReservationCancel(props) {
               </List.Item>
             )}
        />
-    </>
+    </div>
   );
 }
 

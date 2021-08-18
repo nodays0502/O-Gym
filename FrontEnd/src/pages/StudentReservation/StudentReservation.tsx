@@ -5,18 +5,6 @@ import { Divider, Layout, Menu } from 'antd';
 import { Row, Col, Button, message, Collapse } from 'antd';
 import axios from 'axios';
 import './styles.css';
-import {
-  FieldTimeOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  ShopOutlined,
-  TeamOutlined,
-  UserOutlined,
-  UploadOutlined,
-  VideoCameraOutlined, 
-  CalendarOutlined, 
-  SettingOutlined
-} from '@ant-design/icons';
 import StudentCalendar from '../../components/molecules/StudentCalendar';
 import TimeSchedule from '../../components/molecules/TimeSchedule';
 import MainNavigation from '../../components/organisms/Main/Main-Navigation';
@@ -158,10 +146,10 @@ function StudentReservation() {
       <Col span={18} style={{marginTop: '7rem'}}>
           <TrainerInfo3 />
       </Col>
-      <Col span={6} style={{height: '100vh', marginTop: '7rem', background: "none"}}>
+      <Col span={6} style={{height: '85vh', marginTop: '7rem', background: "none", overflowY: "auto"}}>
         { reservationTab ?
           <div style={{overflowY: "auto"}}>
-            <Collapse defaultActiveKey={['1', '4']}>
+            <Collapse defaultActiveKey={['1', '4']} style={{overflowY: "auto"}}>
               <Panel header="날짜 선택" key="1">
               <StudentCalendar />
               </Panel>
