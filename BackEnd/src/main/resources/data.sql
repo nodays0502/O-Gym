@@ -9,7 +9,7 @@ INSERT INTO authority (authority_name) VALUES
 ('ROLE_USER');
 
 INSERT INTO user_base (`role`,age,created_date,modified_date,address_detailed_address,address_street,address_zipcode,email,gender,nickname,password,profile_picture_addr,tel,username,authority) VALUES
-('Student',21,'2021-08-05 20:36:21.655474000','2021-08-05 20:36:21.655474000','래미안','대전광역시 유성구 동서대로 98-39','34153','chuu@ssafy.com',1,'츄','$2a$10$LD3wHUZ28afzrOxJe/kixeV2ZpgTfYOFqK9c7PV7Cxw5ihVr13Qte',NULL,'010-2021-0721','김지우','ROLE_PTSTUDENT'),
+('Student',21,'2021-08-05 20:36:21.655474000','2021-08-05 20:36:21.655474000','래미안','대전광역시 유성구 동서대로 98-39','34153','chuu@ssafy.com',1,'츄','$2a$10$LD3wHUZ28afzrOxJe/kixeV2ZpgTfYOFqK9c7PV7Cxw5ihVr13Qte','https://ogymbucket.s3.ap-northeast-2.amazonaws.com/chuu.jpg','010-2021-0721','김지우','ROLE_PTSTUDENT'),
 ('Student',19,'2021-08-05 20:33:24.766994000','2021-08-05 20:33:24.766994000','대청아파트','광주광역시 광산구 하남산단 6번로 107','62218','olivia@ssafy.com',1,'올리비아 혜','$2a$10$I4FslU2TBpser/oY559sIe5oURyIzJL2W5UhBpTdFqqPyTPR7gqoO',NULL,'010-2001-1113','손혜주','ROLE_PTSTUDENT'),
 ('Teacher',41,'2021-08-01 13:34:28.858993000','2021-08-01 13:34:28.858993000','래미안','서울특별시 강동구 가래여울길 16-1','05200','eggkim@ssafy.com',0,'김계란','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2542-2321','김성식','ROLE_PTTEACHER'),
 ('Teacher',40,'2021-08-02 15:36:25.858993000','2021-08-02 15:36:25.858993000','래미안','경기도 고양시 일산서구 산남로154번길 104-16','10204','agent@ssafy.com',0,'에이전트H','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-6453-4536','이경영','ROLE_PTTEACHER'),
@@ -54,9 +54,6 @@ INSERT INTO user_base (`role`,age,created_date,modified_date,address_detailed_ad
 ('Teacher',35,'2021-08-05 23:52:28.858993000','2021-08-05 23:52:28.858993000','힐스테이트','강충청남도 금산군 남이면 용동길 14','57812','shako@ssafy.com',1,'샤코','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-4545-6656','최예진','ROLE_PTTEACHER'),
 ('Teacher',25,'2021-07-24 15:41:28.858993000','2021-07-24 15:41:28.858993000','디에이치','전라남도 광양시 제철로 1655-835','10554','set@ssafy.com',0,'세트','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2234-5599','정차연','ROLE_PTTEACHER'),
 ('Teacher',38,'2021-07-25 21:41:28.858993000','2021-07-25 21:41:28.858993000','힐스테이트','경기도 고양시 덕양구 도내로156번길 39','10488','seraphine@ssafy.com',1,'세라핀','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-5544-4547','임호진','ROLE_PTTEACHER'),
-
-
--- 학생
 ('Student',14,'2021-08-01 13:41:28.858993000','2021-08-01 13:41:28.858993000','래미안','서울특별시 강동구 가래여울길 16-1','05200','vladimir@ssafy.com',0,'블라디미르','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2523-2390','임운오','ROLE_PTSTUDENT'),
 ('Student',16,'2021-08-02 15:41:28.858993000','2021-08-02 15:41:28.858993000','대청아파트','경기도 고양시 일산서구 산남로154번길 104-16','10204','brand@ssafy.com',0,'브랜드','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-4554-0293','박상열','ROLE_PTSTUDENT'),
 ('Student',31,'2021-08-05 13:41:28.858993000','2021-08-05 13:41:28.858993000','롯데캐슬','경기도 고양시 일산서구 산율길42번길 12','10207','samira@ssafy.com',1,'사미라','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-3364-4982','최이서','ROLE_PTSTUDENT'),
@@ -79,7 +76,7 @@ INSERT INTO user_base (`role`,age,created_date,modified_date,address_detailed_ad
 ('Student',39,'2021-07-16 16:41:28.858993000','2021-07-16 16:41:28.858993000','상성아파트','경기도 고양시 일산동구 고봉로867번길 69-1','10245','caesar@ssafy.com',0,'카이사','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-4054-2394','박나연','ROLE_PTSTUDENT'),
 ('Student',48,'2021-07-19 11:41:28.858993000','2021-07-19 11:41:28.858993000','푸르지오','전라남도 구례군 문척면 수달생태로 706','57631','kale@ssafy.com',1,'케일','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-6703-5943','이보은','ROLE_PTSTUDENT'),
 ('Student',42,'2021-07-14 14:41:28.858993000','2021-07-14 14:41:28.858993000','힐스테이트','충청남도 금산군 남이면 상초현길 100','32752','timo@ssafy.com',0,'티모','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-4023-4503','전나은','ROLE_PTSTUDENT'),
-('Student',32,'2021-07-19 13:41:28.858993000','2021-07-19 13:41:28.858993000','한신아파트','충청남도 금산군 남이면 용동길 14','pike@ssafy.com',0,'파이크','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2093-5039','김연순','ROLE_PTSTUDENT'),
+('Student',32,'2021-07-19 13:41:28.858993000','2021-07-19 13:41:28.858993000','한신아파트','충청남도 금산군 남이면 용동길 14','32751','pike@ssafy.com',0,'파이크','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2093-5039','김연순','ROLE_PTSTUDENT'),
 ('Student',23,'2021-07-14 11:41:28.858993000','2021-07-14 11:41:28.858993000','푸르지오','서울특별시 강동구 가래여울길 16-1','05200','talon@ssafy.com',0,'탈론','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-8094-6045','신희우','ROLE_PTSTUDENT'),
 ('Student',41,'2021-07-19 14:41:28.858993000','2021-07-19 14:41:28.858993000','디에이치','경기도 고양시 일산서구 산남로154번길 104-16','10204','taric@ssafy.com',1,'타릭','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-7094-3049','윤가영','ROLE_PTSTUDENT');
 
@@ -266,39 +263,39 @@ INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
 (160,6,43,1),
 (160,7,42,1),
 (160,8,41,1);
-INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(164,4,51,2),
-(164,5,46,2),
-(164,6,45,2),
-(164,9,49,2),
-(163,10,48,2),
-(164,11,47,2);
-INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(173,1,65,46),
-(173,2,64,46),
-(173,3,62,46),
-(173,4,63,46),
-(173,5,61,46),
-(173,6,62,46),
-(173,7,63,46);
-INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(158,2,45,47),
-(158,3,44,47),
-(158,4,45,47),
-(158,5,45,47),
-(158,6,46,47),
-INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(164,4,54,48),
-(164,5,54,48),
-(164,6,54,48);
-INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(161,1,54,49),
-(161,2,53,49),
-(161,3,53,49),
-(161,4,53,49),
-(161,5,53,49),
-(161,6,52,49),
-(161,7,51,49);
+-- INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+-- (164,4,51,2),
+-- (164,5,46,2),
+-- (164,6,45,2),
+-- (164,9,49,2),
+-- (163,10,48,2),
+-- (164,11,47,2);
+-- INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+-- (173,1,65,46),
+-- (173,2,64,46),
+-- (173,3,62,46),
+-- (173,4,63,46),
+-- (173,5,61,46),
+-- (173,6,62,46),
+-- (173,7,63,46);
+-- INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+-- (158,2,45,47),
+-- (158,3,44,47),
+-- (158,4,45,47),
+-- (158,5,45,47),
+-- (158,6,46,47),
+-- INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+-- (164,4,54,48),
+-- (164,5,54,48),
+-- (164,6,54,48);
+-- INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
+-- (161,1,54,49),
+-- (161,2,53,49),
+-- (161,3,53,49),
+-- (161,4,53,49),
+-- (161,5,53,49),
+-- (161,6,52,49),
+-- (161,7,51,49);
 
 INSERT INTO pt_student_pt_teacher (reservation_date,pt_student_id,pt_teacher_id,description) VALUES
 ('2021-07-28 13:00:00',1,3,'가슴+삼두'),
