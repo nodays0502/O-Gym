@@ -1,8 +1,12 @@
 package com.B305.ogym.service;
 
+import com.B305.ogym.common.util.RestResponsePage;
 import com.B305.ogym.controller.dto.PTDto.AllTeacherListResponse;
+import com.B305.ogym.controller.dto.PTDto.CareerDto;
+import com.B305.ogym.controller.dto.PTDto.CertificateDto;
 import com.B305.ogym.controller.dto.PTDto.PTTeacherDto;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
+import com.B305.ogym.controller.dto.PTDto.SnsDto;
 import com.B305.ogym.controller.dto.PTDto.nowReservationDto;
 import com.B305.ogym.controller.dto.PTDto.reservationDto;
 import com.B305.ogym.controller.dto.PTDto.reservationRequest;
@@ -12,16 +16,22 @@ import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
 import com.B305.ogym.domain.users.ptStudent.PTStudent;
 import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
+import com.B305.ogym.domain.users.ptTeacher.Career;
+import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
+import com.B305.ogym.domain.users.ptTeacher.Sns;
 import com.B305.ogym.exception.pt.ReservationNotFoundException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import com.sun.jdi.request.DuplicateRequestException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -85,24 +95,24 @@ public class PTService {
     }
 
     // 선생님 리스트 출력
+    @Cacheable(cacheNames = "teacherList", key = "#searchDto.hashCode() + #pageable.pageNumber")
     @Transactional
     public AllTeacherListResponse getTeacherList(SearchDto searchDto, Pageable pageable) {
 
         // 조건 검색
-        Page<PTTeacher> ptTeachers = ptTeacherRepository.searchAll(searchDto, pageable);
+        RestResponsePage<PTTeacher> ptTeachers = ptTeacherRepository.searchAll(searchDto, pageable);
 
         // PTTeacher 에서 원하는 정보만 담아 PTTeacherDto로 변환
         List<PTTeacherDto> ptTeacherDtos = new ArrayList<>();
         for (int i = 0; i < ptTeachers.getNumberOfElements(); i++) {
             PTTeacher ptTeacher = ptTeachers.getContent().get(i);
-            ptTeacherDtos.add(ptTeacher.toPTTeacherDto());
+            ptTeacherDtos.add(toPTTeacherDto(ptTeacher));
         }
 
         // Content와 Paging 정보를 함께 Response 객체에 담아 반환
 
         return AllTeacherListResponse.builder()
             .teacherList(ptTeacherDtos)
-            .pageable(ptTeachers.getPageable())
             .totalPages(ptTeachers.getTotalPages())
             .totalElements(ptTeachers.getTotalElements())
             .numberOfElements(ptTeachers.getNumberOfElements())
@@ -159,9 +169,9 @@ public class PTService {
         String teacherEmail = null;
         String studentEmail = null;
         UserBase user = userRepository.findByEmail(userEmail).orElseThrow();
-        if("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())){
+        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
             teacherEmail = userEmail;
-        }else{
+        } else {
             studentEmail = userEmail;
         }
         List<String> nowReservation = ptStudentPTTeacherRepository
@@ -174,6 +184,79 @@ public class PTService {
             .studentNickname(nowReservation.get(1))
             .build();
         return result;
+    }
+
+    public PTTeacherDto toPTTeacherDto(PTTeacher ptTeacher) {
+
+        List<Certificate> certificates = ptTeacher.getCertificates();
+        List<CertificateDto> certificateDtos = new ArrayList<>();
+
+        for (int i = 0; i < certificates.size(); i++) {
+            Certificate certificate = certificates.get(i);
+            CertificateDto certificateDto = CertificateDto.builder()
+                .name(certificate.getName())
+                .date(certificate.getDate())
+                .publisher(certificate.getPublisher())
+                .build();
+            certificateDtos.add(certificateDto);
+        }
+
+        List<Career> careers = ptTeacher.getCareers();
+        List<CareerDto> careerDtos = new ArrayList<>();
+
+        for (int i = 0; i < careers.size(); i++) {
+            Career career = careers.get(i);
+            CareerDto careerDto = CareerDto.builder()
+                .company(career.getCompany())
+                .startDate(career.getStartDate())
+                .endDate(career.getEndDate())
+                .role(career.getRole())
+                .build();
+            careerDtos.add(careerDto);
+        }
+
+        Set<PTStudentPTTeacher> ptStudentPTTeachers = ptTeacher.getPtStudentPTTeachers();
+        List<PTStudentPTTeacher> ptStudentPTTeachersList = new ArrayList<>(ptStudentPTTeachers);
+        List<LocalDateTime> reservations = new ArrayList<>();
+
+        for (int i = 0; i < ptStudentPTTeachersList.size(); i++) {
+            PTStudentPTTeacher ptStudentPTTeacher = ptStudentPTTeachersList.get(i);
+            reservations.add(ptStudentPTTeacher.getReservationDate());
+        }
+
+        Collections.sort(reservations);
+
+        List<Sns> snsList = ptTeacher.getSnss();
+        List<SnsDto> snsDtos = new ArrayList<>();
+
+        for (int i = 0; i < snsList.size(); i++) {
+            Sns sns = snsList.get(i);
+            SnsDto snsDto = SnsDto.builder()
+                .platform(sns.getPlatform())
+                .url(sns.getUrl())
+                .build();
+            snsDtos.add(snsDto);
+        }
+
+        PTTeacherDto ptTeacherDto = PTTeacherDto.builder().username(ptTeacher.getUsername())
+            .gender(ptTeacher.getGender())
+            .nickname(ptTeacher.getNickname())
+            .age(ptTeacher.getAge())
+            .tel(ptTeacher.getTel())
+            .email(ptTeacher.getEmail())
+            .profilePicture(ptTeacher.getProfilePicture())
+            .starRating(ptTeacher.getStarRating())
+            .major(ptTeacher.getMajor())
+            .price(ptTeacher.getPrice())
+            .description(ptTeacher.getDescription())
+            .certificates(certificateDtos)
+            .careers(careerDtos)
+            .reservations(reservations)
+            .snsList(snsDtos)
+            .build();
+
+        return ptTeacherDto;
+
     }
 
 

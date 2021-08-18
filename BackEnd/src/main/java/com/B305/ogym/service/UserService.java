@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -50,6 +51,7 @@ public class UserService {
     private final String ROLE_PTSTUDENT = "ROLE_PTSTUDENT";
 
     // 회원가입 메서드
+    @CacheEvict(value = "teacherList", allEntries = true)
     @Transactional
     public void signup(UserDto.SaveUserRequest userRequest) {
         if (userRepository.existsByEmail(userRequest.getEmail())) {

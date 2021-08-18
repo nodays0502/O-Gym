@@ -8,6 +8,7 @@ import static com.B305.ogym.domain.users.ptTeacher.QCertificate.certificate;
 import static com.B305.ogym.domain.users.ptTeacher.QPTTeacher.pTTeacher;
 import static com.B305.ogym.domain.users.ptTeacher.QSns.sns;
 
+import com.B305.ogym.common.util.RestResponsePage;
 import com.B305.ogym.controller.dto.HealthDto.MyStudentsHealthListResponse;
 import com.B305.ogym.controller.dto.HealthDto.StudentHealth;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
@@ -47,6 +48,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         this.em = em;
         queryFactory = new JPAQueryFactory(em);
     }
+
     // 해당 선생님 관련 학생들의 건강정보 조회 메서드
     @Override
     public MyStudentsHealthListResponse findMyStudentsHealth(String teacherEmail) {
@@ -82,9 +84,63 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         return myStudentsHealthListResponse;
     }
 
+    // 선생님의 정보 조회 메서드
+    @Override
+    public Map<String, Object> getInfo(String teacherEmail, List<String> req) { // "username" , "id"
+
+        Tuple result = queryFactory
+            .select(pTTeacher.id, pTTeacher.email, pTTeacher.username, pTTeacher.nickname,
+                pTTeacher.age,
+                pTTeacher.gender, pTTeacher.tel, pTTeacher.address, pTTeacher.authority,
+                pTTeacher.major, pTTeacher.price, pTTeacher.description)
+            .from(pTTeacher)
+            .where(pTTeacher.email.eq(teacherEmail))
+            .fetchOne();
+
+        Map<String, Object> map = new HashMap<>();
+        req.forEach(o -> {
+            if ("certificates".equals(o)) {
+                List<CertificateDto> certificates = queryFactory
+                    .select(Projections.fields(CertificateDto.class,
+                        certificate.name.as("name"),
+                        certificate.publisher.as("publisher"),
+                        certificate.date.as("date")))
+                    .from(certificate)
+                    .where(certificate.ptTeacher.email.eq(teacherEmail))
+                    .fetch();
+                map.put(o, certificates);
+            } else if ("careers".equals(o)) {
+                List<CareerDto> careers = queryFactory
+                    .select(Projections.fields(CareerDto.class,
+                        career.company.as("company"),
+                        career.startDate.as("startDate"),
+                        career.endDate.as("endDate"),
+                        career.role.as("role")))
+                    .from(career)
+                    .where(career.ptTeacher.email.eq(teacherEmail))
+                    .fetch();
+                map.put(o, careers);
+            } else if ("snss".equals(o)) {
+                List<SnsDto> snss = queryFactory
+                    .select(Projections.fields(SnsDto.class,
+                        sns.url.as("url"),
+                        sns.platform.as("platform")))
+                    .from(sns)
+                    .where(sns.ptTeacher.email.eq(teacherEmail))
+                    .fetch();
+                map.put(o, snss);
+            } else {
+                assert result != null;
+                map.put(o, result.get(check.get(o)));
+            }
+        });
+
+        return map;
+    }
+
     // 선생님 리스트 조건 검색
     @Override
-    public Page<PTTeacher> searchAll(SearchDto searchDto, Pageable pageable) {
+    public RestResponsePage<PTTeacher> searchAll(SearchDto searchDto, Pageable pageable) {
 
         QueryResults<PTTeacher> results = queryFactory
             .selectFrom(pTTeacher)
@@ -100,7 +156,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             .limit(pageable.getPageSize())  // 페이징 처리(한 페이지에 출력할 개체 수)
             .orderBy(pTTeacher.starRating.desc())   // 별점 높은 순으로 출력
             .fetchResults();    // 결과 + count
-        return new PageImpl<>(results.getResults(), pageable, results.getTotal());
+        return new RestResponsePage<>(results.getResults(), pageable, results.getTotal());
     }
 
     // 이름 포함
@@ -152,6 +208,7 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
         return pTTeacher.age.goe(minAge);
 
     }
+
     // 선생님의 예약 정보 조회 메서드
     @Override
     public List<LocalDateTime> reservationTime(String teacherEmail) {
