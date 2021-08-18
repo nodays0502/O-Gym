@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import javax.validation.constraints.FutureOrPresent;
@@ -51,16 +52,6 @@ public class PTDto {
             this.description = description;
         }
     }
-//
-//    @Getter
-//    @NoArgsConstructor(access = AccessLevel.PROTECTED)
-//    public static class CancelReservationRequest {
-//        @NotNull
-//        private String ptTeacherEmail;
-//
-//
-//        private LocalDateTime reservationTime;
-//    }
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -81,9 +72,8 @@ public class PTDto {
 
         private List<PTTeacherDto> teacherList;
 
-        private Pageable pageable;  // pagination 에 대한 정보
-
         private int totalPages; // 전체 페이지 수
+
         private long totalElements; // 전체 요소의 수
 
         private int numberOfElements; // 현재 페이지에 조회된 요소의 수
@@ -185,6 +175,29 @@ public class PTDto {
     @AllArgsConstructor
     public static class SearchDto {
 
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) {
+                return true;
+            }
+            if (o == null || getClass() != o.getClass()) {
+                return false;
+            }
+            SearchDto searchDto = (SearchDto) o;
+            return Objects.equals(getName(), searchDto.getName()) && getGender() == searchDto
+                .getGender() && Objects.equals(getMinAge(), searchDto.getMinAge())
+                && Objects.equals(getMaxAge(), searchDto.getMaxAge()) && Objects
+                .equals(getMinPrice(), searchDto.getMinPrice()) && Objects
+                .equals(getMaxPrice(), searchDto.getMaxPrice());
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects
+                .hash(getName(), getGender(), getMinAge(), getMaxAge(), getMinPrice(),
+                    getMaxPrice());
+        }
+
         @Builder.Default
         private String name = null;
         @Builder.Default
@@ -202,12 +215,13 @@ public class PTDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class reservationDto{
+    public static class reservationDto {
+
         private String description; // 설명
-        private String nickname ; // 상대방 닉네임
-        private String username ; // 상대방 이름
-        private String email ; // 상대방 이메일
-        private LocalDateTime reservationTime ; // 예약 시간,
+        private String nickname; // 상대방 닉네임
+        private String username; // 상대방 이름
+        private String email; // 상대방 이메일
+        private LocalDateTime reservationTime; // 예약 시간,
 
         @Builder
         public reservationDto(String description, String nickname, String username, String email,
@@ -222,7 +236,8 @@ public class PTDto {
 
     @Getter
     @NoArgsConstructor(access = AccessLevel.PROTECTED)
-    public static class nowReservationDto{
+    public static class nowReservationDto {
+
         private String teacherNickname;
         private String studentNickname;
 

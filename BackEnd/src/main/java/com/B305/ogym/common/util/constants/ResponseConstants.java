@@ -1,6 +1,5 @@
 package com.B305.ogym.common.util.constants;
 
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -33,9 +32,6 @@ public class ResponseConstants {
     public static final ResponseEntity<String> DUPLICATION_RESERVATION =
         new ResponseEntity<>("해당 시간에 예약할 수 없습니다.", HttpStatus.CONFLICT);
 
-    //    public static final ResponseEntity<String> DUPLICATION_USER =
-//        new ResponseEntity<>("이미 존재하는 유저입니다.", HttpStatus.CONFLICT);
-
     public static final ResponseEntity<String> NOT_VALID_PARAM =
         new ResponseEntity<>("입력하지 않은 파라미터가 존재합니다.", HttpStatus.CONFLICT);
 
@@ -45,6 +41,9 @@ public class ResponseConstants {
         );
     public static final ResponseEntity<String> RESERVATION_NOT_FOUND =
         new ResponseEntity<>("권한이 없거나, 유효한 예약정보를 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
+
+    public static final ResponseEntity<String> AUTHORITY_NOT_FOUND =
+        new ResponseEntity<>("권한을 찾을 수 없습니다.", HttpStatus.NOT_FOUND);
 
     public static final ResponseEntity<String> TEACHER_NOT_FOUND =
         new ResponseEntity<>(

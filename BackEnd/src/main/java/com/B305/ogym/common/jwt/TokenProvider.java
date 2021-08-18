@@ -1,14 +1,9 @@
 package com.B305.ogym.common.jwt;
 
 import com.B305.ogym.common.util.RedisUtil;
-import com.B305.ogym.controller.dto.AuthDto;
 import com.B305.ogym.controller.dto.AuthDto.TokenDto;
 import com.B305.ogym.domain.users.UserRepository;
 import com.B305.ogym.domain.users.common.UserBase;
-import com.B305.ogym.domain.users.ptStudent.PTStudent;
-import com.B305.ogym.domain.users.ptStudent.PTStudentRepository;
-import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
-import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
 import com.B305.ogym.exception.user.UnauthorizedException;
 import com.B305.ogym.exception.user.UserNotFoundException;
 import io.jsonwebtoken.Claims;
@@ -27,13 +22,11 @@ import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.InitializingBean;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -64,23 +57,29 @@ public class TokenProvider implements InitializingBean {
         this.redisUtil = redisUtil;
     }
 
+    /*
+     * 시크릿 키 설정
+     */
     @Override
     public void afterPropertiesSet() {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
     }
 
+    /*
+     * 검증된 이메일에 대해 토큰을 생성하는 메서드
+     */
     public TokenDto createToken(String email,
-        String authorities) { // authentication Principal mail , Credential password
+        String authorities) {
 
         long now = (new Date()).getTime();
-//        Date validity = new Date(now + this.tokenValidityInMilliseconds);
+
         UserBase user = userRepository.findByEmail(email) // princial.toSTring()
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
 
         String accessToken = Jwts.builder()
             .claim("email", user.getEmail())
-            .claim("nickname",user.getNickname())
+            .claim("nickname", user.getNickname())
             .claim(AUTHORITIES_KEY, authorities)
             .setExpiration(new Date(now + accessTokenValidityInMilliseconds))
             .signWith(key, SignatureAlgorithm.HS512)
@@ -94,18 +93,11 @@ public class TokenProvider implements InitializingBean {
 
         return new TokenDto(accessToken, refreshToken);
 
-/*        return Jwts.builder()
-//            .claim("id",user.getId())
-            .claim("email", user.getEmail())
-//            .setSubject(authentication.getName())
-            .claim(AUTHORITIES_KEY, authorities)
-            .signWith(key, SignatureAlgorithm.HS512)
-            .setExpiration(validity)
-            .compact();*/
-
     }
 
-
+    /*
+     * 권한 가져오는 메서드
+     */
     public Authentication getAuthentication(String token) {
         Claims claims = getClaims(token);
 
@@ -113,15 +105,16 @@ public class TokenProvider implements InitializingBean {
             Arrays.stream(claims.get(AUTHORITIES_KEY).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
-//        String email = claims.get("email").toString();
-        return new UsernamePasswordAuthenticationToken(new UserBase(claims), null, authorities);
-//        return new UsernamePasswordAuthenticationToken(email, "", authorities);
+        return new UsernamePasswordAuthenticationToken(claims.get("email"), null, authorities);
     }
 
+    /*
+     * 토큰 유효성 검사하는 메서드
+     */
     public boolean validateToken(String token) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
-            System.out.println("validate 들어옴");
+            logger.info("validate 들어옴");
             if (redisUtil.hasKeyBlackList(token)) {
                 throw new UnauthorizedException("이미 탈퇴한 회원입니다");
             }
@@ -140,6 +133,9 @@ public class TokenProvider implements InitializingBean {
         return false;
     }
 
+    /*
+     * 토큰에서 Claim 추츨하는 메서드
+     */
     public Claims getClaims(String token) {
         try {
             return Jwts

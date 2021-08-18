@@ -6,6 +6,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.stereotype.Component;
 
+/*
+    Redis 저장소 메서드들을 보다 편하게 사용하기 위한 Util
+ */
+
+
 @Component
 public class RedisUtil {
 

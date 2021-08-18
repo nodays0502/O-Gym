@@ -4,7 +4,6 @@ import static com.B305.ogym.ApiDocumentUtils.getDocumentRequest;
 import static com.B305.ogym.ApiDocumentUtils.getDocumentResponse;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
-import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
@@ -14,7 +13,6 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.request.RequestDocumentation.*;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.snippet.Attributes.key;
-import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.user;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.SharedHttpSessionConfigurer.sharedHttpSession;
@@ -24,6 +22,7 @@ import com.B305.ogym.common.config.SecurityConfig;
 import com.B305.ogym.controller.dto.PTDto.AllTeacherListResponse;
 import com.B305.ogym.controller.dto.PTDto.PTTeacherDto;
 import com.B305.ogym.controller.dto.PTDto.SearchDto;
+import com.B305.ogym.controller.dto.PTDto.nowReservationDto;
 import com.B305.ogym.controller.dto.PTDto.reservationDto;
 import com.B305.ogym.controller.dto.PTDto.reservationRequest;
 import com.B305.ogym.domain.users.common.Gender;
@@ -32,7 +31,6 @@ import com.B305.ogym.service.PTService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,12 +42,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.mapping.JpaMetamodelMappingContext;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
-import org.springframework.restdocs.mockmvc.MockMvcRestDocumentation;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
@@ -365,17 +361,37 @@ class PTApiControllerTest {
     @DisplayName("유저의 예약된 시간 조회 - 실패")
     @Test
     public void getReservationTime_failure() throws Exception {
-        String userEmail = "userEmail@naver.com";
-        given(ptService.getReservationTime(userEmail))
+        given(ptService.getReservationTime(any()))
             .willThrow(new UserNotFoundException("해당 유저는 이미 탈퇴한 회원입니다."));
-
-        assertThrows(UserNotFoundException.class,
-            () -> ptService.getReservationTime(userEmail));
 
         mockMvc.perform(get("/api/pt/reservation")
             .header("Authorization", "JWT ACCESS TOKEN"))
             .andDo(print())
             .andExpect(status().isNotFound());
+    }
+
+    @WithAuthUser(email = "userEmail@naver.com", role = "ROLE_PTSTUDENT")
+    @DisplayName("요청한 시간을 기준으로 10분 이전/이후의 예약을 조회 - 성공")
+    @Test
+    public void getNowReservation_success() throws Exception {
+        String userEmail = "userEmail@naver.com";
+
+        nowReservationDto nowReservation = nowReservationDto.builder()
+            .studentNickname("학생")
+            .teacherNickname("트레이너")
+            .build();
+
+        given(ptService.getNowReservation(any())).willReturn(nowReservation);
+
+        mockMvc.perform(get("/api/pt/nowreservation")
+            .header("Authorization", "JWT ACCESS TOKEN"))
+            .andDo(print())
+            .andExpect(status().isOk())
+            .andDo(document(
+                "PTApi/getNowReservation/successful",
+                getDocumentRequest(),
+                getDocumentResponse()
+            ));
     }
 
 }

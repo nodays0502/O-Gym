@@ -4,13 +4,9 @@ import static com.B305.ogym.ApiDocumentUtils.getDocumentRequest;
 import static com.B305.ogym.ApiDocumentUtils.getDocumentResponse;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.verify;
 import static org.springframework.restdocs.headers.HeaderDocumentation.headerWithName;
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -21,10 +17,8 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
-import static org.springframework.restdocs.payload.PayloadDocumentation.subsectionWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
-import static org.springframework.restdocs.request.RequestDocumentation.requestParameters;
 import static org.springframework.restdocs.snippet.Attributes.key;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -66,9 +60,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @WebMvcTest(controllers = UserApiController.class, excludeFilters = {
     @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE, classes = SecurityConfig.class)}
 )
-//@ActiveProfiles("test") // 테스트에서 사용할 profile
 @MockBean(JpaMetamodelMappingContext.class) // @EnableJPaAuditing 사용시 추가해야하는 어노테이션
-//@AutoConfigureMockMvc(addFilters = false)
 class UserApiControllerTest {
 
     @MockBean
@@ -362,14 +354,9 @@ class UserApiControllerTest {
     @DisplayName("학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)")
     @Test
     public void deleteTeacher_failure() throws Exception {
-        //given
-        String email = "teacher@naver.com";
-
-        //when
         doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
-            .deleteUserBase(eq(email), any());
+            .deleteUserBase(any(), any());
 
-        //then
         mockMvc.perform(delete("/api/user")
             .header("Authorization", "JWT ACCESS TOKEN"))
             .andDo(print())
@@ -415,14 +402,9 @@ class UserApiControllerTest {
     @DisplayName("학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)")
     @Test
     public void deleteStudent_failure() throws Exception {
-        //given
-        String email = "student@naver.com";
-
-        //when
         doThrow(new UserNotFoundException("해당하는 이메일이 존재하지 않습니다")).when(userService)
-            .deleteUserBase(eq(email), any());
+            .deleteUserBase(any(), any());
 
-        //then
         mockMvc.perform(delete("/api/user")
             .header("Authorization", "JWT ACCESS TOKEN"))
             .andDo(print())
@@ -438,7 +420,6 @@ class UserApiControllerTest {
     @DisplayName("회원 정보조회 - 정보조회 성공")
     @Test
     public void getUserInfo_success() throws Exception {
-        String email = "teacher@naver.com";
         Map<String, Object> data = new HashMap<>();
         data.put("id", 1);
         data.put("email", "teacher@naver.com");
@@ -470,14 +451,12 @@ class UserApiControllerTest {
     @DisplayName("회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패")
     @Test
     public void getUserInfo_failure() throws Exception {
-        String email = "teacher@naver.com";
+        List<String> req = Arrays.asList("id", "email");
 
-        ArrayList<String> req = new ArrayList<>(Arrays.asList("id", "email"));
-
-        given(userService.getUserInfo(email, req))
+        given(userService.getUserInfo(any(), any()))
             .willThrow(new UserNotFoundException("해당하는 유저가 존재하지 않습니다"));
 
-        mockMvc.perform(get("/api/user/id,email")
+        mockMvc.perform(get("/api/user/{req}", req)
             .header("Authorization", "JWT ACCESS TOKEN"))
             .andDo(print())
             .andExpect(status().isNotFound())

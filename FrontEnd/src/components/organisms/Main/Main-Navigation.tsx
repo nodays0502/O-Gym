@@ -189,10 +189,10 @@ const MainNavigation = (props): JSX.Element => {
             {role === 'ROLE_PTSTUDENT' ? 
             
             <Col span={12} style={{ backgroundColor: "#F08C8C", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column" }}>
-              <Link to={'/내건강분석'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+              <Link to={'/studentchart'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
               <img src={barChart} alt="내 건강분석" style={{width: "80%"}}/>
               </Link>
-              <Link to={'/내건강분석'}>
+              <Link to={'/studentchart'}>
               <p style={{color: "white", fontSize: "1.5rem"}}>내 건강 분석</p>
               </Link>
             </Col>
@@ -207,10 +207,10 @@ const MainNavigation = (props): JSX.Element => {
             {role === 'ROLE_PTTEACHER' ?
             
             <Col span={12} style={{backgroundColor: "#dcdcdc", display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"}}>
-            <Link to={'/내학생관리'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
+            <Link to={'/trainerchart'} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column", height: "50%", width: "15%" }}>
             <img src={work} alt="내 학생 관리" style={{width: "80%"}}/>
             </Link>
-            <Link to={'/내학생관리'}>
+            <Link to={'/trainerchart'}>
             <p style={{color: "white", fontSize: "1.5rem", marginTop: "1rem"}}>내 학생 관리</p>
             </Link>
               </Col>

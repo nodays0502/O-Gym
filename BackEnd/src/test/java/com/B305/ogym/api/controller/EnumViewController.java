@@ -1,12 +1,7 @@
 package com.B305.ogym.api.controller;
 
-import com.B305.ogym.controller.dto.SuccessResponseDto;
-import com.B305.ogym.domain.users.common.Gender;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-import org.springframework.boot.autoconfigure.batch.BatchProperties.Job;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

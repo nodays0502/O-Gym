@@ -65,12 +65,7 @@ public class PTTeacher extends UserBase {
     @OneToMany(mappedBy = "ptTeacher", cascade = CascadeType.ALL)
     private Set<PTStudentPTTeacher> ptStudentPTTeachers = new LinkedHashSet<>();
 
-    // 이력?
-
     public void addCertificate(Certificate certificate) {
-//        if(this.certificates == null){
-//            this.certificates = new ArrayList<>();
-//        }
         this.certificates.add(certificate);
         if (certificate.getPtTeacher() != this) {
             certificate.setPtTeacher(this);
@@ -78,9 +73,6 @@ public class PTTeacher extends UserBase {
     }
 
     public void addCareer(Career career) {
-//        if(this.careers == null) {
-//            this.careers = new ArrayList<>();
-//        }
         this.careers.add(career);
         if (career.getPtTeacher() != this) {
             career.setPtTeacher(this);
@@ -91,6 +83,41 @@ public class PTTeacher extends UserBase {
         this.snss.add(sns);
         if (sns.getPtTeacher() != this) {
             sns.setPtTeacher(this);
+        }
+    }
+
+    public Object getInfo(String req){
+        if("id".equals(req)){
+            return this.getId();
+        }else if("email".equals(req)){
+            return this.getEmail();
+        }else if("username".equals(req)){
+            return this.getUsername();
+        }else if("nickname".equals(req)){
+            return this.getNickname();
+        }else if("age".equals(req)){
+            return this.getAge();
+        }else if("gender".equals(req)){
+            return this.getGender();
+        }else if("tel".equals(req)){
+            return this.getTel();
+        }else if("address".equals(req)){
+            return this.getAddress();
+        }else if("role".equals(req)){
+            return this.getAuthority().getAuthorityName();
+        }else if("major".equals(req)){
+            return this.getMajor();
+        }else if("price".equals(req)){
+            return this.getPrice();
+        }else if("description".equals(req)){
+            return this.getDescription();
+        }else if("profilePictureURL".equals(req)){
+            if(this.getProfilePicture()!= null)
+                return this.getProfilePicture().getPictureAddr();
+            else
+                return null;
+        }else{
+            return null;
         }
     }
 

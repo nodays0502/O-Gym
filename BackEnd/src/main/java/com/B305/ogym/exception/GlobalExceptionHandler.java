@@ -1,5 +1,6 @@
 package com.B305.ogym.exception;
 
+import static com.B305.ogym.common.util.constants.ResponseConstants.AUTHORITY_NOT_FOUND;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_EMAIL;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_MONTH;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_NICKNAME;
@@ -12,6 +13,8 @@ import static com.B305.ogym.common.util.constants.ResponseConstants.USER_NOT_FOU
 import static com.B305.ogym.common.util.constants.ResponseConstants.VALIDATION_FAILED;
 
 import com.B305.ogym.exception.health.HealthDuplicateException;
+import com.B305.ogym.exception.pt.ReservationNotFoundException;
+import com.B305.ogym.exception.user.AuthorityNotFoundException;
 import com.B305.ogym.exception.user.NotValidRequestParamException;
 import com.B305.ogym.exception.pt.ReservationDuplicateException;
 import com.B305.ogym.exception.user.UnauthorizedException;
@@ -38,24 +41,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid(
         MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status,
         WebRequest request) {
-
-//        ExceptionResponse exceptionResponse = ExceptionResponse.builder()
-//            .message("Vaildation Failed")
-////            .Error(ex.getBindingResult().toString())
-//            .Error(ex.getMessage())
-//            .build();
-//        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
-
         log.debug("Vaildation failed", ex);
         return VALIDATION_FAILED;
     }
-
-//    // 이미 존재하는 유저 가입에 대한 에러 핸들러
-//    @ExceptionHandler(UserDuplicateException.class)
-//    public final ResponseEntity<String> handleUserDuplicateException(UserDuplicateException ex) {
-//        log.debug("중복 유저", ex);
-//        return DUPLICATION_USER;
-//    }
 
     // 이미 존재하는 Email 가입에 대한 에러 핸들러
     @ExceptionHandler(UserDuplicateEmailException.class)
@@ -93,13 +81,19 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(UserNotFoundException.class)
     public final ResponseEntity<String> handleUserNotFoundException(UserNotFoundException ex) {
         log.debug("존재하지 않는 유저", ex);
-        if (ex.getMessage().equals("TEACHER")) {
+        if ("TEACHER".equals(ex.getMessage())) {
             return TEACHER_NOT_FOUND;
-        } else if (ex.getMessage().equals("CANCEL_RESERVATION")) {
-            return RESERVATION_NOT_FOUND;
         } else {
             return USER_NOT_FOUND;
         }
+    }
+
+    // 존재하지 않는 예약정보 조회에 대한 에러 핸들러
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public final ResponseEntity<String> handleReservationNotFoundException(
+        ReservationNotFoundException ex) {
+        log.debug("존재하지 않는 예약정보", ex);
+        return RESERVATION_NOT_FOUND;
     }
 
 
@@ -127,4 +121,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.debug("server error", ex);
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // 존재하지 않는 권한 조회에 대한 에러 핸들러
+    @ExceptionHandler(AuthorityNotFoundException.class)
+    public final ResponseEntity<String> handleAuthorityNotFoundException(
+        ReservationNotFoundException ex) {
+        log.debug("존재하지 않는 권한", ex);
+        return AUTHORITY_NOT_FOUND;
+    }
+
 }
