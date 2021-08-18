@@ -17,6 +17,7 @@ import com.B305.ogym.domain.users.ptTeacher.Certificate;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacher;
 import com.B305.ogym.domain.users.ptTeacher.PTTeacherRepository;
 import com.B305.ogym.domain.users.ptTeacher.Sns;
+import com.B305.ogym.exception.user.AuthorityNotFoundException;
 import com.B305.ogym.exception.user.NotValidRequestParamException;
 import com.B305.ogym.exception.user.UserDuplicateEmailException;
 import com.B305.ogym.exception.user.UserDuplicateNicknameException;
@@ -45,6 +46,9 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
     private final RedisUtil redisUtil;
 
+    private final String ROLE_PTTEACHER = "ROLE_PTTEACHER";
+    private final String ROLE_PTSTUDENT = "ROLE_PTSTUDENT";
+
     // 회원가입 메서드
     @Transactional
     public void signup(UserDto.SaveUserRequest userRequest) {
@@ -54,8 +58,10 @@ public class UserService {
         if (userRepository.existsByNickname(userRequest.getNickname())) {
             throw new UserDuplicateNicknameException("이미 가입되어 있는 nickname입니다.");
         }
-        if ("ROLE_PTTEACHER".equals(userRequest.getRole())) {
-            Authority teacherRole = authorityRepository.findById("ROLE_PTTEACHER").get();
+        if (ROLE_PTTEACHER.equals(userRequest.getRole())) {
+            Authority teacherRole = authorityRepository.findById(ROLE_PTTEACHER).orElseThrow(
+                () -> new AuthorityNotFoundException("해당 권한이 존재하지 않습니다.")
+            );
 
             PTTeacher ptTeacher = userRequest.toPTTeacherEntity();
             ptTeacher.setPassword(passwordEncoder.encode(userRequest.getPassword()));
@@ -66,7 +72,10 @@ public class UserService {
             userRequest.getSnsAddrs().forEach(ptTeacher::addSns);
             ptTeacherRepository.save(ptTeacher);
         } else {
-            Authority studentRole = authorityRepository.findById("ROLE_PTSTUDENT").get();
+            Authority studentRole = authorityRepository.findById(ROLE_PTSTUDENT).orElseThrow(
+                () -> new AuthorityNotFoundException("해당 권한이 존재하지 않습니다.")
+            );
+
             PTStudent ptStudent = userRequest.toPTStudentEntity();
             ptStudent.setPassword(passwordEncoder.encode(userRequest.getPassword()));
             ptStudent.setRole(studentRole);
@@ -99,7 +108,7 @@ public class UserService {
         UserBase user = userRepository.findByEmail(userEmail)
             .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
         Map<String, Object> map = new HashMap<>();
-        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
+        if (ROLE_PTTEACHER.equals(user.getAuthority().getAuthorityName())) {
             PTTeacher teacher = ptTeacherRepository.findByEmail(userEmail)
                 .orElseThrow(() -> new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
             req.stream().forEach(o -> {
@@ -114,7 +123,7 @@ public class UserService {
                                 .build()
                         );
                     });
-                    map.put(o,snssDto);
+                    map.put(o, snssDto);
                 } else if ("careers".equals(o)) {
                     List<CareerDto> careersDto = new ArrayList<>();
                     List<Career> careers = teacher.getCareers();
@@ -127,7 +136,7 @@ public class UserService {
                                 .role(career.getRole())
                                 .build());
                     });
-                    map.put(o,careersDto);
+                    map.put(o, careersDto);
                 } else if ("certificates".equals(o)) {
                     List<CertificateDto> certificatesDto = new ArrayList<>();
                     List<Certificate> certificates = teacher.getCertificates();
@@ -140,7 +149,7 @@ public class UserService {
                                     .build());
                         }
                     );
-                    map.put(o,certificatesDto);
+                    map.put(o, certificatesDto);
                 } else {
                     map.put(o, teacher.getInfo(o));
                 }

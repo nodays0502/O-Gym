@@ -1,5 +1,6 @@
 package com.B305.ogym.exception;
 
+import static com.B305.ogym.common.util.constants.ResponseConstants.AUTHORITY_NOT_FOUND;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_EMAIL;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_MONTH;
 import static com.B305.ogym.common.util.constants.ResponseConstants.DUPLICATION_NICKNAME;
@@ -119,4 +120,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         log.debug("server error", ex);
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+    // 존재하지 않는 권한 조회에 대한 에러 핸들러
+    @ExceptionHandler(ReservationNotFoundException.class)
+    public final ResponseEntity<String> handleAuthorityNotFoundException(
+        ReservationNotFoundException ex) {
+        log.debug("존재하지 않는 권한", ex);
+        return AUTHORITY_NOT_FOUND;
+    }
+
 }
