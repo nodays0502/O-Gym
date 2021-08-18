@@ -420,7 +420,6 @@ class UserApiControllerTest {
     @DisplayName("회원 정보조회 - 정보조회 성공")
     @Test
     public void getUserInfo_success() throws Exception {
-        String email = "teacher@naver.com";
         Map<String, Object> data = new HashMap<>();
         data.put("id", 1);
         data.put("email", "teacher@naver.com");
