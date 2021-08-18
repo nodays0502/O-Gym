@@ -47,6 +47,9 @@ public class PTService {
     private final PTStudentPTTeacherRepository ptStudentPTTeacherRepository;
     private final UserRepository userRepository;
 
+    private final String ROLE_PTTEACHER = "ROLE_PTTEACHER";
+    private final String ROLE_PTSTUDENT = "ROLE_PTSTUDENT";
+
     // 예약 생성
     @Transactional
     public void makeReservation(String ptStudentEmail, reservationRequest request) {
@@ -132,7 +135,7 @@ public class PTService {
         UserBase user = userRepository.findByEmail(email).orElseThrow(() ->
             new UserNotFoundException("해당하는 이메일이 존재하지 않습니다."));
         List<reservationDto> result = new ArrayList<>();
-        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
+        if (ROLE_PTTEACHER.equals(user.getAuthority().getAuthorityName())) {
             ptTeacherRepository.getReservationTime(email).forEach(
                 o -> {
                     result.add(
@@ -169,7 +172,7 @@ public class PTService {
         String teacherEmail = null;
         String studentEmail = null;
         UserBase user = userRepository.findByEmail(userEmail).orElseThrow();
-        if ("ROLE_PTTEACHER".equals(user.getAuthority().getAuthorityName())) {
+        if (ROLE_PTTEACHER.equals(user.getAuthority().getAuthorityName())) {
             teacherEmail = userEmail;
         } else {
             studentEmail = userEmail;
