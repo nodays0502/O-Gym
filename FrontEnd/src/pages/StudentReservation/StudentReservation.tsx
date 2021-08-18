@@ -17,6 +17,7 @@ import { Date } from '../../recoil/atoms/Reservation/Date';
 import { ReservationList } from '../../recoil/atoms/Reservation/ReservationList';
 import ReservationCancel from '../../components/organisms/ReservationCancel/ReservationCancel';
 import { useHistory } from 'react-router-dom';
+import arrow from '../../assets/pages/register/arrow.jpg'
 
 const { Content, Sider } = Layout;
 const { SubMenu } = Menu;
@@ -52,14 +53,18 @@ const StyledDiv = styled.div`
 
 const StyledSelect = styled.select`
   width: 200px;
-  padding: .8em .5em;
+  padding: 0.8em 0.5em;
   border: 1px solid #999;
   font-family: inherit;
-  background: url('arrow.jpg') no-repeat 95% 50%;
+  background: url(${arrow}) no-repeat 95% 50%;
   border-radius: 0px;
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance: none;
+
+  .select::-ms-expand {
+    display: none;
+  }
 `;
 
 function StudentReservation() {
