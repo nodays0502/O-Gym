@@ -2,6 +2,14 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import OpenViduSession from 'openvidu-react';
 import jwt_decode from "jwt-decode";
+import styled from 'styled-components';
+
+const StyledBackground = styled.div`
+    background-image:
+    linear-gradient(rgba(0, 0, 255, 0.5), rgba(100, 155, 0, 0.5)),
+    url("https://ogymbucket.s3.ap-northeast-2.amazonaws.com/teacher_navbar.jpg");
+
+`;
 
 
 class SessionPage extends Component {
@@ -92,14 +100,14 @@ class SessionPage extends Component {
         const myUserName = this.state.myUserName;
         const token = this.state.token;
         return (
-            <div>
+            <StyledBackground>
                 {this.state.session === undefined ? (
                     <div id="join">
                         <div id="join-dialog">
-                            <h1> Join a video session </h1>
+                            <h1> 준비 중입니다.  </h1>
                             <form onSubmit={this.joinSession}>
                                 <p>
-                                    <label>Participant: </label>
+                                    <label> 이름: </label>
                                     <input
                                         type="text"
                                         id="userName"
@@ -109,7 +117,7 @@ class SessionPage extends Component {
                                     />
                                 </p>
                                 <p>
-                                    <label> Session: </label>
+                                    <label> 방 이름: </label>
                                     <input
                                         type="text"
                                         id="sessionId"
@@ -137,7 +145,7 @@ class SessionPage extends Component {
                         />
                     </div>
                 )}
-            </div>
+            </StyledBackground>
         );
     }
 
