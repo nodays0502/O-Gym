@@ -78,7 +78,7 @@ public class UserApiController {
      * 프로필 사진 변경을 위한 메서드
      */
     @PatchMapping("/user")
-    @PreAuthorize("hasAnyRole('PTTEACHER')")
+    @PreAuthorize("hasAnyRole('PTTEACHER', 'PTSTUDENT')")
     public ResponseEntity<SuccessResponseDto> putProfile(
         @AuthenticationPrincipal String userEmail,
         @RequestBody ProfileDto profileDto
