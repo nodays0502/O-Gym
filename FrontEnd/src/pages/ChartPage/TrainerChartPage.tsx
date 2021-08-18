@@ -116,7 +116,6 @@ function TrainerChartPage() {
             <SwiperSlide >
             {/* style={{backgroundColor: "#343E59"}} */}
               <div style={{height: "70%", width: "70%", margin: "auto"}}>
-                {/* <WeightFlow /> */}
                 <WeightFlowChart />
               </div>
             </SwiperSlide>
