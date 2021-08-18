@@ -4,7 +4,6 @@ import TeacherReservationConfirm from "./TeacherReservationConfirm/TeacherReserv
 import '@fontsource/roboto';
 import MainNavigation from "../../components/organisms/Main/Main-Navigation";
 import TeacherTodoList from "./TeacherTodoList";
-import axios from "axios";
 const StyledDiv = styled.div`
    display: flex;
 `;
