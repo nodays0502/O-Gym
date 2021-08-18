@@ -42,7 +42,7 @@ const IconText = ({ icon, text }) => (
   </Space>
 );
 
-function TrainerInfo3 () {
+function TrainerInfo () {
   let accessToken = localStorage.getItem('accessToken');
   const [ data, setData ] = useState<any>([])
   const [ loading, setLoading ] = useState(false)
@@ -265,4 +265,4 @@ function TrainerInfo3 () {
   );
 }
 
-export default TrainerInfo3;
+export default TrainerInfo;

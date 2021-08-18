@@ -8,7 +8,7 @@ import './styles.css';
 import StudentCalendar from '../../components/molecules/StudentCalendar';
 import TimeSchedule from '../../components/molecules/TimeSchedule';
 import MainNavigation from '../../components/organisms/Main/Main-Navigation';
-import TrainerInfo3 from '../../components/organisms/TrainerInfo/TrainerInfo3';
+import TrainerInfo from '../../components/organisms/TrainerInfo/TrainerInfo';
 import { ReservationState } from '../../recoil/atoms/Reservation/ReservationState';
 import { useRecoilState } from 'recoil';
 import { Email } from '../../recoil/atoms/Reservation/Email';
@@ -112,6 +112,7 @@ function StudentReservation() {
       setTime('')
       setDate('')
       // history.push('/profile')
+      window.location.reload()
     })
     .catch((e) => {
       message.error('예약에 실패했습니다')
@@ -149,7 +150,7 @@ function StudentReservation() {
       <MainNavigation />
       <Row>
       <Col span={18} style={{marginTop: '7rem'}}>
-          <TrainerInfo3 />
+          <TrainerInfo />
       </Col>
       <Col span={6} style={{height: '85vh', marginTop: '7rem', background: "none", overflowY: "auto"}}>
         { reservationTab ?
