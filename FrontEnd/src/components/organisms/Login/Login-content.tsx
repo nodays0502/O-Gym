@@ -3,36 +3,26 @@ import { useState } from "react";
 import styled from "styled-components";
 import Button from "../../atoms/Button";
 import Input from "../../atoms/Input"
-import Label from "../../atoms/Label";
-import ButtonList from "../../molecules/ButtonList";
 import ListItem from "../../molecules/ListItem"
-import { useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useRecoilState,  useResetRecoilState } from "recoil";
 import axios from "axios";
 import { InputState } from "../../../recoil/atoms/InputState";
 // @ts-ignore
 import jwt_decode from "jwt-decode";
 import { useHistory } from "react-router";
-import Title from "antd/lib/typography/Title";
 
-const LabelDiv = styled.div`
-    text-align: center;
-`;
-
-const StyledDivider = styled(Divider)`
-    height: inherit;
-`;
 
 const StyeldInput = styled.input`
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  border-radius: 4px;
-  border: 1px solid black;
-  padding: 10px 10px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  font-weight: bold;
-  color: black;
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid black;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
 `;
 
 const StyledInput = {

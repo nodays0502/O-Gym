@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import 'antd/dist/antd.css';
-import { Divider, Layout, Menu } from 'antd';
+import { Layout, Menu } from 'antd';
 import { Row, Col, Button, message, Collapse } from 'antd';
 import axios from 'axios';
 import './styles.css';
@@ -16,40 +16,11 @@ import { Time } from '../../recoil/atoms/Reservation/Time';
 import { Date } from '../../recoil/atoms/Reservation/Date';
 import { ReservationList } from '../../recoil/atoms/Reservation/ReservationList';
 import ReservationCancel from '../../components/organisms/ReservationCancel/ReservationCancel';
-import { useHistory } from 'react-router-dom';
 import arrow from '../../assets/pages/register/arrow.jpg'
 
-const { Content, Sider } = Layout;
+const { Sider } = Layout;
 const { SubMenu } = Menu;
 const { Panel } = Collapse
-
-const Container = styled(Row)`
-  height: 100vh;
-  display: flex;
-`;
-
-
-const StyledSider = styled(Sider)`
-  overflow: auto;
-  height: 100vh;
-  background: none;
-  max-width: none;
-  min-width: none;
-  width: auto;
-  /* position: fixed; */
-  /* right: 0; */
-  /* width: 100%; */
-`
-
-const StyledDiv = styled.div`
-  height: 50vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 0;
-  padding: 0;
-  flex-direction: column;
-`;
 
 const StyledSelect = styled.select`
   width: 200px;
@@ -68,7 +39,6 @@ const StyledSelect = styled.select`
 `;
 
 function StudentReservation() {
-  const history = useHistory();
   let accessToken = localStorage.getItem('accessToken');
   // const [selectReservation, setSelectReservation] = useState(false);
   const [teacherList, setTeacherList] = useState<any>([])
@@ -117,7 +87,7 @@ function StudentReservation() {
   }
 
   useEffect(() => {
-    let teacher = []
+    
     axios.get(
       `${process.env.REACT_APP_API_ROOT_ADDRESS}/api/pt/teacherlist`, {
         headers: {

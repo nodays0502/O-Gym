@@ -1,9 +1,7 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { AddSNS } from "../../../recoil/atoms/AddSNS";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import { Button, Space } from "antd";
 import arrow from "../../../assets/pages/register/arrow.jpg";

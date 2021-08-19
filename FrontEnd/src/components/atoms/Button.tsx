@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { FacebookFilled, GoogleCircleFilled } from '@ant-design/icons';
 
 export interface ButtonPropsType {
     backgroundColor?: string;

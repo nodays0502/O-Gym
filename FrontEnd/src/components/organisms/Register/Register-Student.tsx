@@ -6,7 +6,7 @@ import { Zipcode } from "../../../recoil/atoms/Zipcode";
 import { StreetAddress } from "../../../recoil/atoms/StreetAddress";
 import styled from "styled-components";
 import Postcode from "../../molecules/postcode/Postcode";
-import { useRecoilState, useRecoilValue } from "recoil";
+import { useRecoilState } from "recoil";
 import axios from "axios";
 import {useState, useEffect} from 'react';
 import { useHistory } from "react-router";

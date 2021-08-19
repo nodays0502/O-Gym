@@ -1,7 +1,5 @@
-import React from 'react'
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect} from 'react';
 import axios from 'axios'
-import ReactDOM from 'react';
 import 'antd/dist/antd.css'
 import { List, Avatar, Row, Col, Divider } from 'antd'
 import './ProfileRightTrainer.css'

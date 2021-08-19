@@ -1,5 +1,4 @@
-import React from 'react'
-import {Row, Col, List, Divider, Avatar, Image, Table, Button, Modal, message } from 'antd'
+import {Row, Col, Divider,  Image, Table, Button, Modal, message } from 'antd'
 import { useEffect, useState } from 'react'
 import {
   FacebookOutlined, 
@@ -88,7 +87,6 @@ function ProfileDetail(props) {
   const [logged, setLogged] = useState<string>('');
   const [role, setRole] = useState<string>('');
   const history = useHistory()
-  const [ status, setStatus ] = useState(false)
 
   const isEmpty = (param) => {
     return Object.keys(param).length === 0

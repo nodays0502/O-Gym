@@ -2,8 +2,8 @@ import * as React from 'react';
 // @ts-ignore
 import { ViewState } from '@devexpress/dx-react-scheduler';
 import {
-  Scheduler, DayView, Appointments, MonthView, Toolbar,
-  DateNavigator, ViewSwitcher, TodayButton, Resources, AppointmentTooltip,
+  Scheduler,  Appointments, MonthView, Toolbar,
+  DateNavigator,  TodayButton, Resources, AppointmentTooltip,
 } from '@devexpress/dx-react-scheduler-material-ui';
 import { withStyles, Theme, createStyles } from '@material-ui/core';
 import { indigo, blue, teal } from '@material-ui/core/colors';

@@ -42,8 +42,8 @@ class SessionPage extends Component {
     constructor(props: any) {
         super(props);
         // this.OPENVIDU_SERVER_URL = 'https://' + window.location.hostname + ':4443';
-        this.OPENVIDU_SERVER_URL = 'https://' + 'i5b305.p.ssafy.io' + ':3443';
-        this.OPENVIDU_SERVER_SECRET = 'password';
+        this.OPENVIDU_SERVER_URL = `https://i5b305.p.ssafy.io:3443`;
+        this.OPENVIDU_SERVER_SECRET = `password`;
         this.state = {
             mySessionId: 'SessionA',
             myUserName: 'OpenVidu_User_' + Math.floor(Math.random() * 100),

@@ -1,5 +1,3 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
 import 'antd/dist/antd.css';
 import { Radio } from 'antd';
 import { Time } from '../../recoil/atoms/Reservation/Time';

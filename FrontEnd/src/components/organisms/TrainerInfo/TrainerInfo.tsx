@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
 import "./styles.css";
 import styled from "styled-components";
-import { List, message, Avatar, Spin, Image, Row, Col, Space, Button, Divider } from "antd";
-import reqwest from "reqwest";
+import { List, message, Spin, Image, Row, Col, Space, Button, Divider } from "antd";
 import {
   FacebookOutlined as facebook,
   InstagramOutlined as instagram,
@@ -14,7 +12,6 @@ import {
 
 import InfiniteScroll from "react-infinite-scroller";
 import axios from "axios";
-import Item from "antd/lib/list/Item";
 import { Email } from '../../../recoil/atoms/Reservation/Email'
 import { useRecoilState } from 'recoil'
 import { ReservationState } from '../../../recoil/atoms/Reservation/ReservationState'

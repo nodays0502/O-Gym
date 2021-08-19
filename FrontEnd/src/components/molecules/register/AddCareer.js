@@ -1,11 +1,9 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { AddCAREER } from "../../../recoil/atoms/AddCAREER";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
-import { Button, DatePicker, Row, Col, Space } from "antd";
+import { Button, Row, Col, Space } from "antd";
 
 const StyledInput = styled.input`
   display: block;

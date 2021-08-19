@@ -1,11 +1,9 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { useRecoilState } from "recoil";
 import { AddCERT } from "../../../recoil/atoms/AddCERT";
 import styled from "styled-components";
-import ReactDOM from "react-dom";
 import "antd/dist/antd.css";
-import { Button, DatePicker, Space } from "antd";
+import { Button, Space } from "antd";
 
 const StyledInput = styled.input`
   display: block;
