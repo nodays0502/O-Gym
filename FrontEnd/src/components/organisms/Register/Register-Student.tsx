@@ -115,14 +115,17 @@ const schema = yup.object().shape({
     .typeError("성별을 선택해주세요"),
   height: yup.number()
     .required('키를 입력해주세요')
+    .typeError("키를 입력해주세요")
     .min(130, '키를 다시 입력해주세요')
     .max(230, '키를 다시 입력해주세요'),
   weight: yup.number()
-    .required('몸무게를 입력해주세요')
+    .required('체중을 입력해주세요')
+    .typeError("체중을 입력해주세요")
     .min(35, '체중을 다시 입력해주세요')
     .max(200, '체중을 다시 입력해주세요'),
   age: yup.number()
     .required('나이를 입력해주세요')
+    .typeError("나이를 입력해주세요")
     .min(10, '나이를 다시 입력해주세요')
     .max(150, '나이를 다시 입력해주세요'),
 });
