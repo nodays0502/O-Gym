@@ -235,6 +235,10 @@ public class PTDto {
             this.email = email;
             this.reservationTime = reservationTime;
         }
+
+        public void setProfileUrl(String url){
+            profileUrl = url;
+        }
     }
 
     @Getter
