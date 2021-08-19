@@ -6,15 +6,27 @@ import styled from 'styled-components';
 // @ts-ignore
 import Inko from 'inko';
 import MainNavigation from '../../components/organisms/Main/Main-Navigation';
-import { Button } from 'antd';
+import { message, Button, Input, Space } from 'antd';
+import { UserOutlined, HomeOutlined  } from '@ant-design/icons';
 
 const StyledBackground = styled.div`
+    height: 88vh;
     background-image:
     linear-gradient(rgba(0, 0, 255, 0.5), rgba(100, 155, 0, 0.5)),
     url("https://ogymbucket.s3.ap-northeast-2.amazonaws.com/teacher_navbar.jpg");
 
 `;
 
+const StyledNavigationDiv = styled.div`
+height: 12vh;
+background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+background-size: 100% 100%;
+animation: gradient 15s ease infinite;
+`;
+
+const StyledInputDiv = styled.div`
+    padding: 30vh 20vh;
+`;
 
 class SessionPage extends Component {
     OPENVIDU_SERVER_URL: any;
@@ -34,28 +46,33 @@ class SessionPage extends Component {
                 nickname, role
             } = jwt_decode(accessToken);
         
-        
-            axios.get(`https://i5b305.p.ssafy.io/api/pt/nowreservation`, {
-                headers: {
-                    "Authorization": `Bearer ${accessToken}`
-                }
-            }).then(({ data }) => {
+            if (decoded['nickname']) {
+                axios.get(`https://i5b305.p.ssafy.io/api/pt/nowreservation`, {
+                    headers: {
+                        "Authorization": `Bearer ${accessToken}`
+                    }
+                }).then(({ data }) => {
 
-                let receivedData: { studentNickname, teacherNickname } = data.data;
-                let inko = new Inko();
-                console.log(receivedData);
+                    let receivedData: { studentNickname, teacherNickname } = data.data;
+                    let inko = new Inko();
+                    console.log(receivedData);
+                    this.state = {
+                        mySessionId: inko.ko2en(receivedData['studentNickname']) + inko.ko2en(receivedData['teacherNickname']),
+                        myUserName: decoded['nickname'],
+                        token: undefined,
+                    }
+                }).catch(() => {
+                    message.error('다시 로그인 해주세요!');
+                })
+                    ;
+
                 this.state = {
-                    mySessionId: inko.ko2en(receivedData['studentNickname']) + inko.ko2en(receivedData['teacherNickname']),
+                    mySessionId: 'SessionA',
                     myUserName: decoded['nickname'],
                     token: undefined,
-                }
-            });
-
-            this.state = {
-                mySessionId: 'SessionA',
-                myUserName: decoded['nickname'],
-                token: undefined,
-            };
+                };
+            }
+            
 
         }
         else {
@@ -120,46 +137,39 @@ class SessionPage extends Component {
         const myUserName = this.state.myUserName;
         const token = this.state.token;
         return (<>
-            <div style={{height: "12vh"}}>
-                        <MainNavigation position="sticky" /> 
-                    </div>
+            {this.state.session !== true ? 
+            <StyledNavigationDiv>
+                <MainNavigation position="sticky" /> 
+                </StyledNavigationDiv> :
+                
+            <></>
+        }
+            
             <StyledBackground>
                 
                 {this.state.session === undefined ? (
-                    <div id="join">
-                        <div id="join-dialog">
-                            <h1> 준비 중입니다.  </h1>
-                            <form onSubmit={this.joinSession}>
-                                <p>
-                                    <label> 이름: </label>
-                                    <input
-                                        type="text"
-                                        id="userName"
-                                        value={myUserName}
-                                        onChange={this.handleChangeUserName}
-                                        required
-                                    />
-                                </p>
-                                <p>
-                                    <label> 방 이름: </label>
-                                    <input
-                                        type="text"
-                                        id="sessionId"
-                                        value={mySessionId}
-                                        onChange={this.handleChangeSessionId}
-                                        required
-                                    />
-                                </p>
-                                <p>
-                                    {/* <input name="commit" type="submit" value="JOIN" />
-                                     */}
-                                    <Button type="primary" block>
+                    <StyledInputDiv >
+                        <Space direction="vertical">
+                                <Input
+                                    type="text"
+                                    id="userName"
+                                    value={myUserName}
+                                    onChange={this.handleChangeUserName}
+                                    required
+                                    size="large" placeholder="please Input UserName" prefix={<UserOutlined />} />
+                    
+                                <Input type="text"
+                                    id="sessionId"
+                                    value={mySessionId}
+                                    onChange={this.handleChangeSessionId}
+                                    required
+                                    size="large" placeholder="please Input ClassName" prefix={<HomeOutlined  />} />
+                                <Button name="commit" type="primary" onClick={ this.joinSession } block>
                                         JOIN
-                                          </Button>
-                                </p>
-                            </form>
-                        </div>
-                    </div>
+                                    </Button>
+
+                        </Space>
+                    </StyledInputDiv>
                 ) : (
                     <div id="session">
                         <OpenViduSession
