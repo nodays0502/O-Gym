@@ -157,7 +157,7 @@ public class PTService {
                             .reservationTime(o.getReservationDate())
                             .nickname(o.getPtTeacher().getNickname())
                             .username(o.getPtTeacher().getUsername())
-                            .profileUrl((String)o.getPtStudent().getInfo("profilePictureURL"))
+                            .profileUrl((String)o.getPtTeacher().getInfo("profilePictureURL"))
                             .email(o.getPtTeacher().getEmail())
                             .build()
                     );
