@@ -144,11 +144,6 @@ const LoginContent = (): JSX.Element => {
                 >Log In</Button>
             </ButtonList>
             <Divider />
-            <ButtonList>
-                <Button width="100%" signInType="facebook">Sign in with Facebook</Button>
-                <Button width="100%" signInType="google">Sign in with Google</Button>
-                <Button width="100%" signInType="naver">Sign in with Naver</Button>
-            </ButtonList>
         </>
     );
 }
