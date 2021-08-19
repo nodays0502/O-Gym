@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // @ts-ignore
 import Inko from 'inko';
 import MainNavigation from '../../components/organisms/Main/Main-Navigation';
+import { Button } from 'antd';
 
 const StyledBackground = styled.div`
     background-image:
@@ -150,7 +151,11 @@ class SessionPage extends Component {
                                     />
                                 </p>
                                 <p>
-                                    <input name="commit" type="submit" value="JOIN" />
+                                    {/* <input name="commit" type="submit" value="JOIN" />
+                                     */}
+                                    <Button type="primary" block>
+                                        JOIN
+                                          </Button>
                                 </p>
                             </form>
                         </div>
