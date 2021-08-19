@@ -22,11 +22,7 @@ function StudentList(props: any) {
   const [series, setSeries] = useRecoilState(Weight);
   const [ selectedUser, setSelectedUser] = useRecoilState(SelectedInfo)
 
-  useEffect(() => {
-    console.log(studentIndex.index)
-    console.log(myStudent)
-    console.log(myBmi)
-  }, [])
+  
   return (
     <>
       <div style={{marginTop: "8rem"}}>

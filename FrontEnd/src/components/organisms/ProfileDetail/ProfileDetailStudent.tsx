@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import { useHistory } from 'react-router'
 import axios from 'axios'
 import AWS from 'aws-sdk'
+import profileimagedefault from '../../../assets/pages/profile/profileimagedefault.png'
 
 const ImageButton = styled.label`
   text-align: center;
@@ -123,7 +124,11 @@ function ProfileDetailStudent(props) {
       <div className="containerProfile">
           <Row>
             <Col span={6} style={{display: "flex", flexDirection: "column"}}>
-            <Image src={imageURL} alt=""  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/>
+            {imageURL !== null ?
+              <Image src={imageURL} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
+              :
+              <Image src={profileimagedefault} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
+              }
               <ImageButton htmlFor="input-image">프로필 업로드</ImageButton>
               <input type="file" id="input-image" onChange={upLoad} style={{display: "none"}} />
             </Col>
