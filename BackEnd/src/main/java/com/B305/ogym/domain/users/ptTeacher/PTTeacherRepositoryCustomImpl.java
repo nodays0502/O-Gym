@@ -68,10 +68,18 @@ public class PTTeacherRepositoryCustomImpl implements PTTeacherRepositoryCustom 
             monthly.sort((o1, o2) -> {
                 return o1.getMonth() - o2.getMonth();
             });
-            monthly.forEach(m -> {
+//            monthly.forEach(m -> {
+//                studentHealth.addWeight(m.getWeight());
+//                studentHealth.addHeight(m.getHeight());
+//            });
+            for(Monthly m : monthly){
                 studentHealth.addWeight(m.getWeight());
                 studentHealth.addHeight(m.getHeight());
-            });
+            }
+            for(int i = monthly.size(); i<12 ;i++){
+                studentHealth.addWeight(-1);
+                studentHealth.addHeight(-1);
+            }
             result.add(studentHealth);
         });
 
