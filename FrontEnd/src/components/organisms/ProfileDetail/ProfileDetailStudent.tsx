@@ -18,6 +18,16 @@ const ImageButton = styled.label`
   cursor: pointer;
 `
 
+const StyledLabel = styled.label`
+  font-size: 1rem;
+  font-weight: 700;
+`
+
+const StyledP = styled.p`
+font-size: 1rem;
+font-weight: 500;
+`;
+
 function ProfileDetailStudent(props) {
   let accessToken = localStorage.getItem('accessToken');
   const history = useHistory()
@@ -117,87 +127,82 @@ function ProfileDetailStudent(props) {
         window.location.reload()
       },
       function (err) {
-        return message.error("오류가 발생했습니다: ")
+        return message.error("이미지 업로드에 실패했습니다")
       }
     )
   }
 
   return (
     <>
-      <div className="containerProfile">
+      <div className="containerProfile" style={{marginTop: "0.8rem"}}>
           <Row>
-            <Col span={6} style={{display: "flex", flexDirection: "column"}}>
+            <Col span={5} style={{display: "flex", flexDirection: "column", marginRight: '1rem'}}>
             {imageURL !== null ?
               <Image src={imageURL} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
               :
               <Image src={profileimagedefault} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
               }
-              <ImageButton htmlFor="input-image">프로필 업로드</ImageButton>
-              <input type="file" id="input-image" onChange={upLoad} style={{display: "none"}} />
+              <ImageButton htmlFor="input-image" style={{marginTop: "2rem"}}>프로필 업로드</ImageButton>
+              <input type="file" id="input-image" onChange={upLoad} style={{display: "none", marginTop: "2rem"}} />
             </Col>
-            <Col span={18} style={{display: "flex", flexDirection: "column"}}>
-              <div>
-                <h3>{props.userInfo.nickname}</h3>
-              </div>
-              <Divider />
-              <Row>
+            <Col span={17} style={{display: "flex", flexDirection: "column", marginLeft: "1rem" }}>
+              <Row style={{paddingTop: "1rem", borderTop: "1px solid black"}}>
                 <Col span={8}>
-                  <label>이름</label>
+                  <StyledLabel>이름</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.username}</p>
+                  <StyledP>{props.userInfo.username}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label>나이</label>
+                  <StyledLabel>나이</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.age}</p>
+                  <StyledP>{props.userInfo.age}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label>이메일</label>
+                  <StyledLabel>이메일</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.email}</p>
+                  <StyledP>{props.userInfo.email}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label>연락처</label>
+                  <StyledLabel>연락처</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.tel}</p>
+                  <StyledP>{props.userInfo.tel}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label>성별</label>
+                  <StyledLabel>성별</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.gender}</p>
+                  <StyledP>{props.userInfo.gender}</StyledP>
                 </Col>
               </Row>
               <Row>
                 <Col span={8}>
-                  <label>키</label>
+                  <StyledLabel>키</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  {month && <p>{props.userInfo.heights[month]}</p>}
+                  {month && <StyledP>{props.userInfo.heights[month]}</StyledP>}
                 </Col>
                 <Col span={8}>
-                  <label>체중</label>
+                  <StyledLabel>체중</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  {month && <p>{props.userInfo.weights[month]}</p>}
+                  {month && <StyledP>{props.userInfo.weights[month]}</StyledP>}
                 </Col>
               </Row>
-              <Divider />
-              <Button type="primary" onClick={showModal} danger >
+              <div style={{paddingTop: "1rem", borderTop: "1px solid black", marginTop: "2rem", marginBottom: "1rem"}}>
+              <Button type="primary" onClick={showModal} danger block>
                   회원탈퇴
                 </Button>
                 <Modal title="회원탈퇴" visible={isModalVisible} onOk={widhdrawal} onCancel={handleCancel}>
-                  <p>정말 탈퇴 하시겠습니까?</p>
+                  <StyledP>정말 탈퇴 하시겠습니까?</StyledP>
                 </Modal>
-
+              </div> 
             </Col>
           </Row>
           <Divider />
-
       </div>
     </>
   )

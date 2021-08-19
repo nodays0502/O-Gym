@@ -58,7 +58,7 @@ function Profile() {
             
             </div>
             <div className="profileInfo">
-              <h4 className="profileInfoName">{userInfo.nickname}</h4>
+              <h4 className="profileInfoName" style={{fontWeight: 700}}>{userInfo.nickname}</h4>
               <span className="profileInfoDesc">{userInfo.description}</span>
             </div>
           </div>

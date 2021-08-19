@@ -24,6 +24,16 @@ const ImageButton = styled.label`
   cursor: pointer;
 `
 
+const StyledLabel = styled.label`
+  font-size: 1rem;
+  font-weight: 700;
+`
+
+const StyledP = styled.p`
+font-size: 1rem;
+font-weight: 500;
+`;
+
 const careerColumns = [
   {
     title: '회사명',
@@ -146,7 +156,7 @@ function ProfileDetail(props) {
         window.location.reload()
       },
       function (err) {
-        return message.error("오류가 발생했습니다: ")
+        return message.error("이미지 업로드에 실패했습니다")
       }
     )
   }
@@ -191,114 +201,110 @@ function ProfileDetail(props) {
 
   return (
     <>
-      <div className="containerProfile">
+      <div className="containerProfile" style={{marginTop: "0.8rem"}}>
           <Row>
-            <Col span={6} style={{display: "flex", flexDirection: "column"}}>
+            <Divider />
+            <Col span={5} style={{display: "flex", flexDirection: "column", marginRight: '1rem', marginTop: "1rem"}}>
               {imageURL !== null ?
               <Image src={imageURL} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
               :
               <Image src={profileimagedefault} alt="프로필"  style={{width: "90%", marginLeft: "auto", marginRight: "auto"}}/> 
               }
               
-              <ImageButton htmlFor="input-image">프로필 업로드</ImageButton>
-              <input type="file" id="input-image" onChange={upLoad} style={{display: "none"}} />
+              <ImageButton htmlFor="input-image" style={{marginTop: "2rem"}}>프로필 업로드</ImageButton>
+              <input type="file" id="input-image" onChange={upLoad} style={{display: "none", marginTop: "2rem"}} />
               <div style={{display: 'flex', justifyContent: "space-between", marginTop: "1rem", marginLeft: "0.7rem", marginRight: "0.7rem"}}>
               {isEmpty(facebook) ?
-                <p><FacebookOutlined /></p> :
+                <p style={{fontSize: '2rem'}}><FacebookOutlined style={{ fontSize: '1.5rem'}}/></p> :
                 <a
                   href={facebook["url"]}
                   target="_blank"
                   rel="noreferrer">
-                  <FacebookOutlined />
+                  <FacebookOutlined style={{ fontSize: '1.5rem'}}/>
                 </a>}
               {isEmpty(twitter) ?
-                <p><TwitterOutlined/></p> :
+                <p><TwitterOutlined style={{ fontSize: '1.5rem'}}/></p> :
                 <a
                   href={twitter["url"]}
                   target="_blank"
                   rel="noreferrer">
-                  <TwitterOutlined/>
+                  <TwitterOutlined style={{ fontSize: '1.5rem'}}/>
                 </a>}
               {isEmpty(instagram) ?
-                <p><InstagramOutlined/></p> :
+                <p><InstagramOutlined style={{ fontSize: '1.5rem'}}/></p> :
                 <a
                   href={instagram["url"]}
                   target="_blank"
                   rel="noreferrer">
-                  <InstagramOutlined/>
+                  <InstagramOutlined style={{ fontSize: '1.5rem'}}/>
                 </a>}
               {isEmpty(youtube) ?
-                <p><YoutubeOutlined/></p> :
+                <p><YoutubeOutlined style={{ fontSize: '1.5rem'}}/></p> :
                 <a
                   href={youtube["url"]}
                   target="_blank"
                   rel="noreferrer">
-                  <YoutubeOutlined/>
+                  <YoutubeOutlined style={{ fontSize: '1.5rem'}}/>
                 </a>}
               </div>
             </Col>
-            <Col span={18} style={{display: "flex", flexDirection: "column"}}>
-              <div>
-                <h4 style={{fontWeight:700}}>트레이너</h4>
-                <h3>{props.userInfo.nickname}</h3>
-                <Divider />
-                <Row>
+            <Col span={17} style={{display: "flex", flexDirection: "column"}}>
+              <div style={{marginTop: "1rem"}}>
+                <Row style={{paddingTop: "1rem", borderTop: "1px solid black"}}>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>이름</label>
+                  <StyledLabel style={{fontWeight:700}}>이름</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.username}</p>
+                  <StyledP>{props.userInfo.username}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>나이</label>
+                  <StyledLabel style={{fontWeight:700}}>나이</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.age}</p>
+                  <StyledP>{props.userInfo.age}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>이메일</label>
+                  <StyledLabel style={{fontWeight:700}}>이메일</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.email}</p>
+                  <StyledP>{props.userInfo.email}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>연락처</label>
+                  <StyledLabel style={{fontWeight:700}}>연락처</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.tel}</p>
+                  <StyledP>{props.userInfo.tel}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>성별</label>
+                  <StyledLabel style={{fontWeight:700}}>성별</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.gender}</p>
+                  <StyledP>{props.userInfo.gender}</StyledP>
                 </Col>
                 <Col span={8}>
-                  <label style={{fontWeight:700}}>전공</label>
+                  <StyledLabel style={{fontWeight:700}}>전공</StyledLabel>
                 </Col>
                 <Col span={16}>
-                  <p>{props.userInfo.major}</p>
+                  <StyledP>{props.userInfo.major}</StyledP>
                 </Col>
-              </Row>
-                <Divider />
-                <div style={{marginBottom: "1rem", fontWeight:700}}>커리어</div>
+              </Row >
+                <div style={{marginBottom: "1rem", fontSize: "1.3rem", fontWeight:700, marginTop: "1.3rem", paddingTop: "0.8rem", borderTop: "1px solid black"}}>커리어</div>
                 <div>
                   <Table dataSource={careers} columns={careerColumns} pagination={false} />
                 </div>
-                <Divider />
-                <div style={{marginBottom: "1rem", fontWeight:700}}>자격증</div>
+                <div style={{marginBottom: "1rem", fontSize: "1.3rem", fontWeight:700, marginTop: "2.2rem", paddingTop: "0.8rem", borderTop: "1px solid black"}}>자격증</div>
                 <Table dataSource={certificates} columns={certificateColumns} pagination={false} />
                 <div>
                 </div>
               </div>
-              <Divider />
-              <Button type="primary" onClick={showModal} danger >
+              <div style={{paddingTop: "1rem", borderTop: "1px solid black", marginTop: "2rem", marginBottom: "1rem"}}>
+              <Button type="primary" onClick={showModal} danger block>
                   회원탈퇴
                 </Button>
                 <Modal title="회원탈퇴" visible={isModalVisible} onOk={widhdrawal} onCancel={handleCancel}>
                   <p>정말 탈퇴 하시겠습니까?</p>
                 </Modal>
-
+              </div>
               <Divider />
             
             </Col>

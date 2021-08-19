@@ -18,25 +18,27 @@ function ProfileRightStudent() {
     })
     .then((response) => {
       setMyReservation(response.data.data)
+      console.log(response.data.data)
     })
   }, [])
 
   return (
       <>
       <List
-        header={<div style={{fontWeight:700}}>예약현황</div>}
+        header={<div style={{fontWeight:700, fontSize: "1.3rem", borderTop: "1px solid black", paddingTop: "0.7rem", borderBottom: "1px solid black", paddingBottom: "0.7rem"}}>예약현황</div>}
         style={{overflowY: "scroll", height: "500px"}}
         itemLayout="horizontal"
         dataSource={myReservation}
         renderItem={myReservation => (
           <List.Item
+            style={{borderBottom: "0.3px solid grey"}}
           >
             <List.Item.Meta
-              avatar={<Avatar src="" />}
-              title={<p>트레이너 {myReservation.nickname}</p>}
-              description={<p>운동부위 {myReservation.description}</p>}
+              avatar={<Avatar src={myReservation.profileUrl} />}
+              title={<p style={{fontWeight: 700, fontSize: "1rem"}}>트레이너 {myReservation.nickname}</p>}
+              description={<p style={{fontWeight: 700, fontSize: "1rem"}}>운동부위 {myReservation.description}</p>}
             />
-            <div style={{marginRight: "1rem"}}>{
+            <div style={{marginRight: "1rem", fontWeight: 700, fontSize: "1rem"}}>{
                 myReservation.reservationTime.substring(0, 4) + "년 " +
                 myReservation.reservationTime.substring(5, 7) + "월 " +
                 myReservation.reservationTime.substring(8, 10) + "일 " +
