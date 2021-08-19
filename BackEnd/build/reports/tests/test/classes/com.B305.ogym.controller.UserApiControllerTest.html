@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - UserApiControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>UserApiControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/com.B305.ogym.controller.html">com.B305.ogym.controller</a> &gt; UserApiControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">11</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.404s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Method name</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">학생 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공</td>
+<td class="success">createStudent_success()</td>
+<td class="success">0.039s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">선생님 회원가입 - 모든 유효성 검사에 통과했다면 회원가입 성공</td>
+<td class="success">createTeacher_success()</td>
+<td class="success">0.032s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">유저 회원가입 - 이메일 중복으로 인한 회원가입 실패</td>
+<td class="success">createUser_email_failure()</td>
+<td class="success">0.025s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">유저 회원가입 - 닉네임 중복으로 인한 회원가입 실패</td>
+<td class="success">createUser_nickName_failure()</td>
+<td class="success">0.121s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)</td>
+<td class="success">deleteStudent_failure()</td>
+<td class="success">0.023s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">학생 회원탈퇴 - 회원탈퇴 성공</td>
+<td class="success">deleteStudent_success()</td>
+<td class="success">0.031s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">학생 회원탈퇴 - 존재하지 않는 이메일로 인한 회원탈퇴 실패(이미 탈퇴한 회원)</td>
+<td class="success">deleteTeacher_failure()</td>
+<td class="success">0.021s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">선생님 회원탈퇴 - 회원탈퇴 성공</td>
+<td class="success">deleteTeacher_success()</td>
+<td class="success">0.024s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">회원 정보조회 - 이메일이 존재하지 않아 정보조회 실패</td>
+<td class="success">getUserInfo_failure()</td>
+<td class="success">0.035s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">회원 정보조회 - 정보조회 성공</td>
+<td class="success">getUserInfo_success()</td>
+<td class="success">0.027s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">유저 프로필 이미지 등록 - 성공</td>
+<td class="success">putProfile_success()</td>
+<td class="success">0.026s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>2021-08-19 11:41:43.340  INFO 26120 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.B305.ogym.controller.UserApiControllerTest], using SpringBootContextLoader
+2021-08-19 11:41:43.341  INFO 26120 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.B305.ogym.controller.UserApiControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2021-08-19 11:41:43.341  INFO 26120 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.B305.ogym.controller.UserApiControllerTest]: UserApiControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2021-08-19 11:41:43.344  INFO 26120 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.B305.ogym.OgymApplication for test class com.B305.ogym.controller.UserApiControllerTest
+2021-08-19 11:41:43.345  INFO 26120 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2021-08-19 11:41:43.345  INFO 26120 --- [    Test worker] .b.t.a.w.s.WebMvcTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@19d72692, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@76112f72, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@31aa5a02, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4bf8dab6, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@6bbb96ed, org.springframework.test.context.support.DirtiesContextTestExecutionListener@142e4e57, org.springframework.test.context.transaction.TransactionalTestExecutionListener@77b76c9a, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@7a9725b0, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@4d2cd8f1, org.springframework.test.context.event.EventPublishingTestExecutionListener@2b966bf5, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@678901a1, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@24f00245, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@fb0bd7a, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@17e1a6ba, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@38ca29ee, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1c8cf698, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@16ddc31e]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.2)
+
+2021-08-19 11:41:43.381  INFO 26120 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Starting UserApiControllerTest using Java 11.0.1 on DESKTOP-H7093P3 with PID 26120 (started by juhyu in C:\ssafy-common-sub3\BackEnd)
+2021-08-19 11:41:43.382  INFO 26120 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : No active profile set, falling back to default profiles: default
+2021-08-19 11:41:44.082  INFO 26120 --- [    Test worker] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 24f860bb-5957-4caa-ada3-b90270e1fce3
+
+2021-08-19 11:41:44.211  INFO 26120 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@619cd76a, org.springframework.security.web.context.SecurityContextPersistenceFilter@edcb4c8, org.springframework.security.web.header.HeaderWriterFilter@4d918976, org.springframework.security.web.csrf.CsrfFilter@244b94f7, org.springframework.security.web.authentication.logout.LogoutFilter@6b8a409, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@7944ccc3, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@5037f55a, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@430719d7, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@3933d3c8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@1999e80c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@58821870, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1cfaf7a0, org.springframework.security.web.session.SessionManagementFilter@76c87aca, org.springframework.security.web.access.ExceptionTranslationFilter@47aa1f00, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@10a643e5]
+2021-08-19 11:41:44.268  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.268  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.269  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+2021-08-19 11:41:44.286  INFO 26120 --- [    Test worker] c.B.o.controller.UserApiControllerTest   : Started UserApiControllerTest in 0.938 seconds (JVM running for 10.007)
+2021-08-19 11:41:44.295  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.295  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.295  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/%5Bid,%20email%5D
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#getUserInfo(String, List)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserNotFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;72&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.328  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.328  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.328  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;359&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:[]}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#signup(SaveUserRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserDuplicateNicknameException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 409
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;29&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 중복된 닉네임입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.450  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.450  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.451  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;359&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:[]}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#signup(SaveUserRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserDuplicateEmailException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 409
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;29&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 중복된 이메일입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.476  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.476  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.477  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:200,&quot;message&quot;:&quot;회원정보 삭제에 성공했습니다&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.508  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.508  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.509  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;454&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;한솥&quot;,&quot;age&quot;:16,&quot;nickname&quot;:&quot;nononoo1&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;도로명&quot;,&quot;detailedAddress&quot;:&quot;상세주소&quot;,&quot;role&quot;:&quot;ROLE_PTSTUDENT&quot;,&quot;monthlyHeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;monthlyWeights&quot;:[180,200,210,180,200,210,180,200,210,180,200,210],&quot;major&quot;:null,&quot;certificates&quot;:null,&quot;careers&quot;:null,&quot;price&quot;:0,&quot;description&quot;:null,&quot;snsAddrs&quot;:null}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#signup(SaveUserRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:201,&quot;message&quot;:&quot;회원 가입에 성공했습니다.&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.548  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.549  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.549  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserNotFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;72&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.572  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.573  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.573  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = PATCH
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;25&quot;]
+             Body = {&quot;url&quot;:&quot;fileDIR/fileURL&quot;}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#putProfile(String, ProfileDto)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:200,&quot;message&quot;:&quot;프로필 저장에 성공했습니다.&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.599  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.600  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.600  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:200,&quot;message&quot;:&quot;회원정보 삭제에 성공했습니다&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.623  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.623  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.624  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = POST
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;, Content-Length:&quot;359&quot;]
+             Body = {&quot;email&quot;:&quot;hello@naver.com&quot;,&quot;password&quot;:&quot;asdasd&quot;,&quot;username&quot;:&quot;juhu&quot;,&quot;age&quot;:20,&quot;nickname&quot;:&quot;juhu&quot;,&quot;gender&quot;:0,&quot;tel&quot;:&quot;010-0000-0000&quot;,&quot;zipCode&quot;:&quot;12345&quot;,&quot;street&quot;:&quot;road 17&quot;,&quot;detailedAddress&quot;:&quot;juhu&quot;,&quot;role&quot;:&quot;ROLE_PTTEACHER&quot;,&quot;monthlyHeights&quot;:null,&quot;monthlyWeights&quot;:null,&quot;major&quot;:&quot;재활&quot;,&quot;certificates&quot;:[],&quot;careers&quot;:[],&quot;price&quot;:1000,&quot;description&quot;:&quot;트레이너&quot;,&quot;snsAddrs&quot;:[]}
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#signup(SaveUserRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 201
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:201,&quot;message&quot;:&quot;회원 가입에 성공했습니다.&quot;,&quot;data&quot;:{}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.656  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.656  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.657  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 1 ms
+
+MockHttpServletRequest:
+      HTTP Method = DELETE
+      Request URI = /api/user
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#deleteMyUser(String, HttpServletRequest)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = com.B305.ogym.exception.user.UserNotFoundException
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 404
+    Error message = null
+          Headers = [Content-Type:&quot;text/plain;charset=UTF-8&quot;, Content-Length:&quot;72&quot;]
+     Content type = text/plain;charset=UTF-8
+             Body = 가입하지 않은 아이디이거나, 잘못된 비밀번호입니다.
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+2021-08-19 11:41:44.678  INFO 26120 --- [    Test worker] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2021-08-19 11:41:44.679  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Initializing Servlet ''
+2021-08-19 11:41:44.679  INFO 26120 --- [    Test worker] o.s.t.web.servlet.TestDispatcherServlet  : Completed initialization in 0 ms
+[id, email]
+
+MockHttpServletRequest:
+      HTTP Method = GET
+      Request URI = /api/user/%5Bid,%20email%5D
+       Parameters = {}
+          Headers = [Authorization:&quot;JWT ACCESS TOKEN&quot;]
+             Body = null
+    Session Attrs = {}
+
+Handler:
+             Type = com.B305.ogym.controller.UserApiController
+           Method = com.B305.ogym.controller.UserApiController#getUserInfo(String, List)
+
+Async:
+    Async started = false
+     Async result = null
+
+Resolved Exception:
+             Type = null
+
+ModelAndView:
+        View name = null
+             View = null
+            Model = null
+
+FlashMap:
+       Attributes = null
+
+MockHttpServletResponse:
+           Status = 200
+    Error message = null
+          Headers = [Content-Type:&quot;application/json;charset=UTF-8&quot;]
+     Content type = application/json;charset=UTF-8
+             Body = {&quot;statusCode&quot;:200,&quot;message&quot;:&quot;회원 정보를 불러오는데 성공했습니다&quot;,&quot;data&quot;:{&quot;id&quot;:1,&quot;email&quot;:&quot;teacher@naver.com&quot;}}
+    Forwarded URL = null
+   Redirected URL = null
+          Cookies = []
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 7.1.1</a> at 2021. 8. 19. 오전 11:41:45</p>
+</div>
+</div>
+</body>
+</html>
