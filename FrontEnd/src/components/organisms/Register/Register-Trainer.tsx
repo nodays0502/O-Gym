@@ -124,10 +124,12 @@ const schema = yup.object().shape({
     .max(20, '올바른 전공을 입력해주세요'),
   price: yup.number()
     .required('금액을 입력해주세요')
+    .typeError("금액을 입력해주세요")
     .min(10000, '올바른 금액을 입력해주세요')
     .max(200000, '올바른 금액을 입력해주세요'),
   age: yup.number()
     .required('나이를 입력해주세요')
+    .typeError("나이를 입력해주세요")
     .min(10, '나이를 다시 입력해주세요')
     .max(150, '나이를 다시 입력해주세요'),  
   description: yup.string()
