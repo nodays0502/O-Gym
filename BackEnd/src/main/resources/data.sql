@@ -54,7 +54,7 @@ INSERT INTO user_base (`role`,age,created_date,modified_date,address_detailed_ad
 ('Teacher',35,'2021-08-05 23:52:28.858993000','2021-08-05 23:52:28.858993000','힐스테이트','강충청남도 금산군 남이면 용동길 14','57812','shako@ssafy.com',1,'샤코','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu','https://ogymbucket.s3.ap-northeast-2.amazonaws.com/profiles/profile_image13.jpg','010-4545-6656','최예진','ROLE_PTTEACHER'),
 ('Teacher',25,'2021-07-24 15:41:28.858993000','2021-07-24 15:41:28.858993000','디에이치','전라남도 광양시 제철로 1655-835','10554','set@ssafy.com',0,'세트','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu','https://ogymbucket.s3.ap-northeast-2.amazonaws.com/profiles/profile_image14.jpg','010-2234-5599','정차연','ROLE_PTTEACHER'),
 ('Teacher',38,'2021-07-25 21:41:28.858993000','2021-07-25 21:41:28.858993000','힐스테이트','경기도 고양시 덕양구 도내로156번길 39','10488','seraphine@ssafy.com',1,'세라핀','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu','https://ogymbucket.s3.ap-northeast-2.amazonaws.com/profiles/profile_image15.jpg','010-5544-4547','임호진','ROLE_PTTEACHER'),
-('Student',14,'2021-08-01 13:41:28.858993000','2021-08-01 13:41:28.858993000','래미안','서울특별시 강동구 가래여울길 16-1','05200','vladimir@ssafy.com',0,'블라디미르','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-2523-2390','임운오','ROLE_PTSTUDENT'),
+('Student',14,'2021-08-01 13:41:28.858993000','2021-08-01 13:41:28.858993000','래미안','서울특별시 강동구 가래여울길 16-1','05200','vladimir@ssafy.com',1,'이브','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu','https://ogymbucket.s3.ap-northeast-2.amazonaws.com/profiles/%EC%9D%B4%EB%B8%8C.jpg','010-2523-2390','이브','ROLE_PTSTUDENT'),
 ('Student',16,'2021-08-02 15:41:28.858993000','2021-08-02 15:41:28.858993000','대청아파트','경기도 고양시 일산서구 산남로154번길 104-16','10204','brand@ssafy.com',0,'브랜드','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-4554-0293','박상열','ROLE_PTSTUDENT'),
 ('Student',31,'2021-08-05 13:41:28.858993000','2021-08-05 13:41:28.858993000','롯데캐슬','경기도 고양시 일산서구 산율길42번길 12','10207','samira@ssafy.com',1,'사미라','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-3364-4982','최이서','ROLE_PTSTUDENT'),
 ('Student',26,'2021-08-01 17:41:28.858993000','2021-08-01 17:41:28.858993000','자이','서울특별시 광진구 능동로 285','04997','senna@ssafy.com',1,'세나','$2a$10$j1Y.sjK3vYQ7QDC2jODnhe6uZqRjMVInaUEU5tyoDH295badx8iWu',NULL,'010-0066-3943','최민규','ROLE_PTSTUDENT'),
@@ -255,31 +255,33 @@ INSERT INTO certificate (`date`,cert_name,publisher,pt_teacher_id) VALUES
 ('2021-01-30','NASM-PES','NASM KOREA',45);
 
 INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(160,1,47,1),
-(160,2,45,1),
-(160,3,46,1),
-(160,4,42,1),
-(160,5,43,1),
-(160,6,43,1),
-(160,7,42,1),
-(160,8,41,1);
+(160,1,74,1),
+(160,2,70,1),
+(160,3,69,1),
+(160,4,61,1),
+(160,5,53,1),
+(160,6,48,1),
+(160,7,46,1),
+(160,8,48,1);
 INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(164,2,52,2),
-(164,3,50,2),
-(164,4,51,2),
-(164,5,46,2),
-(164,6,45,2),
+(164,2,62,2),
+(164,3,60,2),
+(164,4,57,2),
+(164,5,54,2),
+(164,6,48,2),
+(164,7,45,2),
 (164,9,49,2),
 (163,10,48,2),
 (164,11,47,2);
 INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(173,1,65,46),
-(173,2,64,46),
-(173,3,62,46),
+(173,1,88,46),
+(173,2,69,46),
+(173,3,65,46),
 (173,4,63,46),
 (173,5,61,46),
-(173,6,62,46),
-(173,7,63,46);
+(173,6,54,46),
+(173,7,52,46),
+(173,8,55,46);
 INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
 (158,2,45,47),
 (158,3,44,47),
