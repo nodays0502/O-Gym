@@ -28,8 +28,8 @@ function StudentList(props: any) {
       <div style={{marginTop: "8rem"}}>
       {data.myStudent.map((student: any, index: any) => (
         <div style={{display: "flex", marginLeft: "1rem"}}>
-          {/* <p style={{color: "white", marginTop: "0.32rem"}}>{student.username}</p> */}
           <Button 
+            block
             style={{marginBottom: "1.5rem"}}
             onClick={() => {
               let today = new Date()
@@ -52,19 +52,6 @@ function StudentList(props: any) {
       ))}
       </div>
     </>
-  //   <List
-  //   style={{marginTop: "9rem"}}
-  //   itemLayout="horizontal"
-  //   dataSource={data}
-  //   renderItem={item => (
-  //     <List.Item>
-  //       <List.Item.Meta
-  //         avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
-  //         title={<a href="https://ant.design" style={{color: 'white'}}>{item.title}</a>}
-  //       />
-  //     </List.Item>
-  //   )}
-  // />
   )
 }
 

@@ -41,7 +41,7 @@ function StudentCalendar() {
   }, [date])
 
   function disabledDate(current) {
-    return current && current < moment().endOf("day");
+    return current && current < moment().endOf("day").subtract(1, "days");
   }
 
 
