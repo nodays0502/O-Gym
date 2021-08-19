@@ -250,7 +250,7 @@ function ProfileDetail(props) {
             </Col>
             <Col span={17} style={{display: "flex", flexDirection: "column"}}>
               <div style={{marginTop: "1rem"}}>
-                <Row style={{paddingTop: "1rem", borderTop: "1px solid black"}}>
+                <Row style={{paddingTop: "20.8px", borderTop: "1px solid black"}}>
                 <Col span={8}>
                   <StyledLabel style={{fontWeight:700}}>이름</StyledLabel>
                 </Col>

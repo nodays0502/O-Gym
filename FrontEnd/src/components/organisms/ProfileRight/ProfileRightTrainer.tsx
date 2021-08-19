@@ -40,21 +40,30 @@ function ProfileRightTrainer() {
         dataSource={myStudents}
         renderItem={myStudent => (
           <List.Item
-            style={{borderBottom: "0.3px solid grey", marginBottom: "rem"}}
+            style={{ borderBottom: "0.3px solid grey", }}
             actions={[<p>{myStudent.description}</p>]}
           >
             <List.Item.Meta
               avatar={<Avatar src={myStudent.profileUrl} />}
-              title={<p style={{fontWeight: 700, fontSize: "1rem"}}>{myStudent.username}</p>}
+              title={<p style={{
+                fontWeight: 700, fontSize: "1rem",
+              margin: "5px 5px"}}>{myStudent.username}</p>}
             />
             <Row>
-              <Col style={{marginRight: "2rem", fontWeight: 500, fontSize: "1rem"}}>
+              <Col style={{
+                marginRight: "10px", fontWeight: 500, fontSize: "1rem",
+                paddingTop: "10px"
+              }} >
                 <p>{myStudent.heightList[month]}cm</p>
               </Col>
-              <Col style={{marginRight: "2rem", fontWeight: 500, fontSize: "1rem"}}>
+              <Col style={{
+                marginRight: "10px", fontWeight: 500, fontSize: "1rem",
+                paddingTop: "10px"}}>
                 <p>{myStudent.weightList[month]}kg</p>
               </Col>
-              <Col style={{marginRight: "1rem", fontWeight: 500, fontSize: "1rem"}}>
+              <Col style={{
+                marginRight: "10px", fontWeight: 500, fontSize: "1rem",
+                paddingTop: "10px"}}>
                 <p>{gender}</p>
               </Col>
 
