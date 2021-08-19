@@ -1676,12 +1676,19 @@ Host: i5b305.ssafy.io</code></pre>
 <div class="content">
 <pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
 Content-Type: application/json;charset=UTF-8
-Content-Length: 105
+Content-Length: 343
 
 {
   "statusCode" : 200,
   "message" : "예약 시간 조회에 성공했습니다.",
-  "data" : [ ]
+  "data" : [ {
+    "description" : "이두 운동",
+    "nickname" : "김계란",
+    "username" : "김성식",
+    "profileUrl" : "profileURL/profileIMG.jpg",
+    "email" : "eggkim@ssafy.com",
+    "reservationTime" : "2021-07-28T04:00:00"
+  } ]
 }</code></pre>
 </div>
 </div>
@@ -1835,7 +1842,7 @@ Content-Length: 208
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-08-18 22:49:56 +0900
+Last updated 2021-08-18 23:09:16 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>

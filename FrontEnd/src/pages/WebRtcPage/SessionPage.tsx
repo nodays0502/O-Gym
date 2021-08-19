@@ -2,6 +2,18 @@ import axios from 'axios';
 import React, { Component } from 'react';
 import OpenViduSession from 'openvidu-react';
 import jwt_decode from "jwt-decode";
+import styled from 'styled-components';
+// @ts-ignore
+import Inko from 'inko';
+import MainNavigation from '../../components/organisms/Main/Main-Navigation';
+import { Button } from 'antd';
+
+const StyledBackground = styled.div`
+    background-image:
+    linear-gradient(rgba(0, 0, 255, 0.5), rgba(100, 155, 0, 0.5)),
+    url("https://ogymbucket.s3.ap-northeast-2.amazonaws.com/teacher_navbar.jpg");
+
+`;
 
 
 class SessionPage extends Component {
@@ -22,6 +34,23 @@ class SessionPage extends Component {
                 nickname, role
             } = jwt_decode(accessToken);
         
+        
+            axios.get(`https://i5b305.p.ssafy.io/api/pt/nowreservation`, {
+                headers: {
+                    "Authorization": `Bearer ${accessToken}`
+                }
+            }).then(({ data }) => {
+
+                let receivedData: { studentNickname, teacherNickname } = data.data;
+                let inko = new Inko();
+                console.log(receivedData);
+                this.state = {
+                    mySessionId: inko.ko2en(receivedData['studentNickname']) + inko.ko2en(receivedData['teacherNickname']),
+                    myUserName: decoded['nickname'],
+                    token: undefined,
+                }
+            });
+
             this.state = {
                 mySessionId: 'SessionA',
                 myUserName: decoded['nickname'],
@@ -36,7 +65,6 @@ class SessionPage extends Component {
                 myUserName: 'OpenVidu_User_' + Math.floor(Math.random() * 100),
                 token: undefined,
             };
-
             
         }
 
@@ -91,15 +119,19 @@ class SessionPage extends Component {
         const mySessionId = this.state.mySessionId;
         const myUserName = this.state.myUserName;
         const token = this.state.token;
-        return (
-            <div>
+        return (<>
+            <div style={{height: "12vh"}}>
+                        <MainNavigation position="sticky" /> 
+                    </div>
+            <StyledBackground>
+                
                 {this.state.session === undefined ? (
                     <div id="join">
                         <div id="join-dialog">
-                            <h1> Join a video session </h1>
+                            <h1> 준비 중입니다.  </h1>
                             <form onSubmit={this.joinSession}>
                                 <p>
-                                    <label>Participant: </label>
+                                    <label> 이름: </label>
                                     <input
                                         type="text"
                                         id="userName"
@@ -109,7 +141,7 @@ class SessionPage extends Component {
                                     />
                                 </p>
                                 <p>
-                                    <label> Session: </label>
+                                    <label> 방 이름: </label>
                                     <input
                                         type="text"
                                         id="sessionId"
@@ -119,7 +151,11 @@ class SessionPage extends Component {
                                     />
                                 </p>
                                 <p>
-                                    <input name="commit" type="submit" value="JOIN" />
+                                    {/* <input name="commit" type="submit" value="JOIN" />
+                                     */}
+                                    <Button type="primary" block>
+                                        JOIN
+                                          </Button>
                                 </p>
                             </form>
                         </div>
@@ -137,7 +173,8 @@ class SessionPage extends Component {
                         />
                     </div>
                 )}
-            </div>
+            </StyledBackground>
+            </>
         );
     }
 
