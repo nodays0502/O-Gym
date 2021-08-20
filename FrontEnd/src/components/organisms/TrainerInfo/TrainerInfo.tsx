@@ -86,7 +86,7 @@ function TrainerInfo () {
 
 
   const fetchData = (callback) => {
-    axios.get(`${process.env.REACT_APP_API_ROOT_ADDRESS}/api/pt/teacherlist?page=${num}&size=5`, {
+    axios.get(`https://i5b305.p.ssafy.io/api/pt/teacherlist?page=${num}&size=5`, {
       headers: {
         "Authorization": `Bearer ${accessToken}`
       }
@@ -194,8 +194,10 @@ function TrainerInfo () {
                       <p>성별: {item.gender} </p>
                       <p>나이: {item.age}</p>
                       <p>전공: {item.major}</p>
+    
+
                       {item.snsList[0] && <a style={{marginRight: "1rem"}}
-                  href={item.snsList[0]['url']}
+                  href={`https://www.${item.snsList[0]['platform']}.com/${item.snsList[0]['url']}`}
                   target="_blank"
                   rel="noreferrer"
                 >
@@ -222,7 +224,7 @@ function TrainerInfo () {
                 </a>}
                 {item.snsList[1] && <a
                 style={{marginRight: "1rem"}} 
-                href={item.snsList[1]['url']}
+                href={`https://www.${item.snsList[1]['platform']}.com/${item.snsList[1]['url']}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -249,7 +251,7 @@ function TrainerInfo () {
               </a>}
                 {item.snsList[2] && <a
                 style={{marginRight: "1rem"}}
-                href={item.snsList[2]['url']}
+                href={`https://www.${item.snsList[2]['platform']}.com/${item.snsList[2]['url']}`}
                 target="_blank"
                 rel="noreferrer"
               >
@@ -276,7 +278,7 @@ function TrainerInfo () {
               </a>}
                 {item.snsList[3] && <a
                 style={{marginRight: "1rem"}}
-                href={item.snsList[3]['url']}
+                href={`https://www.${item.snsList[3]['platform']}.com/${item.snsList[3]['url']}`}
                 target="_blank"
                 rel="noreferrer"
               >
