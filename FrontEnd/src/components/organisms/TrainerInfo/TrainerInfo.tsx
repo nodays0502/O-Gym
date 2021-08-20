@@ -79,7 +79,7 @@ function TrainerInfo () {
   const [ data, setData ] = useState<any>([])
   const [ loading, setLoading ] = useState(false)
   const [ hasMore, setHasMore ] = useState(true)
-  const [ num, setNum ] = useState(1)
+  const [ num, setNum ] = useState(0)
   const [ email, setEmail ] = useRecoilState(Email)
   const [ reservationTab, setReservationTab ] = useRecoilState(ReservationState)
 
