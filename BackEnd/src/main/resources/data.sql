@@ -264,7 +264,7 @@ INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
 (160,7,46,1),
 (160,8,48,1);
 INSERT INTO monthly (height,`month`,weight,pt_student_id) VALUES
-(164,2,70,1),
+(164,1,70,2),
 (164,2,62,2),
 (164,3,65,2),
 (164,4,57,2),
