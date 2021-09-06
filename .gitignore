@@ -28,8 +28,8 @@ out/
 
 ### VS Code ###
 .vscode/
-
-
+.env.development
+.env.production
 
 # Created by https://www.toptal.com/developers/gitignore/api/intellij,java
 # Edit at https://www.toptal.com/developers/gitignore?templates=intellij,java
