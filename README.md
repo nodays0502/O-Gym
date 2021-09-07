@@ -1,5 +1,4 @@
 <p align="center">
-    <img src="/uploads/fb20fd2eb8d0b25111045109da7b0398/OGYM_로고-removebg-preview.png" alt="OGYM_로고-removebg-preview" width="298">    
     ![image](https://user-images.githubusercontent.com/76464235/132348383-5ff8e0ed-f4a4-4f97-ac36-421ee49b5da7.png)
 
 </p>
@@ -38,7 +37,6 @@ COVID-19로 인해 UN-TACT 시대가 열렸고, 또한 건강을 유지하는 �
 
 ------
 
-![기술스택](/uploads/777ee54b4b58eb5e659bc9c026cd1284/기술스택.png)
 ![image](https://user-images.githubusercontent.com/76464235/132348443-e2385f13-9144-46dc-b50c-0d1a9bc28bfc.png)
 
 
