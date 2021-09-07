@@ -1,7 +1,5 @@
-<p align="center">
-    ![image](https://user-images.githubusercontent.com/76464235/132348383-5ff8e0ed-f4a4-4f97-ac36-421ee49b5da7.png)
+![image](https://user-images.githubusercontent.com/76464235/132348383-5ff8e0ed-f4a4-4f97-ac36-421ee49b5da7.png)
 
-</p>
 <p align="center">
     SSAFY 2학기 공통 프로젝트 - OGYM
 </p>
