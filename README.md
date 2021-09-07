@@ -1,4 +1,6 @@
-![image](https://user-images.githubusercontent.com/76464235/132348383-5ff8e0ed-f4a4-4f97-ac36-421ee49b5da7.png)
+<p align="center">
+    <img src="https://user-images.githubusercontent.com/76464235/132348932-b19324e4-e874-4004-8e60-d103a60ead9c.png" alt="OGYM_로고-removebg-preview" width="298">    
+</p>
 
 <p align="center">
     SSAFY 2학기 공통 프로젝트 - OGYM
